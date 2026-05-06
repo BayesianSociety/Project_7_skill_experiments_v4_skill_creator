@@ -1,0 +1,199 @@
+{
+  "company": "Gilead Sciences Inc",
+  "ticker": "NASDAQ: GILD",
+  "mode": "absolute",
+  "benchmark_ready": true,
+  "research_date": "2026-04-20",
+  "focus_technologies": [
+    "Lenacapavir HIV capsid inhibition and long-acting prevention",
+    "Cell therapy and antibody-drug conjugate oncology platforms",
+    "Seladelpar-driven liver disease expansion"
+  ],
+  "layers": [
+    {
+      "label": "Science",
+      "coverage_ratio": 0.88,
+      "summary": "The science base behind Gilead's lead innovation programs is expanding quickly, especially around lenacapavir and long-acting HIV prevention, with top-tier validation in NEJM and The Lancet and visible cross-institutional trial networks.",
+      "strong": "Five-year publication growth is steep for lenacapavir-related work, and the flagship studies were published in leading clinical journals with broad multinational investigator bases.",
+      "missing": "The science signal is strongest in HIV and liver disease; oncology platform science is more mixed and less obviously accelerating at the same rate in the public literature.",
+      "metrics": [
+        {
+          "code": "publication_growth",
+          "label": "Publication growth",
+          "value": 0.88,
+          "weight": 0.30,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "citation_velocity_or_quality",
+          "label": "Citation velocity or quality",
+          "value": 0.92,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "science_to_application_linkage",
+          "label": "Science to application linkage",
+          "value": 0.94,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "IP",
+      "coverage_ratio": 0.68,
+      "summary": "Gilead's important assets are backed by credible and geographically broad patent estates, but an open, clean five-year companywide family-count time series was not fully reproducible from public sources in-session.",
+      "strong": "Lenacapavir, sacituzumab govitecan and seladelpar each show meaningful international protection footprints and technically specific claims tied to drug substance, method-of-use and platform engineering.",
+      "missing": "The score is capped by incomplete visibility into annual family growth for the full portfolio and by limited open evidence tying the broader oncology platform directly into a unified Gilead assignee time series.",
+      "metrics": [
+        {
+          "code": "patent_family_growth",
+          "label": "Patent family growth",
+          "value": 0.62,
+          "weight": 0.34,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary",
+          "verified": true
+        },
+        {
+          "code": "technical_specificity",
+          "label": "Technical specificity",
+          "value": 0.84,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary",
+          "verified": true
+        },
+        {
+          "code": "science_to_patent_or_assignee_quality",
+          "label": "Science to patent or assignee quality",
+          "value": 0.82,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary",
+          "verified": true
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "Industrialization",
+      "coverage_ratio": 0.88,
+      "summary": "Gilead is operating well beyond exploratory R&D: it has repeatable global manufacturing, launched products in HIV prevention and liver disease, and a mature commercial supply chain, although cell therapy scaling is facing competitive pressure.",
+      "strong": "The company is discussing launch preparation, clinical manufacturing, supply agreements and global rollout mechanics rather than only discovery-stage narrative.",
+      "missing": "Public disclosures do not provide enough program-level manufacturing yield detail, and cell therapy demand softness shows that industrial capability is not translating uniformly across the portfolio.",
+      "metrics": [
+        {
+          "code": "manufacturing_or_deployment_evidence",
+          "label": "Manufacturing or deployment evidence",
+          "value": 0.80,
+          "weight": 0.40,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "process_learning_or_capex",
+          "label": "Process learning or capex",
+          "value": 0.72,
+          "weight": 0.30,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "operational_scale_signal",
+          "label": "Operational scale signal",
+          "value": 0.76,
+          "weight": 0.30,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "Adoption",
+      "coverage_ratio": 0.93,
+      "summary": "Adoption is strong and diversified: HIV remains a very large base business, Trodelvy continues to grow despite indication loss in bladder cancer, Livdelzi is contributing to liver growth, and Yeztugo added a major new prevention launch in 2025.",
+      "strong": "Gilead has visible revenue scale, multiple approved products, broad geographic reach and major access partnerships that extend adoption beyond a narrow commercial niche.",
+      "missing": "Cell therapy sales are under pressure, and not all late-stage oncology assets are compounding equally, which keeps adoption from scoring at the very top of the scale.",
+      "metrics": [
+        {
+          "code": "revenue_or_booking_evidence",
+          "label": "Revenue or booking evidence",
+          "value": 0.88,
+          "weight": 0.36,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "customer_or_partner_breadth",
+          "label": "Customer or partner breadth",
+          "value": 0.86,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "repeatability_or_deployment_scale",
+          "label": "Repeatability or deployment scale",
+          "value": 0.90,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "Policy & Economics",
+      "coverage_ratio": 0.84,
+      "summary": "The external environment is favorable for Gilead's lead HIV innovation: FDA approval, WHO guidance, CDC guidance and Global Fund access mechanisms all support scale-up, but affordability and competitive oncology economics remain real constraints.",
+      "strong": "Regulatory fit is unusually strong for lenacapavir, and the access architecture around low- and lower-middle-income countries improves the likelihood of large real-world deployment.",
+      "missing": "Long-term margins and uptake will still depend on payer acceptance, public-health procurement execution and whether oncology franchises can offset competitive pressure in cell therapy.",
+      "metrics": [
+        {
+          "code": "regulatory_or_standards_fit",
+          "label": "Regulatory or standards fit",
+          "value": 0.90,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "policy_or_supply_chain_support",
+          "label": "Policy or supply chain support",
+          "value": 0.82,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "economic_readiness",
+          "label": "Economic readiness",
+          "value": 0.68,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "caps": []
+    }
+  ]
+}

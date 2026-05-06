@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NXP Semiconductors Innovation Dashboard</title>
+  <style>
+    :root {
+      --bg: #1a2332;
+      --panel: rgba(11, 22, 36, 0.78);
+      --panel-2: rgba(21, 37, 57, 0.9);
+      --text: #f1faee;
+      --muted: #a8dadc;
+      --accent: #2d8b8b;
+      --accent-2: #66c7c8;
+      --line: rgba(168, 218, 220, 0.18);
+      --danger: #f49b8f;
+      --warning: #ffd27a;
+      --success: #78dcb1;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      --radius: 26px;
+      --mono: "DejaVu Sans Mono", "Liberation Mono", monospace;
+      --sans: "DejaVu Sans", "Segoe UI", sans-serif;
+      --max: 1380px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(45, 139, 139, 0.35), transparent 28%),
+        radial-gradient(circle at 85% 10%, rgba(102, 199, 200, 0.2), transparent 24%),
+        radial-gradient(circle at 70% 78%, rgba(45, 139, 139, 0.18), transparent 22%),
+        linear-gradient(180deg, #0c1522 0%, #152538 42%, #111d2e 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(120deg, transparent 0%, rgba(168, 218, 220, 0.03) 45%, transparent 100%);
+      opacity: 0.85;
+      transform: translateY(var(--parallax, 0px));
+    }
+
+    a { color: var(--muted); text-decoration-color: rgba(168, 218, 220, 0.35); }
+    a:hover { color: var(--text); }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+      padding: 24px 0 60px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: min(88svh, 920px);
+      padding: 30px;
+      overflow: hidden;
+      display: grid;
+      align-items: end;
+      border: 1px solid rgba(168, 218, 220, 0.1);
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(11, 22, 36, 0.92), rgba(20, 37, 56, 0.84)),
+        linear-gradient(180deg, rgba(45, 139, 139, 0.08), rgba(45, 139, 139, 0));
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      border-radius: 999px;
+      filter: blur(10px);
+      z-index: -1;
+    }
+
+    .hero::before {
+      width: 560px;
+      height: 560px;
+      right: -120px;
+      top: -120px;
+      background: radial-gradient(circle, rgba(102, 199, 200, 0.25), transparent 62%);
+    }
+
+    .hero::after {
+      width: 720px;
+      height: 340px;
+      left: -140px;
+      bottom: -120px;
+      background: radial-gradient(circle, rgba(45, 139, 139, 0.26), transparent 70%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(330px, 0.8fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow,
+    .pill,
+    .mini-label {
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .eyebrow { margin-bottom: 14px; }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      max-width: 8ch;
+    }
+
+    .hero-sub {
+      max-width: 48ch;
+      font-size: clamp(1rem, 1.55vw, 1.15rem);
+      line-height: 1.6;
+      color: rgba(241, 250, 238, 0.88);
+      margin: 18px 0 0;
+    }
+
+    .hero-kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .kpi {
+      padding: 16px 0;
+      border-top: 1px solid rgba(168, 218, 220, 0.18);
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: clamp(1.25rem, 2.4vw, 2rem);
+      margin-bottom: 6px;
+    }
+
+    .kpi span {
+      color: rgba(241, 250, 238, 0.72);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .hero-side {
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(9, 17, 29, 0.42), rgba(9, 17, 29, 0.72));
+      border: 1px solid rgba(168, 218, 220, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-ring {
+      width: 220px;
+      aspect-ratio: 1;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(11, 22, 36, 1) 56%, transparent 57%),
+        conic-gradient(var(--accent-2) 0deg, var(--accent) 273.6deg, rgba(168, 218, 220, 0.14) 273.6deg 360deg);
+      box-shadow: inset 0 0 0 1px rgba(168, 218, 220, 0.15);
+    }
+
+    .score-ring span {
+      display: block;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .score-ring strong {
+      display: block;
+      font-size: 3.6rem;
+      letter-spacing: -0.05em;
+    }
+
+    .score-ring small {
+      color: rgba(241, 250, 238, 0.68);
+      font-size: 0.92rem;
+    }
+
+    .verdict {
+      font-size: 1.1rem;
+      line-height: 1.55;
+      margin: 0 0 18px;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(168, 218, 220, 0.1);
+      font-size: 0.95rem;
+    }
+
+    .meta-row span:last-child {
+      color: rgba(241, 250, 238, 0.7);
+      text-align: right;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .content {
+      display: grid;
+      gap: 24px;
+    }
+
+    .rail {
+      position: sticky;
+      top: 20px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(13, 24, 39, 0.92), rgba(14, 26, 41, 0.8));
+      border: 1px solid rgba(168, 218, 220, 0.11);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0;
+      letter-spacing: -0.03em;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .panel-copy {
+      margin: 8px 0 0;
+      color: rgba(241, 250, 238, 0.72);
+      max-width: 65ch;
+      line-height: 1.58;
+    }
+
+    .bullet-list,
+    .source-list {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li,
+    .source-list li,
+    .note,
+    .lane,
+    .risk,
+    .upgrade,
+    .patent,
+    .uni {
+      border-top: 1px solid rgba(168, 218, 220, 0.12);
+      padding-top: 12px;
+    }
+
+    .two-col,
+    .three-col {
+      display: grid;
+      gap: 18px;
+    }
+
+    .two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .lane {
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .lane:hover {
+      transform: translateY(-4px);
+      border-color: rgba(102, 199, 200, 0.34);
+      background: rgba(45, 139, 139, 0.06);
+    }
+
+    .lane-head,
+    .risk-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 8px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(168, 218, 220, 0.12);
+      background: rgba(45, 139, 139, 0.08);
+    }
+
+    .score-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .score-row {
+      display: grid;
+      grid-template-columns: 150px 1fr 56px;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .track {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(168, 218, 220, 0.1);
+    }
+
+    .fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      width: 0;
+      transform-origin: left;
+    }
+
+    .score-row strong:last-child {
+      justify-self: end;
+      font-family: var(--mono);
+      color: var(--muted);
+    }
+
+    .chart-wrap {
+      border-top: 1px solid rgba(168, 218, 220, 0.12);
+      padding-top: 18px;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 14px;
+      color: rgba(241, 250, 238, 0.72);
+      font-size: 0.92rem;
+    }
+
+    .legend span::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: -1px;
+    }
+
+    .legend .a::before { background: var(--accent-2); }
+    .legend .b::before { background: var(--accent); }
+
+    .risk-head strong,
+    .upgrade strong,
+    .patent strong,
+    .uni strong {
+      font-size: 1rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      font-size: 0.82rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(168, 218, 220, 0.08);
+      border: 1px solid rgba(168, 218, 220, 0.12);
+    }
+
+    .status-good { color: var(--success); }
+    .status-watch { color: var(--warning); }
+    .status-risk { color: var(--danger); }
+
+    .small {
+      color: rgba(241, 250, 238, 0.62);
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .source-list li {
+      line-height: 1.5;
+      color: rgba(241, 250, 238, 0.84);
+    }
+
+    .rail-note {
+      font-size: 0.92rem;
+      line-height: 1.58;
+      color: rgba(241, 250, 238, 0.74);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-animate {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: rise 900ms cubic-bezier(.2,.8,.2,1) forwards;
+    }
+
+    .hero-animate:nth-child(2) { animation-delay: 110ms; }
+    .hero-animate:nth-child(3) { animation-delay: 200ms; }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .layout,
+      .three-col {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(calc(100% - 20px), var(--max)); padding-top: 10px; }
+      .hero { min-height: auto; padding: 22px; }
+      .hero-kpis,
+      .two-col {
+        grid-template-columns: 1fr 1fr;
+      }
+      .score-row {
+        grid-template-columns: 110px 1fr 42px;
+        gap: 10px;
+      }
+      .panel,
+      .hero-side {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-kpis,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .score-ring { width: 180px; }
+      .score-ring strong { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow hero-animate">NXP Semiconductors • NASDAQ: NXPI • Innovation Assessment</div>
+          <h1 class="hero-animate">NXP moves science into vehicles, edge nodes, and secure access systems.</h1>
+          <p class="hero-sub hero-animate">
+            Research conclusion: NXP is a <strong>strong innovator with translational momentum</strong>, especially in
+            automotive radar, software-defined vehicle networking, and secure UWB. The innovation engine is real, but it is
+            mostly engineering-led scale-up rather than frontier science-led disruption.
+          </p>
+          <div class="hero-kpis hero-animate">
+            <div class="kpi">
+              <strong>19 / 25</strong>
+              <span>Five-layer company score. Industrialization and adoption both clear the breakthrough gate threshold.</span>
+            </div>
+            <div class="kpi">
+              <strong>$2.36B</strong>
+              <span>2025 R&amp;D spend, up from $1.73B in 2020. Current R&amp;D intensity: 19.2% of revenue.</span>
+            </div>
+            <div class="kpi">
+              <strong>~9,500</strong>
+              <span>Patent families disclosed in the 2025 10-K. The disclosed IP base remains large and stable across recent filings.</span>
+            </div>
+            <div class="kpi">
+              <strong>$7.12B</strong>
+              <span>2025 automotive revenue, still the economic center of the innovation thesis.</span>
+            </div>
+          </div>
+        </div>
+        <aside class="hero-side hero-animate">
+          <div class="score-ring">
+            <span>
+              <strong>19</strong>
+              <small>Translational Momentum</small>
+            </span>
+          </div>
+          <p class="verdict">
+            NXP’s strongest technology posture is where silicon, safety, standards, and automotive deployment all reinforce each other.
+          </p>
+          <div class="meta-list">
+            <div class="meta-row">
+              <span>Primary technology lanes</span>
+              <span>ADAS radar, SDV networking, secure UWB</span>
+            </div>
+            <div class="meta-row">
+              <span>Latest filing basis</span>
+              <span>FY2025 10-K filed February 10, 2026</span>
+            </div>
+            <div class="meta-row">
+              <span>Assessment freshness</span>
+              <span>Built April 17, 2026</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="layout">
+      <main class="content">
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Thesis</div>
+              <h2>Company Innovation Assessment</h2>
+              <p class="panel-copy">Fact is separated from inference in the wording below. The company scores well because it repeatedly turns mature but important technical domains into shipping system solutions with standards alignment and OEM pull-through.</p>
+            </div>
+            <div class="pill">Overall verdict: strong innovator with translational momentum</div>
+          </div>
+          <ul class="bullet-list">
+            <li><strong>Fact:</strong> NXP concentrated roughly <strong>$2.36 billion</strong> into R&amp;D in 2025 and employed about <strong>11,034 R&amp;D personnel</strong>, while keeping a large disclosed IP base of about <strong>9,500 patent families</strong>.</li>
+            <li><strong>Fact:</strong> Automotive remained the economic anchor at <strong>$7.12 billion</strong> of 2025 revenue, giving NXP a large installed customer base to monetize radar, networking, secure access, and vehicle compute.</li>
+            <li><strong>Fact:</strong> NXP kept shipping and extending production-grade platforms: third-generation imaging radar processors, S32J Ethernet switches, Trimension UWB, and the CoreRide SDV stack. It also acquired <strong>TTTech Auto</strong>, <strong>Aviva Links</strong>, and <strong>Kinara</strong> in 2025.</li>
+            <li><strong>Inference:</strong> The moat is less about scientific surprise and more about system integration across RF, safety, security, middleware, and automotive qualification. That is commercially powerful even if it does not look like frontier lab science.</li>
+            <li><strong>Inference:</strong> NXPI is not best described as a speculative breakthrough name. It is better described as a scaling innovator with unusually strong commercialization discipline in edge and automotive semis.</li>
+          </ul>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Technology Map</div>
+              <h2>What actually matters</h2>
+              <p class="panel-copy">The thesis is concentrated in three technology systems, not in generic “automotive chips.”</p>
+            </div>
+          </div>
+          <div class="three-col">
+            <div class="lane">
+              <div class="lane-head">
+                <strong>Automotive radar and ADAS sensing</strong>
+                <span class="status-good">Highest conviction</span>
+              </div>
+              <p class="small">SAF85xx and SAF86xx radar SoCs, S32R47 imaging radar processors, and supporting transceivers. Evidence points to long process learning, meaningful OEM and Tier-1 engagement, and high-volume production history.</p>
+              <div class="tag-row">
+                <span class="tag">77 GHz radar</span>
+                <span class="tag">16 nm / 28 nm</span>
+                <span class="tag">ASIL</span>
+              </div>
+            </div>
+            <div class="lane">
+              <div class="lane-head">
+                <strong>Software-defined vehicle networking</strong>
+                <span class="status-good">Strategic expansion</span>
+              </div>
+              <p class="small">S32 CoreRide, S32J Ethernet switches, and newly acquired TTTech Auto and Aviva Links. This is less glamorous science than radar, but it is central to how OEM architectures are converging.</p>
+              <div class="tag-row">
+                <span class="tag">Ethernet / ASA</span>
+                <span class="tag">Middleware</span>
+                <span class="tag">Zonal architecture</span>
+              </div>
+            </div>
+            <div class="lane">
+              <div class="lane-head">
+                <strong>Secure UWB and connected edge</strong>
+                <span class="status-watch">Commercially promising</span>
+              </div>
+              <p class="small">Trimension automotive and IoT devices, secure ranging, UWB radar, and wireless battery management. Standards linkage is strong, and Audi is already in deployment, but the TAM is still forming.</p>
+              <div class="tag-row">
+                <span class="tag">CCC</span>
+                <span class="tag">FiRa 3.0</span>
+                <span class="tag">Secure access</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Five-Layer Dashboard</div>
+              <h2>Evidence-backed company score</h2>
+              <p class="panel-copy">Scores are company-level, reflecting the weighted quality of NXP’s core technology lanes rather than any single product family.</p>
+            </div>
+            <div class="pill">Total: 19 / 25</div>
+          </div>
+          <div class="score-grid">
+            <div class="score-row">
+              <strong>Science</strong>
+              <div class="track"><div class="fill" data-score="3.0"></div></div>
+              <strong>3.0</strong>
+            </div>
+            <div class="score-row">
+              <strong>IP</strong>
+              <div class="track"><div class="fill" data-score="4.0"></div></div>
+              <strong>4.0</strong>
+            </div>
+            <div class="score-row">
+              <strong>Industrialization</strong>
+              <div class="track"><div class="fill" data-score="4.5"></div></div>
+              <strong>4.5</strong>
+            </div>
+            <div class="score-row">
+              <strong>Adoption</strong>
+              <div class="track"><div class="fill" data-score="4.0"></div></div>
+              <strong>4.0</strong>
+            </div>
+            <div class="score-row">
+              <strong>Policy &amp; economics</strong>
+              <div class="track"><div class="fill" data-score="3.5"></div></div>
+              <strong>3.5</strong>
+            </div>
+          </div>
+          <div class="two-col" style="margin-top: 22px;">
+            <div class="note">
+              <strong>Science • 3.0 / 5</strong>
+              <p class="small">Inference: radar, UWB, secure edge, and SDV networking are active research fields with credible university work, but NXP’s edge comes more from productization and standards implementation than from owning the most novel published science.</p>
+            </div>
+            <div class="note">
+              <strong>IP • 4.0 / 5</strong>
+              <p class="small">Fact: NXP disclosed ~9,500 patent families in the FY2025 10-K. Representative patents span radar, UWB ranging, UWB radar operation, and post-quantum trust provisioning across USPTO and EPO.</p>
+            </div>
+            <div class="note">
+              <strong>Industrialization • 4.5 / 5</strong>
+              <p class="small">Fact: NXP operates a hybrid manufacturing footprint, disclosed wafer fabs spanning Singapore, the Netherlands, and the U.S., plus packaging lines tied directly to radar, in-vehicle networking, and automotive access products. 2025 capex was $397M; 2024 capex was $727M; 2023 capex was $827M.</p>
+            </div>
+            <div class="note">
+              <strong>Adoption • 4.0 / 5</strong>
+              <p class="small">Fact: Audi deployed Trimension UWB in its PPE platform; DENSO and HELLA were named users of NXP radar SoCs; Aviva Links came with wins at two major OEMs; CoreRide is built for ecosystem integration rather than a closed stack.</p>
+            </div>
+            <div class="note">
+              <strong>Policy &amp; economics • 3.5 / 5</strong>
+              <p class="small">Fact plus inference: NXP benefits from IPCEI ME/CT support through 2029 and participates in standards-heavy domains like CCC, FiRa, ASA, and automotive safety regimes. The risk is geopolitical trade controls and auto-cycle softness, both explicitly highlighted in filings.</p>
+            </div>
+            <div class="note">
+              <strong>Confidence</strong>
+              <p class="small">Medium-high. Commercial, filing, and product evidence is strong. Public scientometric precision is weaker because the most valuable work is embedded in industrial product engineering, not broad open publication.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Trendline</div>
+              <h2>R&amp;D scale-up and automotive revenue base</h2>
+              <p class="panel-copy">The most important quantitative pattern is not explosive top-line growth. It is persistent investment into the product stack while keeping automotive as the monetization engine.</p>
+            </div>
+          </div>
+          <div class="chart-wrap">
+            <svg viewBox="0 0 900 360" role="img" aria-label="R&D and automotive revenue chart">
+              <defs>
+                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#66c7c8" stop-opacity="0.36"></stop>
+                  <stop offset="100%" stop-color="#66c7c8" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <g stroke="rgba(168,218,220,0.14)" stroke-width="1">
+                <line x1="80" y1="60" x2="80" y2="300"></line>
+                <line x1="80" y1="300" x2="860" y2="300"></line>
+                <line x1="80" y1="240" x2="860" y2="240"></line>
+                <line x1="80" y1="180" x2="860" y2="180"></line>
+                <line x1="80" y1="120" x2="860" y2="120"></line>
+              </g>
+              <g fill="rgba(241,250,238,0.7)" font-size="13" font-family="DejaVu Sans">
+                <text x="28" y="304">$0</text>
+                <text x="18" y="244">$2B</text>
+                <text x="18" y="184">$4B</text>
+                <text x="18" y="124">$6B</text>
+                <text x="18" y="64">$8B</text>
+                <text x="120" y="328">2020</text>
+                <text x="274" y="328">2021</text>
+                <text x="430" y="328">2022</text>
+                <text x="586" y="328">2023</text>
+                <text x="742" y="328">2024</text>
+                <text x="818" y="328">2025</text>
+              </g>
+              <polyline fill="url(#areaGrad)" stroke="none" points="120,248 276,233 432,213 588,191 744,193 820,190 820,300 120,300"></polyline>
+              <polyline fill="none" stroke="#66c7c8" stroke-width="4" points="120,248 276,233 432,213 588,191 744,193 820,190"></polyline>
+              <polyline fill="none" stroke="#2d8b8b" stroke-width="4" points="120,124 276,111 432,89 588,101 744,103 820,112"></polyline>
+              <g fill="#66c7c8">
+                <circle cx="120" cy="248" r="5"></circle>
+                <circle cx="276" cy="233" r="5"></circle>
+                <circle cx="432" cy="213" r="5"></circle>
+                <circle cx="588" cy="191" r="5"></circle>
+                <circle cx="744" cy="193" r="5"></circle>
+                <circle cx="820" cy="190" r="5"></circle>
+              </g>
+              <g fill="#2d8b8b">
+                <circle cx="120" cy="124" r="5"></circle>
+                <circle cx="276" cy="111" r="5"></circle>
+                <circle cx="432" cy="89" r="5"></circle>
+                <circle cx="588" cy="101" r="5"></circle>
+                <circle cx="744" cy="103" r="5"></circle>
+                <circle cx="820" cy="112" r="5"></circle>
+              </g>
+            </svg>
+            <div class="legend">
+              <span class="a">R&amp;D spend: $1.73B, $1.94B, $2.15B, $2.42B, $2.35B, $2.36B</span>
+              <span class="b">Automotive revenue: $5.83B, $6.93B, $7.50B, $7.48B, $7.15B, $7.12B</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Breakthrough Gate</div>
+              <h2>Does NXPI clear the “serious near-term breakthrough” bar?</h2>
+              <p class="panel-copy">Mostly yes on industrial and commercial gates, but only partially on novelty. That keeps the verdict below the most aggressive category.</p>
+            </div>
+          </div>
+          <div class="three-col">
+            <div class="lane">
+              <div class="lane-head">
+                <strong>Conditions met</strong>
+                <span class="status-good">Mostly yes</span>
+              </div>
+              <p class="small">Patent depth, standards linkage, university-industry-policy interaction, process learning, customer deployments, and real operating disclosures are all visible.</p>
+            </div>
+            <div class="lane">
+              <div class="lane-head">
+                <strong>Conditions partially met</strong>
+                <span class="status-watch">Mixed</span>
+              </div>
+              <p class="small">Publication growth and novelty are present in the fields, but NXP’s own differentiation is less obvious in open science than in integrated product execution.</p>
+            </div>
+            <div class="lane">
+              <div class="lane-head">
+                <strong>Conclusion</strong>
+                <span class="status-watch">Not full 20+</span>
+              </div>
+              <p class="small">NXP is a scale-up candidate in selected lanes, especially automotive radar and SDV networking, but the company overall is better classified at <strong>19/25</strong> than as a pure breakthrough science leader.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Universities &amp; Patents</div>
+              <h2>Research ecosystem and representative IP</h2>
+              <p class="panel-copy">These are field-level institutions and patent examples relevant to the technology thesis. They show that the domains NXP is pursuing are active, credible, and standards-linked.</p>
+            </div>
+          </div>
+          <div class="two-col">
+            <div>
+              <div class="mini-label">Universities researching the field</div>
+              <div class="uni">
+                <strong>Stanford University</strong>
+                <p class="small">Arbabian Lab works on millimeter-wave imaging and perception for vehicular situational awareness and high-resolution edge radar sensing. Stanford Engineering also published an AI-at-the-edge chip that performs local training and inference.</p>
+              </div>
+              <div class="uni">
+                <strong>TU Delft</strong>
+                <p class="small">Research includes super-resolution DOA methods for FMCW automotive radar imaging, directly relevant to radar performance and perception stacks.</p>
+              </div>
+              <div class="uni">
+                <strong>MIT / MIT Lincoln Laboratory</strong>
+                <p class="small">Long-running work on ultrawideband phased arrays, UWB antenna systems, and radar-related sensing architectures supports the view that UWB and radar remain technically fertile fields.</p>
+              </div>
+            </div>
+            <div>
+              <div class="mini-label">Representative NXP patents / patent families</div>
+              <div class="patent">
+                <strong>US10768276B2 / EP3324205B1</strong>
+                <p class="small">Decentralised radar system. Offices involved: USPTO and EPO.</p>
+              </div>
+              <div class="patent">
+                <strong>EP3021132B1</strong>
+                <p class="small">MIMO radar system. Office involved: EPO.</p>
+              </div>
+              <div class="patent">
+                <strong>US12137339B2</strong>
+                <p class="small">Ultra-wideband communication node and method for contention based ranging. Office involved: USPTO.</p>
+              </div>
+              <div class="patent">
+                <strong>US20240192347A1 / US20250193157A1</strong>
+                <p class="small">UWB radar operation and control of access of UWB devices. Office involved: USPTO.</p>
+              </div>
+              <div class="patent">
+                <strong>US20230246826A1</strong>
+                <p class="small">Flexible post-quantum trust provisioning and updating. Office involved: USPTO.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Risks &amp; Triggers</div>
+              <h2>Red flags and what would change the view</h2>
+              <p class="panel-copy">This is where the thesis can still fail. Industrial strength does not remove cyclical, geopolitical, or competitive risk.</p>
+            </div>
+          </div>
+          <div class="two-col">
+            <div>
+              <div class="mini-label">Red flags</div>
+              <div class="risk">
+                <div class="risk-head">
+                  <strong>Automotive concentration</strong>
+                  <span class="status-risk">Cyclicality</span>
+                </div>
+                <p class="small">A large share of NXP’s innovation budget depends on automotive demand staying supportive enough to fund the next wave of platform transitions.</p>
+              </div>
+              <div class="risk">
+                <div class="risk-head">
+                  <strong>Standards and ecosystem execution</strong>
+                  <span class="status-watch">Open-market risk</span>
+                </div>
+                <p class="small">ASA, CCC, and FiRa are helpful, but open standards can compress margins unless NXP captures enough system value through software, security, and integration.</p>
+              </div>
+              <div class="risk">
+                <div class="risk-head">
+                  <strong>Science maturity</strong>
+                  <span class="status-watch">Moderate novelty</span>
+                </div>
+                <p class="small">Radar and secure connectivity are not empty fields, but they are no longer frontier white-space. Execution quality matters more than scientific surprise.</p>
+              </div>
+              <div class="risk">
+                <div class="risk-head">
+                  <strong>Trade and export controls</strong>
+                  <span class="status-risk">Policy exposure</span>
+                </div>
+                <p class="small">NXP explicitly flags trade disputes, tariffs, and export restrictions as material uncertainties in the 2024 and 2025 filings.</p>
+              </div>
+            </div>
+            <div>
+              <div class="mini-label">What would upgrade or downgrade the thesis</div>
+              <div class="upgrade">
+                <strong>Upgrade</strong>
+                <p class="small">Disclosed radar or SDV design-win volume, rising SDV software attach, broader OEM deployment of UWB-based battery management, and evidence that Kinara NPUs improve edge AI revenue mix.</p>
+              </div>
+              <div class="upgrade">
+                <strong>Upgrade</strong>
+                <p class="small">Patent family growth above the long-held ~9,500 level plus more visible non-patent science linkage in radar, secure edge AI, or post-quantum security.</p>
+              </div>
+              <div class="upgrade">
+                <strong>Downgrade</strong>
+                <p class="small">Stalled automotive platform ramps, weak monetization of TTTech/Aviva/Kinara, or management retreat from R&amp;D intensity during an auto downturn.</p>
+              </div>
+              <div class="upgrade">
+                <strong>Downgrade</strong>
+                <p class="small">If SDV networking becomes standardized but commoditized, NXP may keep relevance while losing a meaningful share of economics.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="panel-head">
+            <div>
+              <div class="mini-label">Sources</div>
+              <h2>Cited source set</h2>
+              <p class="panel-copy">Primary sources were prioritized. Secondary or university sources were used mainly to support field context.</p>
+            </div>
+          </div>
+          <ol class="source-list">
+            <li><a href="https://www.sec.gov/Archives/edgar/data/1413447/000141344726000008/nxpi-20251231.htm">NXP FY2025 Form 10-K, filed February 10, 2026</a></li>
+            <li><a href="https://www.sec.gov/Archives/edgar/data/1413447/000141344725000019/nxpi-20241231.htm">NXP FY2024 Form 10-K, filed February 20, 2025</a></li>
+            <li><a href="https://www.sec.gov/Archives/edgar/data/1413447/000141344724000013/nxpi-20231231.htm">NXP FY2023 Form 10-K, filed February 22, 2024</a></li>
+            <li><a href="https://www.sec.gov/Archives/edgar/data/1413447/000141344723000006/nxpi-20221231.htm">NXP FY2022 Form 10-K, filed March 1, 2023</a></li>
+            <li><a href="https://www.sec.gov/Archives/edgar/data/1413447/000141344722000008/nxpi-20211231.htm">NXP FY2021 Form 10-K, filed February 24, 2022</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/nxp-unveils-third-generation-imaging-radar-processors-level-2-4/">NXP press release: S32R47 third-generation imaging radar processors, May 8, 2025</a></li>
+            <li><a href="https://www.nxp.com/company/about-nxp/newsroom/NW-NXP-INTRODUCES-ADVANCED-AUTOMOTIVE-RADAR-ONE">NXP press release: SAF85xx radar one-chip family and DENSO lead customer, January 5, 2023</a></li>
+            <li><a href="https://www.nxp.com/company/about-nxp/nxp-extends-industry-first-28-nm-rfcmos-radar-one-chip-family-to-enable-adas-architectures-for-software-defined-vehicles%3ANW-NXP-EXTENDS-INDUSTRY-FIRST-28">NXP press release: SAF86xx radar one-chip family and HELLA adoption, January 9, 2024</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/nxps-advanced-trimension-uwb-portfolio-hits-road-audi">NXP press release: Audi deployment of Trimension UWB, October 23, 2024</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/nxp-combines-ultra-wideband-secure-ranging-and-short-range-radar/">NXP press release: Trimension SR250, September 10, 2024</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/nxp-breaks-through-integration-barriers-software-defined-vehicle/">NXP press release: S32 CoreRide platform, March 28, 2024</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/new-s32j-family-safe-and-secure-ethernet-switches-enables">NXP press release: S32J Ethernet switches, October 15, 2024</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/nxp-acquire-automotive-networking-pioneer-aviva-links/">NXP press release: Aviva Links acquisition, December 17, 2024</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/nxp-completes-acquisition-tttech-auto-accelerate-transformation/">NXP press release: TTTech Auto acquisition completed, June 17, 2025</a></li>
+            <li><a href="https://investors.nxp.com/news-releases/news-release-details/nxp-completes-acquisitions-aviva-links-and-kinara-advance/">NXP press release: Aviva Links and Kinara completed, October 28, 2025</a></li>
+            <li><a href="https://patents.google.com/patent/US10768276B2/en">Google Patents: US10768276B2 Decentralised radar system</a></li>
+            <li><a href="https://patents.google.com/patent/EP3021132B1">Google Patents: EP3021132B1 MIMO radar system</a></li>
+            <li><a href="https://patents.google.com/patent/US12137339B2/en">Google Patents: US12137339B2 UWB communication node and contention based ranging</a></li>
+            <li><a href="https://patents.google.com/patent/US20240192347A1/en">Google Patents: US20240192347A1 Method of operating a UWB radar device</a></li>
+            <li><a href="https://patents.google.com/patent/US20250193157A1/en">Google Patents: US20250193157A1 Control of access of UWB devices</a></li>
+            <li><a href="https://patents.google.com/patent/US20230246826A1/en">Google Patents: US20230246826A1 Post-quantum trust provisioning and updating</a></li>
+            <li><a href="https://arbabianlab.stanford.edu/research/radar">Stanford Arbabian Lab: Millimeter-Wave Imaging and Perception</a></li>
+            <li><a href="https://arbabianlab.stanford.edu/real-time-high-resolution-mmwave-radar-sensing">Stanford Arbabian Lab: Real-Time, High-Resolution mmWave Radar Sensing</a></li>
+            <li><a href="https://engineering.stanford.edu/news/new-ai-edge-smartphone-chip-lives-and-learns-close-home">Stanford Engineering: AI-at-the-edge smartphone chip</a></li>
+            <li><a href="https://research.tudelft.nl/en/publications/super-resolution-doa-for-fmcw-automotive-radar-imaging">TU Delft: Super resolution DOA for FMCW automotive radar imaging</a></li>
+            <li><a href="https://mitpress.mit.edu/9780262529648/ultrawideband-phased-array-antenna-technology-for-sensing-and-communications-systems/">MIT Press / MIT Lincoln Laboratory: Ultrawideband phased array antenna technology</a></li>
+          </ol>
+        </section>
+      </main>
+
+      <aside class="rail">
+        <section class="panel reveal">
+          <div class="mini-label">Operational Snapshot</div>
+          <h3 style="margin-top:8px;">Selected KPIs</h3>
+          <div class="meta-list">
+            <div class="meta-row">
+              <span>2025 revenue</span>
+              <span>$12.27B</span>
+            </div>
+            <div class="meta-row">
+              <span>2025 automotive mix</span>
+              <span>58.0%</span>
+            </div>
+            <div class="meta-row">
+              <span>2025 capex</span>
+              <span>$397M</span>
+            </div>
+            <div class="meta-row">
+              <span>Public float</span>
+              <span>$54.7B on June 27, 2025</span>
+            </div>
+            <div class="meta-row">
+              <span>Shares outstanding</span>
+              <span>252.7M as of February 10, 2026</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel reveal">
+          <div class="mini-label">Scoring Rule</div>
+          <h3 style="margin-top:8px;">Category placement</h3>
+          <p class="rail-note">`0-8` exploratory science • `9-14` emerging • `15-19` translational momentum • `20-25` plausible breakthrough / scale-up candidate</p>
+          <p class="rail-note">NXPI lands at <strong>19</strong>, right at the top of translational momentum, but below the highest bucket because novelty and open-science leadership are not dominant enough.</p>
+        </section>
+
+        <section class="panel reveal">
+          <div class="mini-label">Interpretation</div>
+          <h3 style="margin-top:8px;">Best concise read</h3>
+          <p class="rail-note">If you want exposure to automotive and edge semiconductor innovation with tangible deployment evidence, NXPI is credible. If you want a company where radical new science is the main driver, this is less compelling.</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+
+    const scoreObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.querySelectorAll(".fill").forEach((fill) => {
+          fill.style.width = `${Number(fill.dataset.score) / 5 * 100}%`;
+        });
+      });
+    }, { threshold: 0.5 });
+
+    const scorePanel = document.querySelector(".score-grid");
+    if (scorePanel) scoreObserver.observe(scorePanel);
+
+    const setParallax = () => {
+      const y = window.scrollY * -0.045;
+      document.body.style.setProperty("--parallax", `${y}px`);
+    };
+
+    setParallax();
+    window.addEventListener("scroll", setParallax, { passive: true });
+  </script>
+</body>
+</html>

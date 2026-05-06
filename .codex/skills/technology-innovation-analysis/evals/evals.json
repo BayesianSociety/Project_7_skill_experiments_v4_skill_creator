@@ -1,0 +1,23 @@
+{
+  "skill_name": "technology-innovation-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Analyze whether ASML is an exceptional innovator using a framework that combines scientometrics, patent signals, industrialization, adoption, and policy conditions. I care more about technology leadership and commercialization readiness than valuation.",
+      "expected_output": "A sourced company innovation assessment with a five-layer dashboard, scores, breakthrough gate check, red flags, and a clear verdict.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I want a rigorous innovation analysis of IonQ. Focus on whether the company looks like a real early-stage breakthrough candidate or whether the science is outrunning the industrialization and adoption evidence.",
+      "expected_output": "A balanced, evidence-based report that separates scientific promise from scale-up readiness.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Review Tempus AI as an innovator rather than as a normal stock pitch. Use public-company disclosures, patents, and credible research to assess whether the company has a durable innovation engine.",
+      "expected_output": "A public-company innovation analysis with quantitative signals, red flags, and a clear conclusion on innovation quality.",
+      "files": []
+    }
+  ]
+}

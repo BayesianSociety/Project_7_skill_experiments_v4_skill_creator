@@ -1,0 +1,46 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg1" x1="120" y1="84" x2="936" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF3DD"/>
+      <stop offset="0.5" stop-color="#EACB9D"/>
+      <stop offset="1" stop-color="#C1666B"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(784 280) rotate(115) scale(424 424)">
+      <stop stop-color="#F4A900" stop-opacity="0.72"/>
+      <stop offset="1" stop-color="#F4A900" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(348 756) rotate(90) scale(356 356)">
+      <stop stop-color="#FFF8EE" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#FFF8EE" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur1" x="387" y="175" width="304" height="304" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg1)"/>
+  <circle cx="784" cy="280" r="424" fill="url(#glow1)"/>
+  <circle cx="348" cy="756" r="356" fill="url(#glow2)"/>
+  <g opacity="0.12" stroke="#4A403A">
+    <path d="M92 222H988"/>
+    <path d="M92 540H988"/>
+    <path d="M92 858H988"/>
+    <path d="M222 92V988"/>
+    <path d="M540 92V988"/>
+    <path d="M858 92V988"/>
+  </g>
+  <g filter="url(#blur1)">
+    <circle cx="539" cy="327" r="114" stroke="#4A403A" stroke-width="16" stroke-opacity="0.58"/>
+  </g>
+  <circle cx="540" cy="328" r="114" stroke="#FFF6E9" stroke-width="8"/>
+  <circle cx="540" cy="328" r="56" fill="#4A403A"/>
+  <circle cx="540" cy="328" r="18" fill="#F4A900"/>
+  <path d="M424 328C424 392.065 475.935 444 540 444C604.065 444 656 392.065 656 328" stroke="#FFF6E9" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="540" cy="214" r="10" fill="#FFF6E9"/>
+  <circle cx="654" cy="328" r="10" fill="#FFF6E9"/>
+  <circle cx="540" cy="442" r="10" fill="#FFF6E9"/>
+  <circle cx="426" cy="328" r="10" fill="#FFF6E9"/>
+  <rect x="146" y="576" width="788" height="278" rx="36" fill="#FFF9F1" fill-opacity="0.82" stroke="#4A403A" stroke-opacity="0.12"/>
+  <text x="192" y="688" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="92" font-weight="700" letter-spacing="-2">Quantum Is</text>
+  <text x="192" y="786" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="92" font-weight="700" letter-spacing="-2">Finally Selling</text>
+  <text x="194" y="850" fill="#6D5A50" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="34">IonQ is turning trapped-ion science into contracts, systems, and attention.</text>
+</svg>

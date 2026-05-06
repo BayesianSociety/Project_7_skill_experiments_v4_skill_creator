@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9f5"/>
+      <stop offset="0.58" stop-color="#f4e3dc"/>
+      <stop offset="1" stop-color="#e8d5c4"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0 H0 V72" fill="none" stroke="#5d2e46" stroke-width="1" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <circle cx="930" cy="130" r="210" fill="#d4a5a5" fill-opacity="0.24"/>
+  <circle cx="120" cy="930" r="260" fill="#b87d6d" fill-opacity="0.14"/>
+  <g transform="translate(570 270) rotate(-5)">
+      <rect x="-190" y="40" width="410" height="520" rx="10" fill="#fff9f5" stroke="#5d2e46" stroke-opacity="0.22" stroke-width="3"/>
+      <rect x="-150" y="92" width="240" height="20" fill="#d4a5a5"/>
+      <rect x="-150" y="150" width="315" height="10" fill="#5d2e46" fill-opacity="0.18"/>
+      <rect x="-150" y="188" width="280" height="10" fill="#5d2e46" fill-opacity="0.18"/>
+      <rect x="-150" y="226" width="330" height="10" fill="#5d2e46" fill-opacity="0.18"/>
+      <path d="M-120 388 L170 388" stroke="#9f6f2f" stroke-width="12" stroke-linecap="round"/>
+      <path d="M-115 432 L125 432" stroke="#2f7a69" stroke-width="8" stroke-linecap="round" stroke-opacity="0.72"/>
+    </g>
+  <g transform="translate(145 140)">
+    <text x="0" y="0" font-family="FreeSans, Arial" font-size="28" font-weight="700" letter-spacing="4" fill="#6f5d61">UBER INNOVATION</text>
+    <text x="0" y="84" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">IP Is Not The</text><text x="0" y="162" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Moat</text>
+    <g transform="translate(0 264)">
+      <rect x="0" y="-34" width="620" height="138" rx="10" fill="#fff9f5" fill-opacity="0.82"/>
+      <text x="28" y="22" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">A large patent footprint, but weak</text><text x="28" y="60" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">evidence of acceleration.</text>
+    </g>
+  </g>
+  <g transform="translate(145 950)">
+    <rect x="0" y="0" width="160" height="8" rx="4" fill="#9f6f2f"/>
+    <text x="186" y="12" font-family="FreeSans, Arial" font-size="26" font-weight="700" fill="#5d2e46">Slide 3 / 7</text>
+  </g>
+</svg>

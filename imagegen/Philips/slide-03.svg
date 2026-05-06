@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2d4a2b"/>
+      <stop offset="100%" stop-color="#a4ac86"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="#faf9f6"/>
+  <rect x="44" y="44" width="992" height="992" rx="40" fill="#efeade"/>
+  <circle cx="728" cy="470" r="240" fill="url(#ring)"/>
+  <circle cx="728" cy="470" r="116" fill="#faf9f6"/>
+  <circle cx="728" cy="470" r="168" fill="none" stroke="#faf9f6" stroke-opacity="0.24" stroke-width="8"/>
+  <g font-family="FreeSans, Arial, sans-serif">
+    <text x="112" y="166" font-size="26" fill="#5d6755" letter-spacing="5">MRI PLATFORM SIGNAL</text>
+    <text x="112" y="276" font-size="76" font-weight="700" fill="#2d4a2b">BLUESEAL</text>
+    <text x="112" y="368" font-size="126" font-weight="700" fill="#2d4a2b">1,500+</text>
+    <text x="112" y="442" font-size="44" fill="#405f3c">installed helium-free MRI systems</text>
+    <text x="112" y="560" font-size="34" fill="#5d6755">Installed base matters more than lab demos.</text>
+    <text x="112" y="606" font-size="34" fill="#5d6755">This is industrialized imaging hardware.</text>
+  </g>
+  <rect x="112" y="760" width="340" height="148" rx="28" fill="#2d4a2b"/>
+  <text x="282" y="824" font-size="30" font-family="FreeSans, Arial, sans-serif" fill="#faf9f6" text-anchor="middle" letter-spacing="3">HELIUM-FREE</text>
+  <text x="282" y="870" font-size="30" font-family="FreeSans, Arial, sans-serif" fill="#faf9f6" text-anchor="middle" letter-spacing="3">GLOBAL DEPLOYMENT</text>
+</svg>

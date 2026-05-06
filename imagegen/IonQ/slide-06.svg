@@ -1,0 +1,22 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg6" x1="106" y1="104" x2="954" y2="1004" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF4E1"/>
+      <stop offset="0.44" stop-color="#E7CAA3"/>
+      <stop offset="1" stop-color="#9E6860"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg6)"/>
+  <g>
+    <rect x="188" y="618" width="116" height="146" rx="18" fill="#F4A900"/>
+    <rect x="344" y="560" width="116" height="204" rx="18" fill="#E29A31"/>
+    <rect x="500" y="474" width="116" height="290" rx="18" fill="#D48249"/>
+    <rect x="656" y="366" width="116" height="398" rx="18" fill="#C1666B"/>
+    <path d="M180 706C274 618 356 560 466 520C588 474 688 492 886 604" stroke="#4A403A" stroke-width="14" stroke-linecap="round"/>
+  </g>
+  <rect x="118" y="118" width="786" height="220" rx="36" fill="#FFF9F1" fill-opacity="0.88" stroke="#4A403A" stroke-opacity="0.12"/>
+  <text x="170" y="208" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="72" font-weight="700" letter-spacing="-2">The Missing Piece</text>
+  <text x="170" y="288" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="72" font-weight="700" letter-spacing="-2">Is Economics</text>
+  <text x="170" y="860" fill="#FFF7EC" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="42" font-weight="700">Revenue is climbing. Scale proof is still incomplete.</text>
+  <text x="170" y="914" fill="#FFF0DE" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="28">R&amp;D intensity and limited manufacturing transparency keep the valuation argument fragile.</text>
+</svg>

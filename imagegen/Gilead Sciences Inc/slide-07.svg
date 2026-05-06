@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Slide 7 - Verdict: Strong, Not Untouchable</title>
+  <desc id="desc">Instagram slide concluding that Gilead is strong but not flawless.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f3943"/>
+      <stop offset="50%" stop-color="#cf6c54"/>
+      <stop offset="100%" stop-color="#f4c46c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect x="140" y="150" width="800" height="780" rx="48" fill="#fff8f1" fill-opacity="0.92"/>
+  <path d="M250 760A290 290 0 0 1 830 760" fill="none" stroke="#264653" stroke-opacity="0.14" stroke-width="28" stroke-linecap="round"/>
+  <path d="M250 760A290 290 0 0 1 698 498" fill="none" stroke="#e76f51" stroke-width="28" stroke-linecap="round"/>
+  <g transform="translate(300 652)">
+    <circle cx="0" cy="0" r="28" fill="#264653"/>
+    <circle cx="240" cy="0" r="28" fill="#e76f51"/>
+    <circle cx="480" cy="0" r="28" fill="#e9c46a"/>
+  </g>
+  <text x="220" y="310" fill="#264653" font-family="DejaVu Serif" font-size="74" font-weight="700">
+    <tspan x="220" dy="0">Verdict:</tspan>
+    <tspan x="220" dy="88">Strong, Not</tspan>
+    <tspan x="220" dy="88">Untouchable</tspan>
+  </text>
+  <text x="220" y="522" fill="#355563" font-family="DejaVu Sans" font-size="34">
+    <tspan x="220" dy="0">Gilead looks like a strong innovator</tspan>
+    <tspan x="220" dy="48">with translational momentum,</tspan>
+    <tspan x="220" dy="48">not a flawless one.</tspan>
+  </text>
+  <rect x="220" y="714" width="324" height="78" rx="39" fill="#264653"/>
+  <text x="382" y="763" text-anchor="middle" fill="#fff8f1" font-family="DejaVu Sans" font-size="28" letter-spacing="2">19.4 / 25 SCORE</text>
+  <circle cx="846" cy="838" r="46" fill="#e76f51"/>
+  <text x="846" y="852" text-anchor="middle" fill="#fff8f1" font-family="DejaVu Serif" font-size="38" font-weight="700">07</text>
+</svg>

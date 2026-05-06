@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fcf4e8"/>
+      <stop offset="100%" stop-color="#edd8bd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg3)"/>
+  <g stroke="#4a403a" stroke-opacity="0.18" stroke-width="2">
+    <path d="M140 260 H940"/>
+    <path d="M140 380 H940"/>
+    <path d="M140 500 H940"/>
+    <path d="M140 620 H940"/>
+    <path d="M140 740 H940"/>
+    <path d="M220 200 V860"/>
+    <path d="M380 200 V860"/>
+    <path d="M540 200 V860"/>
+    <path d="M700 200 V860"/>
+    <path d="M860 200 V860"/>
+  </g>
+  <g>
+    <rect x="218" y="602" width="92" height="112" rx="12" fill="#c1666b"/>
+    <rect x="378" y="496" width="92" height="218" rx="12" fill="#f4a900"/>
+    <rect x="538" y="422" width="92" height="292" rx="12" fill="#4a403a"/>
+    <rect x="698" y="342" width="92" height="372" rx="12" fill="#8a7364"/>
+    <rect x="858" y="278" width="92" height="436" rx="12" fill="#c1666b"/>
+  </g>
+  <g transform="translate(152 142)">
+    <text x="0" y="0" font-family="FreeSans, Arial, sans-serif" font-size="30" letter-spacing="6" fill="#6a5d53">ACCESS INFRASTRUCTURE</text>
+    <text x="0" y="144" font-family="FreeSans, Arial, sans-serif" font-size="112" font-weight="700" fill="#4a403a">The network</text>
+    <text x="0" y="266" font-family="FreeSans, Arial, sans-serif" font-size="112" font-weight="700" fill="#4a403a">kept widening</text>
+    <text x="0" y="356" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">German access sites grew from roughly</text>
+    <text x="0" y="406" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">34,000 to 41,000.</text>
+  </g>
+</svg>

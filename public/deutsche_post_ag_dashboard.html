@@ -1,0 +1,1191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Deutsche Post AG Innovation Dashboard</title>
+  <style>
+    :root {
+      --mustard: #f4a900;
+      --terracotta: #c1666b;
+      --beige: #d4b896;
+      --beige-soft: #f3e7d6;
+      --paper: #fbf4ea;
+      --paper-deep: #eddcc7;
+      --chocolate: #4a403a;
+      --ink: #2f2925;
+      --muted: #6a5d53;
+      --line: rgba(74, 64, 58, 0.14);
+      --line-strong: rgba(74, 64, 58, 0.22);
+      --glow: rgba(244, 169, 0, 0.28);
+      --shadow: 0 24px 70px rgba(98, 69, 49, 0.12);
+      --max: 1440px;
+      --body: "FreeSans", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(244, 169, 0, 0.18), transparent 20%),
+        radial-gradient(circle at 86% 3%, rgba(193, 102, 107, 0.16), transparent 22%),
+        linear-gradient(180deg, #fffaf2 0%, #f6ebdc 54%, #f0dfcb 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.38;
+      background-image:
+        linear-gradient(90deg, transparent 0 49%, rgba(74, 64, 58, 0.018) 49% 51%, transparent 51%),
+        linear-gradient(transparent 0 49%, rgba(74, 64, 58, 0.015) 49% 51%, transparent 51%);
+      background-size: 112px 112px;
+      transform: translateY(var(--drift, 0px));
+    }
+
+    a {
+      color: var(--chocolate);
+      text-decoration-color: rgba(74, 64, 58, 0.26);
+      text-underline-offset: 0.18em;
+    }
+
+    .shell {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 48px;
+    }
+
+    .topbar,
+    .footline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .surface {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid rgba(74, 64, 58, 0.12);
+      background:
+        linear-gradient(180deg, rgba(255, 252, 247, 0.88), rgba(247, 239, 228, 0.92)),
+        linear-gradient(135deg, rgba(244, 169, 0, 0.05), rgba(193, 102, 107, 0.05));
+      box-shadow: var(--shadow);
+    }
+
+    .surface::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 92% 8%, rgba(244, 169, 0, 0.14), transparent 16%),
+        radial-gradient(circle at 14% 92%, rgba(193, 102, 107, 0.14), transparent 22%);
+    }
+
+    .eyebrow,
+    .mini-label,
+    .chip,
+    .section-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+    }
+
+    .eyebrow,
+    .mini-label,
+    .section-kicker {
+      color: var(--muted);
+    }
+
+    .hero {
+      position: relative;
+      padding: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--chocolate);
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 6vw, 5.4rem);
+      line-height: 0.92;
+      max-width: 8.4ch;
+      margin-top: 10px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(1.55rem, 2.5vw, 2.2rem);
+      line-height: 1;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 1.06rem;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .hero-copy {
+      max-width: 66ch;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(1.1rem, 2.1vw, 1.95rem);
+      color: var(--chocolate);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    .hero-side {
+      padding: 22px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 251, 246, 0.54), rgba(255, 244, 233, 0.8));
+      border: 1px solid rgba(74, 64, 58, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-wheel {
+      width: 214px;
+      aspect-ratio: 1;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(255, 252, 247, 1) 56%, transparent 57%),
+        conic-gradient(var(--mustard) 0deg, var(--terracotta) 274deg, rgba(74, 64, 58, 0.08) 274deg 360deg);
+      box-shadow:
+        inset 0 0 0 1px rgba(74, 64, 58, 0.12),
+        0 0 0 10px rgba(244, 169, 0, 0.06);
+    }
+
+    .score-wheel strong,
+    .score-wheel small {
+      display: block;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .score-wheel strong {
+      font-size: 3.8rem;
+      line-height: 1;
+    }
+
+    .score-wheel small {
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .verdict {
+      margin: 0 0 16px;
+      color: var(--ink);
+      font-size: 0.98rem;
+      line-height: 1.62;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 0.93rem;
+    }
+
+    .meta-row span:last-child {
+      text-align: right;
+      color: var(--chocolate);
+      font-weight: 700;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 0;
+    }
+
+    .main {
+      padding: 24px 28px 34px;
+      border-right: 1px solid var(--line);
+    }
+
+    .rail {
+      padding: 24px 22px 34px;
+    }
+
+    .rail-sticky {
+      position: sticky;
+      top: 20px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .section {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .lede {
+      max-width: 74ch;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.7;
+      margin: 8px 0 0;
+    }
+
+    .bullet-list,
+    .source-list,
+    .gate-list,
+    .patent-list,
+    .uni-list,
+    .trigger-list {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .bullet-list li,
+    .source-list li,
+    .gate-list li,
+    .patent-list li,
+    .uni-list li,
+    .trigger-list li {
+      position: relative;
+      padding-left: 18px;
+      line-height: 1.6;
+    }
+
+    .bullet-list li::before,
+    .source-list li::before,
+    .gate-list li::before,
+    .patent-list li::before,
+    .uni-list li::before,
+    .trigger-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.68em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--mustard), var(--terracotta));
+      box-shadow: 0 0 0 4px rgba(244, 169, 0, 0.12);
+    }
+
+    .layer {
+      padding: 20px 0 22px;
+      border-bottom: 1px dashed rgba(74, 64, 58, 0.18);
+    }
+
+    .layer:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .layer-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+
+    .layer-title {
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: var(--chocolate);
+    }
+
+    .score-label {
+      font-size: 0.95rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .progress-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(74, 64, 58, 0.12);
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--mustard), var(--terracotta));
+      box-shadow: 0 0 18px rgba(244, 169, 0, 0.28);
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .is-visible .fill {
+      transform: scaleX(1);
+    }
+
+    .layer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .facet {
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .facet strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--chocolate);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .facet p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.58;
+    }
+
+    .trend-stack {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .trend {
+      padding: 16px 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .trend-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+
+    .trend-top strong {
+      color: var(--chocolate);
+      font-size: 1rem;
+    }
+
+    .trend-top span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .spark {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      align-items: end;
+      min-height: 146px;
+    }
+
+    .bar {
+      display: grid;
+      gap: 8px;
+      align-items: end;
+    }
+
+    .bar-fill {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, rgba(244, 169, 0, 0.94), rgba(193, 102, 107, 0.76));
+      border: 1px solid rgba(74, 64, 58, 0.08);
+      min-height: 10px;
+      transform-origin: bottom;
+      transform: scaleY(0);
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .is-visible .bar-fill {
+      transform: scaleY(1);
+    }
+
+    .bar label,
+    .bar span {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .bar span {
+      font-weight: 700;
+      color: var(--chocolate);
+    }
+
+    .inline-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 22px;
+      margin-top: 18px;
+    }
+
+    .rail-panel {
+      padding: 18px 18px 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(74, 64, 58, 0.1);
+      background: linear-gradient(180deg, rgba(255, 251, 245, 0.78), rgba(251, 242, 229, 0.92));
+    }
+
+    .rail-panel p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .score-map {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .score-map-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .score-map-row strong {
+      color: var(--chocolate);
+    }
+
+    .callout {
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-left: 3px solid var(--mustard);
+      background: rgba(244, 169, 0, 0.08);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(244, 169, 0, 0.11);
+      border: 1px solid rgba(244, 169, 0, 0.22);
+      color: var(--chocolate);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .layout,
+      .layer-grid,
+      .inline-grid,
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+
+      .main {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .rail-sticky {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(calc(100% - 18px), var(--max));
+      }
+
+      .hero,
+      .main,
+      .rail {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .surface {
+        border-radius: 26px;
+      }
+
+      h1 {
+        max-width: 9.5ch;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <span>DHL Group innovation assessment</span>
+      <span>As of April 19, 2026</span>
+    </div>
+
+    <main class="surface">
+      <section class="hero reveal">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">ETR: DHL · Deutsche Post AG / DHL Group</div>
+            <h1>Scaled logistics innovation, not frontier science.</h1>
+            <p class="hero-copy">
+              DHL looks strongest as an industrializer and operator of logistics technology: robotics, automation, AI-assisted workflows,
+              and the German access-point network are scaling in public metrics. The weak point is formal R&amp;D intensity and a relatively
+              thin visible proprietary patent base versus the scale of deployment.
+            </p>
+            <div class="metric-row">
+              <div class="metric">
+                <strong>19 / 25</strong>
+                <span>Total five-layer score. This places DHL in translational momentum rather than breakthrough-science territory.</span>
+              </div>
+              <div class="metric">
+                <strong>8,000</strong>
+                <span>Collaborative robots disclosed in 2025, up from 2,000 in 2021.</span>
+              </div>
+              <div class="metric">
+                <strong>95%+</strong>
+                <span>Locations in Supply Chain using digital solutions in 2025, up from 80%+ in 2021.</span>
+              </div>
+              <div class="metric">
+                <strong>41,000</strong>
+                <span>German fixed-location acceptance and sales sites in 2025, up from 34,000 in 2021.</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="score-wheel">
+              <div>
+                <strong>19</strong>
+                <small>translational momentum</small>
+              </div>
+            </div>
+            <p class="verdict">
+              <strong>Verdict:</strong> strong innovator with translational momentum. This is a scaled adopter-integrator with real operating leverage,
+              not an exceptional deep-tech inventor.
+            </p>
+            <div class="meta-list">
+              <div class="meta-row">
+                <span>2025 revenue</span>
+                <span>EUR 82.9bn</span>
+              </div>
+              <div class="meta-row">
+                <span>2025 EBIT</span>
+                <span>EUR 6.1bn</span>
+              </div>
+              <div class="meta-row">
+                <span>Primary thesis</span>
+                <span>automation, robotics, AI workflows, access network</span>
+              </div>
+              <div class="meta-row">
+                <span>Confidence</span>
+                <span>medium-high</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <div class="layout">
+        <div class="main">
+          <section class="section reveal">
+            <div class="section-kicker">1. Thesis</div>
+            <h2>Company innovation assessment</h2>
+            <ul class="bullet-list">
+              <li>DHL’s innovation edge comes from operational scale, systems integration and deployment density, not from heavy frontier R&amp;D spend.</li>
+              <li>The most material technologies are warehouse automation and robotics, AI-enabled process automation, and parcel access infrastructure.</li>
+              <li>Public operating disclosures improved materially from 2021 to 2025: robots, wearables, digital-solution penetration and access-point footprint all rose.</li>
+              <li>Visible science and field growth are real, but the company-level patent signal is much thinner than the industrialization signal.</li>
+              <li>Inference: DHL should be valued as a logistics technology industrializer with partner leverage, not as a proprietary platform science leader.</li>
+            </ul>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">2. Technology Map</div>
+            <h2>What matters to the thesis</h2>
+            <div class="inline-grid">
+              <div>
+                <h3>Automation and robotics</h3>
+                <p class="lede">The strongest disclosed domain. DHL has steadily increased robot density, wearable tooling and digital coverage across the Supply Chain division.</p>
+              </div>
+              <div>
+                <h3>AI workflow automation</h3>
+                <p class="lede">Agentic AI and data-driven process automation are moving into communication, customs, customer service, fulfillment and warehouse coordination.</p>
+              </div>
+              <div>
+                <h3>Parcel access infrastructure</h3>
+                <p class="lede">Packstations and Poststations extend the physical network, reduce delivery friction and create a differentiated customer access layer in Germany.</p>
+              </div>
+              <div>
+                <h3>Thesis type</h3>
+                <p class="lede">Mostly process leadership and adoption. Much less about invention leadership or visible proprietary science-to-patent compounding.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">3. Five-Layer Dashboard</div>
+            <h2>Layer scores</h2>
+
+            <article class="layer reveal">
+              <div class="layer-head">
+                <div class="layer-title">Science</div>
+                <div class="score-label">3 / 5</div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-meta">
+                  <span>Science</span>
+                  <span>3 / 5</span>
+                </div>
+                <div class="track"><div class="fill" style="width:60%"></div></div>
+              </div>
+              <p class="lede">
+                Field growth is real. OpenAlex query counts rose from 7,699 to 24,529 for “logistics automation” from 2021 to 2025, and from
+                1,451 to 3,216 for “last-mile route optimization delivery.” That supports a broad and still-expanding science base, but DHL itself
+                does not present as a heavy producer of frontier research.
+              </p>
+              <div class="layer-grid">
+                <div class="facet">
+                  <strong>Evidence</strong>
+                  <p>Publication growth is persistent across logistics automation, parcel sorting and last-mile optimization.</p>
+                </div>
+                <div class="facet">
+                  <strong>Strong</strong>
+                  <p>Credible university work exists in last-mile optimization and parcel-locker economics from MIT, Tilburg, Sabanci and UC Irvine.</p>
+                </div>
+                <div class="facet">
+                  <strong>Missing</strong>
+                  <p>Weak evidence that DHL itself is producing or owning much novel basic science.</p>
+                </div>
+                <div class="facet">
+                  <strong>Confidence</strong>
+                  <p>Medium. The field signal is clear; the company-to-science linkage is looser.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="layer reveal">
+              <div class="layer-head">
+                <div class="layer-title">IP</div>
+                <div class="score-label">2 / 5</div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-meta">
+                  <span>IP</span>
+                  <span>2 / 5</span>
+                </div>
+                <div class="track"><div class="fill" style="width:40%"></div></div>
+              </div>
+              <p class="lede">
+                Visible recent Deutsche Post AG patenting exists, but the family flow is sparse relative to the company’s scale. The recent sample is
+                mostly process engineering and handling equipment: unloading/loading packages, sorting terminals, object orientation, conveyor stations,
+                and a distributed-ledger filing. The public record used here does not show a sharply accelerating patent-family curve or deep science linkage.
+              </p>
+              <div class="layer-grid">
+                <div class="facet">
+                  <strong>Evidence</strong>
+                  <p>Recent identified families have priority dates in 2020, 2022 and 2023, with US, DE, EP and CA offices represented.</p>
+                </div>
+                <div class="facet">
+                  <strong>Strong</strong>
+                  <p>Patents are technically specific and operationally relevant to sorting, loading, unloading and conveying.</p>
+                </div>
+                <div class="facet">
+                  <strong>Missing</strong>
+                  <p>No strong visible surge in company-owned patent families from 2021 to 2025.</p>
+                </div>
+                <div class="facet">
+                  <strong>Confidence</strong>
+                  <p>Medium. This is a “minimum visible” patent sample from the sources actually used.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="layer reveal">
+              <div class="layer-head">
+                <div class="layer-title">Industrialization</div>
+                <div class="score-label">5 / 5</div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-meta">
+                  <span>Industrialization</span>
+                  <span>5 / 5</span>
+                </div>
+                <div class="track"><div class="fill" style="width:100%"></div></div>
+              </div>
+              <p class="lede">
+                This is DHL’s strongest layer. Supply Chain digital-solution coverage rose from 80%+ of locations with around 2,000 collaborative robots in
+                2021 to 95%+ and 8,000 robots in 2025. Wearables grew from about 25,000 to 52,000 over the same window. DHL also disclosed more than
+                EUR 1 billion invested in automation within contract logistics over the past three years.
+              </p>
+              <div class="layer-grid">
+                <div class="facet">
+                  <strong>Evidence</strong>
+                  <p>2,000 → 4,000 → 6,000 → 7,500 → 8,000 robots disclosed across 2021-2025 reports.</p>
+                </div>
+                <div class="facet">
+                  <strong>Strong</strong>
+                  <p>Repeated commentary on standardization, robotics, wearables, data analytics and operational efficiency.</p>
+                </div>
+                <div class="facet">
+                  <strong>Missing</strong>
+                  <p>Yield-style hardware metrics are still sparse because DHL is a service operator, not a hardware OEM.</p>
+                </div>
+                <div class="facet">
+                  <strong>Confidence</strong>
+                  <p>High. The deployment trend is directly disclosed by the company.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="layer reveal">
+              <div class="layer-head">
+                <div class="layer-title">Adoption</div>
+                <div class="score-label">5 / 5</div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-meta">
+                  <span>Adoption</span>
+                  <span>5 / 5</span>
+                </div>
+                <div class="track"><div class="fill" style="width:100%"></div></div>
+              </div>
+              <p class="lede">
+                DHL is deploying these systems into live operations, not just pilots. The German fixed-location network expanded from around 34,000 sites in
+                2021 to 41,000 in 2025 through Packstation and Poststation growth. In 2025 DHL disclosed AI agents already handling hundreds of thousands
+                of emails and millions of voice minutes annually, plus a global robotics pipeline including 1,000 additional Stretch units.
+              </p>
+              <div class="layer-grid">
+                <div class="facet">
+                  <strong>Evidence</strong>
+                  <p>34,000 → 36,300 → 38,000 → 39,000+ → 41,000 German access sites over 2021-2025.</p>
+                </div>
+                <div class="facet">
+                  <strong>Strong</strong>
+                  <p>Partnerships with Boston Dynamics, Locus, Robust.AI, SVT Robotics and HappyRobot show complementor depth.</p>
+                </div>
+                <div class="facet">
+                  <strong>Missing</strong>
+                  <p>Less direct revenue attribution by technology program than an investor would ideally want.</p>
+                </div>
+                <div class="facet">
+                  <strong>Confidence</strong>
+                  <p>High. Adoption evidence is public, recurring and operational.</p>
+                </div>
+              </div>
+            </article>
+
+            <article class="layer reveal">
+              <div class="layer-head">
+                <div class="layer-title">Policy and economics</div>
+                <div class="score-label">4 / 5</div>
+              </div>
+              <div class="progress-row">
+                <div class="progress-meta">
+                  <span>Policy and economics</span>
+                  <span>4 / 5</span>
+                </div>
+                <div class="track"><div class="fill" style="width:80%"></div></div>
+              </div>
+              <p class="lede">
+                The surrounding economics are broadly supportive: e-commerce, healthcare logistics, new-energy logistics and decarbonization all help justify
+                automation and digitalization. The counterweights are clear as well: German mail regulation, labor intensity, macro trade volatility, and the
+                cost discipline embedded in DHL’s “Fit for Growth” program.
+              </p>
+              <div class="layer-grid">
+                <div class="facet">
+                  <strong>Evidence</strong>
+                  <p>Strategy 2030 places automation, AI and green logistics inside capital allocation and market-priority decisions.</p>
+                </div>
+                <div class="facet">
+                  <strong>Strong</strong>
+                  <p>Healthcare and new-energy logistics increase the value of reliable, specialized and digitally managed networks.</p>
+                </div>
+                <div class="facet">
+                  <strong>Missing</strong>
+                  <p>Trade policy shocks and tariff changes can still mute returns from even well-run logistics technology programs.</p>
+                </div>
+                <div class="facet">
+                  <strong>Confidence</strong>
+                  <p>Medium-high. The economics are favorable, but not frictionless.</p>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">4. Quantitative Trends</div>
+            <h2>Publications, deployment and visible IP</h2>
+            <p class="lede">
+              Publication counts below come from OpenAlex queries executed on April 19, 2026. Patent trend is intentionally conservative: it summarizes the
+              recent Deutsche Post AG families that were directly visible in the patent sources used for this review rather than claiming exhaustive coverage.
+            </p>
+
+            <div class="trend-stack">
+              <div class="trend reveal">
+                <div class="trend-top">
+                  <strong>OpenAlex: logistics automation</strong>
+                  <span>7,699 → 24,529 works, 2021-2025</span>
+                </div>
+                <div class="spark">
+                  <div class="bar"><div class="bar-fill" style="height:31%"></div><label>2021</label><span>7,699</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:37%"></div><label>2022</label><span>9,164</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:60%"></div><label>2023</label><span>14,672</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:72%"></div><label>2024</label><span>17,731</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:100%"></div><label>2025</label><span>24,529</span></div>
+                </div>
+              </div>
+
+              <div class="trend reveal">
+                <div class="trend-top">
+                  <strong>OpenAlex: last-mile route optimization delivery</strong>
+                  <span>1,451 → 3,216 works, 2021-2025</span>
+                </div>
+                <div class="spark">
+                  <div class="bar"><div class="bar-fill" style="height:45%"></div><label>2021</label><span>1,451</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:50%"></div><label>2022</label><span>1,604</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:78%"></div><label>2023</label><span>2,502</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:84%"></div><label>2024</label><span>2,698</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:100%"></div><label>2025</label><span>3,216</span></div>
+                </div>
+              </div>
+
+              <div class="trend reveal">
+                <div class="trend-top">
+                  <strong>OpenAlex: parcel locker</strong>
+                  <span>212 → 513 works, 2021-2025</span>
+                </div>
+                <div class="spark">
+                  <div class="bar"><div class="bar-fill" style="height:41%"></div><label>2021</label><span>212</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:54%"></div><label>2022</label><span>276</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:88%"></div><label>2023</label><span>453</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:79%"></div><label>2024</label><span>404</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:100%"></div><label>2025</label><span>513</span></div>
+                </div>
+              </div>
+
+              <div class="trend reveal">
+                <div class="trend-top">
+                  <strong>DHL deployment intensity</strong>
+                  <span>robots, wearables, digital coverage</span>
+                </div>
+                <div class="spark">
+                  <div class="bar"><div class="bar-fill" style="height:25%"></div><label>2021</label><span>2k robots</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:50%"></div><label>2022</label><span>4k</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:75%"></div><label>2023</label><span>6k</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:94%"></div><label>2024</label><span>7.5k</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:100%"></div><label>2025</label><span>8k</span></div>
+                </div>
+              </div>
+
+              <div class="trend reveal">
+                <div class="trend-top">
+                  <strong>Visible recent Deutsche Post AG patent-family flow</strong>
+                  <span>sparse but not zero</span>
+                </div>
+                <div class="spark">
+                  <div class="bar"><div class="bar-fill" style="height:40%"></div><label>2021</label><span>1-2 visible families</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:40%"></div><label>2022</label><span>1 visible family</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:80%"></div><label>2023</label><span>2 visible families</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:60%"></div><label>2024</label><span>1 filing wave</span></div>
+                  <div class="bar"><div class="bar-fill" style="height:20%"></div><label>2025</label><span>few new visibles</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">5. Breakthrough Gate</div>
+            <h2>Near-term breakthrough check</h2>
+            <ul class="gate-list">
+              <li><strong>Met:</strong> persistent publication growth in relevant logistics-automation fields.</li>
+              <li><strong>Met:</strong> real ecosystem formation around robotics, AI workflow tools, sensors and warehouse integration.</li>
+              <li><strong>Met:</strong> unmistakable industrialization signal through disclosed robot counts, digital-location penetration and network expansion.</li>
+              <li><strong>Met:</strong> public evidence of deployments and scaling, not just pilots.</li>
+              <li><strong>Not met:</strong> strong patent-family acceleration at the company level.</li>
+              <li><strong>Not met:</strong> strong patent-to-science linkage visible in the sources used.</li>
+              <li><strong>Not met:</strong> meaningful formal R&amp;D spending disclosure. DHL repeats that it has no significant expenses to report in the narrower R&amp;D sense.</li>
+            </ul>
+            <div class="callout">
+              <strong>Conclusion:</strong> DHL passes the industrialization and adoption gates comfortably, but it does not pass the stricter “serious near-term
+              science breakthrough candidate” test. This is why the final read is translational momentum rather than exceptional breakthrough innovation.
+            </div>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">6. Universities</div>
+            <h2>University research linked to DHL’s key technologies</h2>
+            <ul class="uni-list">
+              <li><strong>MIT Center for Transportation &amp; Logistics:</strong> last-mile routing, route prediction, integrated pickup and delivery, and drone-assisted delivery models.</li>
+              <li><strong>Tilburg University:</strong> reinforcement-learning and simulation-optimization for last-mile delivery behavior and parking decisions.</li>
+              <li><strong>Sabanci University:</strong> last-mile routing with autonomous electric vehicles and route optimization that incorporates parcel lockers and self-pickup incentives.</li>
+              <li><strong>UC Irvine Institute of Transportation Studies:</strong> research on benefits, challenges and opportunities across last-mile delivery strategies.</li>
+            </ul>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">7. Patents</div>
+            <h2>Relevant recent patents and offices</h2>
+            <ul class="patent-list">
+              <li><strong>US12064867B2 / US20210402622A1</strong> - Method and device for unloading a container having packages. Offices: United States, with German priority linkage.</li>
+              <li><strong>US11613436B2 / US20220112040A1</strong> - Method and device for loading containers with packages. Offices: United States, with German priority linkage.</li>
+              <li><strong>US20240327125A1 / DE102023107764B3</strong> - Sorting terminal and logistics sorter. Offices: United States and Germany.</li>
+              <li><strong>US12358730B2 / US20240002164A1</strong> - Apparatus for orienting or rotating objects. Office: United States.</li>
+              <li><strong>EP4574283A2/A3</strong> - Conveying unit station and system comprising station, with Filics GmbH. Office: European Patent Office.</li>
+              <li><strong>CA3136977A1</strong> - Distributed ledger system. Office: Canada.</li>
+            </ul>
+            <p class="lede">
+              Inference from these sources: the IP is real and operationally specific, but the visible portfolio is more indicative of process engineering support
+              than of a fast-compounding proprietary science moat.
+            </p>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">8. Red Flags</div>
+            <h2>Reasons for caution</h2>
+            <ul class="bullet-list">
+              <li>DHL repeats across annual reports that it does not have significant expenses to report in the narrower sense of R&amp;D.</li>
+              <li>The public patent trail used here is sparse versus DHL’s operating scale, which suggests weak visible proprietary-IP compounding.</li>
+              <li>Much of the technical edge appears to come through ecosystem orchestration and deployment partnerships rather than owned core technology.</li>
+              <li>Macroeconomic trade volatility and tariff shifts can dilute returns from otherwise well-executed automation programs.</li>
+              <li>German mail remains structurally pressured by digital substitution and regulation, which reduces room for error in capital deployment.</li>
+              <li>Because DHL is a service operator, disclosed deployment metrics are stronger than unit-economics-by-technology metrics.</li>
+            </ul>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">9. What Changes The View</div>
+            <h2>Upgrade and downgrade triggers</h2>
+            <ul class="trigger-list">
+              <li><strong>Upgrade:</strong> a visible rise in company-owned patent families tied to robotics, AI orchestration or network automation.</li>
+              <li><strong>Upgrade:</strong> direct revenue, margin or productivity attribution from AI agents, robotics and parcel-access infrastructure.</li>
+              <li><strong>Upgrade:</strong> more quantified deployment disclosures such as throughput, labor-productivity gains, or technology-specific payback periods.</li>
+              <li><strong>Downgrade:</strong> automation deployment slows while partner dependence increases.</li>
+              <li><strong>Downgrade:</strong> macro trade volatility or regulation forces cost control that suppresses innovation capex.</li>
+              <li><strong>Downgrade:</strong> the robot and digital-location curve stalls while competitors continue to scale.</li>
+            </ul>
+          </section>
+
+          <section class="section reveal">
+            <div class="section-kicker">10. Sources</div>
+            <h2>Primary and supporting sources</h2>
+            <ol class="source-list">
+              <li><a href="https://group.dhl.com/content/dam/deutschepostdhl/en/media-center/investors/documents/annual-reports/DPDHL-2021-Annual-Report.pdf">DHL Group Annual Report 2021</a></li>
+              <li><a href="https://group.dhl.com/content/dam/deutschepostdhl/en/media-center/investors/documents/annual-reports/DPDHL-2022-Annual-Report.pdf">DHL Group Annual Report 2022</a></li>
+              <li><a href="https://group.dhl.com/content/dam/deutschepostdhl/en/media-center/investors/documents/annual-reports/DHL-Group-2023-Annual-Report.pdf">DHL Group Annual Report 2023</a></li>
+              <li><a href="https://group.dhl.com/content/dam/deutschepostdhl/en/media-center/investors/documents/annual-reports/DHL-Group-2024-Annual-Report.pdf">DHL Group Annual Report 2024</a></li>
+              <li><a href="https://group.dhl.com/content/dam/deutschepostdhl/en/media-center/investors/documents/annual-reports/DHL-Group-2025-Annual-Report.pdf">DHL Group Annual Report 2025</a></li>
+              <li><a href="https://reporting-hub.group.dhl.com/2025-fy/en/">DHL Group 2025 Reporting Hub</a></li>
+              <li><a href="https://group.dhl.com/en/media-relations/press-releases/2025/dhl-unveils-new-innovation-center-to-power-the-future-of-logistics.html">DHL unveils new Europe Innovation Center, October 1, 2025</a></li>
+              <li><a href="https://group.dhl.com/en/media-relations/press-releases/2025/dhl-boosts-operational-efficiency-and-customer-communications-with-happyrobots-ai-agents.html">DHL and HappyRobot AI agents press release, November 11, 2025</a></li>
+              <li><a href="https://group.dhl.com/en/media-relations/press-releases/2025/dhl-group-financial-figures-q3-2025.html">DHL Group Q3 2025 financial figures</a></li>
+              <li><a href="https://group.dhl.com/en/media-relations/press-releases/2026/dhl-supply-chain-accelerates-automation-deployments-with-stv-robotics-softbot-platform.html">DHL Supply Chain and SVT Robotics deployment release</a></li>
+              <li><a href="https://api.openalex.org/works?search=logistics%20automation&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">OpenAlex query: logistics automation</a></li>
+              <li><a href="https://api.openalex.org/works?search=last-mile%20route%20optimization%20delivery&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">OpenAlex query: last-mile route optimization delivery</a></li>
+              <li><a href="https://api.openalex.org/works?search=parcel%20locker&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">OpenAlex query: parcel locker</a></li>
+              <li><a href="https://routingchallenge.mit.edu/">MIT Center for Transportation &amp; Logistics routing challenge</a></li>
+              <li><a href="https://ctl.mit.edu/pub/paper/integrating-first-mile-pickup-and-last-mile-delivery-shared-vehicle-routes-efficient">MIT CTL paper on integrated pickup and last-mile delivery</a></li>
+              <li><a href="https://mobility.mit.edu/biblio/mo-predicting-drivers-route-trajectories-last-mile-delivery-using-pair-wise/">MIT paper on route trajectory prediction in last-mile delivery</a></li>
+              <li><a href="https://research.tilburguniversity.edu/en/publications/a-reinforcement-learning-framework-for-improving-parking-decision/">Tilburg University RL in last-mile delivery</a></li>
+              <li><a href="https://research.sabanciuniv.edu/id/eprint/52234/">Sabanci University parcel locker route optimization research</a></li>
+              <li><a href="https://its.uci.edu/research_products/research-report-benefits-challenges-and-opportunities-of-different-last-mile-delivery-strategies/">UC Irvine last-mile delivery strategies report</a></li>
+              <li><a href="https://patents.google.com/patent/US12064867B2/en">US12064867B2</a></li>
+              <li><a href="https://patents.google.com/patent/US11613436B2/en">US11613436B2</a></li>
+              <li><a href="https://patents.google.com/patent/US20240327125A1/en">US20240327125A1</a></li>
+              <li><a href="https://patents.google.com/patent/US12358730B2/en">US12358730B2</a></li>
+              <li><a href="https://patents.google.com/patent/EP4574283A3/en">EP4574283A3</a></li>
+              <li><a href="https://patents.google.com/patent/CA3136977A1/en">CA3136977A1</a></li>
+            </ol>
+          </section>
+        </div>
+
+        <aside class="rail">
+          <div class="rail-sticky">
+            <section class="rail-panel reveal">
+              <div class="mini-label">Score Guide</div>
+              <h3>How to read 19 / 25</h3>
+              <div class="score-map">
+                <div class="score-map-row">
+                  <span>0-8</span>
+                  <strong>exploratory science</strong>
+                </div>
+                <div class="score-map-row">
+                  <span>9-14</span>
+                  <strong>emerging technology worth monitoring</strong>
+                </div>
+                <div class="score-map-row">
+                  <span>15-19</span>
+                  <strong>translational momentum</strong>
+                </div>
+                <div class="score-map-row">
+                  <span>20-25</span>
+                  <strong>plausible breakthrough or scale-up candidate</strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="rail-panel reveal">
+              <div class="mini-label">Operational Snapshot</div>
+              <h3>Five-year deployment curve</h3>
+              <div class="tag-row">
+                <span class="chip">2021: 2,000 robots</span>
+                <span class="chip">2022: 4,000 robots</span>
+                <span class="chip">2023: 6,000 robots</span>
+                <span class="chip">2024: 7,500 robots</span>
+                <span class="chip">2025: 8,000 robots</span>
+                <span class="chip">2021: 34,000 sites</span>
+                <span class="chip">2025: 41,000 sites</span>
+              </div>
+              <p>
+                The signal is unusually clean for a logistics operator: the public operating metrics march upward year after year.
+              </p>
+            </section>
+
+            <section class="rail-panel reveal">
+              <div class="mini-label">Interpretation</div>
+              <h3>Fact vs inference</h3>
+              <p><strong>Fact:</strong> robots, wearables, digital-location coverage, access-point footprint, AI-agent deployments and annual-report R&amp;D wording are directly sourced.</p>
+              <p><strong>Inference:</strong> the company’s moat is stronger in operating system integration and deployment capability than in visible proprietary science.</p>
+            </section>
+
+            <section class="rail-panel reveal">
+              <div class="mini-label">Bottom Line</div>
+              <h3>Investment-style read</h3>
+              <p>
+                DHL is credible where process learning, network density and partner-enabled automation matter. It is less credible as a rare deep-tech inventor.
+              </p>
+            </section>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <div class="footline">
+      <span>Theme: Golden Hour</span>
+      <span>Static dashboard artifact</span>
+    </div>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+
+    window.addEventListener("scroll", () => {
+      document.body.style.setProperty("--drift", `${window.scrollY * -0.08}px`);
+    }, { passive: true });
+  </script>
+</body>
+</html>

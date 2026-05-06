@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d252b"/>
+      <stop offset="50%" stop-color="#29333b"/>
+      <stop offset="100%" stop-color="#38454f"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="18%" r="70%">
+      <stop offset="0%" stop-color="rgba(190,205,218,0.30)"/>
+      <stop offset="100%" stop-color="rgba(190,205,218,0)"/>
+    </radialGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="lineGlow">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      text { font-family: "DejaVu Sans", "Segoe UI", sans-serif; }
+      .kicker { font-size: 26px; letter-spacing: 5px; text-transform: uppercase; fill: #c8d3dc; opacity: 0.88; }
+      .headline { font-size: 84px; font-weight: 700; fill: #ffffff; }
+      .body { font-size: 34px; fill: #d9e0e6; opacity: 0.94; }
+      .safe { fill: rgba(13, 18, 22, 0.42); stroke: rgba(255,255,255,0.10); stroke-width: 1; }
+      .grid line { stroke: rgba(224,231,237,0.09); stroke-width: 1; }
+      .grid .diag { stroke: rgba(224,231,237,0.06); }
+      .routes path { fill: none; stroke: rgba(228,238,245,0.30); stroke-width: 2.2; }
+      .routes path:nth-child(3n) { stroke: rgba(179,191,203,0.45); }
+      .routes path:nth-child(4n) { stroke: rgba(242,246,249,0.22); }
+      .frame { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 2; }
+      .badge { font-size: 22px; fill: #d9e0e6; }
+    </style>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#glow)"/>
+  <g filter="url(#soft)">
+    <ellipse cx="820" cy="140" rx="240" ry="180" fill="rgba(203,213,221,0.11)"/>
+    <ellipse cx="240" cy="920" rx="320" ry="220" fill="rgba(101,120,134,0.16)"/>
+  </g>
+  <g class="grid">
+    <line x1="84" y1="84" x2="84" y2="996" />
+<line x1="160" y1="84" x2="160" y2="996" />
+<line x1="236" y1="84" x2="236" y2="996" />
+<line x1="312" y1="84" x2="312" y2="996" />
+<line x1="388" y1="84" x2="388" y2="996" />
+<line x1="464" y1="84" x2="464" y2="996" />
+<line x1="540" y1="84" x2="540" y2="996" />
+<line x1="616" y1="84" x2="616" y2="996" />
+<line x1="692" y1="84" x2="692" y2="996" />
+<line x1="768" y1="84" x2="768" y2="996" />
+<line x1="844" y1="84" x2="844" y2="996" />
+<line x1="920" y1="84" x2="920" y2="996" />
+<line x1="996" y1="84" x2="996" y2="996" />
+<line x1="84" y1="84" x2="996" y2="84" />
+<line x1="84" y1="160" x2="996" y2="160" />
+<line x1="84" y1="236" x2="996" y2="236" />
+<line x1="84" y1="312" x2="996" y2="312" />
+<line x1="84" y1="388" x2="996" y2="388" />
+<line x1="84" y1="464" x2="996" y2="464" />
+<line x1="84" y1="540" x2="996" y2="540" />
+<line x1="84" y1="616" x2="996" y2="616" />
+<line x1="84" y1="692" x2="996" y2="692" />
+<line x1="84" y1="768" x2="996" y2="768" />
+<line x1="84" y1="844" x2="996" y2="844" />
+<line x1="84" y1="920" x2="996" y2="920" />
+<line x1="84" y1="996" x2="996" y2="996" />
+<line x1="521.2" y1="939.1" x2="303.8" y2="631.8" class="diag" />
+<line x1="694.1" y1="131.6" x2="534.7" y2="323.5" class="diag" />
+<line x1="657.2" y1="853.0" x2="341.0" y2="492.5" class="diag" />
+<line x1="601.2" y1="456.7" x2="732.5" y2="946.3" class="diag" />
+<line x1="320.9" y1="176.8" x2="410.3" y2="123.6" class="diag" />
+<line x1="212.2" y1="667.5" x2="632.3" y2="496.7" class="diag" />
+<line x1="570.5" y1="273.1" x2="454.5" y2="346.5" class="diag" />
+  </g>
+  <g class="routes" filter="url(#lineGlow)">
+    <path d="M 90 160.0 C 339.2 132.9, 786.1 211.2, 990 142.0" />
+<path d="M 90 186.0 C 269.6 165.3, 731.7 243.1, 990 199.8" />
+<path d="M 90 212.0 C 189.3 150.1, 863.9 238.5, 990 198.7" />
+<path d="M 90 238.0 C 344.9 201.6, 786.2 238.9, 990 198.0" />
+<path d="M 90 264.0 C 245.0 260.9, 739.4 335.9, 990 262.5" />
+<path d="M 90 290.0 C 199.0 273.4, 812.6 326.3, 990 280.6" />
+<path d="M 90 316.0 C 248.7 301.0, 711.4 378.5, 990 364.6" />
+<path d="M 90 342.0 C 288.5 307.1, 728.5 372.2, 990 365.3" />
+<path d="M 90 368.0 C 318.6 297.4, 775.2 456.8, 990 404.3" />
+<path d="M 90 394.0 C 307.6 322.9, 785.5 432.4, 990 402.8" />
+<path d="M 90 420.0 C 290.0 401.0, 714.0 491.2, 990 462.2" />
+<path d="M 90 446.0 C 279.5 409.8, 833.9 465.6, 990 448.5" />
+<path d="M 90 472.0 C 368.5 405.4, 843.9 580.7, 990 509.0" />
+<path d="M 90 498.0 C 371.0 469.4, 747.2 489.4, 990 472.6" />
+<path d="M 90 524.0 C 324.2 496.3, 863.4 643.4, 990 569.8" />
+<path d="M 90 550.0 C 161.6 513.4, 794.8 541.0, 990 494.3" />
+<path d="M 90 576.0 C 268.9 555.4, 807.0 617.4, 990 595.8" />
+<path d="M 90 602.0 C 271.0 586.7, 847.7 599.5, 990 545.5" />
+<path d="M 90 628.0 C 307.3 590.3, 777.6 646.3, 990 606.9" />
+<path d="M 90 654.0 C 173.8 634.2, 877.6 663.9, 990 641.4" />
+<path d="M 90 680.0 C 277.2 633.0, 753.7 758.0, 990 731.0" />
+<path d="M 90 706.0 C 167.9 661.2, 714.9 769.5, 990 705.4" />
+<path d="M 90 732.0 C 308.3 703.8, 836.4 717.6, 990 705.0" />
+<path d="M 90 758.0 C 249.8 688.9, 797.8 802.4, 990 744.8" />
+<path d="M 90 784.0 C 187.0 706.5, 724.7 904.6, 990 839.7" />
+<path d="M 90 810.0 C 331.8 792.5, 752.4 945.2, 990 869.9" />
+<path d="M 90 836.0 C 379.5 758.5, 733.9 817.3, 990 789.1" />
+<path d="M 90 862.0 C 235.7 782.7, 748.7 913.3, 990 865.8" />
+  </g>
+  <g>
+    <circle cx="574.6" cy="512.7" r="9.7" fill="rgba(235,240,245,0.31)" />
+<circle cx="429.3" cy="678.5" r="5.7" fill="rgba(235,240,245,0.35)" />
+<circle cx="608.7" cy="578.7" r="4.3" fill="rgba(235,240,245,0.31)" />
+<circle cx="822.0" cy="434.3" r="10.6" fill="rgba(235,240,245,0.38)" />
+<circle cx="452.4" cy="249.0" r="13.0" fill="rgba(235,240,245,0.38)" />
+<circle cx="223.9" cy="161.5" r="11.5" fill="rgba(235,240,245,0.38)" />
+<circle cx="837.0" cy="250.6" r="9.7" fill="rgba(235,240,245,0.22)" />
+<circle cx="923.1" cy="232.1" r="8.3" fill="rgba(235,240,245,0.23)" />
+<circle cx="713.5" cy="593.3" r="8.6" fill="rgba(235,240,245,0.23)" />
+<circle cx="868.1" cy="206.5" r="8.0" fill="rgba(235,240,245,0.29)" />
+<circle cx="153.5" cy="323.5" r="12.2" fill="rgba(235,240,245,0.28)" />
+<circle cx="570.6" cy="888.3" r="8.4" fill="rgba(235,240,245,0.39)" />
+<circle cx="482.0" cy="864.5" r="4.4" fill="rgba(235,240,245,0.19)" />
+<circle cx="363.5" cy="902.7" r="11.6" fill="rgba(235,240,245,0.23)" />
+<circle cx="579.8" cy="400.8" r="7.5" fill="rgba(235,240,245,0.19)" />
+<circle cx="480.5" cy="558.6" r="9.3" fill="rgba(235,240,245,0.28)" />
+<circle cx="578.9" cy="172.0" r="8.9" fill="rgba(235,240,245,0.37)" />
+<circle cx="261.7" cy="205.2" r="10.2" fill="rgba(235,240,245,0.32)" />
+  </g>
+  <rect x="138" y="138" width="804" height="804" rx="22" class="safe"/>
+  <rect x="114" y="114" width="852" height="852" rx="28" class="frame"/>
+  <text class="kicker" x="176" y="226">WISETECH GLOBAL</text>
+  <text class="headline" x="176" y="332">AI is the</text>
+<text class="headline" x="176" y="424">next test</text>
+  <text class="body" x="176" y="640">Workflow automation is promising,</text>
+<text class="body" x="176" y="690">but public proof is still early.</text>
+  <text class="badge" x="176" y="846">Innovation dashboard · 19 Apr 2026</text>
+  <text class="badge" x="176" y="884">Slide 05 / 07</text>
+</svg>

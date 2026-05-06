@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#ecd7bb"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg6)"/>
+  <rect x="122" y="678" width="836" height="162" rx="20" fill="#4a403a"/>
+  <rect x="122" y="626" width="836" height="34" rx="16" fill="#f4a900" opacity="0.92"/>
+  <rect x="122" y="582" width="340" height="18" rx="10" fill="#c1666b" opacity="0.72"/>
+  <rect x="122" y="546" width="260" height="12" rx="10" fill="#8a7364" opacity="0.52"/>
+  <g opacity="0.22" stroke="#4a403a" stroke-width="2">
+    <path d="M122 724 H958"/>
+    <path d="M122 766 H958"/>
+  </g>
+  <g transform="translate(150 158)">
+    <text x="0" y="0" font-family="FreeSans, Arial, sans-serif" font-size="30" letter-spacing="6" fill="#6a5d53">VISIBLE IP</text>
+    <text x="0" y="144" font-family="FreeSans, Arial, sans-serif" font-size="112" font-weight="700" fill="#4a403a">Patents look</text>
+    <text x="0" y="266" font-family="FreeSans, Arial, sans-serif" font-size="112" font-weight="700" fill="#4a403a">thinner</text>
+    <text x="0" y="360" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">Specific and real, but not obviously</text>
+    <text x="0" y="410" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">compounding at breakout speed.</text>
+  </g>
+</svg>

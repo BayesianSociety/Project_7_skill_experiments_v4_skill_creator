@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9f5"/>
+      <stop offset="0.58" stop-color="#f4e3dc"/>
+      <stop offset="1" stop-color="#e8d5c4"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0 H0 V72" fill="none" stroke="#5d2e46" stroke-width="1" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <circle cx="930" cy="130" r="210" fill="#d4a5a5" fill-opacity="0.24"/>
+  <circle cx="120" cy="930" r="260" fill="#b87d6d" fill-opacity="0.14"/>
+  
+      <g opacity="0.9">
+        <path d="M150 230 L300 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M245 230 L354 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M340 230 L408 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M435 230 L462 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M530 230 L516 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M625 230 L570 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M720 230 L624 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M815 230 L678 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/><path d="M910 230 L732 770" stroke="#5d2e46" stroke-opacity="0.09" stroke-width="2"/>
+        <path d="M160  260 L930 220" stroke="#5d2e46" stroke-opacity="0.08" stroke-width="2"/><path d="M160  330 L930 282" stroke="#5d2e46" stroke-opacity="0.08" stroke-width="2"/><path d="M160  400 L930 344" stroke="#5d2e46" stroke-opacity="0.08" stroke-width="2"/><path d="M160  470 L930 406" stroke="#5d2e46" stroke-opacity="0.08" stroke-width="2"/><path d="M160  540 L930 468" stroke="#5d2e46" stroke-opacity="0.08" stroke-width="2"/><path d="M160  610 L930 530" stroke="#5d2e46" stroke-opacity="0.08" stroke-width="2"/><path d="M160  680 L930 592" stroke="#5d2e46" stroke-opacity="0.08" stroke-width="2"/>
+        <circle cx="730" cy="405" r="78" fill="#b87d6d" fill-opacity="0.18"/>
+        <circle cx="730" cy="405" r="24" fill="#b87d6d"/>
+        <path d="M350 690 C470 535 610 510 730 405 C790 355 846 322 910 280" fill="none" stroke="#b87d6d" stroke-width="10" stroke-linecap="round"/>
+        <path d="M285 340 C410 390 522 382 730 405" fill="none" stroke="#2f7a69" stroke-width="7" stroke-linecap="round" stroke-opacity="0.82"/>
+      </g>
+  <g transform="translate(145 140)">
+    <text x="0" y="0" font-family="FreeSans, Arial" font-size="28" font-weight="700" letter-spacing="4" fill="#6f5d61">UBER INNOVATION</text>
+    <text x="0" y="84" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Uber's Hidden</text><text x="0" y="162" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Engine</text>
+    <g transform="translate(0 264)">
+      <rect x="0" y="-34" width="620" height="138" rx="10" fill="#fff9f5" fill-opacity="0.82"/>
+      <text x="28" y="22" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">The breakthrough is not the car. It</text><text x="28" y="60" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">is the marketplace layer.</text>
+    </g>
+  </g>
+  <g transform="translate(145 950)">
+    <rect x="0" y="0" width="160" height="8" rx="4" fill="#b87d6d"/>
+    <text x="186" y="12" font-family="FreeSans, Arial" font-size="26" font-weight="700" fill="#5d2e46">Slide 1 / 7</text>
+  </g>
+</svg>

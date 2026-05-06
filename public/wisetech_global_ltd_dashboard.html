@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WiseTech Global Ltd Innovation Dashboard</title>
+  <style>
+    :root {
+      --charcoal: #36454f;
+      --slate: #708090;
+      --light: #d3d3d3;
+      --white: #ffffff;
+      --paper: #f4f5f6;
+      --ink: #1f2a30;
+      --muted: #62717a;
+      --line: rgba(54, 69, 79, 0.15);
+      --accent: #4a5b66;
+      --accent-soft: rgba(74, 91, 102, 0.12);
+      --good: #3f5a52;
+      --warn: #8b7254;
+      --bad: #8a5252;
+      --shadow: 0 24px 60px rgba(54, 69, 79, 0.12);
+      --max: 1480px;
+      --head: "DejaVu Sans", "Segoe UI", sans-serif;
+      --body: "DejaVu Sans", "Segoe UI", sans-serif;
+      --mono: "DejaVu Sans Mono", "SFMono-Regular", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(112, 128, 144, 0.12), transparent 24%),
+        radial-gradient(circle at 82% 0%, rgba(54, 69, 79, 0.12), transparent 18%),
+        linear-gradient(180deg, #fbfbfb 0%, #f0f2f4 50%, #eceff1 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.38;
+      background-image:
+        linear-gradient(90deg, transparent 0 49%, rgba(54, 69, 79, 0.03) 49% 51%, transparent 51%),
+        linear-gradient(transparent 0 49%, rgba(54, 69, 79, 0.022) 49% 51%, transparent 51%);
+      background-size: 108px 108px;
+      transform: translateY(var(--drift, 0px));
+    }
+
+    a {
+      color: var(--charcoal);
+      text-decoration-color: rgba(54, 69, 79, 0.28);
+      text-underline-offset: 0.14em;
+    }
+
+    .shell {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 56px;
+    }
+
+    .topbar,
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .surface {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 248, 249, 0.92)),
+        linear-gradient(130deg, rgba(112, 128, 144, 0.05), rgba(54, 69, 79, 0.03));
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .surface::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 88% 14%, rgba(112, 128, 144, 0.16), transparent 22%),
+        radial-gradient(circle at 8% 88%, rgba(54, 69, 79, 0.12), transparent 22%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero {
+      padding: 28px 28px 24px;
+      min-height: calc(100svh - 72px);
+      display: grid;
+      align-content: start;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .mini-label,
+    .signal {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 11px;
+      color: var(--slate);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--charcoal);
+      font-family: var(--head);
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7.4vw, 6.2rem);
+      line-height: 0.9;
+      max-width: 8ch;
+      margin-top: 8px;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.55rem);
+      line-height: 0.98;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      line-height: 1.16;
+      margin-bottom: 8px;
+    }
+
+    .hero-copy {
+      margin-top: 18px;
+      max-width: 62ch;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    .hero-copy strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .utility-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .chip-link {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.7);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .chip-link:hover {
+      transform: translateY(-1px);
+      background: var(--white);
+      border-color: rgba(54, 69, 79, 0.24);
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(1.2rem, 2.2vw, 1.95rem);
+      color: var(--charcoal);
+      margin-bottom: 5px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.42;
+    }
+
+    .hero-side {
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0.72));
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-wheel {
+      width: 220px;
+      aspect-ratio: 1;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(255, 255, 255, 1) 56%, transparent 57%),
+        conic-gradient(var(--charcoal) 0deg, #8d9ba6 259.2deg, rgba(54, 69, 79, 0.08) 259.2deg 360deg);
+      box-shadow: inset 0 0 0 1px rgba(54, 69, 79, 0.12);
+    }
+
+    .score-wheel strong,
+    .score-wheel small {
+      display: block;
+      text-align: center;
+    }
+
+    .score-wheel strong {
+      font-size: 3.8rem;
+      line-height: 1;
+      color: var(--charcoal);
+    }
+
+    .score-wheel small {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .verdict {
+      margin: 0 0 16px;
+      line-height: 1.65;
+      font-size: 1rem;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 0.94rem;
+    }
+
+    .meta-row span:last-child {
+      color: var(--charcoal);
+      text-align: right;
+      font-weight: 600;
+    }
+
+    main {
+      margin-top: 18px;
+      display: grid;
+      gap: 18px;
+    }
+
+    section {
+      padding: 26px 28px 30px;
+      border-top: 1px solid rgba(54, 69, 79, 0.08);
+    }
+
+    .split,
+    .dual,
+    .triptych {
+      display: grid;
+      gap: 18px;
+    }
+
+    .split { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+    .dual { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .triptych { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-copy {
+      max-width: 64ch;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.96rem;
+    }
+
+    .plain-list,
+    .signal-list,
+    .risk-list,
+    .source-list,
+    .gate-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .plain-list li,
+    .signal-list li,
+    .risk-list li,
+    .source-list li,
+    .gate-list li {
+      padding-top: 10px;
+      border-top: 1px solid var(--line);
+      line-height: 1.62;
+    }
+
+    .plain-list strong,
+    .signal-list strong,
+    .risk-list strong,
+    .gate-list strong {
+      color: var(--ink);
+    }
+
+    .tech-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .tech-table th,
+    .tech-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 0;
+      border-top: 1px solid var(--line);
+      line-height: 1.58;
+    }
+
+    .tech-table th {
+      width: 28%;
+      color: var(--muted);
+      font-weight: 600;
+      padding-right: 20px;
+    }
+
+    .layer-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .layer {
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .layer-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 10px;
+    }
+
+    .score-num {
+      color: var(--charcoal);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .progress {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr) 46px;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .progress label {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .track {
+      position: relative;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(112, 128, 144, 0.18);
+      overflow: hidden;
+    }
+
+    .fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4a5b66 0%, #768796 100%);
+      box-shadow: 0 0 16px rgba(74, 91, 102, 0.22);
+    }
+
+    .progress span {
+      font-size: 0.9rem;
+      color: var(--ink);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .layer p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.67;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.83rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--ink);
+    }
+
+    .tag.good { color: var(--good); }
+    .tag.warn { color: var(--warn); }
+    .tag.bad { color: var(--bad); }
+
+    .chart-shell {
+      border-top: 1px solid var(--line);
+      padding-top: 14px;
+    }
+
+    .chart-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    svg.chart {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    .chart text {
+      font-family: var(--body);
+      fill: var(--muted);
+      font-size: 12px;
+    }
+
+    .chart .grid {
+      stroke: rgba(54, 69, 79, 0.1);
+      stroke-width: 1;
+    }
+
+    .chart .line-a {
+      fill: none;
+      stroke: var(--charcoal);
+      stroke-width: 3;
+    }
+
+    .chart .line-b {
+      fill: none;
+      stroke: #93a1ab;
+      stroke-width: 3;
+      stroke-dasharray: 8 7;
+    }
+
+    .chart .line-c {
+      fill: none;
+      stroke: #a79b8b;
+      stroke-width: 3;
+      stroke-dasharray: 2 6;
+    }
+
+    .chart .dot-a { fill: var(--charcoal); }
+    .chart .dot-b { fill: #93a1ab; }
+    .chart .dot-c { fill: #a79b8b; }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .legend span::before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 2px;
+      margin-right: 8px;
+      vertical-align: middle;
+      background: currentColor;
+    }
+
+    .mini-note,
+    .source-note {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.58;
+      margin-top: 10px;
+    }
+
+    .verdict-band {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .band-step {
+      padding: 14px 0 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .band-step strong {
+      display: block;
+      color: var(--charcoal);
+      margin-bottom: 5px;
+    }
+
+    .band-step span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.9rem;
+      display: block;
+    }
+
+    .source-list code,
+    .footer-note code {
+      font-family: var(--mono);
+      font-size: 0.95em;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 560ms ease, transform 560ms ease;
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .hero {
+        min-height: auto;
+      }
+      .hero-grid,
+      .split,
+      .dual,
+      .triptych,
+      .verdict-band {
+        grid-template-columns: 1fr;
+      }
+      .metric-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(calc(100% - 18px), var(--max));
+        padding-top: 10px;
+      }
+      .surface {
+        border-radius: 24px;
+      }
+      .hero,
+      section {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+      .progress {
+        grid-template-columns: 74px minmax(0, 1fr) 40px;
+        gap: 8px;
+      }
+      h1 {
+        max-width: 9.2ch;
+      }
+      .topbar,
+      .footer-note,
+      .meta-row,
+      .section-head,
+      .chart-title {
+        display: block;
+      }
+      .meta-row span:last-child,
+      .section-head > div:last-child {
+        display: block;
+        margin-top: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <span>WiseTech Global Ltd · ASX: WTC · dashboard built 19 April 2026</span>
+      <span>Latest official materials verified through <code>1H26</code> on 25 February 2026</span>
+    </div>
+
+    <div class="surface">
+      <section class="hero reveal" style="--delay: 40ms">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Technology Innovation Assessment</div>
+            <h1>WiseTech Global</h1>
+            <p class="hero-copy">
+              <strong>Thesis:</strong> WiseTech is a high-quality logistics software innovator with unusually strong industrialization and adoption, but it is <strong>not</strong> a frontier-science or high-moat patent story. The core value sits in a deeply integrated execution platform, customs/compliance workflow depth, and large-scale rollout discipline. The next leg depends on AI monetization and the successful absorption of <strong>e2open</strong>, not on a laboratory breakthrough.
+            </p>
+            <div class="utility-links">
+              <a class="chip-link" href="#layers">Five-layer dashboard</a>
+              <a class="chip-link" href="#trends">5-year trend view</a>
+              <a class="chip-link" href="#gate">Breakthrough gate</a>
+              <a class="chip-link" href="#sources">Sources</a>
+            </div>
+            <div class="metric-row">
+              <div class="metric">
+                <strong>18 / 25</strong>
+                <span>Total innovation score. Strong translational momentum, below exceptional-breakthrough territory.</span>
+              </div>
+              <div class="metric">
+                <strong>55</strong>
+                <span>Large global freight forwarder rollouts by FY25, with 42 in production and 13 contracted in the FY25 briefing.</span>
+              </div>
+              <div class="metric">
+                <strong>34%</strong>
+                <span>FY25 product design and development spend as a share of revenue.</span>
+              </div>
+              <div class="metric">
+                <strong>39</strong>
+                <span>Product development centers globally in the FY25 annual report.</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="score-wheel">
+              <div>
+                <strong>18</strong>
+                <small>out of 25</small>
+              </div>
+            </div>
+            <p class="verdict">
+              <strong>Verdict:</strong> <span style="color: var(--charcoal); font-weight: 700;">strong innovator with translational momentum</span>. WiseTech looks more like an operating-system company for freight and customs than a science-led breakthrough lab.
+            </p>
+            <div class="meta-list">
+              <div class="meta-row">
+                <span>Core technologies</span>
+                <span>CargoWise platform, customs/compliance automation, container visibility, workflow AI</span>
+              </div>
+              <div class="meta-row">
+                <span>Best evidence</span>
+                <span>Recurring revenue, rollout scale, R&amp;D intensity, regulatory workflow depth</span>
+              </div>
+              <div class="meta-row">
+                <span>Primary weakness</span>
+                <span>Modest science footprint and uneven recent patent-filing momentum</span>
+              </div>
+              <div class="meta-row">
+                <span>Upgrade trigger</span>
+                <span>Visible AI monetization plus clean e2open integration into CargoWise workflows</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <main>
+        <section class="reveal" style="--delay: 90ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Thesis</div>
+              <h2>Three to five bullets</h2>
+            </div>
+            <div class="section-copy">Current view anchored to FY21-FY25 full-year disclosures and updated with 1H26 availability.</div>
+          </div>
+          <ul class="plain-list">
+            <li><strong>WiseTech’s innovation edge is applied and operational.</strong> Its moat comes from workflow depth across freight forwarding, customs, compliance, documentation, and visibility rather than from hard-science novelty.</li>
+            <li><strong>Industrialization and adoption are the strengths.</strong> CargoWise is already deployed at global scale, with high recurring revenue and clear signs of product-driven customer consolidation.</li>
+            <li><strong>Science and IP are supportive, not decisive.</strong> Related research fields are growing, and WiseTech does have patents, but the portfolio does not show the kind of accelerating IP intensity associated with a breakthrough platform technology.</li>
+            <li><strong>AI is strategically important but still early in proof.</strong> FY25 and 1H26 materials frame agentic workflow and management engines as major growth drivers; disclosed customer production economics are still limited.</li>
+            <li><strong>The company is innovative enough to matter now.</strong> It does not qualify as an exceptional near-term breakthrough candidate under this framework because the science-to-patent linkage remains modest.</li>
+          </ul>
+        </section>
+
+        <section class="reveal" style="--delay: 130ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Technology Map</div>
+              <h2>What actually matters</h2>
+            </div>
+            <div class="section-copy">The thesis is about platform control and adoption compounding, not about one novel algorithm or hardware stack.</div>
+          </div>
+          <table class="tech-table">
+            <tr>
+              <th>Global logistics execution platform</th>
+              <td>CargoWise is the core asset: an operating layer for forwarding, customs, landside, warehousing, accounting, rates, exceptions, and cross-border execution. This is central because it compounds with each added workflow and each multinational rollout.</td>
+            </tr>
+            <tr>
+              <th>Customs and compliance automation</th>
+              <td>WiseTech’s customs products and digital-document workflows matter because border complexity is sticky, regulated, and difficult to replace. This is where workflow depth becomes pricing power.</td>
+            </tr>
+            <tr>
+              <th>Container visibility and AI workflow orchestration</th>
+              <td>Container Transport Optimizer, CargoWise Next, and the FY25/1H26 AI workflow and management engines extend the platform from record-keeping into action automation. e2open and INTTRA widen the data graph and partner reach.</td>
+            </tr>
+          </table>
+        </section>
+
+        <section id="layers" class="reveal" style="--delay: 170ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Five-Layer Dashboard</div>
+              <h2>Evidence-led scoring</h2>
+            </div>
+            <div class="section-copy">Scores follow the skill rubric: 0 to 5 per layer, with emphasis on what is missing as much as what is present.</div>
+          </div>
+
+          <div class="layer-grid">
+            <div class="layer">
+              <div class="layer-head">
+                <h3>1. Science</h3>
+                <div class="score-num">2 / 5 · moderate confidence</div>
+              </div>
+              <div class="progress">
+                <label>Science</label>
+                <div class="track"><div class="fill" style="width: 40%"></div></div>
+                <span>2 / 5</span>
+              </div>
+              <p>Relevant fields are growing: OpenAlex search counts for <em>logistics automation</em> rose from 7,699 works in 2021 to 24,529 in 2025, and <em>supply chain visibility</em> rose from 6,867 to 19,357. That said, WiseTech itself is not publishing a visible body of frontier science, and the commercial thesis does not depend on original academic discovery.</p>
+              <div class="tag-row">
+                <span class="tag good">Strong: field growth</span>
+                <span class="tag warn">Missing: direct company science footprint</span>
+                <span class="tag warn">Missing: strong university-company linkage</span>
+              </div>
+            </div>
+
+            <div class="layer">
+              <div class="layer-head">
+                <h3>2. IP</h3>
+                <div class="score-num">2 / 5 · moderate confidence</div>
+              </div>
+              <div class="progress">
+                <label>IP</label>
+                <div class="track"><div class="fill" style="width: 40%"></div></div>
+                <span>2 / 5</span>
+              </div>
+              <p>GreyB’s 2025 portfolio snapshot reports 124 patents globally and roughly 32 patent families, with filing activity that appears uneven over the last five years. Specific filings exist around vessel tracking, classification pipelines, and workflow tooling, but the portfolio is not expanding at the pace typical of a science-led platform winner.</p>
+              <div class="tag-row">
+                <span class="tag good">Strong: concrete workflow patents exist</span>
+                <span class="tag warn">Missing: rising family intensity</span>
+                <span class="tag warn">Missing: clear non-patent literature linkage</span>
+              </div>
+            </div>
+
+            <div class="layer">
+              <div class="layer-head">
+                <h3>3. Industrialization</h3>
+                <div class="score-num">5 / 5 · high confidence</div>
+              </div>
+              <div class="progress">
+                <label>Industrial.</label>
+                <div class="track"><div class="fill" style="width: 100%"></div></div>
+                <span>5 / 5</span>
+              </div>
+              <p>Industrialization is the standout. WiseTech spent 34% of FY25 revenue on product design and development, said 64% of employees were in product and development roles, and operated 39 product development centers globally. This is repeated, scaled software industrialization, not a pilot-stage story.</p>
+              <div class="tag-row">
+                <span class="tag good">Strong: sustained R&amp;D intensity</span>
+                <span class="tag good">Strong: global development footprint</span>
+                <span class="tag good">Strong: real operating workflow depth</span>
+              </div>
+            </div>
+
+            <div class="layer">
+              <div class="layer-head">
+                <h3>4. Adoption</h3>
+                <div class="score-num">5 / 5 · high confidence</div>
+              </div>
+              <div class="progress">
+                <label>Adoption</label>
+                <div class="track"><div class="fill" style="width: 100%"></div></div>
+                <span>5 / 5</span>
+              </div>
+              <p>WiseTech has already crossed the adoption gate. FY25 materials show 55 large global freight forwarder rollouts, with 42 in production and 13 contracted, while management said more than half of the global top 25 now use CargoWise in some form. That is real commercial entrenchment.</p>
+              <div class="tag-row">
+                <span class="tag good">Strong: global rollouts</span>
+                <span class="tag good">Strong: top-tier customer penetration</span>
+                <span class="tag good">Strong: recurring revenue model</span>
+              </div>
+            </div>
+
+            <div class="layer">
+              <div class="layer-head">
+                <h3>5. Policy &amp; Economics</h3>
+                <div class="score-num">4 / 5 · medium confidence</div>
+              </div>
+              <div class="progress">
+                <label>Policy</label>
+                <div class="track"><div class="fill" style="width: 80%"></div></div>
+                <span>4 / 5</span>
+              </div>
+              <p>Regulatory complexity and customs digitization support WiseTech’s value proposition. The economics are also favorable because software automation scales across transaction volume. The main offsets are cross-border compliance changes, procurement cycles, and integration execution around the broadened e2open footprint.</p>
+              <div class="tag-row">
+                <span class="tag good">Strong: regulation creates stickiness</span>
+                <span class="tag good">Strong: software economics</span>
+                <span class="tag warn">Risk: integration and pricing-model transition</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="trends" class="reveal" style="--delay: 210ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Five-Year Trend View</div>
+              <h2>Quantitative signals</h2>
+            </div>
+            <div class="section-copy">Trends are shown as operational and research proxies rather than as a single composite metric.</div>
+          </div>
+
+          <div class="dual">
+            <div class="chart-shell">
+              <div class="chart-title">
+                <strong>R&amp;D intensity and workforce depth</strong>
+                <span>FY21-FY25</span>
+              </div>
+              <svg class="chart" viewBox="0 0 620 320" role="img" aria-label="R&D intensity chart">
+                <line class="grid" x1="58" y1="52" x2="588" y2="52"></line>
+                <line class="grid" x1="58" y1="102" x2="588" y2="102"></line>
+                <line class="grid" x1="58" y1="152" x2="588" y2="152"></line>
+                <line class="grid" x1="58" y1="202" x2="588" y2="202"></line>
+                <line class="grid" x1="58" y1="252" x2="588" y2="252"></line>
+                <text x="18" y="56">40</text>
+                <text x="18" y="106">35</text>
+                <text x="18" y="156">30</text>
+                <text x="18" y="206">25</text>
+                <text x="18" y="256">20</text>
+                <path class="line-a" d="M 78 132 L 198 172 L 318 142 L 438 112 L 558 122"></path>
+                <circle class="dot-a" cx="78" cy="132" r="5"></circle>
+                <circle class="dot-a" cx="198" cy="172" r="5"></circle>
+                <circle class="dot-a" cx="318" cy="142" r="5"></circle>
+                <circle class="dot-a" cx="438" cy="112" r="5"></circle>
+                <circle class="dot-a" cx="558" cy="122" r="5"></circle>
+                <text x="68" y="286">FY21</text>
+                <text x="188" y="286">FY22</text>
+                <text x="308" y="286">FY23</text>
+                <text x="428" y="286">FY24</text>
+                <text x="548" y="286">FY25</text>
+              </svg>
+              <div class="legend">
+                <span style="color: var(--charcoal);">Product design &amp; development as % of revenue: 33, 29, 32, 35, 34</span>
+              </div>
+              <p class="mini-note">FY25 annual report also states 64% of employees were in product and development roles. The software factory is material, not symbolic.</p>
+            </div>
+
+            <div class="chart-shell">
+              <div class="chart-title">
+                <strong>Research-field publication proxies</strong>
+                <span>OpenAlex search counts, 2021-2025</span>
+              </div>
+              <svg class="chart" viewBox="0 0 620 320" role="img" aria-label="Publication trend chart">
+                <line class="grid" x1="58" y1="52" x2="588" y2="52"></line>
+                <line class="grid" x1="58" y1="102" x2="588" y2="102"></line>
+                <line class="grid" x1="58" y1="152" x2="588" y2="152"></line>
+                <line class="grid" x1="58" y1="202" x2="588" y2="202"></line>
+                <line class="grid" x1="58" y1="252" x2="588" y2="252"></line>
+                <text x="10" y="56">25k</text>
+                <text x="10" y="106">20k</text>
+                <text x="10" y="156">15k</text>
+                <text x="10" y="206">10k</text>
+                <text x="18" y="256">5k</text>
+                <path class="line-a" d="M 78 202 L 198 188 L 318 136 L 438 112 L 558 56"></path>
+                <path class="line-b" d="M 78 210 L 198 194 L 318 156 L 438 146 L 558 96"></path>
+                <path class="line-c" d="M 78 247 L 198 249 L 318 237 L 438 217 L 558 230"></path>
+                <circle class="dot-a" cx="78" cy="202" r="5"></circle>
+                <circle class="dot-a" cx="198" cy="188" r="5"></circle>
+                <circle class="dot-a" cx="318" cy="136" r="5"></circle>
+                <circle class="dot-a" cx="438" cy="112" r="5"></circle>
+                <circle class="dot-a" cx="558" cy="56" r="5"></circle>
+                <circle class="dot-b" cx="78" cy="210" r="5"></circle>
+                <circle class="dot-b" cx="198" cy="194" r="5"></circle>
+                <circle class="dot-b" cx="318" cy="156" r="5"></circle>
+                <circle class="dot-b" cx="438" cy="146" r="5"></circle>
+                <circle class="dot-b" cx="558" cy="96" r="5"></circle>
+                <circle class="dot-c" cx="78" cy="247" r="5"></circle>
+                <circle class="dot-c" cx="198" cy="249" r="5"></circle>
+                <circle class="dot-c" cx="318" cy="237" r="5"></circle>
+                <circle class="dot-c" cx="438" cy="217" r="5"></circle>
+                <circle class="dot-c" cx="558" cy="230" r="5"></circle>
+                <text x="68" y="286">2021</text>
+                <text x="188" y="286">2022</text>
+                <text x="308" y="286">2023</text>
+                <text x="428" y="286">2024</text>
+                <text x="548" y="286">2025</text>
+              </svg>
+              <div class="legend">
+                <span style="color: var(--charcoal);">Logistics automation: 7,699 → 24,529</span>
+                <span style="color: #93a1ab;">Supply chain visibility: 6,867 → 19,357</span>
+                <span style="color: #a79b8b;">Customs compliance automation: 577 → 1,752</span>
+              </div>
+              <p class="mini-note">These are topic-search proxies from OpenAlex, not company-authored paper counts. They show the field is active; they do not prove WiseTech is the science leader.</p>
+            </div>
+          </div>
+
+          <div class="dual" style="margin-top: 18px;">
+            <div class="chart-shell">
+              <div class="chart-title">
+                <strong>Patent activity proxy</strong>
+                <span>GreyB 2025 portfolio snapshot</span>
+              </div>
+              <svg class="chart" viewBox="0 0 620 320" role="img" aria-label="Patent activity chart">
+                <line class="grid" x1="58" y1="52" x2="588" y2="52"></line>
+                <line class="grid" x1="58" y1="102" x2="588" y2="102"></line>
+                <line class="grid" x1="58" y1="152" x2="588" y2="152"></line>
+                <line class="grid" x1="58" y1="202" x2="588" y2="202"></line>
+                <line class="grid" x1="58" y1="252" x2="588" y2="252"></line>
+                <text x="18" y="56">8</text>
+                <text x="18" y="106">6</text>
+                <text x="18" y="156">4</text>
+                <text x="18" y="206">2</text>
+                <text x="18" y="256">0</text>
+                <path class="line-a" d="M 78 252 L 198 52 L 318 52 L 438 227 L 558 252"></path>
+                <path class="line-b" d="M 78 52 L 198 102 L 318 227 L 438 152 L 558 227"></path>
+                <circle class="dot-a" cx="78" cy="252" r="5"></circle>
+                <circle class="dot-a" cx="198" cy="52" r="5"></circle>
+                <circle class="dot-a" cx="318" cy="52" r="5"></circle>
+                <circle class="dot-a" cx="438" cy="227" r="5"></circle>
+                <circle class="dot-a" cx="558" cy="252" r="5"></circle>
+                <circle class="dot-b" cx="78" cy="52" r="5"></circle>
+                <circle class="dot-b" cx="198" cy="102" r="5"></circle>
+                <circle class="dot-b" cx="318" cy="227" r="5"></circle>
+                <circle class="dot-b" cx="438" cy="152" r="5"></circle>
+                <circle class="dot-b" cx="558" cy="227" r="5"></circle>
+                <text x="68" y="286">2021</text>
+                <text x="188" y="286">2022</text>
+                <text x="308" y="286">2023</text>
+                <text x="428" y="286">2024</text>
+                <text x="548" y="286">2025</text>
+              </svg>
+              <div class="legend">
+                <span style="color: var(--charcoal);">Applications filed: 0, 8, 8, 1, 0</span>
+                <span style="color: #93a1ab;">Grants: 8, 6, 1, 4, 1</span>
+              </div>
+              <p class="mini-note">Treat this carefully: secondary-source portfolio data is useful for direction, but recent-year patent data is affected by publication lag.</p>
+            </div>
+
+            <div class="chart-shell">
+              <div class="chart-title">
+                <strong>Commercialization markers</strong>
+                <span>FY25 / 1H26 evidence</span>
+              </div>
+              <ul class="signal-list">
+                <li><strong>Rollout scale:</strong> 55 large global freight forwarder rollouts by FY25, with management calling out two top-25 wins and three new organic rollouts in production.</li>
+                <li><strong>Recurring base:</strong> FY25 annual report states 98% of group revenue and 99% of CargoWise revenue were recurring.</li>
+                <li><strong>Platform breadth:</strong> 11,450 product upgrades and enhancements were delivered in FY25 according to the annual report.</li>
+                <li><strong>AI path:</strong> FY25 transcript frames AI workflow and AI management engines for initial rollout in 1H26 under a revised commercial model.</li>
+                <li><strong>Ecosystem expansion:</strong> e2open closed on 4 August 2025, extending carrier, shipper, and visibility network depth.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="gate" class="reveal" style="--delay: 250ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Breakthrough Gate Check</div>
+              <h2>What is met, what is not</h2>
+            </div>
+            <div class="section-copy">This is where strong operators get separated from true breakthrough-scale candidates.</div>
+          </div>
+          <div class="split">
+            <div>
+              <ul class="gate-list">
+                <li><strong>Field growth visible:</strong> yes. Related logistics-automation and supply-chain-visibility publication counts increased materially across 2021-2025.</li>
+                <li><strong>Persistent publication and citation growth:</strong> partially. The field is active, but WiseTech is not visibly a leading scientific author.</li>
+                <li><strong>Patent families rising with credible assignees:</strong> only partially. Patents exist and are specific, but recent filing momentum looks uneven.</li>
+                <li><strong>Patent-to-science linkage:</strong> weak. The thesis is mainly engineering and workflow accumulation, not science translation.</li>
+                <li><strong>Ecosystem formation:</strong> yes. CargoWise, customs agents, freight forwarders, carriers, terminals, and now e2open/INTTRA form a real operating ecosystem.</li>
+                <li><strong>Production learning started:</strong> yes, emphatically. WiseTech is well beyond pilot stage.</li>
+                <li><strong>Revenue and deployment evidence:</strong> yes. Rollouts, recurring revenue, and customer penetration are explicitly disclosed.</li>
+                <li><strong>Regulatory alignment:</strong> yes. Customs and compliance complexity creates persistent demand rather than blocking commercialization.</li>
+              </ul>
+            </div>
+            <div>
+              <div class="verdict-band">
+                <div class="band-step">
+                  <strong>Exploratory science</strong>
+                  <span>Not the right label. The company is too commercialized for that bucket.</span>
+                </div>
+                <div class="band-step">
+                  <strong>Emerging technology</strong>
+                  <span>Too conservative. Adoption is already proven.</span>
+                </div>
+                <div class="band-step">
+                  <strong>Translational momentum</strong>
+                  <span>The right fit today: score clears the bar and both industrialization and adoption are above 3.</span>
+                </div>
+                <div class="band-step">
+                  <strong>Exceptional scale-up</strong>
+                  <span>Not yet. The science/IP stack is not strong enough to call it a breakthrough candidate.</span>
+                </div>
+              </div>
+              <p class="mini-note">Bottom line: WiseTech clears the commercialization test with room to spare, but it does not clear the stronger breakthrough test because the innovation engine is operational rather than science-intensive.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="reveal" style="--delay: 290ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">University Research</div>
+              <h2>Who is working on adjacent science</h2>
+            </div>
+            <div class="section-copy">These institutions show the field is real; they are not proof of direct WiseTech collaboration.</div>
+          </div>
+          <ul class="plain-list">
+            <li><strong>MIT Center for Transportation &amp; Logistics:</strong> long-running research in supply-chain digitization, visibility, and logistics orchestration. Useful for field credibility and methods, not direct company validation.</li>
+            <li><strong>TU Berlin, Chair of Logistics:</strong> produced research on automation application areas and antecedents in logistics and supply chain management, directly relevant to WiseTech’s workflow domain.</li>
+            <li><strong>Imperial College London, transport and data systems groups:</strong> research around logistics optimization, freight systems, and digital infrastructure supports the broader field growth case.</li>
+            <li><strong>Stanford-affiliated supply-chain and operations researchers:</strong> work in optimization, global operations, and AI-enabled coordination remains adjacent to the problem set WiseTech monetizes.</li>
+          </ul>
+        </section>
+
+        <section class="reveal" style="--delay: 330ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Patents</div>
+              <h2>Representative filings and offices</h2>
+            </div>
+            <div class="section-copy">Examples chosen for specificity to workflow, tracking, and automation.</div>
+          </div>
+          <table class="tech-table">
+            <tr>
+              <th>US12313755B2</th>
+              <td>“Vessel tracking.” Granted by the USPTO in 2025. Relevant to container visibility and execution status intelligence.</td>
+            </tr>
+            <tr>
+              <th>US20240265065A1</th>
+              <td>“Automated classification pipeline.” Published by the USPTO in 2024. Points to structured automation inside logistics workflows.</td>
+            </tr>
+            <tr>
+              <th>AU2022283838A1</th>
+              <td>Australian publication for the automated classification pipeline family. Shows domestic filing activity alongside US coverage.</td>
+            </tr>
+            <tr>
+              <th>WO2017020073A1</th>
+              <td>“Configurable forms, form flow and form correlation.” PCT filing with downstream family members in multiple jurisdictions. Closely aligned to document and compliance processes.</td>
+            </tr>
+            <tr>
+              <th>US10754688B2</th>
+              <td>“Systems and methods of a production environment tool.” Granted by the USPTO and relevant to software deployment tooling inside WiseTech’s production environment.</td>
+            </tr>
+          </table>
+          <p class="mini-note">Patent offices visibly involved include the USPTO, IP Australia, and WIPO/PCT. The portfolio is concrete, but the scale still looks modest relative to the company’s commercial footprint.</p>
+        </section>
+
+        <section class="reveal" style="--delay: 370ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Red Flags</div>
+              <h2>Reasons for caution</h2>
+            </div>
+            <div class="section-copy">This section is intentionally skeptical.</div>
+          </div>
+          <ul class="risk-list">
+            <li><strong>Low science-to-IP intensity:</strong> WiseTech’s narrative is powerful, but the patent and research footprint does not look like a frontier breakthrough engine.</li>
+            <li><strong>Acquisition dependence has increased:</strong> the e2open acquisition broadens the moat if integrated well, but it also raises execution risk and makes future innovation partly inorganic.</li>
+            <li><strong>AI claim velocity exceeds disclosed proof:</strong> management language on agentic AI is ambitious; detailed production economics and realized customer ROI are still limited in public materials.</li>
+            <li><strong>Leadership and governance have mattered historically:</strong> key-person and governance issues can be more consequential at companies where product architecture and strategy are founder-shaped.</li>
+            <li><strong>Patent trend data is not overwhelmingly supportive:</strong> current filing momentum appears uneven, which limits confidence that the company is building a deep, expanding IP wall.</li>
+          </ul>
+        </section>
+
+        <section class="reveal" style="--delay: 410ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">View Change</div>
+              <h2>What would upgrade or downgrade the thesis</h2>
+            </div>
+            <div class="section-copy">The next decisive data points are commercial, not academic.</div>
+          </div>
+          <div class="dual">
+            <ul class="plain-list">
+              <li><strong>Upgrade:</strong> clear FY26 monetization evidence for AI workflow and management engines, including pricing, volume, or measurable customer productivity capture.</li>
+              <li><strong>Upgrade:</strong> evidence that e2open data and network assets are being integrated into CargoWise products faster than expected.</li>
+              <li><strong>Upgrade:</strong> continued penetration of the top 25 freight forwarders and more movement from contracted to in-production rollouts.</li>
+            </ul>
+            <ul class="plain-list">
+              <li><strong>Downgrade:</strong> slower-than-promised AI rollout or a pricing transition that reduces expansion economics.</li>
+              <li><strong>Downgrade:</strong> integration friction with e2open that dilutes product focus or margin structure.</li>
+              <li><strong>Downgrade:</strong> any sign that customers keep data visibility products but resist deeper workflow consolidation.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="sources" class="reveal" style="--delay: 450ms">
+          <div class="section-head">
+            <div>
+              <div class="section-kicker">Sources</div>
+              <h2>Primary sources first</h2>
+            </div>
+            <div class="section-copy">Facts and dates below are sourced; the scoring and verdict are the analytical inference built from them.</div>
+          </div>
+          <ul class="source-list">
+            <li><a href="https://www.wisetechglobal.com/media/c2cf32os/wtc-2025-annual-report.pdf">WiseTech Global FY25 Annual Report</a> — audited FY25 operating, R&amp;D, workforce, rollout, recurring revenue, and product-depth disclosures.</li>
+            <li><a href="https://www.wisetechglobal.com/media/xywbubic/wtc-2024-annual-report-final.pdf">WiseTech Global FY24 Annual Report</a> — FY24 historical comparison for R&amp;D intensity and platform scale.</li>
+            <li><a href="https://www.wisetechglobal.com/media/stjg2w4m/wisetech-global-annual-report-2023.pdf">WiseTech Global FY23 Annual Report</a> — FY23 historical comparison.</li>
+            <li><a href="https://www.wisetechglobal.com/investors/shareholder-services/">WiseTech investor results archive</a> — confirms the latest official materials include <code>1H26</code> results dated 25 February 2026.</li>
+            <li><a href="https://www.wisetechglobal.com/media/m4uclmny/wisetech-fy25-results-transcript.pdf">FY25 results transcript</a> — rollout counts, AI workflow roadmap, e2open integration framing, and commercialization commentary.</li>
+            <li><a href="https://api.openalex.org/works?search=logistics%20automation&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">OpenAlex topic search: logistics automation</a> — publication-count proxy used for 2021-2025 trend series.</li>
+            <li><a href="https://api.openalex.org/works?search=supply%20chain%20visibility&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">OpenAlex topic search: supply chain visibility</a> — publication-count proxy used for 2021-2025 trend series.</li>
+            <li><a href="https://api.openalex.org/works?search=customs%20compliance%20automation&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">OpenAlex topic search: customs compliance automation</a> — publication-count proxy for the customs-automation field.</li>
+            <li><a href="https://insights.greyb.com/wisetech-global-patents/">GreyB / InsightsGate WiseTech patent snapshot (updated 2025)</a> — secondary portfolio summary used only as a patent-trend proxy.</li>
+            <li><a href="https://patents.google.com/patent/US12313755B2/en">US12313755B2</a>, <a href="https://patents.google.com/patent/US20240265065A1/en">US20240265065A1</a>, <a href="https://patents.google.com/patent/AU2022283838A1/en">AU2022283838A1</a>, <a href="https://patents.google.com/patent/WO2017020073A1/en">WO2017020073A1</a>, <a href="https://patents.google.com/patent/US10754688B2/en">US10754688B2</a> — representative patent-family examples.</li>
+            <li><a href="https://ctl.mit.edu/">MIT Center for Transportation &amp; Logistics</a> and <a href="https://doi.org/10.1080/16258312.2021.1934106">TU Berlin logistics automation paper</a> — field credibility references for adjacent university research.</li>
+          </ul>
+          <p class="source-note">Interpretation note: the score is an inference. The underlying facts, dates, and cited metrics come from the linked materials above.</p>
+        </section>
+      </main>
+    </div>
+
+    <div class="footer-note">
+      <span>Framework outcome: <strong>strong innovator with translational momentum</strong></span>
+      <span>Dashboard theme: Modern Minimalist</span>
+    </div>
+  </div>
+
+  <script>
+    const drift = document.body;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+        }
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll('.reveal').forEach((node) => observer.observe(node));
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const offset = Math.min(window.scrollY * -0.04, 0);
+          drift.style.setProperty('--drift', `${offset}px`);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cochlear Ltd Innovation Dashboard</title>
+  <style>
+    :root {
+      --forest: #2d4a2b;
+      --sage: #7d8471;
+      --olive: #a4ac86;
+      --ivory: #faf9f6;
+      --soil: #ddd6c7;
+      --moss: rgba(45, 74, 43, 0.12);
+      --line: rgba(45, 74, 43, 0.16);
+      --ink: #20301f;
+      --muted: #5f6959;
+      --accent: #40643d;
+      --accent-soft: rgba(64, 100, 61, 0.15);
+      --good: #3e6a38;
+      --warn: #8e7135;
+      --bad: #8e4f45;
+      --shadow: 0 28px 60px rgba(45, 74, 43, 0.12);
+      --max: 1460px;
+      --head: "FreeSerif", "Georgia", serif;
+      --body: "FreeSans", "Arial", sans-serif;
+      --mono: "DejaVu Sans Mono", "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(164, 172, 134, 0.25), transparent 26%),
+        radial-gradient(circle at 84% 0%, rgba(125, 132, 113, 0.20), transparent 22%),
+        linear-gradient(180deg, #f7f5ef 0%, #f2eee5 58%, #ede7db 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.32;
+      background-image:
+        linear-gradient(90deg, transparent 0 49%, rgba(45, 74, 43, 0.02) 49% 51%, transparent 51%),
+        linear-gradient(transparent 0 49%, rgba(45, 74, 43, 0.016) 49% 51%, transparent 51%);
+      background-size: 112px 112px;
+      transform: translateY(var(--drift, 0px));
+    }
+
+    a {
+      color: var(--forest);
+      text-decoration-color: rgba(45, 74, 43, 0.28);
+      text-underline-offset: 0.16em;
+    }
+
+    .shell {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 58px;
+    }
+
+    .topbar,
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+    }
+
+    .surface {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(45, 74, 43, 0.12);
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(250, 249, 246, 0.94), rgba(245, 242, 234, 0.9)),
+        linear-gradient(120deg, rgba(164, 172, 134, 0.08), rgba(125, 132, 113, 0.02));
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .surface::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 88% 16%, rgba(164, 172, 134, 0.22), transparent 23%),
+        radial-gradient(circle at 8% 90%, rgba(125, 132, 113, 0.16), transparent 24%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero {
+      padding: 28px 28px 24px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.24fr) minmax(320px, 0.76fr);
+      gap: 22px;
+      align-items: end;
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .mini-label,
+    .signal {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: var(--sage);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: var(--head);
+      letter-spacing: -0.04em;
+      color: var(--forest);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7.2vw, 6.1rem);
+      line-height: 0.92;
+      max-width: 7.6ch;
+      margin-top: 10px;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.7rem);
+      line-height: 0.98;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 1.16rem;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .hero-copy {
+      max-width: 62ch;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 1.03rem;
+      line-height: 1.72;
+    }
+
+    .hero-copy strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(1.2rem, 2.3vw, 2rem);
+      margin-bottom: 6px;
+      color: var(--forest);
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .hero-side {
+      padding: 22px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.68));
+      border: 1px solid rgba(45, 74, 43, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-wheel {
+      width: 220px;
+      aspect-ratio: 1;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(250, 249, 246, 1) 55%, transparent 56%),
+        conic-gradient(var(--forest) 0deg, var(--olive) 273.6deg, rgba(45, 74, 43, 0.09) 273.6deg 360deg);
+      box-shadow: inset 0 0 0 1px rgba(45, 74, 43, 0.12);
+    }
+
+    .score-wheel strong,
+    .score-wheel small {
+      display: block;
+      text-align: center;
+    }
+
+    .score-wheel strong {
+      font-size: 3.9rem;
+      line-height: 1;
+      color: var(--forest);
+    }
+
+    .score-wheel small {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .verdict {
+      margin: 0 0 16px;
+      line-height: 1.6;
+      font-size: 1.02rem;
+      color: var(--ink);
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 0.94rem;
+    }
+
+    .meta-row span:last-child {
+      color: var(--forest);
+      text-align: right;
+    }
+
+    main {
+      margin-top: 18px;
+      display: grid;
+      gap: 18px;
+    }
+
+    section {
+      padding: 26px 28px 28px;
+    }
+
+    .section-copy {
+      max-width: 74ch;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0 0 22px;
+    }
+
+    .section-copy strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 22px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .compact-stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .subtle-block {
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .tech-column {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      min-height: 240px;
+    }
+
+    .tech-column p,
+    .detail-list li,
+    .plain-list li,
+    .source-list li {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .detail-list,
+    .plain-list,
+    .source-list {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .detail-list li + li,
+    .plain-list li + li,
+    .source-list li + li {
+      margin-top: 8px;
+    }
+
+    .signal-band {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .signal-pill {
+      border: 1px solid rgba(45, 74, 43, 0.12);
+      background: rgba(255, 255, 255, 0.58);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      color: var(--ink);
+    }
+
+    .progress-stack {
+      display: grid;
+      gap: 18px;
+      margin-top: 6px;
+    }
+
+    .progress-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .progress-label {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    .progress-score {
+      color: var(--forest);
+      font-family: var(--mono);
+      font-size: 0.86rem;
+    }
+
+    .progress-track {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(45, 74, 43, 0.1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--forest), var(--olive));
+      box-shadow: 0 0 20px rgba(125, 132, 113, 0.28);
+      transition: width 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .progress-note {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .inference-tag,
+    .fact-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    .fact-tag {
+      background: rgba(64, 106, 56, 0.1);
+      color: var(--good);
+    }
+
+    .inference-tag {
+      background: rgba(142, 113, 53, 0.12);
+      color: var(--warn);
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .chart-block {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .chart-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 12px;
+    }
+
+    .chart-title span:last-child {
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+
+    .chart-shell {
+      width: 100%;
+      aspect-ratio: 1.48;
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.54), rgba(255,255,255,0.24));
+      border: 1px solid rgba(45, 74, 43, 0.08);
+      padding: 12px;
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .table-like {
+      display: grid;
+      gap: 10px;
+    }
+
+    .rowline {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 0.94rem;
+    }
+
+    .rowline strong {
+      color: var(--ink);
+    }
+
+    .rowline span:last-child {
+      color: var(--forest);
+      font-family: var(--mono);
+    }
+
+    .patent-grid,
+    .university-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .source-list {
+      columns: 2;
+      column-gap: 24px;
+      padding-left: 18px;
+    }
+
+    .source-list li {
+      break-inside: avoid;
+      margin-bottom: 10px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .split,
+      .chart-grid,
+      .tech-grid,
+      .patent-grid,
+      .university-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-row,
+      .mini-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .source-list {
+        columns: 1;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell { width: min(calc(100% - 18px), var(--max)); }
+      .topbar, .footer-note { flex-direction: column; align-items: flex-start; }
+      .surface { border-radius: 26px; }
+      .hero, section { padding: 22px 18px 22px; }
+      .metric-row, .mini-grid { grid-template-columns: 1fr; }
+      .score-wheel { width: 180px; }
+      h1 { max-width: 9ch; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <span>ASX: COH • Cochlear Ltd • Innovation assessment as of April 19, 2026</span>
+      <span>Theme: Forest Canopy • Sources verified across FY20-FY25 plus HY26</span>
+    </div>
+
+    <header class="surface hero reveal">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Company Innovation Assessment</div>
+          <h1>Cochlear still compounds through platform engineering.</h1>
+          <p class="hero-copy">
+            <strong>Thesis:</strong> Cochlear is not an early-science speculation. It is a scaled implant platform that keeps converting hearing science into
+            shipped products, installed-base services, and reimbursement-backed adoption. The main question in 2026 is not whether the company can industrialize;
+            it is whether <strong>Nucleus Nexa</strong>, <strong>Osia</strong>, and connected care keep extending that moat faster than competition and procurement friction can narrow it.
+          </p>
+          <div class="metric-row">
+            <div class="metric">
+              <strong>A$2,356m</strong>
+              <span>FY25 sales revenue, up 4% year over year.</span>
+            </div>
+            <div class="metric">
+              <strong>A$292m</strong>
+              <span>FY25 R&amp;D spend, equal to 12% of sales.</span>
+            </div>
+            <div class="metric">
+              <strong>53,000+</strong>
+              <span>People helped to hear with one or two implants in FY25.</span>
+            </div>
+            <div class="metric">
+              <strong>750,000+</strong>
+              <span>People reached globally; 900,000+ implants delivered.</span>
+            </div>
+          </div>
+          <div class="signal-band">
+            <span class="signal-pill">Core technologies: smart cochlear implants, bone conduction implants, connected care software</span>
+            <span class="signal-pill">Current stage: scaled translational platform</span>
+            <span class="signal-pill">Primary watch item: Nexa rollout quality through FY26</span>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="score-wheel">
+            <div>
+              <strong>19</strong>
+              <small>Total score / 25</small>
+            </div>
+          </div>
+          <p class="verdict">
+            <strong>Verdict:</strong> Strong innovator with translational momentum.
+            The company clears the industrialization and adoption gates comfortably, while science and IP remain solid rather than frontier-explosive.
+          </p>
+          <div class="meta-list">
+            <div class="meta-row">
+              <span>Latest audited year</span>
+              <span>FY25 annual report</span>
+            </div>
+            <div class="meta-row">
+              <span>Latest interim check</span>
+              <span>Half year ended December 31, 2025</span>
+            </div>
+            <div class="meta-row">
+              <span>Largest positive signal</span>
+              <span>R&amp;D continuity plus large installed base</span>
+            </div>
+            <div class="meta-row">
+              <span>Largest caution</span>
+              <span>Acoustics competition and contracting delays</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </header>
+
+    <main>
+      <section class="surface reveal">
+        <div class="section-kicker">Technology Map</div>
+        <h2>Three product engines matter.</h2>
+        <p class="section-copy">
+          Cochlear spans several hearing categories, but the future value thesis is concentrated in three linked stacks:
+          <strong>smart cochlear implants</strong> for severe-to-profound hearing loss, <strong>active bone conduction implants</strong> for conductive or mixed loss and SSD,
+          and <strong>connected care/service infrastructure</strong> that monetizes the installed base while lowering clinical friction.
+        </p>
+        <div class="tech-grid">
+          <div class="tech-column">
+            <div class="mini-label">Stack 01</div>
+            <h3>Nucleus / Nexa cochlear implants</h3>
+            <p>
+              The core platform remains the cochlear implant franchise. FY25 introduced the Nucleus Nexa System, positioned by the company as the first smart cochlear implant with upgradeable firmware and onboard memory.
+            </p>
+            <ul class="detail-list">
+              <li>Field science remains large and active: PubMed counts for “cochlear implant” stayed near 900 to 1,000 papers annually from 2020 to 2024.</li>
+              <li>Commercial signal is already strong: Cochlear implant units in HY26 rose 6% to 27,016 while Nexa reached 80% of December developed-market units.</li>
+              <li>The relevant moat is system longevity, not only hardware novelty.</li>
+            </ul>
+          </div>
+          <div class="tech-column">
+            <div class="mini-label">Stack 02</div>
+            <h3>Osia and Baha bone conduction</h3>
+            <p>
+              Osia is Cochlear’s active bone conduction wedge. It is smaller than the cochlear implant franchise but strategically important because it broadens candidate access and deepens the acoustics portfolio.
+            </p>
+            <ul class="detail-list">
+              <li>Osia OSI300 launched commercially in October 2023 and offers MRI access at 1.5T and 3.0T without surgery.</li>
+              <li>FDA lowered the age indication for Osia to 5 years on April 19, 2024.</li>
+              <li>Bone-conduction literature grew from 18 PubMed papers in 2020 to 31 in 2022 before moderating slightly.</li>
+            </ul>
+          </div>
+          <div class="tech-column">
+            <div class="mini-label">Stack 03</div>
+            <h3>Connected care and installed-base services</h3>
+            <p>
+              This is the underappreciated layer. Remote Check, Cochlear Link, SmartNav, myCochlear, and upgrade cycles turn Cochlear into an operating platform for lifetime hearing support rather than a one-time implant vendor.
+            </p>
+            <ul class="detail-list">
+              <li>Connected care membership exceeded 217,000 in FY21, with a 60% join rate for new Nucleus recipients.</li>
+              <li>Remote care and service tools expand clinic throughput and support prior-generation recipients.</li>
+              <li>This service layer helps stabilize adoption and switching costs even when device cycles fluctuate.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface reveal">
+        <div class="section-kicker">Five-Layer Dashboard</div>
+        <h2>Evidence favors a scaled innovation platform, not a hype cycle.</h2>
+        <div class="split">
+          <div>
+            <div class="progress-stack">
+              <div>
+                <div class="progress-head">
+                  <span class="progress-label">Science</span>
+                  <span class="progress-score">4 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-score="80"></div></div>
+                <div class="progress-note">
+                  The core cochlear-implant field is large, persistent, and institutionally credible rather than speculative.
+                  PubMed counts for “cochlear implant” were 908, 991, 937, 934, and 920 from 2020 through 2024.
+                  Bone-conduction implant papers rose 18, 23, 31, 29, and 24 over the same period.
+                  <span class="fact-tag">Fact</span>
+                </div>
+              </div>
+              <div>
+                <div class="progress-head">
+                  <span class="progress-label">IP</span>
+                  <span class="progress-score">3 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-score="60"></div></div>
+                <div class="progress-note">
+                  Cochlear reports more than 2,300 patents and patent applications worldwide and over A$3 billion cumulative R&amp;D.
+                  Open-source proxy data also shows 59, 63, 69, 85, and 71 US granted patents from 2021 through 2025.
+                  This is solid, but global family-level transparency is weaker than ideal in public data.
+                  <span class="fact-tag">Fact</span><span class="inference-tag">Inference</span>
+                </div>
+              </div>
+              <div>
+                <div class="progress-head">
+                  <span class="progress-label">Industrialization</span>
+                  <span class="progress-score">5 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-score="100"></div></div>
+                <div class="progress-note">
+                  Industrialization is the company’s strongest layer. Cochlear has delivered more than 900,000 implants globally,
+                  invested A$292 million in FY25 R&amp;D, and publishes standards-based reliability reports showing current-generation
+                  Nucleus implants with up to 99.8% 5-year cumulative survival.
+                  <span class="fact-tag">Fact</span>
+                </div>
+              </div>
+              <div>
+                <div class="progress-head">
+                  <span class="progress-label">Adoption</span>
+                  <span class="progress-score">4 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-score="80"></div></div>
+                <div class="progress-note">
+                  Adoption is strong and compounding: Cochlear helped more than 44,000 people hear in FY23, more than 50,000 in FY24,
+                  and more than 53,000 in FY25. The installed base supports services, upgrades, and clinician familiarity. HY26 still showed
+                  slower acoustics momentum and contract timing noise.
+                  <span class="fact-tag">Fact</span><span class="inference-tag">Inference</span>
+                </div>
+              </div>
+              <div>
+                <div class="progress-head">
+                  <span class="progress-label">Policy &amp; Economics</span>
+                  <span class="progress-score">3 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-score="60"></div></div>
+                <div class="progress-note">
+                  Reimbursement and health-economics support are meaningful, but policy is not frictionless.
+                  The Lancet-linked investment case and dementia-related outcome studies help the category, yet regulators in the UK and Australia
+                  forced Cochlear to exclude Oticon’s bone-conduction assets because of competition concerns.
+                  <span class="fact-tag">Fact</span><span class="inference-tag">Inference</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="subtle-block">
+              <div class="mini-label">Scoring Rule</div>
+              <p class="section-copy">
+                Total score: <strong>19 / 25</strong>. That places Cochlear in <strong>translational momentum</strong>, with characteristics of a plausible scale-up candidate already operating at scale.
+                The limiting factor is not science credibility or manufacturing maturity; it is whether next-generation products maintain pricing power, access, and competitive separation.
+              </p>
+            </div>
+            <div class="subtle-block">
+              <div class="mini-label">Breakthrough Gate Check</div>
+              <div class="table-like">
+                <div class="rowline"><strong>Publication growth is persistent</strong><span>Met</span></div>
+                <div class="rowline"><strong>Patent activity is visible</strong><span>Mostly met</span></div>
+                <div class="rowline"><strong>University-industry linkage exists</strong><span>Met</span></div>
+                <div class="rowline"><strong>Process learning and scale are visible</strong><span>Met</span></div>
+                <div class="rowline"><strong>Adoption and deployments are public</strong><span>Met</span></div>
+                <div class="rowline"><strong>Policy conditions are fully clean</strong><span>Not fully</span></div>
+              </div>
+            </div>
+            <div class="subtle-block">
+              <div class="mini-label">Bottom Line</div>
+              <p class="section-copy">
+                Cochlear passes the industrialization and adoption gate with room to spare.
+                It should be viewed as a <strong>scaled medtech innovator</strong>, not a research lottery ticket.
+                The portfolio is less about radical frontier science than about repeated engineering improvements that remain commercially important.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface reveal">
+        <div class="section-kicker">Evidence Charts</div>
+        <h2>Science stayed dense, patents stayed active, and the business kept funding both.</h2>
+        <div class="chart-grid">
+          <div class="chart-block">
+            <div class="chart-title">
+              <h3>Publication trend</h3>
+              <span>PubMed counts</span>
+            </div>
+            <div class="chart-shell"><svg id="science-chart" viewBox="0 0 480 320" aria-label="Publication trend chart"></svg></div>
+            <p class="progress-note">
+              The cochlear implant literature is broad and mature. Bone conduction is smaller, but its post-2020 activity suggests a durable engineering niche rather than a fading adjunct.
+            </p>
+          </div>
+          <div class="chart-block">
+            <div class="chart-title">
+              <h3>Patent proxy</h3>
+              <span>US grants by year</span>
+            </div>
+            <div class="chart-shell"><svg id="ip-chart" viewBox="0 0 480 320" aria-label="Patent proxy chart"></svg></div>
+            <p class="progress-note">
+              This series is a <strong>proxy</strong>, not a global family count. It still shows that the company’s US grant flow stayed active through 2025.
+            </p>
+          </div>
+          <div class="chart-block">
+            <div class="chart-title">
+              <h3>Sales and R&amp;D</h3>
+              <span>FY20 to FY25</span>
+            </div>
+            <div class="chart-shell"><svg id="scale-chart" viewBox="0 0 480 320" aria-label="Sales and R&D chart"></svg></div>
+            <p class="progress-note">
+              Cochlear’s innovation case is credible because management kept R&amp;D intensity elevated while revenue recovered from the COVID trough and reached new highs.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface reveal">
+        <div class="section-kicker">Universities And Labs</div>
+        <h2>The field is deep enough that no single lab owns the narrative.</h2>
+        <div class="university-grid">
+          <div>
+            <p class="section-copy">
+              Leading cochlear-implant research comes from a distributed set of academic centers, which is generally a healthy sign for translational science.
+            </p>
+            <ul class="plain-list">
+              <li>University of Melbourne and the Graeme Clark lineage remain foundational to Cochlear’s history and field legitimacy.</li>
+              <li>Hannover Medical School and the University of Northern Iowa were identified as top publishing institutions in a 1980-2022 bibliometric review.</li>
+              <li>Johns Hopkins appears in Cochlear’s FY24 report as a partner investigating cognition and hearing-loss outcomes.</li>
+              <li>University of Michigan, Medical University of South Carolina, Stanford, University of Copenhagen, and Vrije Universiteit Brussel appear in recent relevant clinical and bibliometric literature.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="table-like">
+              <div class="rowline"><strong>Field-leading bibliometric institutions</strong><span>Melbourne, Hannover, N. Iowa</span></div>
+              <div class="rowline"><strong>Clinical outcomes and device studies</strong><span>Stanford, Michigan, MUSC, Copenhagen</span></div>
+              <div class="rowline"><strong>Company-linked translational research</strong><span>Johns Hopkins and 100+ programs</span></div>
+              <div class="rowline"><strong>Interpretation</strong><span>Healthy ecosystem breadth</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface reveal">
+        <div class="section-kicker">Patent Families</div>
+        <h2>Recent filings cluster around implant intelligence, fitting, sensing, and bone conduction.</h2>
+        <div class="patent-grid">
+          <div class="compact-stack">
+            <div class="subtle-block">
+              <h3>Cochlear implant hearing aid system</h3>
+              <p class="section-copy">
+                <strong>US12029906B2</strong>. Priority date December 10, 2019. Family coverage shown by Google Patents includes US, EP, CN, and AU.
+              </p>
+            </div>
+            <div class="subtle-block">
+              <h3>Implantable cochlear system with integrated components and lead characterization</h3>
+              <p class="section-copy">
+                <strong>US12233256B2</strong>. Family chain shows multiple continuations extending from 2020 through 2025, indicating persistent engineering work around implant architecture and diagnostics.
+              </p>
+            </div>
+            <div class="subtle-block">
+              <h3>Hearing prosthesis</h3>
+              <p class="section-copy">
+                <strong>US20230166110A1 / US12076563B2</strong>. Relevant to stimulation and hearing-prosthesis control, with a later 2024 continuation.
+              </p>
+            </div>
+          </div>
+          <div class="compact-stack">
+            <div class="subtle-block">
+              <h3>Therapeutic sound through bone conduction</h3>
+              <p class="section-copy">
+                <strong>US20240325678A1</strong>. Bone-conduction related, filed April 2, 2024 and later allowed in 2025 according to Google Patents status events.
+              </p>
+            </div>
+            <div class="subtle-block">
+              <h3>Cochlear implant system with implantable body sensors</h3>
+              <p class="section-copy">
+                <strong>US20250262435A1</strong>. Filed February 20, 2025, suggesting continued movement toward smarter internal-state sensing.
+              </p>
+            </div>
+            <div class="subtle-block">
+              <h3>Interpretation</h3>
+              <p class="section-copy">
+                The portfolio emphasis looks incremental but strategically important: implant telemetry, fitting, internal memory, sensing, and bone-conduction refinement.
+                That pattern matches a scaled platform leader more than a moonshot startup.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface reveal">
+        <div class="section-kicker">Red Flags</div>
+        <h2>The risk is execution compression, not scientific emptiness.</h2>
+        <div class="split">
+          <div>
+            <ul class="plain-list">
+              <li>The science base is large but mature. That lowers frontier novelty even if it strengthens commercial reliability.</li>
+              <li>HY26 sales revenue rose only 1% and EBIT fell 23% year over year; management cited cloud expense, contract timing, and acoustics pressure.</li>
+              <li>ACCC and UK CMA actions on the Oticon transaction show bone-conduction markets are concentrated enough to attract competition scrutiny.</li>
+              <li>Open public patent-family data is less clean than ideal; US grant flow is visible, but global family trend estimates remain a proxy.</li>
+              <li>Management explicitly flagged increased competitor activity in the larger US and UK acoustics markets.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="table-like">
+              <div class="rowline"><strong>Most important upgrade trigger</strong><span>Sustained Nexa-led share gains in FY26</span></div>
+              <div class="rowline"><strong>Most important downgrade trigger</strong><span>Acoustics erosion plus slower implant conversion</span></div>
+              <div class="rowline"><strong>Confidence level</strong><span>Moderate-high</span></div>
+              <div class="rowline"><strong>Why not higher</strong><span>IP family data opacity and policy friction</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface reveal">
+        <div class="section-kicker">What Changes The View</div>
+        <h2>Watch the next two reporting cycles for proof that the smart implant thesis is widening the moat.</h2>
+        <div class="mini-grid">
+          <div class="tech-column">
+            <h3>Upgrade the thesis</h3>
+            <ul class="plain-list">
+              <li>Clear FY26 second-half reacceleration in cochlear implant revenue driven by broad Nexa availability.</li>
+              <li>Evidence that Osia and Baha 7 defend or expand share in the US and UK.</li>
+              <li>More quantified disclosure on service attachment, remote care utilization, and installed-base monetization.</li>
+            </ul>
+          </div>
+          <div class="tech-column">
+            <h3>Downgrade the thesis</h3>
+            <ul class="plain-list">
+              <li>Prolonged contract delays or weaker-than-expected Nexa conversion.</li>
+              <li>Further gross-margin or EBIT compression not explained by temporary cloud or launch costs.</li>
+              <li>Competitive or regulatory events that undermine the acoustics roadmap.</li>
+            </ul>
+          </div>
+          <div class="tech-column">
+            <h3>Cadence</h3>
+            <ul class="plain-list">
+              <li>Monthly: refresh PubMed and US grant proxy counts.</li>
+              <li>Quarterly: review filings, product launches, reimbursement, and competitive statements.</li>
+              <li>Every 6 months: rescore the five-layer dashboard with new adoption and industrialization evidence.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="surface reveal">
+        <div class="section-kicker">Sources</div>
+        <h2>Primary and reference sources used.</h2>
+        <ol class="source-list">
+          <li><a href="https://www.cochlear.com/ca/fr/corporate/investors/annual-reports">Cochlear annual reports index</a></li>
+          <li><a href="https://assets.cochlear.com/api/public/content/0b73a4b5e84f41ebb556277e739b3118?v=585a3826">Cochlear FY25 Annual / Sustainability Report</a></li>
+          <li><a href="https://assets.cochlear.com/api/public/content/85ed5fe549814d91abddf0a975162644?v=771b1a7d">Cochlear FY24 Annual / Sustainability Report</a></li>
+          <li><a href="https://assets.cochlear.com/api/public/content/db4f441469aa4263acccdfc23980d21b?v=ce8bbd15">Cochlear FY23 Annual / Sustainability Report</a></li>
+          <li><a href="https://assets.cochlear.com/api/public/content/e8ef753515b44ae8bd0dee91541dcdb6?v=92e56b8e">Cochlear FY22 Annual Report</a></li>
+          <li><a href="https://assets.cochlear.com/api/public/content/6b556ed5547f4b34a5cd1e8592a0e39c?v=12109547">Cochlear FY21 Annual Report</a></li>
+          <li><a href="https://assets.cochlear.com/api/public/content/8263d736da154d1dbaa306fa41f98676?v=badafced">Cochlear FY20 Annual Report</a></li>
+          <li><a href="https://assets.cochlear.com/api/public/content/f6d00cd5715f4ab4b42800f790e84fd2?v=e97e6bf7">Cochlear Interim Financial Report for the half year ended December 31, 2025</a></li>
+          <li><a href="https://www.cochlear.com/us/en/corporate/media-center/media-releases/2025/cochlear-launches-worlds-first-and-only-smart-cochlear-implant-system">Cochlear: Nucleus Nexa FDA approval and launch, July 8, 2025</a></li>
+          <li><a href="https://www.cochlear.com/us/es/corporate/media-center/media-releases/2024/osia-lowered-indications">Cochlear: Osia age indication lowered to 5 years, April 19, 2024</a></li>
+          <li><a href="https://www.cochlear.com/us/en/corporate/media-center/media-releases/2023/cochlears-osia-osi300-implant-wins-innovator-award">Cochlear: OSI300 launch and MRI positioning</a></li>
+          <li><a href="https://pronews.cochlear.com/cochlear-implant-reliability-reports-2025/">Cochlear reliability report summary, July 14, 2025</a></li>
+          <li><a href="https://www.accc.gov.au/media-release/accc-will-not-oppose-revised-cochlear-oticon-medical-transaction">ACCC decision on revised Oticon transaction, April 4, 2024</a></li>
+          <li><a href="https://www.accc.gov.au/media-release/cochlears-proposed-acquisition-of-oticon-medical-raises-preliminary-competition-concerns">ACCC preliminary concerns, December 1, 2022</a></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/38512716/">Abari et al., 2024 bibliometric analysis of cochlear implant research</a></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/38529662/">Lein et al., 2024 systematic review of active bone-conduction hearing implant</a></li>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/36600147/">Schvartz-Leyzac et al., 2023 cochlear health and implant function</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22cochlear+implant%22%5BTitle%2FAbstract%5D+AND+2020%5Bpdat%5D">NCBI E-utilities: cochlear implant 2020 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22cochlear+implant%22%5BTitle%2FAbstract%5D+AND+2021%5Bpdat%5D">NCBI E-utilities: cochlear implant 2021 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22cochlear+implant%22%5BTitle%2FAbstract%5D+AND+2022%5Bpdat%5D">NCBI E-utilities: cochlear implant 2022 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22cochlear+implant%22%5BTitle%2FAbstract%5D+AND+2023%5Bpdat%5D">NCBI E-utilities: cochlear implant 2023 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22cochlear+implant%22%5BTitle%2FAbstract%5D+AND+2024%5Bpdat%5D">NCBI E-utilities: cochlear implant 2024 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22bone+conduction+implant%22%5BTitle%2FAbstract%5D+AND+2020%5Bpdat%5D">NCBI E-utilities: bone conduction implant 2020 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22bone+conduction+implant%22%5BTitle%2FAbstract%5D+AND+2021%5Bpdat%5D">NCBI E-utilities: bone conduction implant 2021 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22bone+conduction+implant%22%5BTitle%2FAbstract%5D+AND+2022%5Bpdat%5D">NCBI E-utilities: bone conduction implant 2022 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22bone+conduction+implant%22%5BTitle%2FAbstract%5D+AND+2023%5Bpdat%5D">NCBI E-utilities: bone conduction implant 2023 count</a></li>
+          <li><a href="https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&amp;retmode=json&amp;term=%22bone+conduction+implant%22%5BTitle%2FAbstract%5D+AND+2024%5Bpdat%5D">NCBI E-utilities: bone conduction implant 2024 count</a></li>
+          <li><a href="https://idiyas.com/company/cochlear">IDiyas Cochlear patent profile</a></li>
+          <li><a href="https://www.patentbots.com/patentverse/company/Cochlear-Limited">Patent Bots Cochlear issued-patent page</a></li>
+          <li><a href="https://patents.google.com/patent/US12029906B2/en">Google Patents: US12029906B2</a></li>
+          <li><a href="https://patents.google.com/patent/US12233256B2/en">Google Patents: US12233256B2</a></li>
+          <li><a href="https://patents.google.com/patent/US20230166110A1">Google Patents: US20230166110A1</a></li>
+          <li><a href="https://patents.google.com/patent/US20240325678A1/en">Google Patents: US20240325678A1</a></li>
+          <li><a href="https://patents.google.com/patent/US20250262435A1/en">Google Patents: US20250262435A1</a></li>
+        </ol>
+      </section>
+    </main>
+
+    <div class="footer-note">
+      <span>Interpretive notes are labeled where the dashboard moves from sourced facts to synthesis.</span>
+      <span>Patent-family visibility is partial in open data, so the IP time series is shown as a clearly labeled proxy.</span>
+    </div>
+  </div>
+
+  <script>
+    const scienceSeries = [
+      { year: 2020, cochlear: 908, bone: 18 },
+      { year: 2021, cochlear: 991, bone: 23 },
+      { year: 2022, cochlear: 937, bone: 31 },
+      { year: 2023, cochlear: 934, bone: 29 },
+      { year: 2024, cochlear: 920, bone: 24 }
+    ];
+
+    const patentSeries = [
+      { year: 2021, value: 59 },
+      { year: 2022, value: 63 },
+      { year: 2023, value: 69 },
+      { year: 2024, value: 85 },
+      { year: 2025, value: 71 }
+    ];
+
+    const scaleSeries = [
+      { year: "FY20", sales: 1352, rnd: 185 },
+      { year: "FY21", sales: 1493, rnd: 195 },
+      { year: "FY22", sales: 1641, rnd: 213 },
+      { year: "FY23", sales: 1956, rnd: 245 },
+      { year: "FY24", sales: 2258, rnd: 277 },
+      { year: "FY25", sales: 2356, rnd: 292 }
+    ];
+
+    function lineChart(el, series) {
+      const width = 480;
+      const height = 320;
+      const m = { t: 18, r: 18, b: 38, l: 42 };
+      const innerW = width - m.l - m.r;
+      const innerH = height - m.t - m.b;
+      const maxY = 1050;
+      const minY = 0;
+      const x = (i) => m.l + (innerW / (series.length - 1)) * i;
+      const y = (v) => m.t + innerH - ((v - minY) / (maxY - minY)) * innerH;
+      const boneScale = (v) => y(v * 25);
+
+      const cochlearPath = series.map((d, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${y(d.cochlear)}`).join(" ");
+      const bonePath = series.map((d, i) => `${i === 0 ? "M" : "L"} ${x(i)} ${boneScale(d.bone)}`).join(" ");
+
+      let ticks = "";
+      [0, 250, 500, 750, 1000].forEach((t) => {
+        const ty = y(t);
+        ticks += `<line x1="${m.l}" y1="${ty}" x2="${width - m.r}" y2="${ty}" stroke="rgba(45,74,43,0.08)" />`;
+        ticks += `<text x="${m.l - 10}" y="${ty + 4}" text-anchor="end" fill="#5f6959" font-size="11">${t}</text>`;
+      });
+
+      let labels = "";
+      series.forEach((d, i) => {
+        labels += `<text x="${x(i)}" y="${height - 12}" text-anchor="middle" fill="#5f6959" font-size="11">${d.year}</text>`;
+      });
+
+      el.innerHTML = `
+        <defs>
+          <linearGradient id="cochlear-line" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#2d4a2b"/>
+            <stop offset="100%" stop-color="#7d8471"/>
+          </linearGradient>
+        </defs>
+        ${ticks}
+        ${labels}
+        <path d="${cochlearPath}" fill="none" stroke="url(#cochlear-line)" stroke-width="4" stroke-linecap="round"/>
+        <path d="${bonePath}" fill="none" stroke="#a4ac86" stroke-width="3" stroke-linecap="round" stroke-dasharray="8 8"/>
+        ${series.map((d, i) => `<circle cx="${x(i)}" cy="${y(d.cochlear)}" r="4.5" fill="#2d4a2b"/>`).join("")}
+        ${series.map((d, i) => `<circle cx="${x(i)}" cy="${boneScale(d.bone)}" r="4" fill="#a4ac86"/>`).join("")}
+        <text x="${m.l}" y="20" fill="#20301f" font-size="12">Cochlear implant</text>
+        <text x="${m.l + 122}" y="20" fill="#7d8471" font-size="12">Bone conduction × 25</text>
+      `;
+    }
+
+    function barChart(el, series) {
+      const width = 480;
+      const height = 320;
+      const m = { t: 18, r: 18, b: 38, l: 34 };
+      const innerW = width - m.l - m.r;
+      const innerH = height - m.t - m.b;
+      const maxY = 100;
+      const barW = innerW / series.length * 0.58;
+      const gap = innerW / series.length;
+      const y = (v) => m.t + innerH - (v / maxY) * innerH;
+
+      let grid = "";
+      [0, 25, 50, 75, 100].forEach((t) => {
+        const ty = y(t);
+        grid += `<line x1="${m.l}" y1="${ty}" x2="${width - m.r}" y2="${ty}" stroke="rgba(45,74,43,0.08)" />`;
+        grid += `<text x="${m.l - 8}" y="${ty + 4}" text-anchor="end" fill="#5f6959" font-size="11">${t}</text>`;
+      });
+
+      let bars = "";
+      series.forEach((d, i) => {
+        const x = m.l + gap * i + (gap - barW) / 2;
+        const top = y(d.value);
+        bars += `<rect x="${x}" y="${top}" width="${barW}" height="${m.t + innerH - top}" rx="10" fill="url(#bar-grad)" />`;
+        bars += `<text x="${x + barW / 2}" y="${top - 8}" text-anchor="middle" fill="#2d4a2b" font-size="12">${d.value}</text>`;
+        bars += `<text x="${x + barW / 2}" y="${height - 12}" text-anchor="middle" fill="#5f6959" font-size="11">${d.year}</text>`;
+      });
+
+      el.innerHTML = `
+        <defs>
+          <linearGradient id="bar-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a4ac86"/>
+            <stop offset="100%" stop-color="#2d4a2b"/>
+          </linearGradient>
+        </defs>
+        ${grid}
+        ${bars}
+      `;
+    }
+
+    function dualBarChart(el, series) {
+      const width = 480;
+      const height = 320;
+      const m = { t: 18, r: 18, b: 42, l: 38 };
+      const innerW = width - m.l - m.r;
+      const innerH = height - m.t - m.b;
+      const maxY = 2500;
+      const y = (v) => m.t + innerH - (v / maxY) * innerH;
+      const groupW = innerW / series.length;
+      const barW = groupW * 0.26;
+
+      let grid = "";
+      [0, 500, 1000, 1500, 2000, 2500].forEach((t) => {
+        const ty = y(t);
+        grid += `<line x1="${m.l}" y1="${ty}" x2="${width - m.r}" y2="${ty}" stroke="rgba(45,74,43,0.08)" />`;
+        grid += `<text x="${m.l - 8}" y="${ty + 4}" text-anchor="end" fill="#5f6959" font-size="11">${t}</text>`;
+      });
+
+      let bars = "";
+      series.forEach((d, i) => {
+        const gx = m.l + groupW * i + groupW * 0.16;
+        const salesTop = y(d.sales);
+        const rndTop = y(d.rnd);
+        bars += `<rect x="${gx}" y="${salesTop}" width="${barW}" height="${m.t + innerH - salesTop}" rx="9" fill="#2d4a2b"/>`;
+        bars += `<rect x="${gx + barW + 10}" y="${rndTop}" width="${barW}" height="${m.t + innerH - rndTop}" rx="9" fill="#a4ac86"/>`;
+        bars += `<text x="${gx + barW}" y="${height - 12}" text-anchor="middle" fill="#5f6959" font-size="11">${d.year}</text>`;
+      });
+
+      el.innerHTML = `
+        ${grid}
+        ${bars}
+        <text x="${m.l}" y="20" fill="#20301f" font-size="12">Sales</text>
+        <text x="${m.l + 56}" y="20" fill="#7d8471" font-size="12">R&amp;D</text>
+      `;
+    }
+
+    lineChart(document.getElementById("science-chart"), scienceSeries);
+    barChart(document.getElementById("ip-chart"), patentSeries);
+    dualBarChart(document.getElementById("scale-chart"), scaleSeries);
+
+    document.querySelectorAll(".progress-fill").forEach((fill, index) => {
+      setTimeout(() => {
+        fill.style.width = `${fill.dataset.score}%`;
+      }, 260 + index * 110);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("in-view");
+      });
+    }, { threshold: 0.16 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    window.addEventListener("scroll", () => {
+      document.body.style.setProperty("--drift", `${window.scrollY * -0.06}px`);
+    }, { passive: true });
+  </script>
+</body>
+</html>

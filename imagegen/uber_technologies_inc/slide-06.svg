@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9f5"/>
+      <stop offset="0.58" stop-color="#f4e3dc"/>
+      <stop offset="1" stop-color="#e8d5c4"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0 H0 V72" fill="none" stroke="#5d2e46" stroke-width="1" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <circle cx="930" cy="130" r="210" fill="#d4a5a5" fill-opacity="0.24"/>
+  <circle cx="120" cy="930" r="260" fill="#b87d6d" fill-opacity="0.14"/>
+  <g transform="translate(135 610)">
+      
+        <path d="M0 210 L0 40 Q58 -20 116 40 L116 210" fill="none" stroke="#d4a5a5" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="58" cy="76" r="16" fill="#5d2e46"/>
+      
+        <path d="M260 210 L260 40 Q318 -20 376 40 L376 210" fill="none" stroke="#5d2e46" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="318" cy="76" r="16" fill="#5d2e46"/>
+      
+        <path d="M520 210 L520 40 Q578 -20 636 40 L636 210" fill="none" stroke="#d4a5a5" stroke-width="14" stroke-linecap="round"/>
+        <circle cx="578" cy="76" r="16" fill="#2f7a69"/>
+      
+      <path d="M-35 255 C185 210 385 210 710 255" fill="none" stroke="#5d2e46" stroke-opacity="0.18" stroke-width="20" stroke-linecap="round"/>
+    </g>
+  <g transform="translate(145 140)">
+    <text x="0" y="0" font-family="FreeSans, Arial" font-size="28" font-weight="700" letter-spacing="4" fill="#6f5d61">UBER INNOVATION</text>
+    <text x="0" y="84" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">The Hard Part</text><text x="0" y="162" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Remains</text>
+    <g transform="translate(0 264)">
+      <rect x="0" y="-34" width="620" height="138" rx="10" fill="#fff9f5" fill-opacity="0.82"/>
+      <text x="28" y="22" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">Policy, labor and AV economics</text><text x="28" y="60" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">still decide the upside.</text>
+    </g>
+  </g>
+  <g transform="translate(145 950)">
+    <rect x="0" y="0" width="160" height="8" rx="4" fill="#5d2e46"/>
+    <text x="186" y="12" font-family="FreeSans, Arial" font-size="26" font-weight="700" fill="#5d2e46">Slide 6 / 7</text>
+  </g>
+</svg>

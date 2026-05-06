@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PostNL N.V. Innovation Dashboard</title>
+  <style>
+    :root {
+      --mustard: #f4a900;
+      --terracotta: #c1666b;
+      --beige: #d4b896;
+      --beige-soft: #f3e7d6;
+      --paper: #fbf4ea;
+      --paper-deep: #ecd9c2;
+      --paper-dark: #e2ccb4;
+      --chocolate: #4a403a;
+      --ink: #2f2925;
+      --muted: #6d6055;
+      --line: rgba(74, 64, 58, 0.14);
+      --line-strong: rgba(74, 64, 58, 0.25);
+      --glow: rgba(244, 169, 0, 0.28);
+      --shadow: 0 28px 90px rgba(82, 60, 41, 0.12);
+      --max: 1460px;
+      --body: "FreeSans", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: var(--body);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(244, 169, 0, 0.18), transparent 19%),
+        radial-gradient(circle at 90% 4%, rgba(193, 102, 107, 0.18), transparent 22%),
+        linear-gradient(180deg, #fff9f0 0%, #f7ebde 58%, #efdecb 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.34;
+      background-image:
+        linear-gradient(90deg, transparent 0 49%, rgba(74, 64, 58, 0.02) 49% 51%, transparent 51%),
+        linear-gradient(transparent 0 49%, rgba(74, 64, 58, 0.02) 49% 51%, transparent 51%);
+      background-size: 116px 116px;
+      transform: translateY(var(--drift, 0px));
+    }
+
+    a {
+      color: var(--chocolate);
+      text-decoration-color: rgba(74, 64, 58, 0.28);
+      text-underline-offset: 0.16em;
+    }
+
+    .shell {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .topline,
+    .footline {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .surface {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(74, 64, 58, 0.12);
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(255, 252, 247, 0.88), rgba(246, 237, 226, 0.94)),
+        linear-gradient(135deg, rgba(244, 169, 0, 0.06), rgba(193, 102, 107, 0.05));
+      box-shadow: var(--shadow);
+    }
+
+    .surface::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 94% 8%, rgba(244, 169, 0, 0.16), transparent 18%),
+        radial-gradient(circle at 8% 92%, rgba(193, 102, 107, 0.14), transparent 20%);
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .mini {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero {
+      padding: 30px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--chocolate);
+      letter-spacing: -0.04em;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(2.8rem, 6vw, 5.4rem);
+      line-height: 0.92;
+      max-width: 7.6ch;
+      margin-top: 10px;
+    }
+
+    h2 {
+      font-size: clamp(1.45rem, 2.4vw, 2.15rem);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 1.02rem;
+      line-height: 1.18;
+      margin-bottom: 8px;
+    }
+
+    .hero-copy {
+      max-width: 66ch;
+      margin-top: 16px;
+      color: var(--muted);
+      line-height: 1.68;
+      font-size: 1rem;
+    }
+
+    .headline-ribbon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .chip {
+      border-radius: 999px;
+      border: 1px solid rgba(74, 64, 58, 0.12);
+      padding: 8px 12px;
+      background: rgba(255, 251, 245, 0.72);
+      color: var(--chocolate);
+      font-size: 0.84rem;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .metric {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--chocolate);
+      font-size: clamp(1.1rem, 2vw, 1.9rem);
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      line-height: 1.44;
+      font-size: 0.9rem;
+    }
+
+    .hero-side {
+      padding: 22px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 251, 246, 0.58), rgba(255, 244, 233, 0.82));
+      border: 1px solid rgba(74, 64, 58, 0.1);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-wheel {
+      width: 222px;
+      aspect-ratio: 1;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      box-shadow:
+        inset 0 0 0 1px rgba(74, 64, 58, 0.12),
+        0 0 0 10px rgba(244, 169, 0, 0.06);
+    }
+
+    .score-wheel strong,
+    .score-wheel small {
+      display: block;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .score-wheel strong {
+      font-size: 3.2rem;
+      line-height: 0.9;
+      color: var(--chocolate);
+    }
+
+    .score-wheel small {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .aside-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .aside-item {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+    }
+
+    .aside-item strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--chocolate);
+      font-size: 1rem;
+    }
+
+    .aside-item span {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+      gap: 22px;
+      padding: 22px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 22px;
+    }
+
+    .panel {
+      position: relative;
+      padding: 24px;
+      border-radius: 28px;
+      border: 1px solid rgba(74, 64, 58, 0.1);
+      background: rgba(255, 252, 247, 0.55);
+    }
+
+    .panel h2 + p,
+    .panel h3 + p {
+      color: var(--muted);
+      line-height: 1.62;
+      margin: 0;
+    }
+
+    .score-rows {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .score-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .score-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+    }
+
+    .score-head strong {
+      color: var(--chocolate);
+      font-size: 0.98rem;
+    }
+
+    .score-head span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(74, 64, 58, 0.1);
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--mustard), var(--terracotta));
+      box-shadow: 0 0 18px var(--glow);
+      transition: width 1.2s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .score-notes {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .score-note {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .score-note p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.58;
+      font-size: 0.93rem;
+    }
+
+    .duo {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .technology-list,
+    .flag-list,
+    .check-list,
+    .source-list,
+    .university-list,
+    .patent-list,
+    .change-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .technology,
+    .flag,
+    .check,
+    .source,
+    .university,
+    .patent,
+    .change-item {
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .technology p,
+    .flag p,
+    .check p,
+    .source p,
+    .university p,
+    .patent p,
+    .change-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.58;
+      font-size: 0.93rem;
+    }
+
+    .trend-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .trend-card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(74, 64, 58, 0.1);
+      background: rgba(255, 251, 245, 0.65);
+    }
+
+    .bar-chart {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      align-items: end;
+      height: 200px;
+      margin-top: 14px;
+    }
+
+    .bar {
+      display: grid;
+      gap: 8px;
+      align-items: end;
+      justify-items: center;
+      min-height: 100%;
+    }
+
+    .bar span {
+      width: 100%;
+      max-width: 52px;
+      border-radius: 8px 8px 0 0;
+      background: linear-gradient(180deg, var(--mustard), var(--terracotta));
+      box-shadow: 0 16px 28px rgba(193, 102, 107, 0.14);
+    }
+
+    .bar strong {
+      font-size: 0.84rem;
+      color: var(--chocolate);
+    }
+
+    .bar small {
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 66px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .year {
+      color: var(--terracotta);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.58;
+      font-size: 0.93rem;
+    }
+
+    .sticky {
+      position: sticky;
+      top: 18px;
+      align-self: start;
+    }
+
+    .verdict-box {
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(244, 169, 0, 0.12), rgba(193, 102, 107, 0.12));
+      border: 1px solid rgba(74, 64, 58, 0.1);
+      margin-top: 18px;
+    }
+
+    .verdict-box strong {
+      display: block;
+      color: var(--chocolate);
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .verdict-box p,
+    .subtle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.93rem;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: rise 0.9s ease forwards;
+    }
+
+    .reveal:nth-child(2) { animation-delay: 0.08s; }
+    .reveal:nth-child(3) { animation-delay: 0.16s; }
+    .reveal:nth-child(4) { animation-delay: 0.24s; }
+    .reveal:nth-child(5) { animation-delay: 0.32s; }
+    .reveal:nth-child(6) { animation-delay: 0.4s; }
+
+    @keyframes rise {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .grid,
+      .trend-grid,
+      .duo {
+        grid-template-columns: 1fr;
+      }
+
+      .sticky {
+        position: static;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        width: min(calc(100% - 18px), var(--max));
+      }
+
+      .hero,
+      .grid,
+      .panel {
+        padding: 18px;
+      }
+
+      .metric-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const scored = {
+      company: "PostNL N.V.",
+      ticker: "AMS: PNL",
+      total_score: 11.3,
+      verdict: "Emerging innovator worth monitoring",
+      gate_pass: false,
+      layers: [
+        {
+          label: "Science",
+          score: 2.6,
+          confidence: "Medium",
+          summary: "Field science is growing, but the signal is mostly sector-level rather than PostNL-led.",
+          strong: "OpenAlex query count rose from 108 works in 2021 to 324 in 2025.",
+          missing: "No visible proprietary research engine or company-led scientific franchise."
+        },
+        {
+          label: "IP",
+          score: 0.7,
+          confidence: "Low",
+          summary: "Recent public patent visibility is weak.",
+          strong: "Legacy postal-engineering patents are specific.",
+          missing: "No clear 2021-2025 PostNL assignee family build-out surfaced in-session."
+        },
+        {
+          label: "Industrialization",
+          score: 2.9,
+          confidence: "Medium",
+          summary: "The company is genuinely deploying automation and digital tooling at network scale.",
+          strong: "Robotised small-parcel sorting, 37 sorting centres and 2,203 Copilot licences in 2025.",
+          missing: "Technology-level capex, yield and throughput data remain thin."
+        },
+        {
+          label: "Adoption",
+          score: 2.6,
+          confidence: "Medium",
+          summary: "Lockers and app usage are scaling, but product-level economics are under-disclosed.",
+          strong: "Lockers rose from 517 in 2022 to 1,400 in 2025; active accounts hit 10.0 million in 2025.",
+          missing: "No clear locker-platform revenue or software-margin disclosure."
+        },
+        {
+          label: "Policy & Economics",
+          score: 2.5,
+          confidence: "Medium",
+          summary: "Policy support for sustainability exists, but postal regulation and labour inflation are heavy constraints.",
+          strong: "Emission-free last mile reached 33% in 2025.",
+          missing: "PostNL repeatedly flagged regulatory insufficiency and economic strain in 2025."
+        }
+      ]
+    };
+
+    const publicationTrend = [
+      { year: "2021", value: 108 },
+      { year: "2022", value: 143 },
+      { year: "2023", value: 257 },
+      { year: "2024", value: 238 },
+      { year: "2025", value: 324 }
+    ];
+
+    const patentTrend = [
+      { year: "2021", value: 0 },
+      { year: "2022", value: 0 },
+      { year: "2023", value: 0 },
+      { year: "2024", value: 0 },
+      { year: "2025", value: 0 }
+    ];
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const scoreDegrees = (scored.total_score / 25) * 360;
+      const wheel = document.querySelector(".score-wheel");
+      wheel.style.background = `
+        radial-gradient(circle at center, rgba(255,252,247,1) 56%, transparent 57%),
+        conic-gradient(var(--mustard) 0deg, var(--terracotta) ${scoreDegrees}deg, rgba(74,64,58,0.08) ${scoreDegrees}deg 360deg)
+      `;
+
+      document.querySelectorAll("[data-fill]").forEach((node) => {
+        requestAnimationFrame(() => {
+          node.style.width = node.getAttribute("data-fill");
+        });
+      });
+
+      let last = 0;
+      window.addEventListener("scroll", () => {
+        const current = Math.max(0, window.scrollY * 0.08);
+        if (Math.abs(current - last) > 1) {
+          document.body.style.setProperty("--drift", `${current}px`);
+          last = current;
+        }
+      }, { passive: true });
+    });
+  </script>
+
+  <div class="shell">
+    <div class="topline">
+      <span>Technology innovation assessment</span>
+      <span>Research date: 20 April 2026</span>
+    </div>
+
+    <section class="surface">
+      <div class="hero">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">Golden Hour dashboard</div>
+            <h1>PostNL innovation readiness</h1>
+            <p class="hero-copy">
+              PostNL is using automation, parcel lockers and digital orchestration to modernize a very real logistics network. The evidence points to a company with operational tech competence, not a frontier-IP leader: deployment is tangible, adoption is visible, but the science and patent layers are too thin to call this an exceptional innovator.
+            </p>
+            <div class="headline-ribbon">
+              <span class="chip">Verdict: Emerging innovator worth monitoring</span>
+              <span class="chip">Breakthrough gate: not passed</span>
+              <span class="chip">Ticker: AMS: PNL</span>
+            </div>
+            <div class="metric-row">
+              <div class="metric">
+                <strong>1,400</strong>
+                <span>Automated parcel lockers in 2025, up from 517 in 2022.</span>
+              </div>
+              <div class="metric">
+                <strong>10.0m</strong>
+                <span>Active unique PostNL accounts in 2025, up from 6.9m in 2023.</span>
+              </div>
+              <div class="metric">
+                <strong>2,203</strong>
+                <span>Copilot licences distributed in 2025 versus 1,050 in 2024.</span>
+              </div>
+              <div class="metric">
+                <strong>324</strong>
+                <span>OpenAlex works in 2025 on parcel locker and last-mile logistics, up from 108 in 2021.</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="score-wheel">
+              <div>
+                <strong>11.3</strong>
+                <small>out of 25</small>
+              </div>
+            </div>
+            <div class="aside-list">
+              <div class="aside-item">
+                <strong>What matters</strong>
+                <span>Parcel lockers, robotic sortation and digital last-mile routing are the relevant technology stack.</span>
+              </div>
+              <div class="aside-item">
+                <strong>Why not higher</strong>
+                <span>Weak recent public patent visibility and limited disclosure of technology-specific economics keep the score anchored.</span>
+              </div>
+              <div class="aside-item">
+                <strong>Fast take</strong>
+                <span>This is logistics modernization with some strong execution, not a clear science-to-breakthrough compounding engine.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="stack">
+          <section class="panel reveal">
+            <div class="section-kicker">Five-layer dashboard</div>
+            <h2>Scores by layer</h2>
+            <p>Each layer is scored with the deterministic benchmark in the skill package. Bars show absolute readiness, not peer rank.</p>
+
+            <div class="score-rows">
+              <div class="score-row">
+                <div class="score-head"><strong>Science</strong><span>2.6 / 5</span></div>
+                <div class="progress"><span data-fill="52%"></span></div>
+              </div>
+              <div class="score-row">
+                <div class="score-head"><strong>IP</strong><span>0.7 / 5</span></div>
+                <div class="progress"><span data-fill="14%"></span></div>
+              </div>
+              <div class="score-row">
+                <div class="score-head"><strong>Industrialization</strong><span>2.9 / 5</span></div>
+                <div class="progress"><span data-fill="58%"></span></div>
+              </div>
+              <div class="score-row">
+                <div class="score-head"><strong>Adoption</strong><span>2.6 / 5</span></div>
+                <div class="progress"><span data-fill="52%"></span></div>
+              </div>
+              <div class="score-row">
+                <div class="score-head"><strong>Policy &amp; Economics</strong><span>2.5 / 5</span></div>
+                <div class="progress"><span data-fill="50%"></span></div>
+              </div>
+            </div>
+
+            <div class="score-notes">
+              <div class="score-note">
+                <h3>Science</h3>
+                <p>Literature around parcel lockers and last-mile logistics is growing, but the signal belongs to the field, not clearly to PostNL.</p>
+              </div>
+              <div class="score-note">
+                <h3>IP</h3>
+                <p>Recent assignee-visible patent build-out is weak. Historical postal patents exist, but they do not look like a fresh 2021-2025 moat.</p>
+              </div>
+              <div class="score-note">
+                <h3>Industrialization</h3>
+                <p>Real deployment exists: robotised sorting, nationwide lockers, large app reach and internal AI tooling. That is meaningful, but still mostly execution technology.</p>
+              </div>
+              <div class="score-note">
+                <h3>Adoption</h3>
+                <p>Lockers and partner usage are scaling, including FedEx access in June 2025, yet platform-level monetization remains opaque.</p>
+              </div>
+              <div class="score-note">
+                <h3>Policy &amp; Economics</h3>
+                <p>Sustainability direction is supportive; postal economics and regulation are not. That tension materially caps upside.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="section-kicker">Technology map</div>
+            <h2>What actually drives the thesis</h2>
+            <div class="technology-list">
+              <div class="technology">
+                <h3>1. Open parcel locker network</h3>
+                <p>The locker estate is the clearest technology platform inside PostNL. It moved from 517 lockers in 2022 to 903 in 2023, 1,083 in 2024 and 1,400 in 2025, with third-party connectivity as a design goal and FedEx joining in 2025.</p>
+              </div>
+              <div class="technology">
+                <h3>2. Sortation automation</h3>
+                <p>PostNL's 2021 small parcel sorting centre was described as fully robotised with 175 robots. In 2024 the annual report still framed sorting as a critical activity using cutting-edge automation and sorting technologies.</p>
+              </div>
+              <div class="technology">
+                <h3>3. Digital last-mile orchestration</h3>
+                <p>The company keeps building digital control layers around the network: routing technologies, app interfaces, customer platforms, eID and internal AI enablement. This helps service quality and cost control, but it is not yet presented as a standalone software business.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="section-kicker">Trend lines</div>
+            <h2>Science and IP evidence</h2>
+            <div class="trend-grid">
+              <div class="trend-card">
+                <div class="mini">OpenAlex literature count</div>
+                <h3>Parcel locker and last-mile logistics papers</h3>
+                <div class="bar-chart">
+                  <div class="bar"><span style="height: 33%;"></span><strong>108</strong><small>2021</small></div>
+                  <div class="bar"><span style="height: 44%;"></span><strong>143</strong><small>2022</small></div>
+                  <div class="bar"><span style="height: 79%;"></span><strong>257</strong><small>2023</small></div>
+                  <div class="bar"><span style="height: 73%;"></span><strong>238</strong><small>2024</small></div>
+                  <div class="bar"><span style="height: 100%;"></span><strong>324</strong><small>2025</small></div>
+                </div>
+                <p class="subtle">Interpretation: the science base is expanding, but this is mostly a field tailwind rather than a PostNL-owned research franchise.</p>
+              </div>
+
+              <div class="trend-card">
+                <div class="mini">Observable public assignee trend</div>
+                <h3>Recent PostNL-attributable patent families</h3>
+                <div class="bar-chart">
+                  <div class="bar"><span style="height: 4%;"></span><strong>0</strong><small>2021</small></div>
+                  <div class="bar"><span style="height: 4%;"></span><strong>0</strong><small>2022</small></div>
+                  <div class="bar"><span style="height: 4%;"></span><strong>0</strong><small>2023</small></div>
+                  <div class="bar"><span style="height: 4%;"></span><strong>0</strong><small>2024</small></div>
+                  <div class="bar"><span style="height: 4%;"></span><strong>0</strong><small>2025</small></div>
+                </div>
+                <p class="subtle">Low-confidence inference from targeted public patent searches in-session: no clear recent PostNL family build-out surfaced. The visible patent base is largely legacy postal engineering.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="section-kicker">Operational evidence</div>
+            <h2>2021-2025 rollout sequence</h2>
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="year">2021</div>
+                <p>PostNL began installing smart fully automated parcel lockers, launched its first next-generation locker and opened a fully robotised small parcel sorting centre with 175 robots.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="year">2022</div>
+                <p>More than 400 lockers were in place, the company built an IT platform to let other carriers connect to its lockers, and year-end annual-report data showed 517 lockers.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="year">2023</div>
+                <p>Locker count reached 903. Unique PostNL accounts were 6.9 million. Sortation footprint stood at 37 centres.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="year">2024</div>
+                <p>Locker count rose to 1,083, active accounts to 8.9 million and the annual report described cutting-edge automation, sorting technologies and advanced routing in the value chain.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="year">2025</div>
+                <p>Locker count reached 1,400, active accounts 10.0 million and Copilot licences 2,203. FedEx was added to the open locker network, while management still emphasized efficiency gains and cost pressure.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="section-kicker">Breakthrough gate</div>
+            <h2>Why the gate does not pass</h2>
+            <div class="check-list">
+              <div class="check">
+                <h3>Met</h3>
+                <p>There is visible industrial deployment, growing locker usage, partner connectivity, robotic sortation and digital workflow expansion.</p>
+              </div>
+              <div class="check">
+                <h3>Not met</h3>
+                <p>Recent patent-family growth is not visible, science is not company-owned, and product-level revenue or margin evidence for the technology stack remains thin.</p>
+              </div>
+              <div class="check">
+                <h3>Result</h3>
+                <p>PostNL looks like a capable adopter and operator of logistics technology, not an exceptional science-to-scale innovator. The score therefore stays in “worth monitoring” territory.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="stack sticky">
+          <section class="panel reveal">
+            <div class="section-kicker">University research</div>
+            <h2>Which universities are active in the field</h2>
+            <div class="university-list">
+              <div class="university">
+                <h3>Erasmus University Rotterdam</h3>
+                <p>Featured in a 2025 Journal of Operations Management article on innovations and technologies in last-mile operations.</p>
+              </div>
+              <div class="university">
+                <h3>University of Melbourne</h3>
+                <p>2024 Transportation Research Part E work on on-premises parcel lockers and beneficiary economics.</p>
+              </div>
+              <div class="university">
+                <h3>University of Modena and Reggio Emilia</h3>
+                <p>2023 Transportation Research Part C paper on pickup and delivery with lockers.</p>
+              </div>
+              <div class="university">
+                <h3>Eindhoven University of Technology</h3>
+                <p>2024 research on autonomous mobile parcel lockers in last-mile distribution.</p>
+              </div>
+              <div class="university">
+                <h3>Chung-Ang University and Pusan National University</h3>
+                <p>2021 empirical work on customer satisfaction with parcel locker services.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="section-kicker">Patent evidence</div>
+            <h2>Visible patent families</h2>
+            <div class="patent-list">
+              <div class="patent">
+                <h3>NL1001862C2 / EP0778090A1</h3>
+                <p>Method for collecting and distributing mail items. Legacy postal-routing and sorting logic attributed to Koninklijke PTT Nederland. Patent offices involved include NL and EP.</p>
+              </div>
+              <div class="patent">
+                <h3>EP0489471A1 / EP0489471B1</h3>
+                <p>Device for counting flat objects, such as letters, forming a stack. Legacy letter-processing patent through the European Patent Office.</p>
+              </div>
+              <div class="patent">
+                <h3>WO1996035522A1</h3>
+                <p>Legacy PTT filing for a method and device for sorting batteries. Not central to today's PostNL thesis, but another sign that the visible patent set is historically older than the current locker and software story.</p>
+              </div>
+            </div>
+            <div class="verdict-box">
+              <strong>IP conclusion</strong>
+              <p>Recent 2021-2025 family momentum is not visibly present in the public search record used here. That is the single largest drag on the innovation score.</p>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="section-kicker">Red flags</div>
+            <h2>Reasons for caution</h2>
+            <div class="flag-list">
+              <div class="flag">
+                <h3>Innovation narrative is heavier on deployment than invention</h3>
+                <p>The company discloses lockers, routing and AI adoption, but not a strong proprietary patent or research engine behind them.</p>
+              </div>
+              <div class="flag">
+                <h3>Economics remain under-explained</h3>
+                <p>Management does not clearly break out locker-network revenue, software economics or technology-led margin expansion.</p>
+              </div>
+              <div class="flag">
+                <h3>Regulatory overhang is material</h3>
+                <p>2025 disclosures repeatedly stressed the inadequacy of the postal framework and the drag from labour-related cost inflation.</p>
+              </div>
+              <div class="flag">
+                <h3>Science tailwind is sector-wide</h3>
+                <p>Growing parcel-locker literature does not automatically convert into a unique PostNL competitive moat.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel reveal">
+            <div class="section-kicker">What changes the view</div>
+            <h2>Upgrade and downgrade triggers</h2>
+            <div class="change-list">
+              <div class="change-item">
+                <h3>Upgrade</h3>
+                <p>Clear disclosure of locker-network unit economics, sustained partner expansion beyond FedEx, and visible recent patent families tied to lockers, software or routing.</p>
+              </div>
+              <div class="change-item">
+                <h3>Upgrade</h3>
+                <p>Evidence that AI and digital orchestration are structurally improving margins or throughput, not just assisting internal workflows.</p>
+              </div>
+              <div class="change-item">
+                <h3>Downgrade</h3>
+                <p>Locker growth slows, partner adoption stalls, or regulatory constraints continue to consume the economic benefits of operational modernization.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <div class="grid" style="padding-top:0;">
+        <section class="panel" style="grid-column: 1 / -1;">
+          <div class="section-kicker">Sources</div>
+          <h2>Primary and research sources used</h2>
+          <div class="source-list">
+            <div class="source">
+              <h3><a href="https://annualreport.postnl.nl/app/uploads/2026/02/PostNL-Annual-Report-2025.pdf">PostNL Annual Report 2025</a></h3>
+              <p>Used for 2025 locker count, active accounts, Copilot licences, parcel volume, strategy language and operating context.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://annualreport.postnl.nl/2024/xmlpages/tan/files?p_file_id=438">PostNL Annual Report 2024</a></h3>
+              <p>Used for 2024 key figures, including 1,083 lockers and 8.9 million active accounts.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://annualreport.postnl.nl/app/uploads/2026/01/PostNL-Annual-Report-2023.pdf">PostNL Annual Report 2023</a></h3>
+              <p>Used for 2023 key figures, including 903 lockers and 6.9 million unique PostNL accounts.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://www.annualreports.com/HostedData/AnnualReportArchive/p/postnl_2022.pdf">PostNL Annual Report 2022 archive</a></h3>
+              <p>Used for 2022 locker count and the open-locker program progression.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://www.annualreports.com/HostedData/AnnualReportArchive/p/postnl_2021.pdf">PostNL Annual Report 2021 archive</a></h3>
+              <p>Used for the first next-generation parcel locker, robotised small parcel sorting centre and digital-investment disclosures.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://newsroom.postnl.nl/en-NL/256798-postnl-opens-up-parcel-lockers/">PostNL opens up parcel lockers, 27 October 2022</a></h3>
+              <p>Used for the open locker platform, over-400 locker starting point and cross-carrier IT integration statement.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://newsroom.postnl.nl/en-NL/256729-postnl-opens-parcel-lockers-to-fedex/">PostNL opens parcel lockers to FedEx, 3 June 2025</a></h3>
+              <p>Used for external network adoption, usage growth and the additional 500-locker expansion plan.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://www.postnl.nl/en/about-postnl/press-news/press-releases/postnl-reports-q1-2025-results/">PostNL reports Q1 2025 results, 6 May 2025</a></h3>
+              <p>Used for efficiency-improvement and cost-savings commentary.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://www.postnl.nl/en/about-postnl/press-news/press-releases/postnl-reports-q2-2025-results/">PostNL reports Q2 2025 results, 4 August 2025</a></h3>
+              <p>Used for digital supply chain, cost savings and regulatory strain.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://www.postnl.nl/en/about-postnl/press-news/press-releases/postnl-reports-q3-2025-results/">PostNL reports Q3 2025 results, 3 November 2025</a></h3>
+              <p>Used for Breakthrough 2028, continued efficiency measures and the economics overhang.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://api.openalex.org/works?search=parcel%20locker%20last-mile%20logistics&filter=from_publication_date:2021-01-01,to_publication_date:2021-12-31&per-page=1">OpenAlex 2021 query</a> · <a href="https://api.openalex.org/works?search=parcel%20locker%20last-mile%20logistics&filter=from_publication_date:2022-01-01,to_publication_date:2022-12-31&per-page=1">2022</a> · <a href="https://api.openalex.org/works?search=parcel%20locker%20last-mile%20logistics&filter=from_publication_date:2023-01-01,to_publication_date:2023-12-31&per-page=1">2023</a> · <a href="https://api.openalex.org/works?search=parcel%20locker%20last-mile%20logistics&filter=from_publication_date:2024-01-01,to_publication_date:2024-12-31&per-page=1">2024</a> · <a href="https://api.openalex.org/works?search=parcel%20locker%20last-mile%20logistics&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">2025</a></h3>
+              <p>Used for the publication-count series: 108, 143, 257, 238 and 324 works.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://doi.org/10.1002/joom.1355">Journal of Operations Management, 2025</a> · <a href="https://doi.org/10.1016/j.tre.2024.103458">Transportation Research Part E, 2024</a> · <a href="https://doi.org/10.1016/j.trc.2023.104022">Transportation Research Part C, 2023</a> · <a href="https://doi.org/10.1016/j.ajsl.2021.11.002">Asian Journal of Shipping and Logistics, 2021</a></h3>
+              <p>Used to identify university research activity and the maturity of the field.</p>
+            </div>
+            <div class="source">
+              <h3><a href="https://patents.google.com/patent/NL1001862C2/en">NL1001862C2</a> · <a href="https://patents.google.com/patent/EP0489471A1/en">EP0489471A1</a> · <a href="https://patents.google.com/patent/WO1996035522A1/en">WO1996035522A1</a></h3>
+              <p>Used as visible patent examples. Interpretation that recent PostNL patent-family build-out is weak is an inference from targeted public searches, not a patent-office export.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <div class="footline">
+      <span>Theme: Golden Hour</span>
+      <span>Dashboard artifact created in-repo</span>
+    </div>
+  </div>
+</body>
+</html>

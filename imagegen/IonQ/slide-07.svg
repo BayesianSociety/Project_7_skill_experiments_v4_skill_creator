@@ -1,0 +1,24 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg7" x1="94" y1="84" x2="986" y2="1002" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF5E3"/>
+      <stop offset="0.54" stop-color="#DDBC92"/>
+      <stop offset="1" stop-color="#5A4740"/>
+    </linearGradient>
+    <radialGradient id="beacon" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(540 394) rotate(90) scale(216 216)">
+      <stop stop-color="#F4A900"/>
+      <stop offset="1" stop-color="#F4A900" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg7)"/>
+  <circle cx="540" cy="394" r="216" fill="url(#beacon)"/>
+  <path d="M180 860C320 758 422 700 540 670C674 636 774 666 906 762" stroke="#FFF0DE" stroke-opacity="0.58" stroke-width="12" stroke-linecap="round"/>
+  <path d="M248 880C366 808 454 772 540 754C640 734 730 754 838 824" stroke="#F4A900" stroke-opacity="0.72" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="540" cy="394" r="30" fill="#FFF8EE"/>
+  <circle cx="540" cy="394" r="14" fill="#4A403A"/>
+  <rect x="128" y="120" width="824" height="250" rx="36" fill="#FFF9F1" fill-opacity="0.88" stroke="#4A403A" stroke-opacity="0.12"/>
+  <text x="176" y="214" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="64" font-weight="700" letter-spacing="-2">Verdict: Real, Early,</text>
+  <text x="176" y="286" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="64" font-weight="700" letter-spacing="-2">Watch Closely</text>
+  <text x="176" y="862" fill="#FFF6EA" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="700">Strong innovator. Not yet a de-risked winner.</text>
+  <text x="176" y="916" fill="#F8E9D8" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="28">IonQ has enough evidence to matter now. It still needs operating proof to dominate later.</text>
+</svg>

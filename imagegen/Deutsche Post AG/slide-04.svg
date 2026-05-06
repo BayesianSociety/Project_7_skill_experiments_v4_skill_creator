@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fdf5ea"/>
+      <stop offset="100%" stop-color="#ecd6bb"/>
+    </linearGradient>
+    <radialGradient id="core4" cx="0.72" cy="0.62" r="0.4">
+      <stop offset="0%" stop-color="#f4a900" stop-opacity="0.52"/>
+      <stop offset="100%" stop-color="#f4a900" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg4)"/>
+  <rect width="1080" height="1080" fill="url(#core4)"/>
+  <circle cx="770" cy="640" r="116" fill="#4a403a"/>
+  <circle cx="770" cy="640" r="66" fill="#f4a900"/>
+  <g stroke="#c1666b" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.78">
+    <path d="M260 304 C420 322 540 424 704 596"/>
+    <path d="M230 432 C394 446 564 480 688 610"/>
+    <path d="M244 560 C410 548 542 572 682 646"/>
+  </g>
+  <g fill="#c1666b">
+    <circle cx="280" cy="304" r="18"/>
+    <circle cx="242" cy="432" r="18"/>
+    <circle cx="252" cy="560" r="18"/>
+  </g>
+  <g transform="translate(150 162)">
+    <text x="0" y="0" font-family="FreeSans, Arial, sans-serif" font-size="30" letter-spacing="6" fill="#6a5d53">AGENTIC AI / COMMUNICATION</text>
+    <text x="0" y="142" font-family="FreeSans, Arial, sans-serif" font-size="114" font-weight="700" fill="#4a403a">AI entered</text>
+    <text x="0" y="264" font-family="FreeSans, Arial, sans-serif" font-size="114" font-weight="700" fill="#4a403a">the workflow</text>
+    <text x="0" y="356" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">Hundreds of thousands of emails.</text>
+    <text x="0" y="406" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">Millions of voice minutes.</text>
+  </g>
+</svg>

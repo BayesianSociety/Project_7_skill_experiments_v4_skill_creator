@@ -1,0 +1,30 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg4" x1="88" y1="106" x2="972" y2="1012" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF6E8"/>
+      <stop offset="0.45" stop-color="#E8D2B7"/>
+      <stop offset="1" stop-color="#C1666B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg4)"/>
+  <g opacity="0.9">
+    <circle cx="540" cy="540" r="20" fill="#4A403A"/>
+    <circle cx="266" cy="382" r="24" fill="#F4A900"/>
+    <circle cx="798" cy="332" r="24" fill="#C1666B"/>
+    <circle cx="850" cy="690" r="24" fill="#F4A900"/>
+    <circle cx="272" cy="724" r="24" fill="#C1666B"/>
+    <circle cx="540" cy="250" r="18" fill="#FFF8EE"/>
+    <circle cx="540" cy="830" r="18" fill="#FFF8EE"/>
+    <path d="M540 540L266 382" stroke="#4A403A" stroke-opacity="0.28" stroke-width="10"/>
+    <path d="M540 540L798 332" stroke="#4A403A" stroke-opacity="0.28" stroke-width="10"/>
+    <path d="M540 540L850 690" stroke="#4A403A" stroke-opacity="0.28" stroke-width="10"/>
+    <path d="M540 540L272 724" stroke="#4A403A" stroke-opacity="0.28" stroke-width="10"/>
+    <path d="M540 540L540 250" stroke="#4A403A" stroke-opacity="0.18" stroke-width="8"/>
+    <path d="M540 540L540 830" stroke="#4A403A" stroke-opacity="0.18" stroke-width="8"/>
+  </g>
+  <rect x="126" y="114" width="828" height="216" rx="36" fill="#FFF9F1" fill-opacity="0.88" stroke="#4A403A" stroke-opacity="0.12"/>
+  <text x="176" y="206" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="72" font-weight="700" letter-spacing="-2">Adoption Is Not</text>
+  <text x="176" y="286" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="72" font-weight="700" letter-spacing="-2">Hypothetical</text>
+  <text x="176" y="896" fill="#FFF8EE" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="40" font-weight="700">AFRL • AWS • UMD • AstraZeneca • Ansys • QuantumBasel • KISTI</text>
+  <text x="176" y="950" fill="#FFF2E3" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="28">The customer map is small, but it is now undeniably real.</text>
+</svg>

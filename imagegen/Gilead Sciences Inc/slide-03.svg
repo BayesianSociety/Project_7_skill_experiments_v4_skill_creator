@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Slide 3 - Yeztugo Changes The Curve</title>
+  <desc id="desc">Instagram slide highlighting Yeztugo's FDA approval date.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#223f4d"/>
+      <stop offset="60%" stop-color="#ef9c5d"/>
+      <stop offset="100%" stop-color="#ffe0a9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect x="140" y="150" width="800" height="780" rx="48" fill="#fff7ef" fill-opacity="0.9"/>
+  <g transform="translate(675 228)">
+    <rect x="0" y="36" width="168" height="138" rx="28" fill="#264653"/>
+    <rect x="0" y="86" width="168" height="88" rx="0" fill="#fff8f1"/>
+    <text x="84" y="136" text-anchor="middle" fill="#264653" font-family="DejaVu Sans" font-size="26" letter-spacing="2">JUNE 18</text>
+    <text x="84" y="246" text-anchor="middle" fill="#264653" font-family="DejaVu Sans" font-size="26" letter-spacing="2">2025</text>
+    <circle cx="84" cy="270" r="74" fill="none" stroke="#e76f51" stroke-width="12"/>
+    <line x1="84" y1="270" x2="84" y2="222" stroke="#e76f51" stroke-width="12" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(210 642)">
+    <rect x="0" y="0" width="520" height="120" rx="60" fill="#264653"/>
+    <circle cx="116" cy="60" r="26" fill="#f4a261"/>
+    <text x="292" y="74" text-anchor="middle" fill="#fff8f1" font-family="DejaVu Sans" font-size="28" letter-spacing="2">TWICE-YEARLY PREP</text>
+  </g>
+  <text x="220" y="308" fill="#264653" font-family="DejaVu Serif" font-size="88" font-weight="700">
+    <tspan x="220" dy="0">Yeztugo</tspan>
+    <tspan x="220" dy="100">Changes The Curve</tspan>
+  </text>
+  <text x="220" y="484" fill="#355563" font-family="DejaVu Sans" font-size="38">
+    <tspan x="220" dy="0">FDA approved twice-yearly</tspan>
+    <tspan x="220" dy="54">HIV prevention on June 18, 2025.</tspan>
+  </text>
+  <circle cx="846" cy="838" r="46" fill="#e76f51"/>
+  <text x="846" y="852" text-anchor="middle" fill="#fff8f1" font-family="DejaVu Serif" font-size="38" font-weight="700">03</text>
+</svg>

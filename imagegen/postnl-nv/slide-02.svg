@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg-2" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f8f0e4"/>
+      <stop offset="65%" stop-color="#eddcc3"/>
+      <stop offset="100%" stop-color="#e8d0b5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bg-2)"/>
+  <circle cx="220" cy="180" r="210" fill="#f4a900" fill-opacity="0.12"/>
+  <circle cx="930" cy="210" r="170" fill="#c1666b" fill-opacity="0.10"/>
+  <circle cx="860" cy="910" r="220" fill="#f4a900" fill-opacity="0.08"/>
+  <rect x="0" y="0" width="1080" height="1080" fill="#ffffff" fill-opacity="0.03"/>
+
+  <path d="M120.0,160.0 C425.1,70.0 425.1,759.6 730.2,669.6" stroke="#f4a900" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M216.0,370.0 C420.0,280.0 420.0,819.3 624.1,729.3" stroke="#c1666b" stroke-opacity="0.45" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M312.0,580.0 C398.9,490.0 398.9,834.2 485.8,744.2" stroke="#f4a900" stroke-opacity="0.45" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M408.0,160.0 C378.9,70.0 378.9,796.2 349.7,706.2" stroke="#c1666b" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M504.0,370.0 C378.2,280.0 378.2,711.0 252.5,621.0" stroke="#f4a900" stroke-opacity="0.45" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M600.0,580.0 C411.6,490.0 411.6,597.3 223.1,507.3" stroke="#c1666b" stroke-opacity="0.45" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M696.0,160.0 C485.4,70.0 485.4,483.2 274.9,393.2" stroke="#f4a900" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M792.0,370.0 C596.0,280.0 596.0,398.9 400.1,308.9" stroke="#c1666b" stroke-opacity="0.45" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M888.0,580.0 C729.5,490.0 729.5,369.0 571.0,279.0" stroke="#f4a900" stroke-opacity="0.45" stroke-width="5" fill="none" stroke-linecap="round"/>
+<circle cx="120" cy="160" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="280" cy="176" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="440" cy="160" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="600" cy="176" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="760" cy="160" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="920" cy="176" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="148" cy="340" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="308" cy="356" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="468" cy="340" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="628" cy="356" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="788" cy="340" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="948" cy="356" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="120" cy="520" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="280" cy="536" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="440" cy="520" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="600" cy="536" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="760" cy="520" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="920" cy="536" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="148" cy="700" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="308" cy="716" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="468" cy="700" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="628" cy="716" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="788" cy="700" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="948" cy="716" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<rect x="96" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="316" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="536" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="756" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="96" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="316" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="536" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="756" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="96" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="316" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="536" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="756" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+
+  <rect x="120" y="120" width="840" height="840" rx="34" fill="#fffaf4" fill-opacity="0.64" stroke="#4a403a" stroke-opacity="0.12"/>
+  <rect x="168" y="168" width="744" height="744" rx="28" fill="#fffdf9" fill-opacity="0.82"/>
+
+  <text x="200" y="248" fill="#c1666b" font-size="24" font-family="DejaVu Sans, Arial, sans-serif" letter-spacing="6">POSTNL</text>
+  <text x="200" y="410" fill="#4a403a" font-size="88" font-family="DejaVu Serif, Georgia, serif" font-weight="700">
+    <tspan x="200" dy="0">Mail pressure</tspan><tspan x="200" dy="92">changed the</tspan><tspan x="200" dy="92">mission</tspan>
+  </text>
+  <text x="200" y="640" fill="#2f2824" font-size="38" font-family="DejaVu Sans, Arial, sans-serif">
+    <tspan x="200" dy="0">Innovation here is not moonshot science.</tspan><tspan x="200" dy="50">It is a response to shrinking mail</tspan><tspan x="200" dy="50">economics and parcel complexity.</tspan>
+  </text>
+
+  <line x1="200" y1="760" x2="880" y2="760" stroke="#4a403a" stroke-opacity="0.18"/>
+  <text x="200" y="820" fill="#4a403a" font-size="26" font-family="DejaVu Sans, Arial, sans-serif">Editorial logistics system / high contrast</text>
+</svg>

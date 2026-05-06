@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <rect width="1080" height="1080" fill="#faf9f6"/>
+  <rect x="44" y="44" width="992" height="992" rx="40" fill="#f5f2ea"/>
+  <g stroke="rgba(45,74,43,0.12)" stroke-width="2">
+    <line x1="138" y1="850" x2="940" y2="850"/>
+    <line x1="138" y1="706" x2="940" y2="706"/>
+    <line x1="138" y1="562" x2="940" y2="562"/>
+    <line x1="138" y1="418" x2="940" y2="418"/>
+    <line x1="138" y1="274" x2="940" y2="274"/>
+  </g>
+  <polyline points="138,676 338,626 538,520 738,234 940,114" fill="none" stroke="#2d4a2b" stroke-width="10"/>
+  <polyline points="138,754 338,712 538,648 738,444 940,322" fill="none" stroke="#7d8471" stroke-width="10"/>
+  <polyline points="138,636 338,608 538,560 738,318 940,178" fill="none" stroke="#a4ac86" stroke-width="10"/>
+  <g font-family="FreeSans, Arial, sans-serif">
+    <text x="112" y="166" font-size="72" font-weight="700" fill="#2d4a2b">THE SCIENCE</text>
+    <text x="112" y="246" font-size="72" font-weight="700" fill="#2d4a2b">IS GROWING</text>
+    <text x="112" y="930" font-size="28" fill="#5d6755" letter-spacing="3">MRI + AI</text>
+    <text x="356" y="930" font-size="28" fill="#5d6755" letter-spacing="3">ULTRASOUND + AI</text>
+    <text x="694" y="930" font-size="28" fill="#5d6755" letter-spacing="3">MINIMALLY INVASIVE</text>
+    <text x="112" y="320" font-size="30" fill="#5d6755">Research activity accelerated across Philips-relevant fields after 2022.</text>
+  </g>
+</svg>

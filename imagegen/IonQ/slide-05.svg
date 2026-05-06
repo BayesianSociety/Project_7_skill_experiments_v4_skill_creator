@@ -1,0 +1,27 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg5" x1="112" y1="88" x2="972" y2="980" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8EE"/>
+      <stop offset="0.48" stop-color="#E4CFB0"/>
+      <stop offset="1" stop-color="#B77463"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg5)"/>
+  <g opacity="0.24" stroke="#4A403A" stroke-width="3">
+    <rect x="118" y="188" width="844" height="676" rx="24"/>
+    <path d="M160 292H920"/>
+    <path d="M160 430H920"/>
+    <path d="M160 568H920"/>
+    <path d="M160 706H920"/>
+    <path d="M306 220V832"/>
+    <path d="M522 220V832"/>
+    <path d="M744 220V832"/>
+  </g>
+  <path d="M190 734C258 626 306 548 392 500C482 450 584 464 654 380C714 308 746 266 892 264" stroke="#C1666B" stroke-width="12" stroke-linecap="round" stroke-dasharray="12 18"/>
+  <path d="M200 770C260 716 308 672 392 654C488 634 568 662 650 610C728 560 796 484 886 386" stroke="#F4A900" stroke-width="10" stroke-linecap="round"/>
+  <rect x="126" y="110" width="766" height="216" rx="36" fill="#FFF9F1" fill-opacity="0.9" stroke="#4A403A" stroke-opacity="0.12"/>
+  <text x="174" y="202" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="70" font-weight="700" letter-spacing="-2">The IP Stack Is</text>
+  <text x="174" y="282" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="70" font-weight="700" letter-spacing="-2">Getting Specific</text>
+  <text x="174" y="900" fill="#FFF8EE" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="38" font-weight="700">Compilers • Pulse generation • Fast gates • Addressing • Raman control</text>
+  <text x="174" y="952" fill="#FFF0DE" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="28">The record is imperfect, but this is clearly engineering work rather than empty signaling.</text>
+</svg>

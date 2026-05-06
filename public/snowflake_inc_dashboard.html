@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snowflake Innovation Dashboard</title>
+  <style>
+    :root {
+      --dusty-rose: #d4a5a5;
+      --clay: #b87d6d;
+      --sand: #e8d5c4;
+      --burgundy: #5d2e46;
+      --ink: #241b20;
+      --muted: #705f62;
+      --paper: #fff9f5;
+      --surface: #f7ece7;
+      --line: rgba(93, 46, 70, 0.16);
+      --line-strong: rgba(93, 46, 70, 0.3);
+      --green: #2f7a69;
+      --amber: #9f6f2f;
+      --rose-soft: rgba(212, 165, 165, 0.28);
+      --green-soft: rgba(47, 122, 105, 0.13);
+      --amber-soft: rgba(159, 111, 47, 0.13);
+      --max: 1480px;
+      --body: "FreeSans", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--body);
+      background:
+        linear-gradient(90deg, rgba(93, 46, 70, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(93, 46, 70, 0.04) 1px, transparent 1px),
+        linear-gradient(180deg, #fffaf6 0%, #f4e6de 56%, #ead2c8 100%);
+      background-size: 64px 64px, 64px 64px, auto;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: var(--burgundy);
+      text-decoration-color: rgba(93, 46, 70, 0.34);
+      text-underline-offset: 0.16em;
+    }
+
+    .shell {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 54px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 8px 2px 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .topbar strong {
+      color: var(--burgundy);
+      font-weight: 700;
+    }
+
+    .app {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 249, 245, 0.9);
+      box-shadow: 0 28px 80px rgba(93, 46, 70, 0.12);
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 26px;
+      padding: 28px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(212, 165, 165, 0.24), transparent 44%),
+        linear-gradient(180deg, rgba(255, 249, 245, 0.98), rgba(247, 236, 231, 0.86));
+    }
+
+    .kicker {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--burgundy);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin-top: 8px;
+      max-width: 14ch;
+      font-size: clamp(2.2rem, 4.4vw, 5rem);
+      line-height: 0.96;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: clamp(1.25rem, 2vw, 1.8rem);
+      line-height: 1.08;
+    }
+
+    h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.58;
+    }
+
+    .summary {
+      max-width: 78ch;
+      margin-top: 14px;
+      font-size: 1rem;
+    }
+
+    .score-panel {
+      display: grid;
+      gap: 18px;
+      align-content: start;
+      border-left: 1px solid var(--line);
+      padding-left: 24px;
+    }
+
+    .score-ring {
+      --p: 77.6%;
+      width: 184px;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      justify-self: end;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, var(--paper) 58%, transparent 60%),
+        conic-gradient(var(--clay) var(--p), rgba(93, 46, 70, 0.11) 0);
+      box-shadow: inset 0 0 0 1px rgba(93, 46, 70, 0.12), 0 12px 36px rgba(93, 46, 70, 0.12);
+      animation: settle 700ms ease both;
+    }
+
+    .score-ring strong {
+      display: block;
+      color: var(--burgundy);
+      font-size: 2.8rem;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .score-ring span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    .status-list {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.42;
+    }
+
+    .status-list b { color: var(--ink); }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      width: fit-content;
+      padding: 7px 10px;
+      border: 1px solid rgba(93, 46, 70, 0.15);
+      border-radius: 6px;
+      background: var(--rose-soft);
+      color: var(--burgundy);
+      font-size: 0.81rem;
+      font-weight: 700;
+    }
+
+    .badge.good {
+      background: var(--green-soft);
+      color: #254c43;
+      border-color: rgba(47, 122, 105, 0.24);
+    }
+
+    .badge.warn {
+      background: var(--amber-soft);
+      color: #6b4a20;
+      border-color: rgba(159, 111, 47, 0.24);
+    }
+
+    .content {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 370px;
+      min-height: 760px;
+    }
+
+    .main {
+      padding: 28px;
+      border-right: 1px solid var(--line);
+      display: grid;
+      gap: 30px;
+    }
+
+    .rail {
+      padding: 28px 24px;
+      display: grid;
+      gap: 28px;
+      align-content: start;
+      background: linear-gradient(180deg, rgba(232, 213, 196, 0.5), rgba(255, 249, 245, 0.72));
+    }
+
+    .snapshot-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .snapshot {
+      min-height: 98px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line-strong);
+    }
+
+    .snapshot strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--burgundy);
+      font-size: clamp(1.2rem, 2.4vw, 2.05rem);
+      line-height: 1;
+    }
+
+    .snapshot span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .section {
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .layer-stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .layer {
+      padding: 19px 0;
+      border-top: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 520ms ease, transform 520ms ease, background-color 180ms ease;
+    }
+
+    .layer:first-child { border-top: 0; }
+
+    .layer.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .layer:hover { background: rgba(255, 249, 245, 0.58); }
+
+    .layer-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .layer-title {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .confidence {
+      color: var(--muted);
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+
+    .score {
+      color: var(--burgundy);
+      font-size: 0.98rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .bar {
+      height: 8px;
+      margin: 12px 0;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(93, 46, 70, 0.12);
+    }
+
+    .bar-fill {
+      width: calc(var(--value) * 20%);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--clay), var(--burgundy));
+      box-shadow: 0 0 18px rgba(184, 125, 109, 0.32);
+      transform-origin: left center;
+      animation: grow 900ms ease both;
+    }
+
+    .layer-copy {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      color: var(--muted);
+      line-height: 1.52;
+      font-size: 0.94rem;
+    }
+
+    .layer-copy b { color: var(--ink); }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .plain-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+      line-height: 1.48;
+      font-size: 0.94rem;
+    }
+
+    .plain-list li {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .plain-list li::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      background: var(--clay);
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+
+    .evidence-table {
+      display: grid;
+      margin-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .evidence-row {
+      display: grid;
+      grid-template-columns: 172px minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      transition: transform 180ms ease, background-color 180ms ease;
+    }
+
+    .evidence-row:hover {
+      transform: translateX(3px);
+      background: rgba(212, 165, 165, 0.1);
+    }
+
+    .evidence-row span {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .evidence-row strong {
+      color: var(--ink);
+      font-size: 0.96rem;
+      line-height: 1.35;
+    }
+
+    .evidence-row em {
+      color: var(--burgundy);
+      font-style: normal;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .rail-block {
+      display: grid;
+      gap: 10px;
+    }
+
+    .rail-stat {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: baseline;
+      padding: 12px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .rail-stat span {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
+    .rail-stat strong {
+      color: var(--burgundy);
+      font-size: 1.05rem;
+      white-space: nowrap;
+    }
+
+    .mini-chart {
+      height: 92px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      align-items: end;
+      padding: 10px 0 22px;
+    }
+
+    .mini-chart span {
+      position: relative;
+      display: block;
+      min-height: 12px;
+      border-radius: 4px 4px 1px 1px;
+      background: linear-gradient(180deg, var(--clay), var(--burgundy));
+    }
+
+    .mini-chart span::after {
+      content: attr(data-label);
+      position: absolute;
+      left: 50%;
+      bottom: -18px;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 0.68rem;
+    }
+
+    .mini-chart.patents span:nth-child(5) {
+      background: linear-gradient(180deg, var(--amber), var(--burgundy));
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .source-list a {
+      display: block;
+      padding: 10px 0;
+      border-top: 1px solid var(--line);
+      font-size: 0.9rem;
+      line-height: 1.36;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 28px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 249, 245, 0.72);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    @keyframes grow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+
+    @keyframes settle {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 1080px) {
+      .header, .content, .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .score-panel {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+        padding-left: 0;
+        padding-top: 22px;
+      }
+
+      .score-ring { justify-self: start; }
+      .main { border-right: 0; }
+      .snapshot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(calc(100% - 18px), var(--max));
+        padding-top: 8px;
+      }
+
+      .topbar, .footer {
+        flex-direction: column;
+      }
+
+      .header, .main, .rail, .footer {
+        padding: 20px;
+      }
+
+      .layer-head, .layer-copy, .snapshot-grid, .evidence-row {
+        grid-template-columns: 1fr;
+      }
+
+      .layer-title {
+        display: grid;
+        gap: 4px;
+      }
+
+      .score-ring { width: 164px; }
+      .evidence-row { gap: 5px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <span><strong>Snowflake Inc.</strong> innovation readiness dashboard</span>
+      <span>Research date: May 4, 2026 | Latest annual period: FY 2026</span>
+    </div>
+
+    <main class="app">
+      <section class="header">
+        <div>
+          <div class="kicker">NYSE: SNOW | Absolute score, no peer percentile</div>
+          <h1>Strong translational momentum</h1>
+          <p class="summary">Snowflake scores as a high-quality platform innovator: research, productization, and enterprise adoption are strong, while the patent trend, hyperscaler dependency, AI governance exposure, and persistent GAAP operating losses keep it just below the exceptional threshold.</p>
+        </div>
+
+        <aside class="score-panel" aria-label="Score summary">
+          <div class="score-ring" style="--p:77.6%">
+            <div>
+              <strong>19.4</strong>
+              <span>of 25 readiness score</span>
+            </div>
+          </div>
+          <div class="status-list">
+            <div><b>Verdict:</b> Strong innovator with translational momentum</div>
+            <div><b>Gate:</b> passed deterministic evidence gate</div>
+            <div><b>Threshold note:</b> 0.6 points below exceptional</div>
+          </div>
+          <div class="badge-row">
+            <span class="badge good">High adoption</span>
+            <span class="badge good">High industrialization</span>
+            <span class="badge warn">Medium IP confidence</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="content">
+        <div class="main">
+          <section>
+            <h2>Selected KPIs</h2>
+            <div class="snapshot-grid" aria-label="Selected innovation and adoption metrics">
+              <div class="snapshot">
+                <strong>$4.68B</strong>
+                <span>FY2026 revenue, up 29% year over year</span>
+              </div>
+              <div class="snapshot">
+                <strong>$1.97B</strong>
+                <span>FY2026 R&amp;D, about 42% of revenue</span>
+              </div>
+              <div class="snapshot">
+                <strong>13,328</strong>
+                <span>customers at January 31, 2026</span>
+              </div>
+              <div class="snapshot">
+                <strong>125%</strong>
+                <span>net revenue retention at FY2026 close</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Layer Scores</h2>
+            <div class="layer-stack">
+              <article class="layer">
+                <div class="layer-head">
+                  <div class="layer-title">
+                    <h3>Science</h3>
+                    <span class="confidence">High confidence</span>
+                  </div>
+                  <span class="score">4.3 / 5</span>
+                </div>
+                <div class="bar"><div class="bar-fill" style="--value:4.3"></div></div>
+                <div class="layer-copy">
+                  <p><b>Strong:</b> field publication proxies rose sharply, and Snowflake has credible research assets including the SIGMOD architecture paper and Arctic model release.</p>
+                  <p><b>Gap:</b> current citation data is incomplete for Cortex, Snowflake Intelligence, and Project SnowWork.</p>
+                </div>
+              </article>
+
+              <article class="layer">
+                <div class="layer-head">
+                  <div class="layer-title">
+                    <h3>IP</h3>
+                    <span class="confidence">Medium confidence</span>
+                  </div>
+                  <span class="score">3.4 / 5</span>
+                </div>
+                <div class="bar"><div class="bar-fill" style="--value:3.4"></div></div>
+                <div class="layer-copy">
+                  <p><b>Strong:</b> 1,047 patent documents in the assignee profile, covering pruning indexes, external-table scans, replication, data sharing, LLM search, and hallucination safeguards.</p>
+                  <p><b>Gap:</b> grant counts fell from the 2022-2024 plateau into 2025, and a clean global simple-family series was not available.</p>
+                </div>
+              </article>
+
+              <article class="layer">
+                <div class="layer-head">
+                  <div class="layer-title">
+                    <h3>Industrialization</h3>
+                    <span class="confidence">High confidence</span>
+                  </div>
+                  <span class="score">4.2 / 5</span>
+                </div>
+                <div class="bar"><div class="bar-fill" style="--value:4.2"></div></div>
+                <div class="layer-copy">
+                  <p><b>Strong:</b> Snowflake reports 53 regional deployments across three major public clouds, with Snowpark, container services, Cortex AI functions, applications, and open-catalog work productized.</p>
+                  <p><b>Gap:</b> utilization is not separately disclosed for Cortex, Intelligence, Postgres, SnowWork, or Polaris.</p>
+                </div>
+              </article>
+
+              <article class="layer">
+                <div class="layer-head">
+                  <div class="layer-title">
+                    <h3>Adoption</h3>
+                    <span class="confidence">High confidence</span>
+                  </div>
+                  <span class="score">4.3 / 5</span>
+                </div>
+                <div class="bar"><div class="bar-fill" style="--value:4.3"></div></div>
+                <div class="layer-copy">
+                  <p><b>Strong:</b> FY2026 includes 790 Forbes Global 2000 customers, 733 customers above $1 million trailing product revenue, $4.47B product revenue, and $9.77B RPO.</p>
+                  <p><b>Gap:</b> newer agentic AI products remain partly preview-stage, so product-specific revenue proof is still emerging.</p>
+                </div>
+              </article>
+
+              <article class="layer">
+                <div class="layer-head">
+                  <div class="layer-title">
+                    <h3>Policy &amp; Economics</h3>
+                    <span class="confidence">Medium confidence</span>
+                  </div>
+                  <span class="score">3.2 / 5</span>
+                </div>
+                <div class="bar"><div class="bar-fill" style="--value:3.2"></div></div>
+                <div class="layer-copy">
+                  <p><b>Strong:</b> operating cash flow reached $1.22B in FY2026, and Polaris/Apache Iceberg alignment improves interoperability positioning.</p>
+                  <p><b>Gap:</b> hyperscaler dependence, data security, AI governance, consumption variability, and GAAP operating losses remain material.</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section two-col">
+            <div>
+              <h2>Commercialization Evidence</h2>
+              <ul class="plain-list">
+                <li>$4.47B FY2026 product revenue and $9.77B remaining performance obligations show large committed demand.</li>
+                <li>Customers above $1M trailing product revenue rose to 733, reinforcing repeatability at enterprise scale.</li>
+                <li>Snowpark Container Services, Cortex AI, Snowflake Intelligence, Snowflake Postgres, and Polaris extend the platform beyond warehouse workloads.</li>
+                <li>Open Iceberg/Polaris strategy reduces lock-in criticism while keeping Snowflake near the governance and execution plane.</li>
+              </ul>
+            </div>
+            <div>
+              <h2>Watchlist</h2>
+              <ul class="plain-list">
+                <li>Separate adoption metrics for Cortex AI, Intelligence, Cortex Code, Postgres, SnowWork, and Polaris.</li>
+                <li>Whether patent filings recover after recent lagged filing-year and grant-year slowdown signals.</li>
+                <li>Progress from high operating cash flow toward durable GAAP operating profitability.</li>
+                <li>Security, privacy, AI governance, and hyperscaler concentration risks in customer deployments.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Evidence Trail</h2>
+            <div class="evidence-table">
+              <div class="evidence-row">
+                <span>FY2026 10-K</span>
+                <strong>13,328 customers, 790 Forbes Global 2000 customers, 125% net revenue retention, 53 regional deployments</strong>
+                <em>Primary</em>
+              </div>
+              <div class="evidence-row">
+                <span>SEC companyfacts</span>
+                <strong>Revenue grew from $1.22B in FY2022 to $4.68B in FY2026; R&amp;D rose from $467M to $1.97B</strong>
+                <em>Primary</em>
+              </div>
+              <div class="evidence-row">
+                <span>OpenAlex proxies</span>
+                <strong>Data-platform field works rose from 6 to 52; enterprise AI/data-cloud works rose from 85 to 366</strong>
+                <em>Field proxy</em>
+              </div>
+              <div class="evidence-row">
+                <span>Patent profile</span>
+                <strong>1,047 patent documents and 2,271 forward citations, with technical coverage in query execution, sharing, and AI safeguards</strong>
+                <em>Partial</em>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <aside class="rail" aria-label="Supporting metrics and sources">
+          <section class="rail-block">
+            <h2>Financial Runway</h2>
+            <div class="rail-stat"><span>FY2026 operating cash flow</span><strong>$1.22B</strong></div>
+            <div class="rail-stat"><span>FY2026 free cash flow</span><strong>$1.12B</strong></div>
+            <div class="rail-stat"><span>FY2026 GAAP operating loss</span><strong>-$1.44B</strong></div>
+            <div class="rail-stat"><span>FY2026 RPO</span><strong>$9.77B</strong></div>
+          </section>
+
+          <section class="rail-block">
+            <h2>Publication Trend</h2>
+            <div class="mini-chart" aria-label="Data-platform publication proxy, 2021 through 2025">
+              <span style="height:12px" data-label="2021"></span>
+              <span style="height:18px" data-label="2022"></span>
+              <span style="height:29px" data-label="2023"></span>
+              <span style="height:31px" data-label="2024"></span>
+              <span style="height:86px" data-label="2025"></span>
+            </div>
+            <p class="note">OpenAlex cloud data warehouse/lakehouse/Iceberg proxy: 6 works in 2021, 52 in 2025.</p>
+          </section>
+
+          <section class="rail-block">
+            <h2>Patent Grants</h2>
+            <div class="mini-chart patents" aria-label="Snowflake patent grant proxy, 2021 through 2025">
+              <span style="height:62px" data-label="2021"></span>
+              <span style="height:86px" data-label="2022"></span>
+              <span style="height:84px" data-label="2023"></span>
+              <span style="height:79px" data-label="2024"></span>
+              <span style="height:60px" data-label="2025"></span>
+            </div>
+            <p class="note">iDIYAS assignee profile: high absolute depth, but no longer accelerating from the 2022-2024 level.</p>
+          </section>
+
+          <section class="rail-block">
+            <h2>Primary Sources</h2>
+            <div class="source-list">
+              <a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000008/snow-20260131.htm">Snowflake FY2026 Form 10-K</a>
+              <a href="https://data.sec.gov/api/xbrl/companyfacts/CIK0001640147.json">SEC companyfacts for Snowflake</a>
+              <a href="https://www.snowflake.com/resource/sigmod-2016-paper-snowflake-elastic-data-warehouse/">Snowflake SIGMOD architecture paper</a>
+              <a href="https://www.snowflake.com/en/news/press-releases/snowflake-launches-arctic-the-most-open-enterprise-grade-large-language-model-2/">Snowflake Arctic launch</a>
+              <a href="https://www.snowflake.com/en/blog/introducing-polaris-catalog/">Polaris Catalog introduction</a>
+              <a href="https://docs.snowflake.com/en/release-notes/2025/other/2025-11-04-cortex-aisql-operators-ga">Cortex AI Functions GA release note</a>
+              <a href="https://idiyas.com/company/snowflake">iDIYAS Snowflake patent profile</a>
+            </div>
+          </section>
+        </aside>
+      </section>
+
+      <footer class="footer">
+        <span>Scored with technology-innovation-analysis deterministic scorer v1.1.0.</span>
+        <span>Instagram carousel images are generated separately under imagegen/snowflake_inc and are not embedded here.</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll(".layer").forEach((row, index) => {
+      row.style.transitionDelay = `${index * 80}ms`;
+      observer.observe(row);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1173 @@
+{
+  "schema_version": "2.0",
+  "company": "Uber Technologies, Inc.",
+  "ticker": "NYSE: UBER",
+  "mode": "absolute",
+  "skill_metadata": {
+    "skill_name": "technology-innovation-analysis",
+    "skill_version": "1.1.0",
+    "skill_path": ".codex/skills/technology-innovation-analysis/SKILL.md",
+    "scorer_name": "score_innovation_benchmark.py",
+    "scorer_version": "1.1.0",
+    "metric_rules_version": "1.1.0"
+  },
+  "research_run": {
+    "research_date": "2026-05-04",
+    "analyst": "codex",
+    "run_id": "uber-innovation-2026-05-04",
+    "user_request": "Research Uber Technologies Inc, NYSE: UBER, produce an innovation dashboard using Desert Rose, and separate Instagram carousel assets.",
+    "time_horizon": "Five-year operating, publication, and patent evidence, 2021-2025, with latest FY 2025 disclosures.",
+    "research_mode": "web_research_with_deterministic_scoring"
+  },
+  "research_context": {
+    "focus_technologies": [
+      "Marketplace AI for matching, routing, pricing, ETAs, incentives, fraud, and safety",
+      "Autonomous mobility marketplace orchestration with third-party AV operators",
+      "Delivery and logistics automation across routing, batching, merchant tools, and fulfillment"
+    ],
+    "company_identifiers": {
+      "legal_name": "Uber Technologies, Inc.",
+      "ticker": "NYSE: UBER",
+      "cik": "0001543151"
+    },
+    "source_availability": [
+      {
+        "domain": "SEC filings",
+        "status": "available",
+        "note": "SEC companyfacts and the FY 2025 10-K were accessible with a declared user agent."
+      },
+      {
+        "domain": "publications",
+        "status": "available",
+        "note": "OpenAlex reproducible query counts were used as field-level proxies, not Uber-authored publication counts."
+      },
+      {
+        "domain": "patents",
+        "status": "partial",
+        "note": "Google Patents was accessible for aggregate assignee and representative patent records, but automated exact annual assignee-count queries were rate-limited. Patent counts are treated as approximate document counts, not clean family counts."
+      },
+      {
+        "domain": "company investor pages",
+        "status": "partial",
+        "note": "Some Uber investor pages were protected by Cloudflare from local curl, but their URLs and indexed web records were verified."
+      }
+    ],
+    "search_log": [
+      {
+        "query": "Uber Technologies 2025 Form 10-K SEC",
+        "source": "SEC EDGAR and SEC companyfacts",
+        "date": "2026-05-04",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Primary filing and structured XBRL evidence."
+      },
+      {
+        "query": "OpenAlex autonomous vehicle ride hailing dispatch routing 2021-2025",
+        "source": "OpenAlex API",
+        "date": "2026-05-04",
+        "result_quality": "medium",
+        "selected": true,
+        "selection_reason": "Reproducible field-level publication trend."
+      },
+      {
+        "query": "Google Patents assignee Uber Technologies",
+        "source": "Google Patents",
+        "date": "2026-05-04",
+        "result_quality": "medium",
+        "selected": true,
+        "selection_reason": "Public patent search and representative patent families."
+      },
+      {
+        "query": "Uber autonomous vehicle partnerships Waymo May Mobility Volkswagen NVIDIA 2025",
+        "source": "Uber, Waymo, NVIDIA, Volkswagen, May Mobility public materials",
+        "date": "2026-05-04",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Industrialization and adoption evidence for AV marketplace orchestration."
+      }
+    ],
+    "exclusions": [
+      {
+        "candidate_source_or_metric": "Unverified blog counts of Uber patent families",
+        "reason": "Not primary, not reproducible, or unclear assignee mapping."
+      },
+      {
+        "candidate_source_or_metric": "Peer-relative percentile score",
+        "reason": "Single-company mode; no peer benchmark was requested or built."
+      }
+    ],
+    "judgment_calls": [
+      {
+        "topic": "Uber innovation boundary",
+        "decision": "Scored Uber as a commercialization and orchestration innovator rather than as an AV foundation-model or vehicle-manufacturing inventor.",
+        "rationale": "Uber sold its self-driving unit in 2020 and now appears to favor a marketplace-plus-partner strategy for AVs.",
+        "impact": "Raised Industrialization and Adoption, but held IP and Science below exceptional levels."
+      },
+      {
+        "topic": "Patent-family proxy",
+        "decision": "Used Google Patents aggregate assignee results and representative patent records rather than annual family counts.",
+        "rationale": "Open exact assignee-level annual family series was not reliably accessible during the run.",
+        "impact": "Lowered IP coverage ratio and confidence."
+      },
+      {
+        "topic": "Latest period",
+        "decision": "Used FY/Q4 2025 as latest reported period; did not infer Q1 2026 results.",
+        "rationale": "As of 2026-05-04, Q1 2026 results were scheduled for 2026-05-06 and were not yet reported.",
+        "impact": "Dashboard freshness label states FY 2025 and flags Q1 2026 as pending."
+      }
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_001",
+      "title": "Uber Technologies, Inc. Form 10-K for fiscal year 2025",
+      "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315126000015/uber-20251231.htm",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "document_date": "2026-02-13",
+      "accessed_at": "2026-05-04",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Primary annual filing; financial and operating metrics."
+    },
+    {
+      "source_id": "src_002",
+      "title": "SEC companyfacts API for Uber Technologies, Inc.",
+      "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001543151.json",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "document_date": "2026-02-13",
+      "accessed_at": "2026-05-04",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Structured XBRL time series used for R&D, revenue, operating income, cash flow, and capex."
+    },
+    {
+      "source_id": "src_003",
+      "title": "OpenAlex works API: autonomous vehicle ride hailing dispatch routing",
+      "url": "https://api.openalex.org/works?search=autonomous%20vehicle%20ride%20hailing%20dispatch%20routing",
+      "publisher": "OpenAlex",
+      "document_date": "2026-05-04",
+      "accessed_at": "2026-05-04",
+      "source_type": "reputable_secondary",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Field-level publication counts: 2021 100, 2022 100, 2023 144, 2024 132, 2025 146."
+    },
+    {
+      "source_id": "src_004",
+      "title": "OpenAlex works API: ride hailing matching dispatch dynamic pricing",
+      "url": "https://api.openalex.org/works?search=ride%20hailing%20matching%20dispatch%20dynamic%20pricing",
+      "publisher": "OpenAlex",
+      "document_date": "2026-05-04",
+      "accessed_at": "2026-05-04",
+      "source_type": "reputable_secondary",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Field-level publication counts: 2021 83, 2022 93, 2023 125, 2024 119, 2025 127."
+    },
+    {
+      "source_id": "src_005",
+      "title": "Google Patents search: assignee Uber Technologies",
+      "url": "https://patents.google.com/?assignee=%22Uber+Technologies%22",
+      "publisher": "Google Patents",
+      "document_date": "2026-05-04",
+      "accessed_at": "2026-05-04",
+      "source_type": "patent_database",
+      "availability": "partial",
+      "reliability": "medium",
+      "notes": "Observed 7,198 document results for assignee query and 135 documents in the 2022-2025 binned publication-date cohort; not a clean simple-family census."
+    },
+    {
+      "source_id": "src_006",
+      "title": "US11488277B2 - Personalizing ride experience based on contextual ride usage data",
+      "url": "https://patents.google.com/patent/US11488277B2/en",
+      "publisher": "Google Patents / USPTO",
+      "document_date": "2022-11-01",
+      "accessed_at": "2026-05-04",
+      "source_type": "patent_database",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Representative Uber patent involving contextual ride personalization."
+    },
+    {
+      "source_id": "src_007",
+      "title": "US11268824B2 - User-specific landmarks for navigation systems",
+      "url": "https://patents.google.com/patent/US11268824B2/en",
+      "publisher": "Google Patents / USPTO",
+      "document_date": "2022-03-08",
+      "accessed_at": "2026-05-04",
+      "source_type": "patent_database",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Representative Uber patent involving navigation personalization."
+    },
+    {
+      "source_id": "src_008",
+      "title": "Uber and Waymo launch autonomous rides in Austin",
+      "url": "https://www.uber.com/newsroom/waymo-on-uber-in-austin/",
+      "publisher": "Uber",
+      "document_date": "2025-03-04",
+      "accessed_at": "2026-05-04",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Official launch announcement for Waymo on Uber in Austin."
+    },
+    {
+      "source_id": "src_009",
+      "title": "Waymo One launches in Atlanta with Uber",
+      "url": "https://waymo.com/blog/2025/06/waymo-one-atlanta-uber/",
+      "publisher": "Waymo",
+      "document_date": "2025-06-24",
+      "accessed_at": "2026-05-04",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Official partner-side launch evidence for Atlanta robotaxi service with Uber."
+    },
+    {
+      "source_id": "src_010",
+      "title": "NVIDIA and Uber autonomous vehicle network announcement",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-and-uber-to-advance-autonomous-mobility-with-nvidia-cosmos-and-dgx-cloud",
+      "publisher": "NVIDIA",
+      "document_date": "2025-10-28",
+      "accessed_at": "2026-05-04",
+      "source_type": "primary_partner",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Announced collaboration involving NVIDIA AI architecture and a large autonomous vehicle network."
+    },
+    {
+      "source_id": "src_011",
+      "title": "Uber and Volkswagen announce U.S. autonomous mobility partnership",
+      "url": "https://www.volkswagen-group.com/en/press-releases/volkswagen-and-uber-to-launch-commercial-autonomous-ride-hailing-service-in-the-us-19043",
+      "publisher": "Volkswagen Group",
+      "document_date": "2025-04-24",
+      "accessed_at": "2026-05-04",
+      "source_type": "primary_partner",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Volkswagen-side evidence for planned autonomous ride-hailing deployment with Uber."
+    },
+    {
+      "source_id": "src_012",
+      "title": "Uber and May Mobility autonomous vehicle partnership",
+      "url": "https://www.maymobility.com/posts/may-mobility-and-uber-partner-to-bring-autonomous-vehicles-to-uber-platform",
+      "publisher": "May Mobility",
+      "document_date": "2025-01-07",
+      "accessed_at": "2026-05-04",
+      "source_type": "primary_partner",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Partner evidence for AV deployment plans through the Uber platform."
+    },
+    {
+      "source_id": "src_013",
+      "title": "Approximate dynamic programming for planning a ride-hailing system using autonomous fleets",
+      "url": "https://collaborate.princeton.edu/en/publications/approximate-dynamic-programming-for-planning-a-ride-hailing-syste/",
+      "publisher": "Princeton University",
+      "document_date": "2020-01-01",
+      "accessed_at": "2026-05-04",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "University research relevant to AV fleet routing and ride-hailing operations."
+    },
+    {
+      "source_id": "src_014",
+      "title": "Market design for ridesharing platforms",
+      "url": "https://mitsloan.mit.edu/shared/ods/documents?DocumentID=5817",
+      "publisher": "MIT Sloan",
+      "document_date": "2020-01-01",
+      "accessed_at": "2026-05-04",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Research on ride-sharing platform design, matching, and marketplace dynamics."
+    },
+    {
+      "source_id": "src_015",
+      "title": "HBS faculty publication on dynamic pricing and ride-hailing",
+      "url": "https://www.hbs.edu/faculty/Pages/item.aspx?num=62733",
+      "publisher": "Harvard Business School",
+      "document_date": "2023-01-01",
+      "accessed_at": "2026-05-04",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "University research relevant to pricing, marketplace behavior, and platform economics."
+    }
+  ],
+  "evidence_items": [
+    {
+      "evidence_id": "ev_001",
+      "source_id": "src_003",
+      "layer": "Science",
+      "metric_codes": [
+        "publication_growth"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "OpenAlex field proxy for autonomous vehicle ride-hailing dispatch/routing returned 100 works in 2021 and 146 in 2025.",
+      "raw_value": 146,
+      "raw_unit": "works",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "location": "OpenAlex API meta.count by publication-year filter",
+      "verified": true,
+      "limitations": "Search-query proxy, not a curated bibliometric corpus."
+    },
+    {
+      "evidence_id": "ev_002",
+      "source_id": "src_004",
+      "layer": "Science",
+      "metric_codes": [
+        "publication_growth"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "OpenAlex field proxy for ride-hailing matching, dispatch, and dynamic pricing returned 83 works in 2021 and 127 in 2025.",
+      "raw_value": 127,
+      "raw_unit": "works",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "location": "OpenAlex API meta.count by publication-year filter",
+      "verified": true,
+      "limitations": "Search-query proxy, not Uber-authored science."
+    },
+    {
+      "evidence_id": "ev_003",
+      "source_id": "src_013",
+      "layer": "Science",
+      "metric_codes": [
+        "citation_velocity_or_quality",
+        "science_to_application_linkage"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Princeton research applies approximate dynamic programming to autonomous ride-hailing fleet planning.",
+      "raw_value": 1,
+      "raw_unit": "study",
+      "period_start": "2020",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "location": "Princeton publication page",
+      "verified": true,
+      "limitations": "Field relevance rather than direct Uber disclosure."
+    },
+    {
+      "evidence_id": "ev_004",
+      "source_id": "src_014",
+      "layer": "Science",
+      "metric_codes": [
+        "citation_velocity_or_quality",
+        "science_to_application_linkage"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "MIT research covers ridesharing market design, matching, and platform operations relevant to Uber's marketplace algorithms.",
+      "raw_value": 1,
+      "raw_unit": "study",
+      "period_start": "2020",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "location": "MIT Sloan paper",
+      "verified": true,
+      "limitations": "Field relevance rather than direct Uber disclosure."
+    },
+    {
+      "evidence_id": "ev_005",
+      "source_id": "src_005",
+      "layer": "IP",
+      "metric_codes": [
+        "patent_family_growth"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Google Patents assignee query for Uber Technologies returned 7,198 patent documents and a visible 2022-2025 publication-date bin of 135 documents.",
+      "raw_value": 135,
+      "raw_unit": "patent_documents_bin",
+      "period_start": "2022",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "Google Patents assignee search and facet output",
+      "verified": true,
+      "limitations": "Binned document-count proxy, not a clean family count or exact annual time series."
+    },
+    {
+      "evidence_id": "ev_006",
+      "source_id": "src_006",
+      "layer": "IP",
+      "metric_codes": [
+        "technical_specificity",
+        "science_to_patent_or_assignee_quality"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Uber patent US11488277B2 covers contextual ride personalization in a transport management system.",
+      "raw_value": 1,
+      "raw_unit": "patent_family_record",
+      "period_start": "2022",
+      "period_end": "2022",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "Google Patents record",
+      "verified": true,
+      "limitations": "Representative patent, not exhaustive."
+    },
+    {
+      "evidence_id": "ev_007",
+      "source_id": "src_007",
+      "layer": "IP",
+      "metric_codes": [
+        "technical_specificity",
+        "science_to_patent_or_assignee_quality"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Uber patent US11268824B2 covers user-specific landmarks for navigation systems.",
+      "raw_value": 1,
+      "raw_unit": "patent_family_record",
+      "period_start": "2022",
+      "period_end": "2022",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "Google Patents record",
+      "verified": true,
+      "limitations": "Representative patent, not exhaustive."
+    },
+    {
+      "evidence_id": "ev_008",
+      "source_id": "src_002",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "process_learning_or_capex"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Uber R&D expense rose from $2.054 billion in 2021 to $3.402 billion in 2025; capex rose from $298 million to $336 million.",
+      "raw_value": 3402000000,
+      "raw_unit": "USD",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "SEC companyfacts tags ResearchAndDevelopmentExpense and PaymentsToAcquirePropertyPlantAndEquipment",
+      "verified": true,
+      "limitations": "R&D is broad company R&D, not isolated to AV or marketplace AI."
+    },
+    {
+      "evidence_id": "ev_009",
+      "source_id": "src_008",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "manufacturing_or_deployment_evidence",
+        "operational_scale_signal"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Uber and Waymo launched autonomous rides on Uber in Austin in 2025.",
+      "raw_value": 1,
+      "raw_unit": "commercial_launch",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "Uber Newsroom",
+      "verified": true,
+      "limitations": "Partner-operated AV technology, not Uber-owned vehicle stack."
+    },
+    {
+      "evidence_id": "ev_010",
+      "source_id": "src_010",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "manufacturing_or_deployment_evidence",
+        "process_learning_or_capex"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "NVIDIA and Uber announced work to advance autonomous mobility using NVIDIA AI architecture.",
+      "raw_value": 1,
+      "raw_unit": "strategic_partnership",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "NVIDIA Newsroom",
+      "verified": true,
+      "limitations": "Announcement-stage evidence; vehicle output and utilization not yet disclosed."
+    },
+    {
+      "evidence_id": "ev_011",
+      "source_id": "src_001",
+      "layer": "Adoption",
+      "metric_codes": [
+        "revenue_or_booking_evidence",
+        "repeatability_or_deployment_scale"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Uber reported 202 million Q4 MAPCs, 13.567 billion trips, $193.454 billion gross bookings, and $52.017 billion revenue for 2025.",
+      "raw_value": 13567000000,
+      "raw_unit": "trips",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "FY 2025 10-K Financial and Operational Highlights",
+      "verified": true,
+      "limitations": "Company-wide platform adoption, not direct AV adoption."
+    },
+    {
+      "evidence_id": "ev_012",
+      "source_id": "src_009",
+      "layer": "Adoption",
+      "metric_codes": [
+        "customer_or_partner_breadth",
+        "repeatability_or_deployment_scale"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Waymo announced Waymo One launch in Atlanta with Uber in 2025.",
+      "raw_value": 1,
+      "raw_unit": "city_launch",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "Waymo blog",
+      "verified": true,
+      "limitations": "Partner-side evidence; utilization metrics not disclosed."
+    },
+    {
+      "evidence_id": "ev_013",
+      "source_id": "src_011",
+      "layer": "Adoption",
+      "metric_codes": [
+        "customer_or_partner_breadth"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Volkswagen announced a U.S. autonomous ride-hailing partnership with Uber.",
+      "raw_value": 1,
+      "raw_unit": "partner_program",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "Volkswagen press release",
+      "verified": true,
+      "limitations": "Forward-looking deployment evidence."
+    },
+    {
+      "evidence_id": "ev_014",
+      "source_id": "src_012",
+      "layer": "Adoption",
+      "metric_codes": [
+        "customer_or_partner_breadth"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "May Mobility announced a partnership to bring autonomous vehicles to the Uber platform.",
+      "raw_value": 1,
+      "raw_unit": "partner_program",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "May Mobility announcement",
+      "verified": true,
+      "limitations": "Partner announcement; commercial utilization not yet disclosed."
+    },
+    {
+      "evidence_id": "ev_015",
+      "source_id": "src_001",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "regulatory_or_standards_fit"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Uber discloses that it operates in a complex legal and regulatory environment and faces risks around AI, machine learning, privacy, driver classification, and payments.",
+      "raw_value": 1,
+      "raw_unit": "risk_disclosure",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "FY 2025 10-K risk factors and regulation sections",
+      "verified": true,
+      "limitations": "Risk factor language is broad and qualitative."
+    },
+    {
+      "evidence_id": "ev_016",
+      "source_id": "src_002",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "economic_readiness",
+        "policy_or_supply_chain_support"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Uber operating cash flow increased from negative $445 million in 2021 to positive $10.099 billion in 2025, while operating income improved from negative $3.834 billion to positive $5.565 billion.",
+      "raw_value": 10099000000,
+      "raw_unit": "USD",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "location": "SEC companyfacts tags NetCashProvidedByUsedInOperatingActivities and OperatingIncomeLoss",
+      "verified": true,
+      "limitations": "Financial capacity does not eliminate regulatory or labor risks."
+    }
+  ],
+  "normalization_notes": [
+    {
+      "metric_code": "publication_growth",
+      "rule": "normalize_growth(start_value, end_value, years, floor=0.0, cap=0.35)",
+      "reason": "Five-year field growth is more informative than a single-year count."
+    },
+    {
+      "metric_code": "patent_family_growth",
+      "rule": "expert_evidence_scale_with_partial_count",
+      "reason": "A clean annual patent-family series was unavailable; score reflects large portfolio but partial growth evidence."
+    },
+    {
+      "metric_code": "operational_scale_signal",
+      "rule": "normalize_log_with_platform_scale_judgment",
+      "reason": "Marketplace operating scale spans multiple orders of magnitude and cannot be compared linearly."
+    },
+    {
+      "metric_code": "revenue_or_booking_evidence",
+      "rule": "normalize_log_with_scale_judgment",
+      "reason": "Gross bookings, trips, and revenue reflect commercial adoption at platform scale."
+    }
+  ],
+  "layers": [
+    {
+      "label": "Science",
+      "score": 2.9,
+      "display_score": "2.9",
+      "raw_score": 3.118,
+      "normalized_score": 0.6236,
+      "coverage_ratio": 0.82,
+      "confidence_penalty": 0.928,
+      "confidence": "Medium",
+      "summary": "The science around ride-hailing optimization, dispatch, dynamic pricing, and autonomous fleet planning is active and growing, but Uber is mostly a translator of the science into marketplace software rather than a leading public research lab.",
+      "strong": "Field-level publication proxies rose from 100 to 146 works for AV ride-hailing dispatch/routing and from 83 to 127 works for ride-hailing matching/pricing between 2021 and 2025.",
+      "missing": "Uber does not publish a clean company-authored research corpus or citation dashboard for these technologies.",
+      "metrics": [
+        {
+          "code": "publication_growth",
+          "label": "Publication growth",
+          "value": 0.32,
+          "weight": 0.34,
+          "unit": "normalized_0_to_1",
+          "source_type": "reputable_secondary",
+          "verified": true,
+          "evidence_ids": [
+            "ev_001",
+            "ev_002"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "autonomous_av_ride_hailing_dispatch_2021": 100,
+              "autonomous_av_ride_hailing_dispatch_2025": 146,
+              "ride_hailing_matching_pricing_2021": 83,
+              "ride_hailing_matching_pricing_2025": 127,
+              "years": 4
+            },
+            "method": "normalize_growth",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 0.35
+            },
+            "rationale": "Maps annualized field-level publication growth to a 0..1 metric; both proxies show moderate growth rather than explosive growth.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "citation_velocity_or_quality",
+          "label": "Citation velocity or quality",
+          "value": 0.74,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "academic",
+          "verified": true,
+          "evidence_ids": [
+            "ev_003",
+            "ev_004"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "credible_university_sources_identified": 3,
+              "renowned_institution_presence": true
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "High-quality university work exists across operations research and platform economics, but this is not a company-owned science moat.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "science_to_application_linkage",
+          "label": "Science to application linkage",
+          "value": 0.82,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_003",
+            "ev_004",
+            "ev_009",
+            "ev_011"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "operational_deployment_exists": true,
+              "company_platform_scale_exists": true,
+              "direct_uber_publication_corpus": false
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "The scientific problems map directly to Uber's live dispatch, pricing, routing, and AV orchestration surface.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "IP",
+      "score": 2.5,
+      "display_score": "2.5",
+      "raw_score": 2.925,
+      "normalized_score": 0.585,
+      "coverage_ratio": 0.62,
+      "confidence_penalty": 0.848,
+      "confidence": "Low",
+      "summary": "Uber has a substantial patent footprint in marketplace, navigation, personalization, and transport systems, but the public evidence available in this run does not support a clean claim of accelerating patent-family growth.",
+      "strong": "Representative patents are technically specific to ride experience, transport management, and navigation systems.",
+      "missing": "A reproducible five-year simple-family census by assignee and jurisdiction was not available from open sources during this run.",
+      "metrics": [
+        {
+          "code": "patent_family_growth",
+          "label": "Patent family growth",
+          "value": 0.42,
+          "weight": 0.34,
+          "unit": "normalized_0_to_1",
+          "source_type": "patent_database",
+          "verified": true,
+          "evidence_ids": [
+            "ev_005"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "google_patents_assignee_documents_total": 7198,
+              "google_patents_2022_2025_publication_bin": 135,
+              "clean_annual_family_series_available": false
+            },
+            "method": "expert_evidence_scale_with_partial_count",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Large installed portfolio, but accessible evidence suggests post-2021 publication activity is not clearly accelerating.",
+            "judgment_level": "high"
+          }
+        },
+        {
+          "code": "technical_specificity",
+          "label": "Technical specificity",
+          "value": 0.72,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "patent_database",
+          "verified": true,
+          "evidence_ids": [
+            "ev_006",
+            "ev_007"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "representative_specific_patents_reviewed": 2,
+              "technology_domains": [
+                "ride personalization",
+                "navigation personalization"
+              ]
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Representative patents are implementation-specific rather than purely conceptual.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "science_to_patent_or_assignee_quality",
+          "label": "Science to patent or assignee quality",
+          "value": 0.62,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "patent_database",
+          "verified": true,
+          "evidence_ids": [
+            "ev_005",
+            "ev_006",
+            "ev_007"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "assignee_quality": "large operating technology platform",
+              "npl_linkage_verified": false,
+              "portfolio_scope": "transport marketplace software, navigation, personalization, AV-era transport systems"
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Assignee quality is high, but no robust science-to-patent citation map was built.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Industrialization",
+      "score": 3.8,
+      "display_score": "3.8",
+      "raw_score": 3.985,
+      "normalized_score": 0.797,
+      "coverage_ratio": 0.86,
+      "confidence_penalty": 0.944,
+      "confidence": "High",
+      "summary": "Uber shows strong industrialization as a marketplace operator: it has scaled dispatch, pricing, payments, safety, delivery, and now partner-operated AV integrations across a large live platform.",
+      "strong": "FY 2025 platform scale, R&D spending, Waymo deployment, and additional AV partnerships point to repeatable commercialization muscle.",
+      "missing": "Uber does not disclose AV utilization, safety intervention rates, vehicle economics, or partner unit economics.",
+      "metrics": [
+        {
+          "code": "manufacturing_or_deployment_evidence",
+          "label": "Manufacturing or deployment evidence",
+          "value": 0.84,
+          "weight": 0.36,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": [
+            "ev_009",
+            "ev_010"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "commercial_av_city_launches_verified": 1,
+              "strategic_av_partnerships_verified": 1,
+              "uber_owned_vehicle_manufacturing": false
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Deployment is real, but Uber is the marketplace and operations layer rather than the vehicle manufacturer.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "process_learning_or_capex",
+          "label": "Process learning or capex",
+          "value": 0.68,
+          "weight": 0.31,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": [
+            "ev_008",
+            "ev_010"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "r_and_d_2021_usd": 2054000000,
+              "r_and_d_2025_usd": 3402000000,
+              "capex_2021_usd": 298000000,
+              "capex_2025_usd": 336000000
+            },
+            "method": "mixed_growth_and_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "R&D scale is high and growing, but capex is still modest for a hardware/manufacturing breakthrough thesis.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "operational_scale_signal",
+          "label": "Operational scale signal",
+          "value": 0.86,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": [
+            "ev_009",
+            "ev_011"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "fy2025_trips": 13567000000,
+              "fy2025_mapcs_q4_millions": 202,
+              "fy2025_gross_bookings_usd": 193454000000
+            },
+            "method": "normalize_log_with_platform_scale_judgment",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Live global platform scale provides a real operational substrate for algorithmic and AV marketplace learning.",
+            "judgment_level": "low"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Adoption",
+      "score": 4.1,
+      "display_score": "4.1",
+      "raw_score": 4.223,
+      "normalized_score": 0.8446,
+      "coverage_ratio": 0.9,
+      "confidence_penalty": 0.96,
+      "confidence": "High",
+      "summary": "Adoption is Uber's strongest layer: the platform already has massive demand density, growing trips, and multiple AV partners seeking distribution through Uber.",
+      "strong": "Uber reported 13.567 billion trips, 202 million Q4 MAPCs, $193.454 billion gross bookings, and partner-backed AV rollouts.",
+      "missing": "Company does not yet provide AV-specific bookings, repeat-ride rates, contribution margins, or city-level robotaxi utilization.",
+      "metrics": [
+        {
+          "code": "revenue_or_booking_evidence",
+          "label": "Revenue or booking evidence",
+          "value": 0.95,
+          "weight": 0.38,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": [
+            "ev_011"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "fy2025_gross_bookings_usd": 193454000000,
+              "fy2025_revenue_usd": 52017000000,
+              "fy2025_trips": 13567000000
+            },
+            "method": "normalize_log_with_scale_judgment",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Uber's scale is already commercial and recurring across mobility and delivery.",
+            "judgment_level": "low"
+          }
+        },
+        {
+          "code": "customer_or_partner_breadth",
+          "label": "Customer or partner breadth",
+          "value": 0.82,
+          "weight": 0.31,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary_partner",
+          "verified": true,
+          "evidence_ids": [
+            "ev_012",
+            "ev_013",
+            "ev_014"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "av_partners_verified": 4,
+              "partner_names": [
+                "Waymo",
+                "Volkswagen",
+                "May Mobility",
+                "NVIDIA"
+              ]
+            },
+            "method": "normalize_min_max",
+            "parameters": {
+              "floor": 0,
+              "cap": 5
+            },
+            "rationale": "Multiple credible partners validate Uber's distribution role in autonomous mobility.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "repeatability_or_deployment_scale",
+          "label": "Repeatability or deployment scale",
+          "value": 0.74,
+          "weight": 0.31,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_011",
+            "ev_012"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "repeatable_global_platform": true,
+              "robotaxi_city_launches_verified": 2,
+              "av_unit_economics_disclosed": false
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Uber can repeat marketplace launches, but AV deployment is still early relative to core mobility volume.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Policy & Economics",
+      "score": 3.1,
+      "display_score": "3.1",
+      "raw_score": 3.402,
+      "normalized_score": 0.6804,
+      "coverage_ratio": 0.78,
+      "confidence_penalty": 0.912,
+      "confidence": "Medium",
+      "summary": "Economics are increasingly supportive because Uber is profitable and cash generative, but policy and labor uncertainty remain material constraints on a full breakthrough thesis.",
+      "strong": "Operating cash flow reached $10.099 billion in 2025 and operating income reached $5.565 billion, giving Uber capacity to invest in partner-led technology rollouts.",
+      "missing": "Regulatory outcomes around labor classification, AI governance, dynamic pricing, AV permits, city access, and insurance remain unresolved across jurisdictions.",
+      "metrics": [
+        {
+          "code": "regulatory_or_standards_fit",
+          "label": "Regulatory or standards fit",
+          "value": 0.58,
+          "weight": 0.34,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": [
+            "ev_015"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "risk_domains": [
+                "labor",
+                "AI and machine learning",
+                "privacy",
+                "payments",
+                "local transport regulation",
+                "AV permitting"
+              ],
+              "fatal_misalignment_found": false
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Policy is workable but not easy; no single blocking regime was identified, but complexity is high.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "policy_or_supply_chain_support",
+          "label": "Policy or supply-chain support",
+          "value": 0.62,
+          "weight": 0.29,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_010",
+            "ev_013",
+            "ev_016"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "credible_supply_partners": [
+                "NVIDIA",
+                "Volkswagen",
+                "May Mobility",
+                "Waymo"
+              ],
+              "subsidy_dependency": "not central",
+              "supply_chain_dependency": "partner-heavy"
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Partner ecosystem is forming, but Uber depends on external AV stack, vehicle, and compute suppliers.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "economic_readiness",
+          "label": "Economic readiness",
+          "value": 0.82,
+          "weight": 0.37,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": [
+            "ev_016",
+            "ev_011"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "operating_cash_flow_2021_usd": -445000000,
+              "operating_cash_flow_2025_usd": 10099000000,
+              "operating_income_2021_usd": -3834000000,
+              "operating_income_2025_usd": 5565000000
+            },
+            "method": "expert_evidence_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "The company has moved from cash burn to material cash generation, improving technology rollout capacity.",
+            "judgment_level": "low"
+          }
+        }
+      ],
+      "cap_reasons": []
+    }
+  ],
+  "total_score": 16.4,
+  "display_total_score": "16.4",
+  "gate_pass": true,
+  "verdict": "Strong innovator with translational momentum",
+  "benchmark_ready": true,
+  "storage_metadata": {
+    "intended_store": "sqlite",
+    "recommended_primary_keys": {
+      "sources": "source_id",
+      "evidence_items": "evidence_id",
+      "metrics": "company + research_date + layer + metric_code"
+    },
+    "content_hash_fields": [
+      "sources",
+      "evidence_items",
+      "layers",
+      "normalization_notes"
+    ]
+  },
+  "scorer_metadata": {
+    "scorer_name": "score_innovation_benchmark.py",
+    "scorer_version": "1.1.0",
+    "metric_rules_version": "1.1.0",
+    "formula": "layer_score = 5 * confidence_penalty * sum(weight_i * metric_i_value)"
+  }
+}

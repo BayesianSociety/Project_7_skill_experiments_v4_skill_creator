@@ -1,0 +1,1139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DSM-Firmenich AG Innovation Dashboard</title>
+  <style>
+    :root {
+      --bg: #120d1c;
+      --bg-2: #1b1230;
+      --panel: rgba(25, 18, 44, 0.78);
+      --panel-strong: rgba(31, 23, 53, 0.94);
+      --line: rgba(230, 230, 250, 0.12);
+      --text: #f6f4ff;
+      --muted: rgba(230, 230, 250, 0.72);
+      --soft: #a490c2;
+      --mid: #4a4e8f;
+      --accent: #c2b2ff;
+      --accent-2: #7b7ff2;
+      --good: #92f5cb;
+      --warn: #ffd689;
+      --bad: #ff9ea9;
+      --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      --radius: 28px;
+      --max: 1440px;
+      --head: "FreeSans", "Segoe UI", sans-serif;
+      --body: "FreeSans", "Segoe UI", sans-serif;
+      --mono: "DejaVu Sans Mono", "Liberation Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--body);
+      color: var(--text);
+      background:
+        radial-gradient(circle at 14% 12%, rgba(164, 144, 194, 0.28), transparent 24%),
+        radial-gradient(circle at 84% 10%, rgba(74, 78, 143, 0.32), transparent 22%),
+        radial-gradient(circle at 72% 72%, rgba(123, 127, 242, 0.16), transparent 24%),
+        linear-gradient(180deg, #0f0a17 0%, #171028 44%, #0f0a17 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.3px),
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.35) 0 1px, transparent 1.3px);
+      background-size: 160px 160px, 260px 260px;
+      background-position: 20px 32px, 90px 120px;
+      opacity: 0.18;
+      transform: translateY(var(--drift, 0px));
+    }
+
+    a {
+      color: #d9d2ff;
+      text-decoration-color: rgba(217, 210, 255, 0.35);
+    }
+
+    .shell {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: min(94svh, 980px);
+      border: 1px solid rgba(230, 230, 250, 0.08);
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(20, 12, 34, 0.96), rgba(39, 24, 67, 0.9)),
+        linear-gradient(180deg, rgba(164, 144, 194, 0.08), rgba(74, 78, 143, 0.06));
+      box-shadow: var(--shadow);
+      isolation: isolate;
+      padding: 30px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(8px);
+      z-index: -1;
+    }
+
+    .hero::before {
+      inset: auto auto -120px -120px;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(164, 144, 194, 0.22), transparent 66%);
+    }
+
+    .hero::after {
+      inset: -120px -140px auto auto;
+      width: 560px;
+      height: 560px;
+      background: radial-gradient(circle, rgba(74, 78, 143, 0.28), transparent 62%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
+      gap: 24px;
+      align-items: end;
+      min-height: inherit;
+    }
+
+    .eyebrow,
+    .mini-label {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: var(--soft);
+    }
+
+    h1, h2, h3 {
+      font-family: var(--head);
+      margin: 0;
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      line-height: 0.92;
+      max-width: 8ch;
+      margin-top: 12px;
+    }
+
+    .hero-copy {
+      max-width: 62ch;
+      margin-top: 18px;
+      color: rgba(246, 244, 255, 0.84);
+      line-height: 1.68;
+      font-size: clamp(1rem, 1.45vw, 1.12rem);
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      border-top: 1px solid rgba(230, 230, 250, 0.14);
+      padding-top: 14px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(1.25rem, 2.2vw, 2rem);
+      margin-bottom: 6px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.92rem;
+    }
+
+    .hero-side {
+      position: relative;
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(17, 12, 30, 0.64), rgba(17, 12, 30, 0.9));
+      border: 1px solid rgba(230, 230, 250, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-ring {
+      width: 224px;
+      aspect-ratio: 1;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(14, 9, 24, 1) 56%, transparent 57%),
+        conic-gradient(#c2b2ff 0deg, #7b7ff2 273.6deg, rgba(230, 230, 250, 0.1) 273.6deg 360deg);
+      box-shadow: inset 0 0 0 1px rgba(230, 230, 250, 0.12);
+    }
+
+    .score-ring strong {
+      display: block;
+      text-align: center;
+      font-size: 4rem;
+      line-height: 1;
+    }
+
+    .score-ring small {
+      display: block;
+      margin-top: 4px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .verdict {
+      font-size: 1.06rem;
+      line-height: 1.6;
+      margin: 0 0 18px;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(230, 230, 250, 0.08);
+      font-size: 0.94rem;
+    }
+
+    .meta-row span:last-child {
+      text-align: right;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .content,
+    .rail {
+      display: grid;
+      gap: 24px;
+    }
+
+    .rail {
+      position: sticky;
+      top: 16px;
+    }
+
+    .panel {
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(230, 230, 250, 0.08);
+      background: linear-gradient(180deg, rgba(27, 18, 48, 0.92), rgba(20, 14, 35, 0.95));
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      font-size: clamp(1.6rem, 2.1vw, 2.4rem);
+      margin-bottom: 10px;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .thesis-grid,
+    .tech-grid,
+    .gate-grid,
+    .change-grid,
+    .source-list,
+    .red-grid {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .thesis-item,
+    .tech-item,
+    .gate-item,
+    .change-item,
+    .source-item,
+    .red-item,
+    .mini-panel {
+      padding: 16px 18px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid rgba(230, 230, 250, 0.07);
+    }
+
+    .thesis-item strong,
+    .tech-item strong,
+    .gate-item strong,
+    .change-item strong,
+    .red-item strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .thesis-item span,
+    .tech-item span,
+    .gate-item span,
+    .change-item span,
+    .red-item span,
+    .source-item span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.95rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .layer {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(230, 230, 250, 0.08);
+      background: rgba(255, 255, 255, 0.024);
+      display: grid;
+      gap: 12px;
+    }
+
+    .layer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .layer-top strong {
+      font-size: 1.1rem;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(194, 178, 255, 0.12);
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .layer ul,
+    .rail ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .charts {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .chart-card {
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(230, 230, 250, 0.08);
+      background: rgba(255, 255, 255, 0.024);
+    }
+
+    .chart-card header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      align-items: end;
+    }
+
+    .chart-title {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .chart-note {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    svg.chart {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .table-wrap {
+      margin-top: 18px;
+      overflow: auto;
+      border-radius: 18px;
+      border: 1px solid rgba(230, 230, 250, 0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+      background: rgba(17, 12, 30, 0.84);
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(230, 230, 250, 0.08);
+      font-size: 0.93rem;
+    }
+
+    th {
+      color: var(--soft);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    td {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    td strong { color: var(--text); }
+
+    .rail .panel {
+      padding: 20px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .mini-panel strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.96rem;
+    }
+
+    .mono {
+      font-family: var(--mono);
+      font-size: 0.84rem;
+      color: var(--soft);
+    }
+
+    .source-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .source-item a {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    footer {
+      margin-top: 26px;
+      padding: 18px 8px 0;
+      color: rgba(230, 230, 250, 0.56);
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .layout,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        position: static;
+      }
+
+      .hero-metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell { width: min(calc(100% - 18px), var(--max)); }
+      .hero { padding: 20px; min-height: auto; }
+      .panel { padding: 18px; }
+      .hero-metrics { grid-template-columns: 1fr; }
+      h1 { max-width: 9ch; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+      .source-item { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <div>
+        <strong>DSM-Firmenich AG, AMS: DSFIR</strong>
+        Innovation dashboard built on 18 April 2026 using the Midnight Galaxy theme.
+      </div>
+      <div>Primary focus: biosciences, precision fermentation, algal lipids, sensory science, methane abatement</div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">Technology Innovation Assessment</div>
+          <h1>Science power, portfolio drift.</h1>
+          <p class="hero-copy">
+            DSM-Firmenich still looks like a serious innovator rather than a branding-heavy compounder: the group spends heavily on R&amp;D, runs a large science network, and owns defensible IP in methane abatement, algal omega-3, HMOs, and sensory bioscience. But the current company on <strong>18 April 2026</strong> is no longer the same exposure as the 2023 merger story: its most industrially mature climate-tech asset, Animal Nutrition &amp; Health, was announced for divestment on <strong>9 February 2026</strong>.
+          </p>
+          <div class="hero-metrics">
+            <div class="metric">
+              <strong>19 / 25</strong>
+              <span>Total five-layer score. Strong translational momentum, just below exceptional.</span>
+            </div>
+            <div class="metric">
+              <strong>€657m</strong>
+              <span>2025 R&amp;D spend in continuing operations, with 1,602 R&amp;D staff.</span>
+            </div>
+            <div class="metric">
+              <strong>11,000+</strong>
+              <span>Patents in 2025 value-creation model; LexisNexis cites about 2,600 families.</span>
+            </div>
+            <div class="metric">
+              <strong>3 core bets</strong>
+              <span>Bovaer/3-NOP, algal lipids plus HMO biotech, and precision fermentation/sensory discovery.</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="score-ring">
+            <div>
+              <strong>19</strong>
+              <small>Translational momentum</small>
+            </div>
+          </div>
+          <p class="verdict">
+            <strong>Verdict:</strong> strong innovator with translational momentum. The upgrade to “exceptional scale-up candidate” is blocked by portfolio reshaping, slower patent output, and the fact that Bovaer sits inside a business being sold.
+          </p>
+          <div class="meta-list">
+            <div class="meta-row">
+              <span>Breakthrough gate</span>
+              <span>Mostly met, but weakened by current portfolio changes</span>
+            </div>
+            <div class="meta-row">
+              <span>Industrialization</span>
+              <span>Strong evidence in Bovaer, algal lipids, and bioprocess capability</span>
+            </div>
+            <div class="meta-row">
+              <span>Adoption</span>
+              <span>Real in methane and lipids; still early in precision-fermented dairy</span>
+            </div>
+            <div class="meta-row">
+              <span>Confidence</span>
+              <span>Medium-high for company quality, medium for future shape after divestments</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <div class="layout">
+      <main class="content">
+        <section class="panel">
+          <h2>Thesis In 4 Bullets</h2>
+          <p>The company still exhibits real science-to-market competence, but the innovation case is now bifurcated between proven climate/agri tech being sold and consumer-facing biotech platforms that still need more commercial proof.</p>
+          <div class="thesis-grid">
+            <div class="thesis-item">
+              <strong>1. The science base is real.</strong>
+              <span>DSM-Firmenich reported 15 R&amp;D hubs, around 1,600 R&amp;D staff in 2025 continuing operations, and annual R&amp;D spend above €600 million.</span>
+            </div>
+            <div class="thesis-item">
+              <strong>2. The most mature translational asset is Bovaer.</strong>
+              <span>Bovaer has 15+ years of research, 150+ farm trials, 110+ peer-reviewed studies, and typical methane reduction of 30% in dairy and up to 45% in beef cattle.</span>
+            </div>
+            <div class="thesis-item">
+              <strong>3. Lipids and glycan biotech remain defensible.</strong>
+              <span>Algal DHA/oils and HMO production are supported by litigation-tested patents, specialized downstream processing, and launch activity in higher-value nutrition markets.</span>
+            </div>
+            <div class="thesis-item">
+              <strong>4. Current ownership matters.</strong>
+              <span>The announced ANH divestment on 9 February 2026 means investors in DSM-Firmenich AG should not treat the strongest climate-tech proof point as a long-duration core holding without adjustment.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Technology Map</h2>
+          <p>These are the technology domains most material to whether DSM-Firmenich is still an innovation leader instead of simply a branded ingredients aggregator.</p>
+          <div class="tech-grid">
+            <div class="tech-item">
+              <strong>Bovaer / 3-NOP methane inhibition</strong>
+              <span>The cleanest proof that the company can move a hard-science concept into global industrial deployment. It is the best evidence of translational excellence, but it sits inside the ANH business that the company agreed to divest in February 2026.</span>
+            </div>
+            <div class="tech-item">
+              <strong>Algal omega-3 and nutritional lipids</strong>
+              <span>This is a differentiated biotech and downstream processing capability with real IP defense, new launches, and customer migration from fish-sourced omega-3 to algae-based supply.</span>
+            </div>
+            <div class="tech-item">
+              <strong>Precision fermentation, HMOs, and sensory bioscience</strong>
+              <span>This bucket includes microbial production systems, HMO process IP, receptor biology, and venture-style adjacencies such as Vivici. The science is attractive; commercialization is promising but less mature than Bovaer.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Five-Layer Dashboard</h2>
+          <p>Scores are evidence-based and intentionally conservative. They combine company disclosures, patent evidence, publication proxies, and adoption signals from 2021 to 2026.</p>
+          <div class="two-col">
+            <article class="layer">
+              <div class="layer-top">
+                <div>
+                  <strong>Science</strong>
+                  <div class="mono">4.5 / 5</div>
+                </div>
+                <span class="badge">High confidence</span>
+              </div>
+              <ul>
+                <li>Publication proxies rose strongly across methane inhibition, algal DHA, HMOs, and synthetic biology terpene production from 2021 to 2025.</li>
+                <li>The company maintains a broad platform stack: biotechnology, microbiome, receptor biology, AI/data science, chemistry/process sciences, formulation and nutrition science.</li>
+                <li>What is missing: external comparability is weaker in fragrance and flavor because much of the most valuable science remains proprietary.</li>
+              </ul>
+            </article>
+
+            <article class="layer">
+              <div class="layer-top">
+                <div>
+                  <strong>IP</strong>
+                  <div class="mono">4.0 / 5</div>
+                </div>
+                <span class="badge">Medium-high confidence</span>
+              </div>
+              <ul>
+                <li>LexisNexis recognized DSM-Firmenich as a Top 100 Global Innovator in 2025 and cited over 16,000 patents across about 2,600 families.</li>
+                <li>The portfolio includes defended algal DHA patents plus longstanding 3-NOP formulation and use patents across WIPO, EPO, and USPTO pathways.</li>
+                <li>What is missing: annual new-patent output has slowed, and company-reported counts are not fully apples-to-apples across pre- and post-merger years.</li>
+              </ul>
+            </article>
+
+            <article class="layer">
+              <div class="layer-top">
+                <div>
+                  <strong>Industrialization</strong>
+                  <div class="mono">4.0 / 5</div>
+                </div>
+                <span class="badge">Medium-high confidence</span>
+              </div>
+              <ul>
+                <li>Bovaer moved beyond lab validation into dedicated production expansion in Dalry, Scotland.</li>
+                <li>Algal lipids show real process-engineering depth, not just molecule discovery, which is why the IP has been defensible in court.</li>
+                <li>What is missing: precision-fermented dairy still depends on partner-led scaling and does not yet have the same manufacturing proof as Bovaer.</li>
+              </ul>
+            </article>
+
+            <article class="layer">
+              <div class="layer-top">
+                <div>
+                  <strong>Adoption</strong>
+                  <div class="mono">3.5 / 5</div>
+                </div>
+                <span class="badge">Medium confidence</span>
+              </div>
+              <ul>
+                <li>Bovaer is the clear winner here: regulatory approvals in major markets, global farm trials, and integration into dairy value-chain pilots.</li>
+                <li>Algal DHA products launched into supplement and early-life nutrition channels, and Vivici reported first offtake agreements in 2025.</li>
+                <li>What is missing: broad, disclosed revenue or installed-base figures for newer precision-fermentation programs remain limited.</li>
+              </ul>
+            </article>
+
+            <article class="layer">
+              <div class="layer-top">
+                <div>
+                  <strong>Policy &amp; Economics</strong>
+                  <div class="mono">3.0 / 5</div>
+                </div>
+                <span class="badge">Medium confidence</span>
+              </div>
+              <ul>
+                <li>Methane reduction is policy-aligned and climate-economics aligned, which supports Bovaer.</li>
+                <li>Consumer nutrition and beauty are less policy-dependent but more exposed to premiumization, regulation, and formulation economics.</li>
+                <li>What is missing: the divestment of ANH reduces direct exposure to one of the group’s strongest policy-supported innovation engines.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Quantitative Trend Signals</h2>
+          <p>Patent counts use company-reported annual patent outputs as a proxy because the legal entity perimeter changed after the merger and again after the 2026 ANH sale announcement. Publication counts use OpenAlex keyword-grouped yearly work counts as field proxies, not exact company-attributable papers.</p>
+          <div class="charts">
+            <div class="chart-card">
+              <header>
+                <div>
+                  <div class="chart-title">Company-reported patent output proxy</div>
+                  <div class="chart-note">2021-2025: 239, 165, 233, 164, 109</div>
+                </div>
+                <div class="chart-note">Filed or published, depending on report year</div>
+              </header>
+              <svg class="chart" viewBox="0 0 760 260" aria-label="Patent trend chart">
+                <g id="patent-chart"></g>
+              </svg>
+            </div>
+
+            <div class="chart-card">
+              <header>
+                <div>
+                  <div class="chart-title">Publication proxy: methane inhibition / 3-NOP</div>
+                  <div class="chart-note">2021-2025: 315, 323, 502, 478, 477</div>
+                </div>
+                <div class="chart-note">OpenAlex keyword grouped works</div>
+              </header>
+              <svg class="chart" viewBox="0 0 760 260" aria-label="3-NOP publications chart">
+                <g id="methane-chart"></g>
+              </svg>
+            </div>
+
+            <div class="chart-card">
+              <header>
+                <div>
+                  <div class="chart-title">Publication proxy: algal DHA / omega-3</div>
+                  <div class="chart-note">2021-2025: 2,980, 3,250, 4,586, 4,616, 4,334</div>
+                </div>
+                <div class="chart-note">OpenAlex keyword grouped works</div>
+              </header>
+              <svg class="chart" viewBox="0 0 760 260" aria-label="Algal omega-3 publications chart">
+                <g id="algal-chart"></g>
+              </svg>
+            </div>
+
+            <div class="chart-card">
+              <header>
+                <div>
+                  <div class="chart-title">Publication proxy: HMOs and fermentation biology</div>
+                  <div class="chart-note">HMOs 1,184 → 2,298; synthetic-biology terpene production 65 → 206 from 2021 to 2025</div>
+                </div>
+                <div class="chart-note">Two field signals combined</div>
+              </header>
+              <svg class="chart" viewBox="0 0 760 260" aria-label="HMO and synthetic biology publications chart">
+                <g id="hmo-chart"></g>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Breakthrough Gate Check</h2>
+          <p>The company clears most breakthrough conditions on capability, IP, and industrialization. It does not fully clear the “exceptional” gate for the present listed company because the strongest proof asset is being separated.</p>
+          <div class="gate-grid">
+            <div class="gate-item">
+              <strong>Met</strong>
+              <span>Persistent publication growth, credible institutions, rising and defended IP, visible university-industry links, process-engineering evidence, and several real launches.</span>
+            </div>
+            <div class="gate-item">
+              <strong>Partially met</strong>
+              <span>Customer adoption is clear in methane reduction and nutrition ingredients, but much less clear in newer precision-fermentation categories where revenue disclosure is still sparse.</span>
+            </div>
+            <div class="gate-item">
+              <strong>Not fully met</strong>
+              <span>To call DSM-Firmenich AG itself an “exceptional scale-up candidate” today would require clearer evidence that the post-ANH portfolio can replace the translational strength of Bovaer with similarly robust consumer-biotech economics.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Universities And Research Links</h2>
+          <p>This is not exhaustive. It highlights credible academic nodes directly relevant to DSM-Firmenich’s technologies or named collaboration network.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Institution</th>
+                  <th>Technology link</th>
+                  <th>Why it matters</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>TU Delft</strong></td>
+                  <td>AI for biosciences, strain and process optimization</td>
+                  <td>DSM and TU Delft established the AI4B.io Lab in January 2021 to improve biobased products and biomanufacturing.</td>
+                </tr>
+                <tr>
+                  <td><strong>University of California, Davis</strong></td>
+                  <td>Enteric methane reduction in dairy systems</td>
+                  <td>UC Davis-affiliated work on 3-NOP in dairy cows supports the scientific basis for Bovaer-class methane inhibition.</td>
+                </tr>
+                <tr>
+                  <td><strong>University of California, San Diego</strong></td>
+                  <td>Human milk oligosaccharides</td>
+                  <td>Lars Bode’s HMO work is among the most cited academic foundations for the HMO opportunity that DSM pursues industrially.</td>
+                </tr>
+                <tr>
+                  <td><strong>Wageningen University &amp; Research</strong></td>
+                  <td>Food systems, livestock sustainability, nutrition science</td>
+                  <td>Named in DSM’s research collaboration network and highly relevant to methane and nutrition innovation.</td>
+                </tr>
+                <tr>
+                  <td><strong>Iowa State University</strong></td>
+                  <td>Biosciences and agricultural systems</td>
+                  <td>Named in DSM’s collaboration network, indicating a sustained university-industry interface in bioscience and ag innovation.</td>
+                </tr>
+                <tr>
+                  <td><strong>Maastricht University</strong></td>
+                  <td>Nutrition, health, and translational collaboration</td>
+                  <td>Named in the 2022 DSM annual report as part of the group’s collaboration footprint.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Patent Snapshot</h2>
+          <p>The patents below are representative of the company’s actual technical work. They are not the full estate.</p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Patent</th>
+                  <th>Technology</th>
+                  <th>Office / route</th>
+                  <th>Signal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>WO2012084629A1</strong></td>
+                  <td>Nitrooxy organic molecules in feed for reducing methane in ruminants</td>
+                  <td>WIPO, with later national/regional family members</td>
+                  <td>Foundational Bovaer-class use patent; shows direct science-to-application linkage.</td>
+                </tr>
+                <tr>
+                  <td><strong>AU2018222468B2 / US11013245</strong></td>
+                  <td>Water-dispersible 3-NOP formulations</td>
+                  <td>Australia / USPTO family members</td>
+                  <td>Signals formulation engineering, not just concept claims.</td>
+                </tr>
+                <tr>
+                  <td><strong>WO2024126430A1</strong></td>
+                  <td>Methane reduction from livestock manure management using nitrooxy compounds</td>
+                  <td>WIPO</td>
+                  <td>Shows continuing extension of the methane-abatement platform.</td>
+                </tr>
+                <tr>
+                  <td><strong>US10392578</strong></td>
+                  <td>Extraction of lipid from microbial cells</td>
+                  <td>USPTO, with related EPO support in litigation narrative</td>
+                  <td>Central to the company’s defended algal DHA processing edge.</td>
+                </tr>
+                <tr>
+                  <td><strong>US12188056B2 / EP4239066 family</strong></td>
+                  <td>Biosynthetic production of 3′-sialyllactose HMO</td>
+                  <td>USPTO / EPO family</td>
+                  <td>Evidence that DSM is still adding process IP in early-life nutrition.</td>
+                </tr>
+                <tr>
+                  <td><strong>WO2013000660A1</strong></td>
+                  <td>Modified microorganisms for terpene production</td>
+                  <td>WIPO</td>
+                  <td>Representative precision-fermentation link to flavor and fragrance chemistry.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Red Flags</h2>
+          <div class="red-grid">
+            <div class="red-item">
+              <strong>Patent output is slowing.</strong>
+              <span>Proxy annual counts dropped from 239 in 2021 to 109 in 2025. Some of this is perimeter change, but the directional slowdown still matters.</span>
+            </div>
+            <div class="red-item">
+              <strong>The best climate-tech proof point is leaving.</strong>
+              <span>On 9 February 2026 the group announced the ANH divestment to CVC, which means Bovaer’s long-term economics are no longer fully attributable to DSM-Firmenich AG.</span>
+            </div>
+            <div class="red-item">
+              <strong>Newer fermentation bets remain early.</strong>
+              <span>Vivici has offtake agreements and U.S. launch progress, but it does not yet carry the same disclosed revenue or deployment evidence as Bovaer.</span>
+            </div>
+            <div class="red-item">
+              <strong>Portfolio complexity hides signal.</strong>
+              <span>Beauty, taste, nutrition, and legacy biosciences create a wide opportunity set, but also make it harder to see which platforms are truly compounding versus merely adjacent.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>What Would Change The View</h2>
+          <div class="change-grid">
+            <div class="change-item">
+              <strong>Upgrade scenario</strong>
+              <span>Recurring commercial wins in precision-fermented proteins, stronger HMO or lipid revenue disclosure, and stable or rising patent output after the ANH separation would move the score toward 21+.</span>
+            </div>
+            <div class="change-item">
+              <strong>Downgrade scenario</strong>
+              <span>If post-divestment DSM-Firmenich increasingly relies on marketing-led line extensions while platform science becomes less visible in launches, the score falls toward the mid-teens.</span>
+            </div>
+            <div class="change-item">
+              <strong>Key watch items</strong>
+              <span>2026-2027 R&amp;D intensity, consumer-biotech launch conversion, Vivici follow-on evidence, and whether the company keeps adding first-patent publications above the current run-rate.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Sources</h2>
+          <p>These are the sources actually used. Statements above that compare or score the evidence are my inference from them.</p>
+          <div class="source-list">
+            <div class="source-item"><span>dsm-firmenich Integrated Annual Report 2025: science, R&amp;D spend, patents, value creation, current portfolio context.</span><a href="https://annualreport.dsm-firmenich.com/2025">Open</a></div>
+            <div class="source-item"><span>dsm-firmenich Integrated Annual Report 2024: science platforms, R&amp;D spend, customer stories, reported 2024 patent output.</span><a href="https://annualreport.dsm-firmenich.com/2024">Open</a></div>
+            <div class="source-item"><span>dsm-firmenich Integrated Annual Report 2023: reported 233 new patents and 744m pro forma R&amp;D spend.</span><a href="https://annualreport.dsm-firmenich.com/2023">Open</a></div>
+            <div class="source-item"><span>Royal DSM Integrated Annual Report 2022: 165 patents filed across HNB activities and technology platform framing.</span><a href="https://annualreport.dsm.com/ar2022/report-by-the-managing-board/strategy/our-focus-in-science-and-innovation.html">Open</a></div>
+            <div class="source-item"><span>Royal DSM Integrated Annual Report 2021: 239 patents filed and 2021 R&amp;D baseline.</span><a href="https://annualreport.dsm.com/ar2021/review-of-business/innovation/accelerating-innovation/ip-licensing.html">Open</a></div>
+            <div class="source-item"><span>dsm-firmenich announced ANH divestment to CVC on 9 February 2026.</span><a href="https://our-company.dsm-firmenich.com/en/our-company/news/press-releases/2026/dsm-firmenich-announces-agreement-to-divest-animal-nutrition-and-health-to-cvc-capital-partners.html">Open</a></div>
+            <div class="source-item"><span>Bovaer product page: 15 years of research, 150+ on-farm trials, 110+ peer-reviewed studies, and methane reduction benchmarks.</span><a href="https://www.dsm-firmenich.com/en/businesses/taste-texture-health/markets-products/dairy/bovaer.html">Open</a></div>
+            <div class="source-item"><span>WRI technical perspective: 3-NOP as the most commercially advanced methane inhibitor with 65+ country approvals.</span><a href="https://www.wri.org/technical-perspective/cattle-methane-inhibitors-early-adoption-next-steps">Open</a></div>
+            <div class="source-item"><span>Dalry production facility press release: evidence of Bovaer scale-up capex.</span><a href="https://www.dsm-firmenich.com/anh/news/press-releases/2022/2022-11-30-dsm-starts-construction-of-large-scale-production-facility-for-bovaer-in-dalry-scotland.html">Open</a></div>
+            <div class="source-item"><span>Algal DHA launch and product economics from life’sDHA B54-0100 press release.</span><a href="https://www.dsm-firmenich.com/en/businesses/health-nutrition-care/news/press-releases/2024-10-23-dsm-firmenich-expands-its-advanced-lifes-portfolio-with-lifes-dha-b54-0100-a-naturally-potent-dha-algal-oil-with-exceptional-sensory-appeal.html">Open</a></div>
+            <div class="source-item"><span>Patent defense and litigation strength for algal DHA processing: Jan 2024 and Mar 2025 company releases.</span><a href="https://www.dsm-firmenich.com/en/businesses/health-nutrition-care/news/press-releases/dsm-firmenich-successfully-defends-patent-directed-to-proprietary-dha-oils.html">Open</a></div>
+            <div class="source-item"><span>Vivici commercial and funding signals: U.S. launch, offtake agreements, and Series A in February-March 2025.</span><a href="https://www.vivici.com/insights/vivici-launches-new-standard-of-protein-in-us-market">Open</a></div>
+            <div class="source-item"><span>TU Delft / DSM AI4B.io Lab, January 2021.</span><a href="https://our-company.dsm-firmenich.com/en/our-company/news/press-releases/legacy-archive/2021/2021-01-11-dsm-and-tu-delft-establish-artificial-intelligence-laboratory-to-drive-bioscience-innovation.html">Open</a></div>
+            <div class="source-item"><span>UC Davis 3-NOP paper in Journal of Dairy Science, 2021.</span><a href="https://pubmed.ncbi.nlm.nih.gov/33131815/">Open</a></div>
+            <div class="source-item"><span>UC San Diego HMO research by Lars Bode.</span><a href="https://pubmed.ncbi.nlm.nih.gov/26375354/">Open</a></div>
+            <div class="source-item"><span>OpenAlex publication-year grouped counts for methane inhibition, algal DHA, HMOs, and synthetic-biology terpene production.</span><a href="https://api.openalex.org">Open</a></div>
+          </div>
+        </section>
+
+        <footer>
+          This dashboard separates sourced facts from inference. Scores, verdicts, and portfolio-weighting judgments are my synthesis from the cited materials. Patent trend data are a proxy because the reporting perimeter changed across 2021-2026.
+        </footer>
+      </main>
+
+      <aside class="rail">
+        <section class="panel">
+          <div class="mini-label">Operating Snapshot</div>
+          <div class="stack">
+            <div class="mini-panel">
+              <strong>Current read</strong>
+              <span>High-quality science organization with visible translational wins, but currently in the middle of strategic narrowing.</span>
+            </div>
+            <div class="mini-panel">
+              <strong>Best proof asset</strong>
+              <span>Bovaer remains the cleanest demonstration of platform-to-product execution.</span>
+            </div>
+            <div class="mini-panel">
+              <strong>Most important caveat</strong>
+              <span>Bovaer is tied to ANH, and ANH was announced for divestment on 9 February 2026.</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="mini-label">Scorecard</div>
+          <div class="stack">
+            <div class="mini-panel"><strong>Science</strong><span>4.5 / 5</span></div>
+            <div class="mini-panel"><strong>IP</strong><span>4.0 / 5</span></div>
+            <div class="mini-panel"><strong>Industrialization</strong><span>4.0 / 5</span></div>
+            <div class="mini-panel"><strong>Adoption</strong><span>3.5 / 5</span></div>
+            <div class="mini-panel"><strong>Policy &amp; Economics</strong><span>3.0 / 5</span></div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="mini-label">2021-2025 Patent Proxy</div>
+          <ul>
+            <li>2021: 239</li>
+            <li>2022: 165</li>
+            <li>2023: 233</li>
+            <li>2024: 164</li>
+            <li>2025: 109</li>
+          </ul>
+        </section>
+
+        <section class="panel">
+          <div class="mini-label">Best Near-Term Watchpoints</div>
+          <ul>
+            <li>Post-ANH innovation profile in 2026 investor materials</li>
+            <li>Patent output stabilization in 2026</li>
+            <li>New HMO, lipid, or precision-fermentation revenue disclosures</li>
+            <li>Evidence that consumer-biotech launches scale, not just pilot</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const years = ["2021", "2022", "2023", "2024", "2025"];
+
+    const charts = {
+      "patent-chart": {
+        type: "bar",
+        values: [239, 165, 233, 164, 109],
+        color: "#c2b2ff",
+        altColor: "#7b7ff2"
+      },
+      "methane-chart": {
+        type: "line",
+        values: [315, 323, 502, 478, 477],
+        color: "#92f5cb"
+      },
+      "algal-chart": {
+        type: "line",
+        values: [2980, 3250, 4586, 4616, 4334],
+        color: "#ffd689"
+      },
+      "hmo-chart": {
+        type: "multi",
+        values: [
+          { name: "HMOs", data: [1184, 1524, 2307, 2116, 2298], color: "#c2b2ff" },
+          { name: "Synthetic biology terpene production", data: [65, 84, 131, 151, 206], color: "#92f5cb" }
+        ]
+      }
+    };
+
+    function drawChart(id, spec) {
+      const root = document.getElementById(id);
+      const w = 760;
+      const h = 260;
+      const left = 56;
+      const right = 24;
+      const top = 18;
+      const bottom = 38;
+      const innerW = w - left - right;
+      const innerH = h - top - bottom;
+
+      let max = 0;
+      if (spec.type === "multi") {
+        spec.values.forEach(s => s.data.forEach(v => { if (v > max) max = v; }));
+      } else {
+        spec.values.forEach(v => { if (v > max) max = v; });
+      }
+
+      const grid = [0, 0.25, 0.5, 0.75, 1];
+      grid.forEach(p => {
+        const y = top + innerH - innerH * p;
+        const value = Math.round(max * p);
+        root.insertAdjacentHTML("beforeend",
+          `<line x1="${left}" y1="${y}" x2="${w - right}" y2="${y}" stroke="rgba(230,230,250,0.08)" />` +
+          `<text x="${left - 10}" y="${y + 4}" fill="rgba(230,230,250,0.55)" font-size="11" text-anchor="end">${value.toLocaleString()}</text>`
+        );
+      });
+
+      years.forEach((year, i) => {
+        const x = left + (innerW / (years.length - 1 || 1)) * i;
+        root.insertAdjacentHTML("beforeend",
+          `<text x="${x}" y="${h - 12}" fill="rgba(230,230,250,0.64)" font-size="12" text-anchor="middle">${year}</text>`
+        );
+      });
+
+      if (spec.type === "bar") {
+        const barW = 64;
+        spec.values.forEach((value, i) => {
+          const cx = left + (innerW / (years.length - 1 || 1)) * i;
+          const height = innerH * (value / max);
+          const y = top + innerH - height;
+          const x = cx - barW / 2;
+          root.insertAdjacentHTML("beforeend",
+            `<rect x="${x}" y="${y}" width="${barW}" height="${height}" rx="16" fill="${i % 2 ? spec.altColor : spec.color}" opacity="0.92" />` +
+            `<text x="${cx}" y="${y - 8}" fill="rgba(246,244,255,0.88)" font-size="12" text-anchor="middle">${value}</text>`
+          );
+        });
+      }
+
+      if (spec.type === "line") {
+        const pts = spec.values.map((value, i) => {
+          const x = left + (innerW / (years.length - 1 || 1)) * i;
+          const y = top + innerH - innerH * (value / max);
+          return { x, y, value };
+        });
+        const d = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+        root.insertAdjacentHTML("beforeend",
+          `<path d="${d}" fill="none" stroke="${spec.color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />`
+        );
+        pts.forEach(p => {
+          root.insertAdjacentHTML("beforeend",
+            `<circle cx="${p.x}" cy="${p.y}" r="6" fill="${spec.color}" />` +
+            `<text x="${p.x}" y="${p.y - 12}" fill="rgba(246,244,255,0.88)" font-size="12" text-anchor="middle">${p.value.toLocaleString()}</text>`
+          );
+        });
+      }
+
+      if (spec.type === "multi") {
+        spec.values.forEach((series, idx) => {
+          const pts = series.data.map((value, i) => {
+            const x = left + (innerW / (years.length - 1 || 1)) * i;
+            const y = top + innerH - innerH * (value / max);
+            return { x, y, value };
+          });
+          const d = pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`).join(" ");
+          root.insertAdjacentHTML("beforeend",
+            `<path d="${d}" fill="none" stroke="${series.color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />`
+          );
+          pts.forEach(p => {
+            root.insertAdjacentHTML("beforeend", `<circle cx="${p.x}" cy="${p.y}" r="5" fill="${series.color}" />`);
+          });
+          root.insertAdjacentHTML("beforeend",
+            `<rect x="${left + idx * 220}" y="8" width="14" height="14" rx="7" fill="${series.color}" />` +
+            `<text x="${left + 20 + idx * 220}" y="20" fill="rgba(246,244,255,0.82)" font-size="12">${series.name}</text>`
+          );
+        });
+      }
+    }
+
+    Object.entries(charts).forEach(([id, spec]) => drawChart(id, spec));
+
+    let drift = 0;
+    window.addEventListener("scroll", () => {
+      drift = window.scrollY * -0.06;
+      document.body.style.setProperty("--drift", `${drift}px`);
+    });
+  </script>
+</body>
+</html>

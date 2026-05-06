@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <rect width="1080" height="1080" fill="#faf9f6"/>
+  <rect x="44" y="44" width="992" height="992" rx="40" fill="#f2efe8"/>
+  <path d="M124 786 C304 706 430 604 568 520 C682 450 792 382 956 286" fill="none" stroke="#2d4a2b" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="828" cy="362" r="144" fill="#a4ac86" fill-opacity="0.3"/>
+  <g font-family="FreeSans, Arial, sans-serif" fill="#2d4a2b">
+    <text x="112" y="176" font-size="26" letter-spacing="5">FINAL VERDICT</text>
+    <text x="112" y="338" font-size="186" font-weight="700">19 / 25</text>
+    <text x="112" y="450" font-size="68" font-weight="700">MOMENTUM,</text>
+    <text x="112" y="526" font-size="68" font-weight="700">NOT PERFECTION</text>
+    <text x="112" y="646" font-size="36" fill="#5d6755">Strong innovator with translational momentum.</text>
+    <text x="112" y="692" font-size="36" fill="#5d6755">Patent flow and quality history still matter.</text>
+  </g>
+</svg>

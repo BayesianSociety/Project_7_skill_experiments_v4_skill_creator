@@ -1,0 +1,227 @@
+{
+  "company": "PostNL N.V.",
+  "ticker": "AMS: PNL",
+  "mode": "absolute",
+  "layers": [
+    {
+      "label": "Science",
+      "score": 2.6,
+      "display_score": "2.6",
+      "raw_score": 2.862,
+      "normalized_score": 0.5725,
+      "coverage_ratio": 0.76,
+      "confidence_penalty": 0.904,
+      "confidence": "Medium",
+      "summary": "The relevant field around parcel lockers, last-mile logistics and delivery automation is growing meaningfully in the literature, but the science signal is mostly field-level rather than PostNL-specific.",
+      "strong": "OpenAlex query counts for parcel locker and last-mile logistics rose from 108 works in 2021 to 324 in 2025, with recent papers appearing in Transportation Research Part C, Transportation Research Part E and Journal of Operations Management.",
+      "missing": "There is little evidence that PostNL itself is generating distinctive science output, sponsoring a proprietary research platform, or translating internal R&D into cited scientific leadership.",
+      "metrics": [
+        {
+          "code": "publication_growth",
+          "label": "Publication growth",
+          "value": 0.8,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "citation_velocity_or_quality",
+          "label": "Citation velocity or quality",
+          "value": 0.6,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "science_to_application_linkage",
+          "label": "Science to application linkage",
+          "value": 0.35,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "IP",
+      "score": 0.7,
+      "display_score": "0.7",
+      "raw_score": 0.895,
+      "normalized_score": 0.179,
+      "coverage_ratio": 0.45,
+      "confidence_penalty": 0.78,
+      "confidence": "Low",
+      "summary": "PostNL shows weak recent public patent visibility. The clearly attributable public patent examples surfaced in-session are mostly legacy postal-processing families from the Koninklijke PTT Nederland era rather than a rising 2021-2025 innovation estate.",
+      "strong": "Historic postal-engineering patents are technically specific, including mail-routing and letter-counting/sorting inventions filed through European and Dutch patent channels.",
+      "missing": "A clean recent assignee time series for PostNL-specific 2021-2025 patent families was not reproducible from open public sources in-session, and no clear recent family build-out surfaced in targeted searches.",
+      "metrics": [
+        {
+          "code": "patent_family_growth",
+          "label": "Patent family growth",
+          "value": 0.08,
+          "weight": 0.34,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary",
+          "verified": true
+        },
+        {
+          "code": "technical_specificity",
+          "label": "Technical specificity",
+          "value": 0.28,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary",
+          "verified": true
+        },
+        {
+          "code": "science_to_patent_or_assignee_quality",
+          "label": "Science to patent or assignee quality",
+          "value": 0.18,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary",
+          "verified": true
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Industrialization",
+      "score": 2.9,
+      "display_score": "2.9",
+      "raw_score": 3.16,
+      "normalized_score": 0.632,
+      "coverage_ratio": 0.82,
+      "confidence_penalty": 0.928,
+      "confidence": "Medium",
+      "summary": "PostNL has real operational deployment in parcel lockers, robotic sorting and digital tooling, but the disclosures look more like disciplined logistics modernization than a breakthrough industrial platform.",
+      "strong": "The company disclosed a first fully robotised small parcel sorting centre with 175 robots in 2021, ongoing use of cutting-edge automation and sorting technologies in 2024, 37 sorting centres in 2025, and 2,203 Copilot licences distributed in 2025 versus 1,050 in 2024.",
+      "missing": "Management provides limited technology-specific capex, yield, throughput, or unit-economics detail for lockers and automation, which caps confidence in industrial learning depth.",
+      "metrics": [
+        {
+          "code": "manufacturing_or_deployment_evidence",
+          "label": "Manufacturing or deployment evidence",
+          "value": 0.68,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "process_learning_or_capex",
+          "label": "Process learning or capex",
+          "value": 0.58,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "operational_scale_signal",
+          "label": "Operational scale signal",
+          "value": 0.62,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Adoption",
+      "score": 2.6,
+      "display_score": "2.6",
+      "raw_score": 2.824,
+      "normalized_score": 0.5648,
+      "coverage_ratio": 0.84,
+      "confidence_penalty": 0.936,
+      "confidence": "Medium",
+      "summary": "Adoption is visible and real, especially in lockers and digital touchpoints, but the company does not disclose enough product-level economics to treat these technologies as compounding innovation flywheels yet.",
+      "strong": "Automated parcel lockers rose from 517 in 2022 to 903 in 2023, 1,083 in 2024 and 1,400 in 2025; active unique PostNL accounts increased from 6.9 million in 2023 to 8.9 million in 2024 and 10.0 million in 2025; and FedEx joined the locker network in June 2025.",
+      "missing": "PostNL does not break out locker-network revenue, software revenue, design wins, or technology-led margin uplift clearly enough to show repeatable platform economics.",
+      "metrics": [
+        {
+          "code": "revenue_or_booking_evidence",
+          "label": "Revenue or booking evidence",
+          "value": 0.52,
+          "weight": 0.36,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "customer_or_partner_breadth",
+          "label": "Customer or partner breadth",
+          "value": 0.62,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "repeatability_or_deployment_scale",
+          "label": "Repeatability or deployment scale",
+          "value": 0.56,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Policy & Economics",
+      "score": 2.5,
+      "display_score": "2.5",
+      "raw_score": 2.712,
+      "normalized_score": 0.5425,
+      "coverage_ratio": 0.78,
+      "confidence_penalty": 0.912,
+      "confidence": "Medium",
+      "summary": "The broader environment is mixed. Sustainability and out-of-home delivery trends support PostNL's direction, but Dutch postal regulation, labour inflation and margin pressure materially constrain economic upside.",
+      "strong": "Parcel lockers and emission-free delivery align with urban sustainability goals, and 33% of last-mile delivery was emission-free in 2025 versus 28% in 2024.",
+      "missing": "PostNL repeatedly highlighted regulatory insufficiency and economic pressure in 2025, including rejected financial-contribution requests for the postal service and ongoing labour-driven cost inflation.",
+      "metrics": [
+        {
+          "code": "regulatory_or_standards_fit",
+          "label": "Regulatory or standards fit",
+          "value": 0.62,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "policy_or_supply_chain_support",
+          "label": "Policy or supply chain support",
+          "value": 0.55,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        },
+        {
+          "code": "economic_readiness",
+          "label": "Economic readiness",
+          "value": 0.45,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true
+        }
+      ],
+      "cap_reasons": []
+    }
+  ],
+  "total_score": 11.3,
+  "display_total_score": "11.3",
+  "gate_pass": false,
+  "verdict": "Emerging innovator worth monitoring",
+  "benchmark_ready": true
+}

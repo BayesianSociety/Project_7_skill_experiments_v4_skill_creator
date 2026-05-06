@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Slide 1 - Gilead's New Power Center</title>
+  <desc id="desc">Instagram slide highlighting Gilead's innovation center around HIV prevention.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#264653"/>
+      <stop offset="42%" stop-color="#e76f51"/>
+      <stop offset="100%" stop-color="#f4a261"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="38%" r="52%">
+      <stop offset="0%" stop-color="#fff5dd" stop-opacity="0.96"/>
+      <stop offset="100%" stop-color="#fff5dd" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#glow)"/>
+  <g opacity="0.16" stroke="#fff8f1">
+    <path d="M0 170H1080"/>
+    <path d="M0 910H1080"/>
+    <path d="M190 0V1080"/>
+    <path d="M890 0V1080"/>
+  </g>
+  <circle cx="810" cy="250" r="178" fill="none" stroke="#fff2db" stroke-opacity="0.34" stroke-width="2"/>
+  <circle cx="810" cy="250" r="120" fill="none" stroke="#fff2db" stroke-opacity="0.2" stroke-width="18"/>
+  <g transform="translate(706 188)">
+    <rect x="38" y="90" width="82" height="170" rx="28" fill="#fff8f1" fill-opacity="0.92"/>
+    <rect x="56" y="42" width="48" height="64" rx="16" fill="#fff8f1" fill-opacity="0.92"/>
+    <rect x="48" y="118" width="64" height="114" rx="22" fill="#e9c46a"/>
+  </g>
+  <rect x="140" y="150" width="800" height="780" rx="48" fill="#fff8f1" fill-opacity="0.9" stroke="#fff2db" stroke-opacity="0.9"/>
+  <text x="220" y="280" fill="#264653" font-family="DejaVu Sans" font-size="28" letter-spacing="5" text-transform="uppercase">GILEAD SCIENCES</text>
+  <text x="220" y="418" fill="#264653" font-family="DejaVu Serif" font-size="92" font-weight="700">
+    <tspan x="220" dy="0">Gilead's New</tspan>
+    <tspan x="220" dy="102">Power Center</tspan>
+  </text>
+  <text x="220" y="620" fill="#355563" font-family="DejaVu Sans" font-size="40">
+    <tspan x="220" dy="0">HIV prevention just changed,</tspan>
+    <tspan x="220" dy="56">and Gilead is driving it.</tspan>
+  </text>
+  <rect x="220" y="710" width="310" height="76" rx="38" fill="#264653"/>
+  <text x="375" y="758" text-anchor="middle" fill="#fff8f1" font-family="DejaVu Sans" font-size="28" letter-spacing="2">INNOVATION REVIEW</text>
+  <circle cx="846" cy="838" r="46" fill="#e76f51"/>
+  <text x="846" y="852" text-anchor="middle" fill="#fff8f1" font-family="DejaVu Serif" font-size="38" font-weight="700">01</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="96" y1="118" x2="968" y2="1010" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF7EA"/>
+      <stop offset="0.56" stop-color="#E8D0AA"/>
+      <stop offset="1" stop-color="#D4B896"/>
+    </linearGradient>
+    <linearGradient id="line2" x1="208" y1="736" x2="846" y2="388" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#C1666B"/>
+      <stop offset="1" stop-color="#F4A900"/>
+    </linearGradient>
+    <radialGradient id="glow2a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(808 248) rotate(90) scale(308 308)">
+      <stop stop-color="#F4A900" stop-opacity="0.36"/>
+      <stop offset="1" stop-color="#F4A900" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg2)"/>
+  <circle cx="808" cy="248" r="308" fill="url(#glow2a)"/>
+  <g opacity="0.14" stroke="#4A403A">
+    <path d="M146 798H934"/>
+    <path d="M146 682H934"/>
+    <path d="M146 566H934"/>
+    <path d="M146 450H934"/>
+  </g>
+  <path d="M208 718C286 690 362 644 436 538C495 454 564 422 638 426C714 430 760 394 842 322" stroke="url(#line2)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="208" cy="718" r="14" fill="#C1666B"/>
+  <circle cx="436" cy="538" r="14" fill="#E08A3B"/>
+  <circle cx="638" cy="426" r="14" fill="#F0A82B"/>
+  <circle cx="842" cy="322" r="14" fill="#F4A900"/>
+  <rect x="118" y="126" width="704" height="216" rx="36" fill="#FFF9F1" fill-opacity="0.88" stroke="#4A403A" stroke-opacity="0.12"/>
+  <text x="166" y="214" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="78" font-weight="700" letter-spacing="-2">The Science</text>
+  <text x="166" y="296" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="78" font-weight="700" letter-spacing="-2">Curve Is Real</text>
+  <text x="166" y="864" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="46" font-weight="700">101 papers in 2021</text>
+  <text x="702" y="864" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="46" font-weight="700">251 in 2025</text>
+  <text x="166" y="922" fill="#6D5A50" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="30">OpenAlex tracked trapped-ion publication activity more than doubling across five years.</text>
+</svg>

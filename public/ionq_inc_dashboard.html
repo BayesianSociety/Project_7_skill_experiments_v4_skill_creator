@@ -1,0 +1,1095 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IonQ, Inc. Innovation Dashboard</title>
+  <style>
+    :root {
+      --mustard: #f4a900;
+      --terracotta: #c1666b;
+      --beige: #d4b896;
+      --brown: #4a403a;
+      --ink: #2f2824;
+      --paper: #f6efe3;
+      --sand: #eadcc7;
+      --line: rgba(74, 64, 58, 0.16);
+      --panel: rgba(255, 248, 240, 0.72);
+      --panel-strong: rgba(255, 248, 240, 0.88);
+      --glow: rgba(244, 169, 0, 0.28);
+      --good: #8c5b3b;
+      --warn: #b56f39;
+      --bad: #9d5656;
+      --shadow: 0 28px 72px rgba(92, 65, 43, 0.16);
+      --radius: 28px;
+      --sans: FreeSans, "Liberation Sans", "DejaVu Sans", sans-serif;
+      --mono: "DejaVu Sans Mono", "Liberation Mono", monospace;
+      --max: 1460px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 14% 14%, rgba(244, 169, 0, 0.24), transparent 22%),
+        radial-gradient(circle at 84% 10%, rgba(193, 102, 107, 0.18), transparent 18%),
+        radial-gradient(circle at 80% 78%, rgba(244, 169, 0, 0.16), transparent 18%),
+        linear-gradient(180deg, #fff6ea 0%, #f4e8d6 44%, #edd9c2 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.48;
+      background-image:
+        linear-gradient(90deg, transparent 0 49%, rgba(74, 64, 58, 0.035) 49% 51%, transparent 51%),
+        linear-gradient(transparent 0 49%, rgba(74, 64, 58, 0.025) 49% 51%, transparent 51%);
+      background-size: 96px 96px;
+      transform: translateY(var(--drift, 0px));
+    }
+
+    a {
+      color: var(--brown);
+      text-decoration-color: rgba(74, 64, 58, 0.28);
+      text-underline-offset: 0.16em;
+    }
+
+    .shell {
+      width: min(calc(100% - 28px), var(--max));
+      margin: 0 auto;
+      padding: 18px 0 56px;
+    }
+
+    .topbar,
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      color: rgba(47, 40, 36, 0.7);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .surface {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(74, 64, 58, 0.12);
+      border-radius: 34px;
+      background:
+        linear-gradient(180deg, rgba(255, 251, 246, 0.94), rgba(246, 238, 226, 0.9)),
+        linear-gradient(130deg, rgba(244, 169, 0, 0.05), rgba(193, 102, 107, 0.04));
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .surface::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 92% 14%, rgba(244, 169, 0, 0.18), transparent 20%),
+        radial-gradient(circle at 10% 86%, rgba(193, 102, 107, 0.14), transparent 22%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero {
+      padding: 28px 28px 24px;
+      min-height: calc(100svh - 74px);
+      display: grid;
+      align-content: start;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.24fr) minmax(320px, 0.76fr);
+      gap: 24px;
+      align-items: end;
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .mini-label,
+    .signal {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 11px;
+      color: rgba(74, 64, 58, 0.62);
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--brown);
+      letter-spacing: -0.04em;
+    }
+
+    h1 {
+      font-size: clamp(3.1rem, 7.4vw, 6.6rem);
+      line-height: 0.9;
+      max-width: 8ch;
+      margin-top: 8px;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      line-height: 0.98;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 1.08rem;
+      line-height: 1.18;
+      margin-bottom: 8px;
+    }
+
+    .hero-copy {
+      margin-top: 18px;
+      max-width: 63ch;
+      color: rgba(47, 40, 36, 0.8);
+      line-height: 1.74;
+      font-size: 1rem;
+    }
+
+    .hero-copy strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .utility-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .chip-link {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 64, 58, 0.12);
+      background: rgba(255, 255, 255, 0.52);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 0.92rem;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .chip-link:hover {
+      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.76);
+      border-color: rgba(74, 64, 58, 0.24);
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .metric {
+      padding-top: 14px;
+      border-top: 1px solid rgba(74, 64, 58, 0.15);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: clamp(1.18rem, 2.2vw, 2rem);
+      color: var(--brown);
+      margin-bottom: 5px;
+    }
+
+    .metric span {
+      display: block;
+      color: rgba(47, 40, 36, 0.72);
+      font-size: 0.92rem;
+      line-height: 1.42;
+    }
+
+    .hero-side {
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 248, 240, 0.82));
+      border: 1px solid rgba(74, 64, 58, 0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-wheel {
+      width: 230px;
+      aspect-ratio: 1;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(255, 250, 244, 1) 56%, transparent 57%),
+        conic-gradient(var(--mustard) 0deg, var(--terracotta) 252deg, rgba(74, 64, 58, 0.08) 252deg 360deg);
+      box-shadow: inset 0 0 0 1px rgba(74, 64, 58, 0.12), 0 0 36px rgba(244, 169, 0, 0.16);
+    }
+
+    .score-wheel strong,
+    .score-wheel small {
+      display: block;
+      text-align: center;
+    }
+
+    .score-wheel strong {
+      font-size: 3.9rem;
+      line-height: 1;
+      color: var(--brown);
+    }
+
+    .score-wheel small {
+      font-size: 0.92rem;
+      color: rgba(47, 40, 36, 0.68);
+    }
+
+    .verdict {
+      margin: 0 0 16px;
+      line-height: 1.64;
+      font-size: 1rem;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(74, 64, 58, 0.12);
+      font-size: 0.93rem;
+    }
+
+    .meta-row span:last-child {
+      color: rgba(47, 40, 36, 0.72);
+      text-align: right;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 24px;
+      padding: 0 28px 28px;
+      align-items: start;
+    }
+
+    .content {
+      display: grid;
+      gap: 24px;
+    }
+
+    .rail {
+      position: sticky;
+      top: 18px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, var(--panel-strong), var(--panel));
+      border: 1px solid rgba(74, 64, 58, 0.11);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+
+    .panel-head p {
+      margin: 0;
+      color: rgba(47, 40, 36, 0.68);
+      font-size: 0.94rem;
+      line-height: 1.5;
+      max-width: 48ch;
+    }
+
+    .bullet-list,
+    .risk-list,
+    .source-list,
+    .patent-list,
+    .gate-list,
+    .uni-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 10px;
+      color: rgba(47, 40, 36, 0.84);
+      line-height: 1.58;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .score-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .score-item {
+      display: grid;
+      gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(74, 64, 58, 0.1);
+    }
+
+    .score-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: baseline;
+    }
+
+    .score-top strong {
+      font-size: 1rem;
+      color: var(--brown);
+    }
+
+    .score-top span {
+      color: rgba(47, 40, 36, 0.72);
+      font-family: var(--mono);
+      font-size: 0.88rem;
+    }
+
+    .progress-track {
+      position: relative;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(74, 64, 58, 0.12);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--mustard), var(--terracotta));
+      box-shadow: 0 0 14px rgba(244, 169, 0, 0.25);
+      transition: width 900ms cubic-bezier(.2,.8,.2,1);
+    }
+
+    .score-note {
+      color: rgba(47, 40, 36, 0.74);
+      line-height: 1.56;
+      font-size: 0.94rem;
+    }
+
+    .score-note strong {
+      color: var(--ink);
+    }
+
+    .chart-wrap {
+      display: grid;
+      gap: 14px;
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .chart-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.54);
+      border: 1px solid rgba(74, 64, 58, 0.11);
+    }
+
+    .chart-card h3 {
+      margin-bottom: 10px;
+    }
+
+    svg.chart {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    .kicker {
+      font-size: 0.78rem;
+      color: rgba(47, 40, 36, 0.66);
+      margin-top: 6px;
+      line-height: 1.45;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(244, 169, 0, 0.13);
+      border: 1px solid rgba(244, 169, 0, 0.2);
+      color: var(--brown);
+      font-size: 0.88rem;
+    }
+
+    .matrix {
+      display: grid;
+      gap: 14px;
+    }
+
+    .matrix-item {
+      padding: 16px 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid rgba(74, 64, 58, 0.11);
+    }
+
+    .matrix-item p,
+    .snapshot p,
+    .method p {
+      margin: 8px 0 0;
+      color: rgba(47, 40, 36, 0.75);
+      line-height: 1.58;
+      font-size: 0.94rem;
+    }
+
+    .snapshot {
+      display: grid;
+      gap: 14px;
+    }
+
+    .snapshot strong {
+      display: block;
+      font-size: 1.95rem;
+      color: var(--brown);
+      letter-spacing: -0.04em;
+    }
+
+    .snapshot small {
+      color: rgba(47, 40, 36, 0.7);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    .tag-good,
+    .tag-mixed,
+    .tag-watch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      border: 1px solid transparent;
+    }
+
+    .tag-good {
+      background: rgba(140, 91, 59, 0.1);
+      color: var(--good);
+      border-color: rgba(140, 91, 59, 0.16);
+    }
+
+    .tag-mixed {
+      background: rgba(244, 169, 0, 0.12);
+      color: #8a5e10;
+      border-color: rgba(244, 169, 0, 0.18);
+    }
+
+    .tag-watch {
+      background: rgba(193, 102, 107, 0.12);
+      color: var(--bad);
+      border-color: rgba(193, 102, 107, 0.16);
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: 0.9em;
+      background: rgba(74, 64, 58, 0.06);
+      padding: 0.15em 0.35em;
+      border-radius: 0.35em;
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 560ms ease, transform 560ms ease;
+    }
+
+    .fade.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .layout,
+      .chart-grid,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        position: static;
+      }
+
+      .metric-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .shell {
+        width: min(calc(100% - 18px), var(--max));
+      }
+
+      .hero,
+      .layout {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 22px;
+      }
+
+      .metric-row {
+        grid-template-columns: 1fr;
+      }
+
+      .surface {
+        border-radius: 26px;
+      }
+
+      .panel,
+      .hero-side {
+        padding: 18px;
+      }
+
+      .score-wheel {
+        width: 196px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <span>Technology Innovation Assessment</span>
+      <span>As of April 19, 2026 • Golden Hour theme</span>
+    </div>
+
+    <section class="surface">
+      <div class="hero fade">
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">NYSE: IONQ • Trapped-ion quantum computing</div>
+            <h1>IonQ, Inc.</h1>
+            <p class="hero-copy">
+              IonQ is <strong>scientifically credible and commercially more real than most public quantum peers</strong>, but it still sits in the gap between strong translational momentum and repeatable scale economics.
+              The key distinction is that the company now shows both <strong>hardware productization</strong> and <strong>networking-led contract adoption</strong>, while field science and patenting remain materially active.
+            </p>
+            <div class="utility-links">
+              <a class="chip-link" href="#scores">Five-layer scores</a>
+              <a class="chip-link" href="#evidence">Evidence map</a>
+              <a class="chip-link" href="#patents">Patents</a>
+              <a class="chip-link" href="#sources">Sources</a>
+            </div>
+            <div class="metric-row">
+              <div class="metric">
+                <strong>$130.0M</strong>
+                <span>2025 GAAP revenue, up 202% year over year.</span>
+              </div>
+              <div class="metric">
+                <strong>$95.6M</strong>
+                <span>2024 bookings, with networking contracts becoming material.</span>
+              </div>
+              <div class="metric">
+                <strong>#AQ 64</strong>
+                <span>Tempo milestone announced on September 25, 2025.</span>
+              </div>
+              <div class="metric">
+                <strong>101 → 251</strong>
+                <span>OpenAlex trapped-ion publication count from 2021 to 2025.</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="score-wheel">
+              <span>
+                <strong>17.5</strong>
+                <small>out of 25</small>
+              </span>
+            </div>
+            <p class="verdict">
+              <strong>Verdict:</strong> strong innovator with translational momentum. IonQ clears the industrialization and adoption gate, but not yet the repeatability gate needed for an exceptional scale-up label.
+            </p>
+            <div class="meta-list">
+              <div class="meta-row">
+                <span>Main thesis</span>
+                <span>Hardware plus networking is now the core value-creation stack.</span>
+              </div>
+              <div class="meta-row">
+                <span>Innovation stage</span>
+                <span>Commercial pilot to early deployment.</span>
+              </div>
+              <div class="meta-row">
+                <span>Breakthrough gate</span>
+                <span>Mostly passed, with economics and production transparency still incomplete.</span>
+              </div>
+              <div class="meta-row">
+                <span>Confidence</span>
+                <span>Medium. Science and adoption are well evidenced; patent-family precision is less clean.</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+
+      <div class="layout">
+        <main class="content">
+          <section class="panel fade">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Thesis</div>
+                <h2>Three to Five Core Conclusions</h2>
+              </div>
+            </div>
+            <ul class="bullet-list">
+              <li>IonQ’s core innovation domains are <strong>trapped-ion quantum compute hardware</strong>, <strong>compiler and control software</strong>, and <strong>photonic quantum networking</strong> added through internal roadmap work and acquisitions.</li>
+              <li>The field-level science signal is real: OpenAlex counts for <code>"trapped ion quantum computing"</code> rise from <strong>101</strong> papers in 2021 to <strong>251</strong> in 2025, with top institutions spanning Innsbruck, Harvard, Princeton, Yale, Stanford, Maryland, Duke, and Oxford.</li>
+              <li>Commercial evidence improved materially in 2024 and 2025. IonQ reported <strong>$43.1 million</strong> of 2024 revenue and <strong>$95.6 million</strong> of 2024 bookings, then <strong>$130.0 million</strong> of 2025 revenue, while also disclosing major networking and system contracts.</li>
+              <li>Industrialization is visible but still immature. The company discusses deployable rack-mounted systems, a Seattle manufacturing facility, and hardware builds that pushed cost of revenue higher, but public disclosures still lack the yield and throughput metrics that would remove execution uncertainty.</li>
+              <li>IonQ looks better classified as a <strong>translational quantum systems company</strong> than as a pure research story, but worse classified as an <strong>already scaled platform</strong> than its most promotional language implies.</li>
+            </ul>
+          </section>
+
+          <section class="panel fade" id="scores">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Five-layer dashboard</div>
+                <h2>Scorecard</h2>
+              </div>
+              <p>Each layer is scored on evidence rather than narrative. The gating rule is whether Industrialization and Adoption both clear 3 out of 5.</p>
+            </div>
+            <div class="score-stack">
+              <article class="score-item">
+                <div class="score-top">
+                  <strong>Science</strong>
+                  <span>4.0 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-fill="80"></div></div>
+                <div class="score-note"><strong>Strong:</strong> trapped-ion paper volume more than doubled over five years, and leading labs are credible. <strong>Missing:</strong> field breadth is rising, but the path from paper growth to mass-market quantum advantage remains uncertain.</div>
+              </article>
+
+              <article class="score-item">
+                <div class="score-top">
+                  <strong>IP</strong>
+                  <span>3.0 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-fill="60"></div></div>
+                <div class="score-note"><strong>Strong:</strong> visible patent families cover circuit optimization, pulse generation, trapped-ion gates, addressing systems, and Raman beam control across US, WO, EP, CN, and JP paths. <strong>Missing:</strong> clean year-by-year family census is harder to verify publicly than the science trend.</div>
+              </article>
+
+              <article class="score-item">
+                <div class="score-top">
+                  <strong>Industrialization</strong>
+                  <span>3.5 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-fill="70"></div></div>
+                <div class="score-note"><strong>Strong:</strong> Forte Enterprise packaging, Seattle manufacturing, hardware builds, and rising cost of revenue all imply movement beyond lab-only work. <strong>Missing:</strong> no public yield curve, utilization rate, or unit-economics transparency.</div>
+              </article>
+
+              <article class="score-item">
+                <div class="score-top">
+                  <strong>Adoption</strong>
+                  <span>4.0 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-fill="80"></div></div>
+                <div class="score-note"><strong>Strong:</strong> AFRL, AWS, University of Maryland, QuantumBasel, AstraZeneca, Ansys, and KISTI show real customer and ecosystem engagement. <strong>Missing:</strong> a larger share of recurring commercial enterprise demand outside government and flagship partnerships.</div>
+              </article>
+
+              <article class="score-item">
+                <div class="score-top">
+                  <strong>Policy &amp; Economics</strong>
+                  <span>3.0 / 5</span>
+                </div>
+                <div class="progress-track"><div class="progress-fill" data-fill="60"></div></div>
+                <div class="score-note"><strong>Strong:</strong> U.S. defense and national-quantum priorities support procurement and ecosystem formation. <strong>Missing:</strong> the economics of broad deployment remain unproven, and the company still spends far ahead of current revenue scale.</div>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel fade" id="evidence">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Technology map</div>
+                <h2>What Actually Matters</h2>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="matrix">
+                <div class="matrix-item">
+                  <h3>Trapped-ion compute</h3>
+                  <p>Core to the thesis. IonQ’s differentiation is high-fidelity trapped-ion hardware, expressed through algorithmic qubit milestones, Forte Enterprise, Tempo, and the 100-qubit system sale disclosed in 2026.</p>
+                </div>
+                <div class="matrix-item">
+                  <h3>Compiler and control stack</h3>
+                  <p>Material because performance claims depend on more than qubit count. Patent records and product disclosures point to real work in circuit optimization, hybrid computation, pulse generation, and addressing control.</p>
+                </div>
+                <div class="matrix-item">
+                  <h3>Quantum networking</h3>
+                  <p>Increasingly central. 2024 and 2025 contracts and acquisitions pushed networking from adjacency to a second commercialization engine, especially in government and secure-infrastructure programs.</p>
+                </div>
+                <div class="matrix-item">
+                  <h3>Systems packaging</h3>
+                  <p>Not glamorous, but essential. Rack-mounted deployment, data-center form factor, and manufacturing commentary are the bridge from scientific novelty to operational usefulness.</p>
+                </div>
+              </div>
+              <div class="chart-wrap">
+                <div class="chart-grid">
+                  <div class="chart-card">
+                    <h3>Publication trend</h3>
+                    <svg class="chart" viewBox="0 0 420 220" aria-label="Publication trend chart">
+                      <g id="pub-chart"></g>
+                    </svg>
+                    <div class="kicker">OpenAlex query: <code>"trapped ion quantum computing"</code>. Counts: 2021 101, 2022 125, 2023 290, 2024 296, 2025 251.</div>
+                  </div>
+                  <div class="chart-card">
+                    <h3>Patent proxy trend</h3>
+                    <svg class="chart" viewBox="0 0 420 220" aria-label="Patent proxy chart">
+                      <g id="patent-chart"></g>
+                    </svg>
+                    <div class="kicker">Proxy uses visible IonQ assignee patent publications and grants from Google Patents family pages. This is directional, not a full family-database census.</div>
+                  </div>
+                </div>
+                <div class="pill-row">
+                  <span class="pill">2024 revenue: $43.1M</span>
+                  <span class="pill">2024 R&amp;D: $136.8M</span>
+                  <span class="pill">2024 cost of revenue: $20.6M</span>
+                  <span class="pill">2024 bookings: $95.6M</span>
+                  <span class="pill">2025 revenue: $130.0M</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel fade">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Breakthrough gate</div>
+                <h2>Conditions Met vs. Missing</h2>
+              </div>
+            </div>
+            <ul class="gate-list">
+              <li><strong>Met:</strong> persistent publication growth, credible leading labs, visible university-industry ties, hardware roadmap execution, deployments and contracts, and supportive U.S. policy backdrop.</li>
+              <li><strong>Met:</strong> industrialization and adoption both clear the required 3 out of 5 threshold, so this is not merely exploratory science.</li>
+              <li><strong>Partly met:</strong> patent-to-science linkage is visible, but public family-level data is noisier than the paper trail and customer evidence.</li>
+              <li><strong>Not fully met:</strong> repeatable economics, manufacturing yields, and broad commercial dependence outside government-linked buyers remain insufficiently transparent.</li>
+            </ul>
+            <div class="tag-good">Gate outcome: plausible breakthrough candidate, but not yet a fully de-risked scale story.</div>
+          </section>
+
+          <section class="panel fade">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Universities</div>
+                <h2>Selected Research Institutions Active in the Field</h2>
+              </div>
+              <p>These universities appear repeatedly in recent trapped-ion research or are directly linked to IonQ’s origins and collaboration network.</p>
+            </div>
+            <ul class="uni-list">
+              <li><strong>University of Maryland, College Park</strong> and <strong>Duke University</strong>: founding science lineage for IonQ and ongoing relevance to trapped-ion work.</li>
+              <li><strong>Universität Innsbruck</strong>: one of the strongest recurring institutions in 2023 field output for trapped-ion research.</li>
+              <li><strong>Harvard University</strong>, <strong>Princeton University</strong>, <strong>Yale University</strong>, and <strong>Stanford University</strong>: appear among highly cited U.S.-based trapped-ion field results.</li>
+              <li><strong>University of Colorado Boulder</strong> and <strong>University of Oxford</strong>: visible in recent institutional concentrations around trapped-ion and ion-control research.</li>
+            </ul>
+          </section>
+
+          <section class="panel fade" id="patents">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Patents</div>
+                <h2>Representative IonQ Patent Families and Jurisdictions</h2>
+              </div>
+            </div>
+            <ul class="patent-list">
+              <li><strong>Quantum compiler</strong> — <code>US20200394027A1</code> / <code>US10908885B2</code>. Early compiler and optimization IP linked to IonQ assignment activity in 2019.</li>
+              <li><strong>Quantum circuit optimization</strong> — <code>US20200272926A1</code>. Priority date 2019-02-21; family coverage visible across <strong>US, WO, EP, CN, JP</strong>.</li>
+              <li><strong>Quantum hybrid computation</strong> — <code>US20210357799A1</code> / <code>US12154002B2</code>. Priority date 2018-07-18; links classical and quantum workflow orchestration.</li>
+              <li><strong>Debugging of quantum circuits</strong> — <code>US20220383179A1</code>. Priority date 2021-05-20; focused on software workflow robustness.</li>
+              <li><strong>Pulse generation</strong> — <code>US11853731B2</code> and later <code>US12271715B2</code>. Priority date 2020-03-24; relevant to trapped-ion control fidelity.</li>
+              <li><strong>Addressing manipulation system and method</strong> — <code>US12198010B2</code>. Priority date 2021-01-14; family linked to both <strong>US</strong> and <strong>CN</strong>.</li>
+              <li><strong>Double individual-addressing multi-beam Raman system</strong> — <code>US12088351B2</code>. Priority date 2021-12-07; directly relevant to scalable ion-chain addressing.</li>
+              <li><strong>Fast two-qubit gates on a trapped-ion quantum computer</strong> — <code>US20240296360A1</code> / <code>US12265884B2</code>. Priority date 2020-09-15; visible family coverage includes <strong>US, WO, EP, CN, JP</strong>.</li>
+              <li><strong>Methods and apparatuses for AOD crosstalk mitigation</strong> — <code>US12437222B2</code>. Priority date 2021-07-16; published in 2025.</li>
+              <li><strong>Deflectors for individually addressing long ion chains</strong> — <code>US12387122B2</code>. Priority date 2021-12-07; published in 2025.</li>
+            </ul>
+          </section>
+
+          <section class="panel fade">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Red flags</div>
+                <h2>Reasons for Caution</h2>
+              </div>
+            </div>
+            <ul class="risk-list">
+              <li>The economics are still early: 2024 R&amp;D spend of <strong>$136.8 million</strong> was more than triple 2024 revenue, which means scale claims remain speculative until gross-margin quality improves.</li>
+              <li>Adoption is real, but still concentrated in a relatively small set of government, research, and marquee enterprise relationships rather than broad repeat business.</li>
+              <li>IonQ’s public messaging often extrapolates from <code>#AQ</code> milestones to application advantage faster than public deployment evidence justifies.</li>
+              <li>Patent visibility is real, but the public record is fragmented across assignee-name variants and family pages, which lowers confidence in any precise family-count claim unless one uses a professional patent analytics stack.</li>
+              <li>Hardware scale-up risk remains substantial because the company does not publicly disclose enough on yields, throughput, service economics, or installed-base utilization.</li>
+            </ul>
+            <div class="tag-watch">Main downgrade trigger: if bookings convert poorly into recurring revenue or system deployments stall outside public-sector demand.</div>
+          </section>
+
+          <section class="panel fade">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">What changes the view</div>
+                <h2>Upgrade and Downgrade Signals</h2>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="matrix-item">
+                <h3>Upgrade the thesis</h3>
+                <p>More disclosed system deployments, repeat commercial renewals outside defense, higher-quality gross margin, faster networking revenue conversion, and clearer evidence that Tempo-class systems are earning production workloads rather than trial budgets.</p>
+              </div>
+              <div class="matrix-item">
+                <h3>Downgrade the thesis</h3>
+                <p>Flat bookings, slippage in hardware roadmap targets, networking contracts that fail to translate into revenue, or continued absence of manufacturing and utilization transparency after repeated scale-up claims.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel fade" id="sources">
+            <div class="panel-head">
+              <div>
+                <div class="section-kicker">Sources</div>
+                <h2>Primary and Supporting Sources</h2>
+              </div>
+            </div>
+            <ol class="source-list">
+              <li><a href="https://www.sec.gov/Archives/edgar/data/1824920/000095017025027722/ionq-20241231.htm">IonQ 2024 Form 10-K</a></li>
+              <li><a href="https://investors.ionq.com/news/news-details/2026/IonQ-Announces-Fourth-Quarter-and-Full-Year-2025-Financial-Results/">IonQ 2025 full-year results</a></li>
+              <li><a href="https://investors.ionq.com/news/news-details/2025/IonQ-Announces-Fourth-Quarter-and-Full-Year-2024-Financial-Results/">IonQ 2024 full-year results</a></li>
+              <li><a href="https://ionq.com/news/ionq-announces-fourth-quarter-and-full-year-2023-financial-results">IonQ 2023 full-year results</a></li>
+              <li><a href="https://investors.ionq.com/news/news-details/2024/IonQ-Announces-Largest-2024-U.S.-Quantum-Contract-Award-of-54.5M-with-United-States-Air-Force-Research-Lab/default.aspx">AFRL $54.5 million contract announcement</a></li>
+              <li><a href="https://ionq.com/quantum-systems/forte-enterprise">IonQ Forte Enterprise product page</a></li>
+              <li><a href="https://investors.ionq.com/news/news-details/2025/IonQ-Achieves-Record-Breaking-Quantum-Performance-Milestone-of-AQ-64/">IonQ AQ64 announcement</a></li>
+              <li><a href="https://api.openalex.org/works?search=%22trapped%20ion%20quantum%20computing%22&filter=from_publication_date:2021-01-01,to_publication_date:2021-12-31&per-page=1">OpenAlex field count 2021</a></li>
+              <li><a href="https://api.openalex.org/works?search=%22trapped%20ion%20quantum%20computing%22&filter=from_publication_date:2022-01-01,to_publication_date:2022-12-31&per-page=1">OpenAlex field count 2022</a></li>
+              <li><a href="https://api.openalex.org/works?search=%22trapped%20ion%20quantum%20computing%22&filter=from_publication_date:2023-01-01,to_publication_date:2023-12-31&per-page=1">OpenAlex field count 2023</a></li>
+              <li><a href="https://api.openalex.org/works?search=%22trapped%20ion%20quantum%20computing%22&filter=from_publication_date:2024-01-01,to_publication_date:2024-12-31&per-page=1">OpenAlex field count 2024</a></li>
+              <li><a href="https://api.openalex.org/works?search=%22trapped%20ion%20quantum%20computing%22&filter=from_publication_date:2025-01-01,to_publication_date:2025-12-31&per-page=1">OpenAlex field count 2025</a></li>
+              <li><a href="https://patents.google.com/patent/US20200394027A1/en">Google Patents: Quantum compiler</a></li>
+              <li><a href="https://patents.google.com/patent/US20200272926A1/en">Google Patents: Quantum circuit optimization</a></li>
+              <li><a href="https://patents.google.com/patent/US20210357799A1/en">Google Patents: Quantum hybrid computation</a></li>
+              <li><a href="https://patents.google.com/patent/US12198010B2">Google Patents: Addressing manipulation system</a></li>
+              <li><a href="https://patents.google.com/patent/US20220383179A1/en">Google Patents: Debugging of quantum circuits</a></li>
+              <li><a href="https://patents.google.com/patent/US11853731B2/en">Google Patents: Pulse generation</a></li>
+              <li><a href="https://patents.google.com/patent/US12265884B2/en">Google Patents: Fast two-qubit gates on a trapped-ion quantum computer</a></li>
+            </ol>
+          </section>
+        </main>
+
+        <aside class="rail">
+          <section class="panel fade">
+            <div class="section-kicker">Operational snapshot</div>
+            <div class="snapshot">
+              <div>
+                <strong>$43.1M</strong>
+                <small>2024 revenue, up 95% year over year.</small>
+              </div>
+              <div>
+                <strong>$136.8M</strong>
+                <small>2024 R&amp;D, which shows seriousness but also highlights burn.</small>
+              </div>
+              <div>
+                <strong>4 systems</strong>
+                <small>Sold in 2023, alongside the Seattle manufacturing facility opening.</small>
+              </div>
+              <div>
+                <strong>$54.5M</strong>
+                <small>AFRL contract announced September 2024, reinforcing networking demand.</small>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel fade">
+            <div class="section-kicker">Scoring rule</div>
+            <p>0 to 8 means exploratory science. 9 to 14 means emerging technology worth monitoring. 15 to 19 means translational momentum. 20 to 25 means plausible breakthrough or scale-up candidate.</p>
+            <div class="tag-mixed">IonQ lands in translational momentum.</div>
+          </section>
+
+          <section class="panel fade method">
+            <div class="section-kicker">Method notes</div>
+            <p>Science scoring uses current OpenAlex counts and institutional concentration. Commercial scoring uses IonQ filings and official releases. Patent scoring uses public Google Patents family pages and assignee result records, so the directional signal is stronger than the exact family-count precision.</p>
+          </section>
+
+          <section class="panel fade">
+            <div class="section-kicker">Bottom line</div>
+            <p>IonQ is no longer just a quantum narrative stock. It is building a real innovation stack. The unresolved question is whether that stack turns into durable operating leverage before capital intensity and competitive timelines become the dominant story.</p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <div class="footer-note">
+      <span>Inference is explicitly separated from sourced facts inside each section.</span>
+      <span>Dashboard prepared for local review.</span>
+    </div>
+  </div>
+
+  <script>
+    const pubData = [
+      { year: "2021", value: 101 },
+      { year: "2022", value: 125 },
+      { year: "2023", value: 290 },
+      { year: "2024", value: 296 },
+      { year: "2025", value: 251 }
+    ];
+
+    const patentProxy = [
+      { year: "2021", value: 3 },
+      { year: "2022", value: 1 },
+      { year: "2023", value: 2 },
+      { year: "2024", value: 3 },
+      { year: "2025", value: 5 }
+    ];
+
+    function drawLineChart(targetId, data, colorA, colorB) {
+      const root = document.getElementById(targetId);
+      const w = 420;
+      const h = 220;
+      const m = { t: 18, r: 18, b: 36, l: 40 };
+      const max = Math.max(...data.map(d => d.value));
+      const min = 0;
+      const innerW = w - m.l - m.r;
+      const innerH = h - m.t - m.b;
+      const x = i => m.l + (innerW / (data.length - 1)) * i;
+      const y = v => m.t + innerH - ((v - min) / (max - min || 1)) * innerH;
+
+      const ns = "http://www.w3.org/2000/svg";
+      const grid = document.createElementNS(ns, "g");
+
+      [0, 0.25, 0.5, 0.75, 1].forEach(step => {
+        const yy = m.t + innerH * step;
+        const line = document.createElementNS(ns, "line");
+        line.setAttribute("x1", m.l);
+        line.setAttribute("x2", w - m.r);
+        line.setAttribute("y1", yy);
+        line.setAttribute("y2", yy);
+        line.setAttribute("stroke", "rgba(74,64,58,0.12)");
+        line.setAttribute("stroke-width", "1");
+        grid.appendChild(line);
+      });
+
+      const defs = document.createElementNS(ns, "defs");
+      const grad = document.createElementNS(ns, "linearGradient");
+      grad.setAttribute("id", `${targetId}-grad`);
+      grad.setAttribute("x1", "0%");
+      grad.setAttribute("x2", "100%");
+      grad.innerHTML = `<stop offset="0%" stop-color="${colorA}"/><stop offset="100%" stop-color="${colorB}"/>`;
+      defs.appendChild(grad);
+      root.appendChild(defs);
+      root.appendChild(grid);
+
+      let pathD = "";
+      data.forEach((d, i) => {
+        pathD += `${i === 0 ? "M" : "L"} ${x(i)} ${y(d.value)} `;
+      });
+
+      const area = document.createElementNS(ns, "path");
+      area.setAttribute("d", `${pathD} L ${x(data.length - 1)} ${h - m.b} L ${x(0)} ${h - m.b} Z`);
+      area.setAttribute("fill", `url(#${targetId}-grad)`);
+      area.setAttribute("opacity", "0.14");
+      root.appendChild(area);
+
+      const path = document.createElementNS(ns, "path");
+      path.setAttribute("d", pathD.trim());
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", `url(#${targetId}-grad)`);
+      path.setAttribute("stroke-width", "4");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      root.appendChild(path);
+
+      data.forEach((d, i) => {
+        const cx = x(i);
+        const cy = y(d.value);
+        const dot = document.createElementNS(ns, "circle");
+        dot.setAttribute("cx", cx);
+        dot.setAttribute("cy", cy);
+        dot.setAttribute("r", "5.5");
+        dot.setAttribute("fill", colorA);
+        dot.setAttribute("stroke", "#fffaf4");
+        dot.setAttribute("stroke-width", "2.5");
+        root.appendChild(dot);
+
+        const label = document.createElementNS(ns, "text");
+        label.setAttribute("x", cx);
+        label.setAttribute("y", h - 12);
+        label.setAttribute("text-anchor", "middle");
+        label.setAttribute("font-size", "12");
+        label.setAttribute("fill", "rgba(47,40,36,0.72)");
+        label.textContent = d.year;
+        root.appendChild(label);
+
+        const value = document.createElementNS(ns, "text");
+        value.setAttribute("x", cx);
+        value.setAttribute("y", cy - 12);
+        value.setAttribute("text-anchor", "middle");
+        value.setAttribute("font-size", "12");
+        value.setAttribute("fill", "#4a403a");
+        value.textContent = d.value;
+        root.appendChild(value);
+      });
+    }
+
+    drawLineChart("pub-chart", pubData, "#f4a900", "#c1666b");
+    drawLineChart("patent-chart", patentProxy, "#c1666b", "#8c5b3b");
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+        }
+      });
+    }, { threshold: 0.14 });
+
+    document.querySelectorAll(".fade").forEach(el => observer.observe(el));
+
+    requestAnimationFrame(() => {
+      document.querySelectorAll(".progress-fill").forEach(bar => {
+        bar.style.width = `${bar.dataset.fill}%`;
+      });
+    });
+
+    document.addEventListener("scroll", () => {
+      document.body.style.setProperty("--drift", `${window.scrollY * -0.06}px`);
+    }, { passive: true });
+  </script>
+</body>
+</html>

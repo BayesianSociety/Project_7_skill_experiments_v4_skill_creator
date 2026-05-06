@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9f5"/>
+      <stop offset="0.58" stop-color="#f4e3dc"/>
+      <stop offset="1" stop-color="#e8d5c4"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0 H0 V72" fill="none" stroke="#5d2e46" stroke-width="1" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <circle cx="920" cy="130" r="210" fill="#d4a5a5" fill-opacity="0.24"/>
+  <circle cx="130" cy="930" r="260" fill="#b87d6d" fill-opacity="0.13"/>
+  <g transform="translate(540 575)">
+      <rect x="-270" y="-180" width="300" height="380" rx="8" fill="#fff9f5" stroke="#5d2e46" stroke-opacity="0.12" stroke-width="3"/><rect x="-210" y="-158" width="300" height="380" rx="8" fill="#fff9f5" stroke="#5d2e46" stroke-opacity="0.15" stroke-width="3"/><rect x="-150" y="-136" width="300" height="380" rx="8" fill="#fff9f5" stroke="#5d2e46" stroke-opacity="0.18" stroke-width="3"/><rect x="-90" y="-114" width="300" height="380" rx="8" fill="#fff9f5" stroke="#5d2e46" stroke-opacity="0.21" stroke-width="3"/><rect x="-30" y="-92" width="300" height="380" rx="8" fill="#fff9f5" stroke="#5d2e46" stroke-opacity="0.24" stroke-width="3"/>
+      <rect x="-180" y="-110" width="360" height="250" rx="8" fill="#fff9f5" stroke="#5d2e46" stroke-width="5"/>
+      <rect x="-130" y="-60" width="210" height="18" fill="#d4a5a5"/>
+      <rect x="-130" y="-12" width="255" height="10" fill="#5d2e46" fill-opacity="0.18"/>
+      <rect x="-130" y="25" width="220" height="10" fill="#5d2e46" fill-opacity="0.18"/>
+      <path d="M-105 92 H116" stroke="#9f6f2f" stroke-width="12" stroke-linecap="round"/>
+      <circle cx="172" cy="-128" r="42" fill="#9f6f2f"/>
+      <path d="M156 -128 H188" stroke="#fff9f5" stroke-width="8" stroke-linecap="round"/>
+    </g>
+  <g transform="translate(145 140)">
+    <text x="0" y="0" font-family="FreeSans, Arial" font-size="28" font-weight="700" letter-spacing="4" fill="#6f5d61">SNOWFLAKE INNOVATION</text>
+    <text x="0" y="84" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Patents Show Depth</text>
+    <g transform="translate(0 186)">
+      <rect x="0" y="-34" width="650" height="138" rx="8" fill="#fff9f5" fill-opacity="0.9"/>
+      <text x="28" y="22" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">1,047 patent documents, but grants</text><text x="28" y="60" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">eased after the 2022 peak.</text>
+    </g>
+  </g>
+  <g transform="translate(145 950)">
+    <rect x="0" y="0" width="160" height="8" rx="4" fill="#9f6f2f"/>
+    <text x="186" y="12" font-family="FreeSans, Arial" font-size="26" font-weight="700" fill="#5d2e46">Slide 3 / 7</text>
+  </g>
+</svg>

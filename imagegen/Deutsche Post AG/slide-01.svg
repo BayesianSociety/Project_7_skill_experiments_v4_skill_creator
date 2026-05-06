@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff6ea"/>
+      <stop offset="100%" stop-color="#ead3b4"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.78" cy="0.18" r="0.42">
+      <stop offset="0%" stop-color="#f4a900" stop-opacity="0.42"/>
+      <stop offset="100%" stop-color="#f4a900" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg1)"/>
+  <rect width="1080" height="1080" fill="url(#glow1)"/>
+  <g opacity="0.5" stroke="#c1666b" stroke-width="4" fill="none">
+    <path d="M120 250 C280 210 380 260 520 210 S780 150 930 230"/>
+    <path d="M110 350 C300 310 360 380 540 330 S800 270 950 360"/>
+    <path d="M90 470 C230 410 360 470 520 430 S820 410 970 470"/>
+    <path d="M120 640 C270 570 360 630 530 600 S820 560 940 650"/>
+  </g>
+  <g opacity="0.28" fill="#4a403a">
+    <circle cx="250" cy="260" r="10"/>
+    <circle cx="530" cy="214" r="10"/>
+    <circle cx="818" cy="196" r="10"/>
+    <circle cx="330" cy="520" r="11"/>
+    <circle cx="720" cy="585" r="11"/>
+  </g>
+  <g fill="none" stroke="#f4a900" stroke-width="12" stroke-linecap="round">
+    <path d="M175 808 C310 705 460 665 600 665 C706 665 814 690 902 742"/>
+  </g>
+  <g transform="translate(162 280)">
+    <text x="0" y="0" font-family="FreeSans, Arial, sans-serif" font-size="30" letter-spacing="6" fill="#6a5d53">DHL / DEUTSCHE POST AG</text>
+    <text x="0" y="150" font-family="FreeSans, Arial, sans-serif" font-size="122" font-weight="700" fill="#4a403a">DHL builds</text>
+    <text x="0" y="280" font-family="FreeSans, Arial, sans-serif" font-size="122" font-weight="700" fill="#4a403a">scale, not</text>
+    <text x="0" y="410" font-family="FreeSans, Arial, sans-serif" font-size="122" font-weight="700" fill="#4a403a">hype</text>
+    <text x="0" y="508" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">Operational technology pushed into a</text>
+    <text x="0" y="558" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">global logistics network.</text>
+  </g>
+</svg>

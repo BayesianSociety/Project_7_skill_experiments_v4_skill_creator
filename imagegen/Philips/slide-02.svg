@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <rect width="1080" height="1080" fill="#faf9f6"/>
+  <rect x="44" y="44" width="992" height="992" rx="40" fill="#f4f1e8"/>
+  <rect x="88" y="88" width="286" height="904" rx="28" fill="#2d4a2b"/>
+  <rect x="397" y="88" width="286" height="904" rx="28" fill="#7d8471"/>
+  <rect x="706" y="88" width="286" height="904" rx="28" fill="#a4ac86"/>
+  <circle cx="231" cy="314" r="88" fill="none" stroke="#faf9f6" stroke-opacity="0.35" stroke-width="18"/>
+  <path d="M530 250 C480 342 458 458 540 570" fill="none" stroke="#faf9f6" stroke-opacity="0.5" stroke-width="16"/>
+  <path d="M803 366 C842 330 876 330 919 366 C876 402 842 402 803 366 Z" fill="none" stroke="#faf9f6" stroke-width="14"/>
+  <path d="M786 540 L920 540" stroke="#faf9f6" stroke-width="8"/>
+  <path d="M786 576 L920 576" stroke="#faf9f6" stroke-opacity="0.6" stroke-width="8"/>
+  <g font-family="FreeSans, Arial, sans-serif" fill="#faf9f6" text-anchor="middle">
+    <text x="540" y="168" font-size="66" font-weight="700" fill="#2d4a2b">THREE PLATFORMS MATTER</text>
+    <text x="231" y="760" font-size="34" letter-spacing="3">PRECISION</text>
+    <text x="231" y="804" font-size="34" letter-spacing="3">DIAGNOSIS</text>
+    <text x="540" y="760" font-size="34" letter-spacing="3">IMAGE-GUIDED</text>
+    <text x="540" y="804" font-size="34" letter-spacing="3">THERAPY</text>
+    <text x="849" y="760" font-size="34" letter-spacing="3">ENTERPRISE</text>
+    <text x="849" y="804" font-size="34" letter-spacing="3">MONITORING</text>
+  </g>
+</svg>

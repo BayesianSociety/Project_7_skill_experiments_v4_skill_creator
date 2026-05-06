@@ -1,0 +1,31 @@
+<svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg3" x1="138" y1="88" x2="910" y2="986" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF2DE"/>
+      <stop offset="0.52" stop-color="#D9B98C"/>
+      <stop offset="1" stop-color="#8B6555"/>
+    </linearGradient>
+    <linearGradient id="rack" x1="604" y1="224" x2="828" y2="854" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5D4E46"/>
+      <stop offset="1" stop-color="#2E2724"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg3)"/>
+  <path d="M90 844L538 390L990 844" stroke="#FFF6E9" stroke-opacity="0.24" stroke-width="24"/>
+  <rect x="602" y="210" width="220" height="604" rx="30" fill="url(#rack)"/>
+  <rect x="626" y="250" width="172" height="78" rx="12" fill="#C1666B" fill-opacity="0.34"/>
+  <rect x="626" y="352" width="172" height="78" rx="12" fill="#F4A900" fill-opacity="0.4"/>
+  <rect x="626" y="454" width="172" height="78" rx="12" fill="#FFF1D4" fill-opacity="0.34"/>
+  <rect x="626" y="556" width="172" height="78" rx="12" fill="#C1666B" fill-opacity="0.28"/>
+  <rect x="626" y="658" width="172" height="78" rx="12" fill="#F4A900" fill-opacity="0.42"/>
+  <circle cx="538" cy="484" r="108" stroke="#FFF6E9" stroke-width="8"/>
+  <circle cx="538" cy="484" r="52" fill="#4A403A"/>
+  <circle cx="538" cy="484" r="16" fill="#F4A900"/>
+  <path d="M430 484H314" stroke="#FFF6E9" stroke-width="8" stroke-linecap="round"/>
+  <path d="M646 484H762" stroke="#FFF6E9" stroke-width="8" stroke-linecap="round"/>
+  <rect x="118" y="128" width="650" height="236" rx="36" fill="#FFF9F1" fill-opacity="0.86" stroke="#4A403A" stroke-opacity="0.12"/>
+  <text x="166" y="220" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="78" font-weight="700" letter-spacing="-2">Hardware</text>
+  <text x="166" y="302" fill="#4A403A" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="78" font-weight="700" letter-spacing="-2">Left The Lab</text>
+  <text x="166" y="820" fill="#FFF6E9" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="42" font-weight="700">Forte Enterprise • Seattle • 100-qubit sale</text>
+  <text x="166" y="874" fill="#F7EBDD" font-family="FreeSans, Liberation Sans, DejaVu Sans, sans-serif" font-size="30">IonQ’s story is now about systems and packaging, not just paper milestones.</text>
+</svg>

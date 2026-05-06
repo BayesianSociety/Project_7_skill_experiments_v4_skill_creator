@@ -1,0 +1,15 @@
+{
+  "dashboard": "public/csl_ltd_dashboard.html",
+  "carousel_markdown": "imagegen/CSL Ltd/csl_ltd_instagram_carousel.md",
+  "philosophy": "imagegen/CSL Ltd/luminous_fractionation_philosophy.md",
+  "viewer": "imagegen/CSL Ltd/luminous_fractionation_viewer.html",
+  "slides": [
+    "imagegen/CSL Ltd/slide-01.svg",
+    "imagegen/CSL Ltd/slide-02.svg",
+    "imagegen/CSL Ltd/slide-03.svg",
+    "imagegen/CSL Ltd/slide-04.svg",
+    "imagegen/CSL Ltd/slide-05.svg",
+    "imagegen/CSL Ltd/slide-06.svg",
+    "imagegen/CSL Ltd/slide-07.svg"
+  ]
+}

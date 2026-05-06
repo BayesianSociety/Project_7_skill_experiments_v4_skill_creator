@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9f5"/>
+      <stop offset="0.58" stop-color="#f4e3dc"/>
+      <stop offset="1" stop-color="#e8d5c4"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0 H0 V72" fill="none" stroke="#5d2e46" stroke-width="1" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <circle cx="930" cy="130" r="210" fill="#d4a5a5" fill-opacity="0.24"/>
+  <circle cx="120" cy="930" r="260" fill="#b87d6d" fill-opacity="0.14"/>
+  <g transform="translate(540 565)">
+      <circle cx="0" cy="0" r="78" fill="#5d2e46"/>
+      <circle cx="0" cy="0" r="32" fill="#fff9f5"/>
+      
+        <path d="M-280 -160 C-154 -128 -78.4 -57.599999999999994 0 0" fill="none" stroke="#b87d6d" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="-280" cy="-160" r="42" fill="#fff9f5" stroke="#b87d6d" stroke-width="8"/>
+      
+        <path d="M-255 150 C-140.25 120 -71.4 54 0 0" fill="none" stroke="#2f7a69" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="-255" cy="150" r="42" fill="#fff9f5" stroke="#2f7a69" stroke-width="8"/>
+      
+        <path d="M275 -150 C151.25 -120 77.00000000000001 -54 0 0" fill="none" stroke="#b87d6d" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="275" cy="-150" r="42" fill="#fff9f5" stroke="#b87d6d" stroke-width="8"/>
+      
+        <path d="M285 145 C156.75 116 79.80000000000001 52.199999999999996 0 0" fill="none" stroke="#2f7a69" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="285" cy="145" r="42" fill="#fff9f5" stroke="#2f7a69" stroke-width="8"/>
+      
+    </g>
+  <g transform="translate(145 140)">
+    <text x="0" y="0" font-family="FreeSans, Arial" font-size="28" font-weight="700" letter-spacing="4" fill="#6f5d61">UBER INNOVATION</text>
+    <text x="0" y="84" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">AV Partners Need</text><text x="0" y="162" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Demand</text>
+    <g transform="translate(0 264)">
+      <rect x="0" y="-34" width="620" height="138" rx="10" fill="#fff9f5" fill-opacity="0.82"/>
+      <text x="28" y="22" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">Waymo, VW, May Mobility and NVIDIA</text><text x="28" y="60" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">plug into distribution.</text>
+    </g>
+  </g>
+  <g transform="translate(145 950)">
+    <rect x="0" y="0" width="160" height="8" rx="4" fill="#b87d6d"/>
+    <text x="186" y="12" font-family="FreeSans, Arial" font-size="26" font-weight="700" fill="#5d2e46">Slide 5 / 7</text>
+  </g>
+</svg>

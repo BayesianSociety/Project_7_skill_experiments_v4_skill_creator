@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg-7" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#f8f0e4"/>
+      <stop offset="65%" stop-color="#eddcc3"/>
+      <stop offset="100%" stop-color="#e8d0b5"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="1080" fill="url(#bg-7)"/>
+  <circle cx="220" cy="180" r="210" fill="#f4a900" fill-opacity="0.12"/>
+  <circle cx="930" cy="210" r="170" fill="#c1666b" fill-opacity="0.10"/>
+  <circle cx="860" cy="910" r="220" fill="#f4a900" fill-opacity="0.08"/>
+  <rect x="0" y="0" width="1080" height="1080" fill="#ffffff" fill-opacity="0.03"/>
+
+  <path d="M120.0,160.0 C289.8,70.0 289.8,810.7 459.7,720.7" stroke="#f4a900" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M216.0,370.0 C278.5,280.0 278.5,765.7 341.1,675.7" stroke="#c1666b" stroke-opacity="0.45" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M312.0,580.0 C288.2,490.0 288.2,680.3 264.4,590.3" stroke="#f4a900" stroke-opacity="0.45" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M408.0,160.0 C331.0,70.0 331.0,573.8 254.1,483.8" stroke="#c1666b" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M504.0,370.0 C411.2,280.0 411.2,473.0 318.4,383.0" stroke="#f4a900" stroke-opacity="0.45" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M600.0,580.0 C523.2,490.0 523.2,405.3 446.4,315.3" stroke="#c1666b" stroke-opacity="0.45" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M696.0,160.0 C652.5,70.0 652.5,391.3 609.0,301.3" stroke="#f4a900" stroke-opacity="0.45" stroke-width="3" fill="none" stroke-linecap="round"/>
+<path d="M792.0,370.0 C778.8,280.0 778.8,439.1 765.7,349.1" stroke="#c1666b" stroke-opacity="0.45" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M888.0,580.0 C881.3,490.0 881.3,540.4 874.5,450.4" stroke="#f4a900" stroke-opacity="0.45" stroke-width="5" fill="none" stroke-linecap="round"/>
+<circle cx="120" cy="160" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="280" cy="176" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="440" cy="160" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="600" cy="176" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="760" cy="160" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="920" cy="176" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="148" cy="340" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="308" cy="356" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="468" cy="340" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="628" cy="356" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="788" cy="340" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="948" cy="356" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="120" cy="520" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="280" cy="536" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="440" cy="520" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="600" cy="536" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="760" cy="520" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="920" cy="536" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="148" cy="700" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="308" cy="716" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="468" cy="700" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="628" cy="716" r="6" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="788" cy="700" r="7" fill="#4a403a" fill-opacity="0.14"/>
+<circle cx="948" cy="716" r="8" fill="#4a403a" fill-opacity="0.14"/>
+<rect x="96" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="316" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="536" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="756" y="698" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="96" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="316" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="536" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="756" y="790" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="96" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="316" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="536" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+<rect x="756" y="882" width="128" height="62" rx="12" fill="#f8f0e4" fill-opacity="0.38" stroke="#4a403a" stroke-opacity="0.16"/>
+
+  <rect x="120" y="120" width="840" height="840" rx="34" fill="#fffaf4" fill-opacity="0.64" stroke="#4a403a" stroke-opacity="0.12"/>
+  <rect x="168" y="168" width="744" height="744" rx="28" fill="#fffdf9" fill-opacity="0.82"/>
+
+  <text x="200" y="248" fill="#c1666b" font-size="24" font-family="DejaVu Sans, Arial, sans-serif" letter-spacing="6">POSTNL</text>
+  <text x="200" y="410" fill="#4a403a" font-size="88" font-family="DejaVu Serif, Georgia, serif" font-weight="700">
+    <tspan x="200" dy="0">Final read</tspan>
+  </text>
+  <text x="200" y="640" fill="#2f2824" font-size="38" font-family="DejaVu Sans, Arial, sans-serif">
+    <tspan x="200" dy="0">PostNL is a translational operator to</tspan><tspan x="200" dy="50">watch, especially if it can monetize</tspan><tspan x="200" dy="50">data, lockers and identity more</tspan><tspan x="200" dy="50">directly.</tspan>
+  </text>
+
+  <line x1="200" y1="760" x2="880" y2="760" stroke="#4a403a" stroke-opacity="0.18"/>
+  <text x="200" y="820" fill="#4a403a" font-size="26" font-family="DejaVu Sans, Arial, sans-serif">Editorial logistics system / high contrast</text>
+</svg>

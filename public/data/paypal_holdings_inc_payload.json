@@ -1,0 +1,1725 @@
+{
+  "schema_version": "2.1",
+  "company": "PayPal Holdings Inc",
+  "ticker": "NASDAQ: PYPL",
+  "mode": "absolute",
+  "benchmark_ready": true,
+  "skill_metadata": {
+    "skill_name": "technology-innovation-analysis",
+    "skill_version": "1.2.0",
+    "skill_path": ".codex/skills/technology-innovation-analysis/SKILL.md",
+    "scorer_name": "score_innovation_benchmark.py",
+    "scorer_version": "1.2.0",
+    "metric_rules_version": "1.2.0"
+  },
+  "research_run": {
+    "research_date": "2026-05-05",
+    "analyst": "codex",
+    "run_id": "pypl-innovation-2026-05-05",
+    "user_request": "Research PayPal Holdings Inc, NASDAQ: PYPL using technology-innovation-analysis, create a Desert Rose dashboard, and generate Instagram carousel assets separately.",
+    "time_horizon": "Five-year operating, publication, and patent window where reproducible: 2021-2025, with Q1 2026 operating update.",
+    "research_mode": "web_research_with_deterministic_scoring"
+  },
+  "research_context": {
+    "focus_technologies": [
+      "AI and machine learning for fraud, risk, personalization, and agentic commerce",
+      "Fastlane checkout, PayPal Open, and wallet interoperability",
+      "PYUSD stablecoin and blockchain-based payments"
+    ],
+    "company_identifiers": {
+      "legal_name": "PayPal Holdings Inc",
+      "ticker": "NASDAQ: PYPL",
+      "cik": "0001633917"
+    },
+    "source_availability": [
+      {
+        "domain": "company_filings",
+        "status": "available",
+        "note": "SEC 10-K filings and Q1 2026 8-K earnings release provide strong operating scale, R&D, and technology-development evidence."
+      },
+      {
+        "domain": "patents",
+        "status": "partial",
+        "note": "Public patent records show active PayPal assignee work, but a clean global patent-family time series was not fully reproducible from open sources; Patent Leaderboard issued-patent counts are used as a secondary proxy."
+      },
+      {
+        "domain": "science",
+        "status": "field_proxy",
+        "note": "Publication counts use OpenAlex field queries for payment fraud detection and stablecoin payments, not PayPal-authored research."
+      }
+    ],
+    "search_log": [
+      {
+        "query": "PayPal 2025 Form 10-K SEC active accounts TPV R&D",
+        "source": "sec.gov",
+        "date": "2026-05-05",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Primary annual filing for the latest full fiscal year."
+      },
+      {
+        "query": "payment fraud detection machine learning OpenAlex 2021 2025",
+        "source": "OpenAlex API",
+        "date": "2026-05-05",
+        "result_quality": "medium",
+        "selected": true,
+        "selection_reason": "Reproducible field-level publication proxy."
+      },
+      {
+        "query": "PayPal patents 2021 2025 patent leaderboard Google Patents",
+        "source": "Patent Leaderboard, Google Patents, USPTO mirrors",
+        "date": "2026-05-05",
+        "result_quality": "medium",
+        "selected": true,
+        "selection_reason": "Open patent evidence for PayPal-specific technical work."
+      }
+    ],
+    "exclusions": [
+      {
+        "candidate_source_or_metric": "Crypto news summaries of PYUSD circulating supply and stablecoin market capitalization",
+        "reason": "Useful context but not needed for the scored core; primary PayPal/Paxos sources were preferred."
+      },
+      {
+        "candidate_source_or_metric": "Peer percentile rankings",
+        "reason": "Single-company mode requires absolute readiness scoring; peer benchmarks were not constructed."
+      }
+    ],
+    "judgment_calls": [
+      {
+        "topic": "Science layer proxy",
+        "decision": "Used field-level publication growth for payment fraud detection machine learning and stablecoin payments.",
+        "rationale": "PayPal does not disclose a company-authored publication corpus, but the relevant external fields are active and applicable.",
+        "impact": "Science score has medium confidence and is not treated as company-attributable invention."
+      },
+      {
+        "topic": "Patent-family proxy",
+        "decision": "Used Patent Leaderboard issued-patent counts and representative Google Patents records rather than an exhaustive family census.",
+        "rationale": "Open assignee-level family counts were not fully reproducible without a paid database.",
+        "impact": "IP coverage ratio lowered and patent-growth metric penalized."
+      },
+      {
+        "topic": "Breakthrough framing",
+        "decision": "Scored PayPal as translational and commercial rather than a frontier-science breakthrough candidate.",
+        "rationale": "The strongest evidence is large-scale deployment and partner distribution, while science is mainly field-level and patents are broad software IP.",
+        "impact": "The dashboard avoids calling PayPal an exceptional breakthrough candidate."
+      }
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_001",
+      "title": "PayPal Holdings Inc FY2025 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000024/pypl-20251231.htm",
+      "publisher": "SEC EDGAR",
+      "document_date": "2026-02-03",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Latest full-year filing used for TPV, active accounts, R&D expense, technology-development expense, AI/regulatory risk, and transaction loss evidence."
+    },
+    {
+      "source_id": "src_002",
+      "title": "PayPal Holdings Inc FY2024 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391725000019/pypl-20241231.htm",
+      "publisher": "SEC EDGAR",
+      "document_date": "2025-02-04",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Used for 2022-2024 operating and R&D history."
+    },
+    {
+      "source_id": "src_003",
+      "title": "PayPal Holdings Inc FY2023 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391724000024/pypl-20231231.htm",
+      "publisher": "SEC EDGAR",
+      "document_date": "2024-02-08",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Used for 2021-2023 operating and R&D history."
+    },
+    {
+      "source_id": "src_004",
+      "title": "PayPal Holdings Inc FY2021 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391722000027/pypl-20211231.htm",
+      "publisher": "SEC EDGAR",
+      "document_date": "2022-02-03",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Used for FY2021 baseline metrics."
+    },
+    {
+      "source_id": "src_005",
+      "title": "PayPal Reports First Quarter 2026 Results",
+      "url": "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000065/pypl1q-26earningsrelease.htm",
+      "publisher": "SEC EDGAR",
+      "document_date": "2026-05-05",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Latest operating update as of the research date."
+    },
+    {
+      "source_id": "src_006",
+      "title": "PayPal and Venmo Unveil Six New Innovations to Revolutionize Commerce",
+      "url": "https://newsroom.paypal-corp.com/2024-01-25-PayPal-and-Venmo-Unveil-Six-New-Innovations-to-Revolutionize-Commerce",
+      "publisher": "PayPal Newsroom",
+      "document_date": "2024-01-25",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Fastlane, AI-personalization, and checkout-speed launch evidence."
+    },
+    {
+      "source_id": "src_007",
+      "title": "PayPal and J.P. Morgan Payments Broaden their Strategic Relationship",
+      "url": "https://newsroom.paypal-corp.com/2025-02-25-PayPal-and-JP-Morgan-Payments-Broaden-their-Strategic-Relationship-to-Launch-Fastlane-and-Expand-Merchant-Acquiring-in-the-UK-and-European-Markets",
+      "publisher": "PayPal Newsroom",
+      "document_date": "2025-02-25",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Fastlane distribution through J.P. Morgan Payments in UK and Europe."
+    },
+    {
+      "source_id": "src_008",
+      "title": "Introducing PayPal Open",
+      "url": "https://newsroom.paypal-corp.com/2025-02-25-Introducing-PayPal-Open-The-Unified-Payments-and-Growth-Platform-for-Businesses-of-All-Sizes",
+      "publisher": "PayPal Newsroom",
+      "document_date": "2025-02-25",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Merchant platform strategy and access to up to 400 million active accounts and more than 92 million active Venmo customers."
+    },
+    {
+      "source_id": "src_009",
+      "title": "PayPal USD Plans to Use Stellar for New Use Cases",
+      "url": "https://newsroom.paypal-corp.com/2025-06-11-PayPal-USD-PYUSD-Plans-to-Use-Stellar-for-New-Use-Cases",
+      "publisher": "PayPal Newsroom",
+      "document_date": "2025-06-11",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "PYUSD expansion plan, Stellar network utility, NYDFS approval caveat, and risk disclosures."
+    },
+    {
+      "source_id": "src_010",
+      "title": "PayPal Launches Agentic Commerce Services to Power AI-Driven Shopping",
+      "url": "https://newsroom.paypal-corp.com/2025-10-28-PayPal-Launches-Agentic-Commerce-Services-to-Power-AI-Driven-Shopping",
+      "publisher": "PayPal Newsroom",
+      "document_date": "2025-10-28",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Agentic commerce productization and AI-shopping partner evidence."
+    },
+    {
+      "source_id": "src_011",
+      "title": "Paxos PYUSD Transparency Reports",
+      "url": "https://www.paxos.com/pyusd-transparency/",
+      "publisher": "Paxos",
+      "document_date": "2026-05-05",
+      "accessed_at": "2026-05-05",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Reserve transparency and attestation process for PYUSD."
+    },
+    {
+      "source_id": "src_012",
+      "title": "OpenAlex Works API: payment fraud detection machine learning",
+      "url": "https://api.openalex.org/works?search=payment%20fraud%20detection%20machine%20learning&filter=from_publication_date:2021-01-01,to_publication_date:2025-12-31",
+      "publisher": "OpenAlex",
+      "document_date": "2026-05-05",
+      "accessed_at": "2026-05-05",
+      "source_type": "secondary_dataset",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Field-level publication proxy: annual counts 2021 1211, 2022 1735, 2023 2986, 2024 4160, 2025 6228."
+    },
+    {
+      "source_id": "src_013",
+      "title": "OpenAlex Works API: stablecoin payments",
+      "url": "https://api.openalex.org/works?search=stablecoin%20payments&filter=from_publication_date:2021-01-01,to_publication_date:2025-12-31",
+      "publisher": "OpenAlex",
+      "document_date": "2026-05-05",
+      "accessed_at": "2026-05-05",
+      "source_type": "secondary_dataset",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Field-level publication proxy: annual counts 2021 295, 2022 447, 2023 842, 2024 801, 2025 1143."
+    },
+    {
+      "source_id": "src_014",
+      "title": "PayPal 2025 Patent Leaderboard",
+      "url": "https://www.patentleaderboard.com/2025/company/paypal",
+      "publisher": "Patent Leaderboard",
+      "document_date": "2025",
+      "accessed_at": "2026-05-05",
+      "source_type": "secondary_dataset",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Secondary proxy reported 154 PayPal patents in 2025 and 373 inventors."
+    },
+    {
+      "source_id": "src_015",
+      "title": "PayPal 2021 Patent Leaderboard",
+      "url": "https://www.patentleaderboard.com/2021/company/paypal",
+      "publisher": "Patent Leaderboard",
+      "document_date": "2021",
+      "accessed_at": "2026-05-05",
+      "source_type": "secondary_dataset",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Secondary proxy reported 328 PayPal patents in 2021 and 573 inventors."
+    },
+    {
+      "source_id": "src_016",
+      "title": "US11308497B2 - Detecting fraud using machine-learning",
+      "url": "https://patents.google.com/patent/US11308497B2/en",
+      "publisher": "Google Patents",
+      "document_date": "2022-04-19",
+      "accessed_at": "2026-05-05",
+      "source_type": "patent",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative PayPal fraud-detection machine-learning patent."
+    },
+    {
+      "source_id": "src_017",
+      "title": "US12373833B2 - Selection of electronic transaction processing channel and multi-factor user authentication",
+      "url": "https://patents.justia.com/patent/12373833",
+      "publisher": "Justia Patents",
+      "document_date": "2025-07-29",
+      "accessed_at": "2026-05-05",
+      "source_type": "patent",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative PayPal authentication and transaction-processing patent."
+    },
+    {
+      "source_id": "src_018",
+      "title": "WO2025071896A1 - Multi-token application functionality for wider availability of digital token processing",
+      "url": "https://patents.google.com/patent/WO2025071896A1/en",
+      "publisher": "Google Patents",
+      "document_date": "2025-04-03",
+      "accessed_at": "2026-05-05",
+      "source_type": "patent",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative PayPal digital-token processing patent application."
+    },
+    {
+      "source_id": "src_019",
+      "title": "Stable Foundations: Towards a Robust and Bipartisan Approach to Stablecoin Legislation",
+      "url": "https://hls.harvard.edu/bibliography/stable-foundations-towards-a-robust-and-bipartisan-approach-to-stablecoin-legislation/",
+      "publisher": "Harvard Law School",
+      "document_date": "2025-04-04",
+      "accessed_at": "2026-05-05",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Academic policy signal on stablecoin regulation."
+    },
+    {
+      "source_id": "src_020",
+      "title": "Reducing false positives in credit card fraud detection",
+      "url": "https://news.mit.edu/2018/machine-learning-financial-credit-card-fraud-0920",
+      "publisher": "MIT News",
+      "document_date": "2018-09-20",
+      "accessed_at": "2026-05-05",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Credible university signal for ML fraud-detection methods."
+    },
+    {
+      "source_id": "src_021",
+      "title": "The Hidden Plumbing of Stablecoins: Financial and Technological Risks in the GENIUS Act Era",
+      "url": "https://www.dci.mit.edu/projects/hidden-plumbing-stablecoins",
+      "publisher": "MIT Digital Currency Initiative",
+      "document_date": "2026-01-01",
+      "accessed_at": "2026-05-05",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Academic policy and infrastructure risk signal for stablecoins."
+    },
+    {
+      "source_id": "src_022",
+      "title": "Stablecoin Performance in Cross-Border Payments: Evidence from a Digital Dollar Wallet",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5550898",
+      "publisher": "SSRN / Stanford University author listing",
+      "document_date": "2025-10-13",
+      "accessed_at": "2026-05-05",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Academic field signal on stablecoin cross-border payment performance."
+    }
+  ],
+  "evidence_items": [
+    {
+      "evidence_id": "ev_001",
+      "source_id": "src_001",
+      "layer": "Industrialization",
+      "metric_codes": ["operational_scale_signal", "process_learning_or_capex"],
+      "fact_type": "raw_observation",
+      "fact": "FY2025 TPV was $1.79 trillion, active accounts were 439 million, payment transactions were 25.4 billion, and technology and development expense was $3.103 billion.",
+      "raw_value": 1790000,
+      "raw_unit": "USD millions TPV",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "TPV was $1.79 trillion... Technology and development 3,103",
+      "location": "FY2025 Form 10-K, lines 1262 and 1296",
+      "verified": true,
+      "limitations": "Operating scale is not proof of frontier invention."
+    },
+    {
+      "evidence_id": "ev_002",
+      "source_id": "src_005",
+      "layer": "Adoption",
+      "metric_codes": ["revenue_or_booking_evidence", "repeatability_or_deployment_scale"],
+      "fact_type": "raw_observation",
+      "fact": "Q1 2026 TPV increased 11% to $464.0 billion, payment transactions increased 7% to 6.5 billion, and active accounts were 439 million.",
+      "raw_value": 464000,
+      "raw_unit": "USD millions TPV",
+      "period_start": "2026-Q1",
+      "period_end": "2026-Q1",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "Total payment volume increased 11% to $464.0 billion",
+      "location": "Q1 2026 earnings release, lines 28-35",
+      "verified": true,
+      "limitations": "Quarterly operating result, not a product-specific innovation metric."
+    },
+    {
+      "evidence_id": "ev_003",
+      "source_id": "src_003",
+      "layer": "Adoption",
+      "metric_codes": ["repeatability_or_deployment_scale"],
+      "fact_type": "raw_observation",
+      "fact": "TPV rose from $1.245879 trillion in 2021 to $1.528579 trillion in 2023; payment transactions rose from 19.348 billion to 24.981 billion.",
+      "raw_value": 1528579,
+      "raw_unit": "USD millions TPV",
+      "period_start": "2021",
+      "period_end": "2023",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "FY2023 Form 10-K key metrics table",
+      "verified": true,
+      "limitations": "Historical platform growth includes legacy products."
+    },
+    {
+      "evidence_id": "ev_004",
+      "source_id": "src_002",
+      "layer": "Adoption",
+      "metric_codes": ["repeatability_or_deployment_scale"],
+      "fact_type": "raw_observation",
+      "fact": "FY2024 active accounts were 434 million, payment transactions were 26.3 billion, and TPV was $1.68 trillion.",
+      "raw_value": 1681150,
+      "raw_unit": "USD millions TPV",
+      "period_start": "2024",
+      "period_end": "2024",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "TPV was $1.68 trillion",
+      "location": "FY2024 Form 10-K key metrics",
+      "verified": true,
+      "limitations": "Platform-scale metric, not product-specific adoption."
+    },
+    {
+      "evidence_id": "ev_005",
+      "source_id": "src_006",
+      "layer": "Industrialization",
+      "metric_codes": ["manufacturing_or_deployment_evidence", "process_learning_or_capex"],
+      "fact_type": "raw_observation",
+      "fact": "PayPal said Fastlane pilots recognized 70% of guests and accelerated checkout nearly 40% versus traditional guest checkout; it also described a new PayPal checkout experience as reducing latency by up to 50%.",
+      "raw_value": 40,
+      "raw_unit": "percent checkout acceleration",
+      "period_start": "2024",
+      "period_end": "2024",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "accelerated checkout nearly 40%",
+      "location": "PayPal product announcement, Jan. 25, 2024",
+      "verified": true,
+      "limitations": "Company-reported pilot data."
+    },
+    {
+      "evidence_id": "ev_006",
+      "source_id": "src_007",
+      "layer": "Adoption",
+      "metric_codes": ["customer_or_partner_breadth"],
+      "fact_type": "raw_observation",
+      "fact": "J.P. Morgan Payments planned to offer Fastlane by PayPal to merchant clients in the UK and Europe and support PayPal's acquiring expansion there.",
+      "raw_value": 2,
+      "raw_unit": "regions",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "plans to offer Fastlane by PayPal",
+      "location": "PayPal/J.P. Morgan announcement, Feb. 25, 2025",
+      "verified": true,
+      "limitations": "Planned distribution, not disclosed merchant-level deployment count."
+    },
+    {
+      "evidence_id": "ev_007",
+      "source_id": "src_008",
+      "layer": "Adoption",
+      "metric_codes": ["customer_or_partner_breadth", "repeatability_or_deployment_scale"],
+      "fact_type": "raw_observation",
+      "fact": "PayPal Open unified merchant offerings and referenced access to PayPal's global network of up to 400 million active accounts, including more than 92 million active Venmo customers.",
+      "raw_value": 400,
+      "raw_unit": "million active accounts referenced",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "up to 400M active accounts",
+      "location": "PayPal Open announcement, Feb. 25, 2025",
+      "verified": true,
+      "limitations": "Marketing launch disclosure; account figures are rounded."
+    },
+    {
+      "evidence_id": "ev_008",
+      "source_id": "src_010",
+      "layer": "Industrialization",
+      "metric_codes": ["manufacturing_or_deployment_evidence"],
+      "fact_type": "raw_observation",
+      "fact": "PayPal launched agentic commerce services with Wix, Cymbio, Commerce, and Shopware to enable merchant product discovery and checkout in AI platforms including Perplexity.",
+      "raw_value": 4,
+      "raw_unit": "named commerce platform partners",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "PayPal agentic commerce announcement, Oct. 28, 2025",
+      "verified": true,
+      "limitations": "Early commercial rollout; quantitative adoption still sparse."
+    },
+    {
+      "evidence_id": "ev_009",
+      "source_id": "src_009",
+      "layer": "Policy & Economics",
+      "metric_codes": ["regulatory_or_standards_fit", "policy_or_supply_chain_support"],
+      "fact_type": "raw_observation",
+      "fact": "PayPal announced plans to make PYUSD available on Stellar pending NYDFS approval, and stated PYUSD could support cross-border payments, remittances, merchant services, and PayFi working-capital use cases.",
+      "raw_value": 170,
+      "raw_unit": "countries referenced by Stellar CEO quote",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "pending regulatory approval",
+      "location": "PayPal PYUSD/Stellar announcement, Jun. 11, 2025",
+      "verified": true,
+      "limitations": "Forward-looking and explicitly subject to regulatory approval."
+    },
+    {
+      "evidence_id": "ev_010",
+      "source_id": "src_011",
+      "layer": "Policy & Economics",
+      "metric_codes": ["regulatory_or_standards_fit"],
+      "fact_type": "raw_observation",
+      "fact": "Paxos publishes monthly PYUSD reserve reports and independent attestations; reports posted after February 28, 2025 are issued by KPMG LLP.",
+      "raw_value": 12,
+      "raw_unit": "monthly reports per year",
+      "period_start": "2025",
+      "period_end": "2026",
+      "company_attributable": false,
+      "field_proxy": false,
+      "quote_or_excerpt": "publishes two distinctly different documents each month",
+      "location": "Paxos PYUSD transparency page",
+      "verified": true,
+      "limitations": "Paxos is issuer; PayPal branding and distribution depend on a third party."
+    },
+    {
+      "evidence_id": "ev_011",
+      "source_id": "src_012",
+      "layer": "Science",
+      "metric_codes": ["publication_growth", "citation_velocity_or_quality"],
+      "fact_type": "raw_observation",
+      "fact": "OpenAlex query for payment fraud detection machine learning returned annual publication counts of 1211 in 2021, 1735 in 2022, 2986 in 2023, 4160 in 2024, and 6228 in 2025.",
+      "raw_value": 6228,
+      "raw_unit": "works",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "OpenAlex API query",
+      "verified": true,
+      "limitations": "Keyword search may overcount adjacent fraud and machine-learning literature."
+    },
+    {
+      "evidence_id": "ev_012",
+      "source_id": "src_013",
+      "layer": "Science",
+      "metric_codes": ["publication_growth", "science_to_application_linkage"],
+      "fact_type": "raw_observation",
+      "fact": "OpenAlex query for stablecoin payments returned annual publication counts of 295 in 2021, 447 in 2022, 842 in 2023, 801 in 2024, and 1143 in 2025.",
+      "raw_value": 1143,
+      "raw_unit": "works",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "OpenAlex API query",
+      "verified": true,
+      "limitations": "Field proxy, not PayPal-authored output."
+    },
+    {
+      "evidence_id": "ev_013",
+      "source_id": "src_015",
+      "layer": "IP",
+      "metric_codes": ["patent_family_growth"],
+      "fact_type": "raw_observation",
+      "fact": "Patent Leaderboard reported 328 PayPal patents in 2021 and 573 inventors.",
+      "raw_value": 328,
+      "raw_unit": "issued patents",
+      "period_start": "2021",
+      "period_end": "2021",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Patent Leaderboard PayPal 2021 page",
+      "verified": true,
+      "limitations": "Secondary issued-patent count, not global patent-family count."
+    },
+    {
+      "evidence_id": "ev_014",
+      "source_id": "src_014",
+      "layer": "IP",
+      "metric_codes": ["patent_family_growth", "science_to_patent_or_assignee_quality"],
+      "fact_type": "raw_observation",
+      "fact": "Patent Leaderboard reported 154 PayPal patents in 2025 and 373 inventors, lower than the 2021 proxy count.",
+      "raw_value": 154,
+      "raw_unit": "issued patents",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Patent Leaderboard PayPal 2025 page",
+      "verified": true,
+      "limitations": "Secondary issued-patent count, not global patent-family count."
+    },
+    {
+      "evidence_id": "ev_015",
+      "source_id": "src_016",
+      "layer": "IP",
+      "metric_codes": ["technical_specificity", "science_to_patent_or_assignee_quality"],
+      "fact_type": "raw_observation",
+      "fact": "US11308497B2 covers detecting fraud using machine learning and is assigned to PayPal Inc.",
+      "raw_value": 1,
+      "raw_unit": "representative patent",
+      "period_start": "2019",
+      "period_end": "2022",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Google Patents record",
+      "verified": true,
+      "limitations": "Representative patent predates most of the 2021-2025 window."
+    },
+    {
+      "evidence_id": "ev_016",
+      "source_id": "src_017",
+      "layer": "IP",
+      "metric_codes": ["technical_specificity"],
+      "fact_type": "raw_observation",
+      "fact": "US12373833B2 covers transaction-processing channel selection and multi-factor user authentication and lists PayPal Inc as assignee.",
+      "raw_value": 1,
+      "raw_unit": "representative patent",
+      "period_start": "2022",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Justia patent record",
+      "verified": true,
+      "limitations": "Single patent, not a complete portfolio map."
+    },
+    {
+      "evidence_id": "ev_017",
+      "source_id": "src_018",
+      "layer": "IP",
+      "metric_codes": ["technical_specificity"],
+      "fact_type": "raw_observation",
+      "fact": "WO2025071896A1 covers multi-token application functionality for wider availability of digital token processing and lists PayPal Inc as assignee.",
+      "raw_value": 1,
+      "raw_unit": "representative patent application",
+      "period_start": "2024",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Google Patents record",
+      "verified": true,
+      "limitations": "Application-stage record."
+    },
+    {
+      "evidence_id": "ev_018",
+      "source_id": "src_019",
+      "layer": "Policy & Economics",
+      "metric_codes": ["regulatory_or_standards_fit", "economic_readiness"],
+      "fact_type": "raw_observation",
+      "fact": "Harvard Law School stablecoin policy work identifies safety and soundness, illicit finance prevention, regulatory allocation, competition, and boundaries as core components of stablecoin regulation.",
+      "raw_value": 5,
+      "raw_unit": "policy components",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "Harvard Law School bibliography abstract",
+      "verified": true,
+      "limitations": "Policy field signal, not PayPal-specific regulatory approval."
+    },
+    {
+      "evidence_id": "ev_019",
+      "source_id": "src_020",
+      "layer": "Science",
+      "metric_codes": ["science_to_application_linkage", "citation_velocity_or_quality"],
+      "fact_type": "raw_observation",
+      "fact": "MIT research described machine-learning methods for reducing false positives in credit-card fraud detection, showing credible academic work in a directly relevant payments-risk problem.",
+      "raw_value": 1,
+      "raw_unit": "university research signal",
+      "period_start": "2018",
+      "period_end": "2018",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "MIT News",
+      "verified": true,
+      "limitations": "Older university signal; useful for field credibility, not five-year growth."
+    },
+    {
+      "evidence_id": "ev_020",
+      "source_id": "src_021",
+      "layer": "Policy & Economics",
+      "metric_codes": ["economic_readiness", "regulatory_or_standards_fit"],
+      "fact_type": "raw_observation",
+      "fact": "MIT Digital Currency Initiative highlighted stablecoin risks around backing-asset quality, market-intermediation bottlenecks, redemption surges, and blockchain operational reliability.",
+      "raw_value": 4,
+      "raw_unit": "risk categories",
+      "period_start": "2026",
+      "period_end": "2026",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "MIT DCI project page",
+      "verified": true,
+      "limitations": "Field-level caution, not PYUSD-specific failure evidence."
+    },
+    {
+      "evidence_id": "ev_021",
+      "source_id": "src_001",
+      "layer": "Policy & Economics",
+      "metric_codes": ["economic_readiness"],
+      "fact_type": "raw_observation",
+      "fact": "PayPal disclosed use of AI and machine learning in fraud prevention, risk management, product optimization, and customer service, while noting AI regulation may impose operational costs or restrict deployment.",
+      "raw_value": 4,
+      "raw_unit": "AI use categories",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "fraud prevention, risk management, product optimization and customer service",
+      "location": "FY2025 Form 10-K, lines 468-469",
+      "verified": true,
+      "limitations": "Disclosure does not quantify model performance."
+    },
+    {
+      "evidence_id": "ev_022",
+      "source_id": "src_001",
+      "layer": "Industrialization",
+      "metric_codes": ["process_learning_or_capex"],
+      "fact_type": "raw_observation",
+      "fact": "Technology and development expense increased 4% in 2025, driven by contractor and consultant costs, cloud computing services, and software maintenance costs, partly offset by lower depreciation and amortization.",
+      "raw_value": 3103,
+      "raw_unit": "USD millions technology and development expense",
+      "period_start": "2024",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "Technology and development expenses increased $124 million",
+      "location": "FY2025 Form 10-K, lines 1462-1466",
+      "verified": true,
+      "limitations": "Expense category includes platform operations as well as new product development."
+    },
+    {
+      "evidence_id": "ev_023",
+      "source_id": "src_001",
+      "layer": "Policy & Economics",
+      "metric_codes": ["economic_readiness"],
+      "fact_type": "raw_observation",
+      "fact": "Transaction loss rate was 0.07% in both 2025 and 2024 versus 0.08% in 2023, but transaction losses rose in 2025 mainly from fraud incidents affecting PayPal products.",
+      "raw_value": 0.07,
+      "raw_unit": "percent transaction loss rate",
+      "period_start": "2023",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "FY2025 Form 10-K operating expense discussion",
+      "verified": true,
+      "limitations": "Loss-rate improvement coexists with fraud incident risk."
+    }
+  ],
+  "layers": [
+    {
+      "label": "Science",
+      "coverage_ratio": 0.78,
+      "summary": "The underlying fields are expanding quickly, especially payment-fraud machine learning and stablecoin-payment research, but the evidence is mostly field-level rather than PayPal-authored science.",
+      "strong": "OpenAlex field proxies show payment-fraud ML works rising from 1211 in 2021 to 6228 in 2025, and stablecoin-payments works rising from 295 to 1143.",
+      "missing": "No robust public corpus of PayPal-authored scientific papers or citation impact was identified.",
+      "metrics": [
+        {
+          "code": "publication_growth",
+          "label": "Publication growth",
+          "value": 1.0,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary_dataset",
+          "verified": true,
+          "evidence_ids": ["ev_011", "ev_012"],
+          "normalization": {
+            "raw_inputs": {
+              "payment_fraud_ml_start": 1211,
+              "payment_fraud_ml_end": 6228,
+              "stablecoin_payments_start": 295,
+              "stablecoin_payments_end": 1143,
+              "years": 4
+            },
+            "method": "normalize_growth",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 0.35
+            },
+            "rationale": "Annualized growth above 35% maps to a full publication-growth signal.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "citation_velocity_or_quality",
+          "label": "Citation velocity or quality",
+          "value": 0.65,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "academic_and_dataset",
+          "verified": true,
+          "evidence_ids": ["ev_011", "ev_019"],
+          "normalization": {
+            "raw_inputs": {
+              "credible_university_signal": 1,
+              "company_attributable_citation_corpus": 0
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "credible_field_evidence": 0.65,
+              "company_attributable_cap": 0.75
+            },
+            "rationale": "Credible academic field evidence exists, but not PayPal-specific citation depth.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "science_to_application_linkage",
+          "label": "Science to application linkage",
+          "value": 0.7,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary_and_academic",
+          "verified": true,
+          "evidence_ids": ["ev_012", "ev_019", "ev_021"],
+          "normalization": {
+            "raw_inputs": {
+              "relevant_fields": 3,
+              "company_ai_use_categories": 4
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "strong_linkage": 0.8,
+              "field_proxy_penalty": 0.1
+            },
+            "rationale": "PayPal discloses use of AI/ML in directly relevant operational functions, but public science linkage is indirect.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "IP",
+      "coverage_ratio": 0.7,
+      "summary": "PayPal has an active software patent estate in fraud, authentication, token processing, checkout, and AI operations, but the open proxy shows fewer 2025 issued patents than 2021.",
+      "strong": "Representative patents are specific to machine-learning fraud detection, multi-factor transaction authentication, and digital-token processing.",
+      "missing": "A reproducible global patent-family count and family-level continuation map were not available from open sources.",
+      "metrics": [
+        {
+          "code": "patent_family_growth",
+          "label": "Patent-family growth proxy",
+          "value": 0.25,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "secondary_dataset",
+          "verified": true,
+          "evidence_ids": ["ev_013", "ev_014"],
+          "normalization": {
+            "raw_inputs": {
+              "issued_patents_2021": 328,
+              "issued_patents_2025": 154,
+              "years": 4
+            },
+            "method": "normalize_growth_with_decline_floor",
+            "parameters": {
+              "decline_floor_signal": 0.25,
+              "cap": 0.35
+            },
+            "rationale": "Issued-patent proxy declined materially, so growth receives a low but nonzero value for continued patenting activity.",
+            "judgment_level": "high"
+          }
+        },
+        {
+          "code": "technical_specificity",
+          "label": "Technical specificity",
+          "value": 0.75,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "patent",
+          "verified": true,
+          "evidence_ids": ["ev_015", "ev_016", "ev_017"],
+          "normalization": {
+            "raw_inputs": {
+              "representative_specific_patents": 3
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "specific_software_claims": 0.75
+            },
+            "rationale": "Representative records map to concrete payment, risk, authentication, and token-processing implementations.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "science_to_patent_or_assignee_quality",
+          "label": "Assignee quality and linkage",
+          "value": 0.72,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "patent_and_primary",
+          "verified": true,
+          "evidence_ids": ["ev_014", "ev_015", "ev_021"],
+          "normalization": {
+            "raw_inputs": {
+              "active_assignee": 1,
+              "direct_science_linkage": 0,
+              "field_linkage": 1
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "active_large_assignee": 0.8,
+              "limited_non_patent_literature_linkage_penalty": 0.08
+            },
+            "rationale": "PayPal is a credible assignee with patents in relevant domains, but non-patent literature linkage is indirect.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "Industrialization",
+      "coverage_ratio": 0.9,
+      "summary": "PayPal shows strong industrialization: it runs a scaled global payments platform, invests billions in technology development, and moves checkout, AI-commerce, and PYUSD capabilities into operating channels.",
+      "strong": "FY2025 technology and development expense was $3.103 billion; Fastlane, PayPal Open, PYUSD, and agentic commerce are deployed as product platforms rather than lab-only concepts.",
+      "missing": "PayPal does not disclose granular model-yield, latency, authorization-rate, or production-incident metrics by innovation program.",
+      "metrics": [
+        {
+          "code": "manufacturing_or_deployment_evidence",
+          "label": "Deployment evidence",
+          "value": 0.9,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": ["ev_005", "ev_008", "ev_009"],
+          "normalization": {
+            "raw_inputs": {
+              "major_product_platforms": 4,
+              "named_ai_commerce_partners": 4
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "scaled_commercial_deployment": 0.9
+            },
+            "rationale": "Multiple productized capabilities are live or in distribution partnerships.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "process_learning_or_capex",
+          "label": "Process learning and tech spend",
+          "value": 0.75,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": ["ev_001", "ev_022"],
+          "normalization": {
+            "raw_inputs": {
+              "technology_development_expense_2025_usd_millions": 3103,
+              "rd_expense_2025_usd_billions": 1.5
+            },
+            "method": "normalize_log",
+            "parameters": {
+              "cap": 5000
+            },
+            "rationale": "Large sustained technology spend supports industrialization, while category breadth prevents assigning a full score.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "operational_scale_signal",
+          "label": "Operational scale",
+          "value": 0.85,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": ["ev_001", "ev_002"],
+          "normalization": {
+            "raw_inputs": {
+              "tpv_2025_usd_trillions": 1.79,
+              "q1_2026_tpv_usd_billions": 464,
+              "active_accounts_2025_millions": 439
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "global_platform_scale": 0.85
+            },
+            "rationale": "The platform is already operating at global scale, though scale alone is not breakthrough evidence.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "Adoption",
+      "coverage_ratio": 0.9,
+      "summary": "Adoption is PayPal's strongest innovation layer: the platform has hundreds of millions of accounts, trillion-dollar TPV, and distribution partnerships for Fastlane, Venmo, PYUSD, and PayPal Open.",
+      "strong": "FY2025 TPV reached $1.79 trillion and Q1 2026 TPV grew 11%; Fastlane distribution expanded through major payments partners.",
+      "missing": "Product-specific revenue, merchant count, and retention data for Fastlane, PYUSD, and agentic commerce remain limited.",
+      "metrics": [
+        {
+          "code": "revenue_or_booking_evidence",
+          "label": "Revenue or volume evidence",
+          "value": 0.85,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": ["ev_001", "ev_002", "ev_004"],
+          "normalization": {
+            "raw_inputs": {
+              "tpv_2025_usd_trillions": 1.79,
+              "q1_2026_tpv_growth_percent": 11
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "very_large_operating_volume": 0.9,
+              "product_specific_revenue_penalty": 0.05
+            },
+            "rationale": "Large and growing platform volume is strong adoption evidence, but not fully allocated to new innovation programs.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "customer_or_partner_breadth",
+          "label": "Customer and partner breadth",
+          "value": 0.85,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": ["ev_006", "ev_007", "ev_008"],
+          "normalization": {
+            "raw_inputs": {
+              "major_partners_named": 6,
+              "active_accounts_referenced_millions": 400
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "major_ecosystem_distribution": 0.85
+            },
+            "rationale": "Major processors and commerce platforms increase distribution reach.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "repeatability_or_deployment_scale",
+          "label": "Repeatability and deployment scale",
+          "value": 0.75,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary",
+          "verified": true,
+          "evidence_ids": ["ev_002", "ev_003", "ev_004", "ev_007"],
+          "normalization": {
+            "raw_inputs": {
+              "payment_transactions_2025_billions": 25.4,
+              "active_accounts_2025_millions": 439,
+              "payment_transactions_q1_2026_billions": 6.5
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "large_repeatable_network": 0.8,
+              "transaction_decline_2025_penalty": 0.05
+            },
+            "rationale": "Repeat transaction scale is high, but FY2025 transaction count declined versus FY2024.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "caps": []
+    },
+    {
+      "label": "Policy & Economics",
+      "coverage_ratio": 0.82,
+      "summary": "The policy environment is mixed: digital payments and compliant stablecoins have strong use-case pull, but PayPal faces money-transmitter, AI, cybersecurity, consumer-protection, and stablecoin regulatory constraints.",
+      "strong": "PayPal and Paxos operate inside regulated frameworks; PYUSD has reserve reporting and attestation processes, and payment-network economics are already proven at PayPal scale.",
+      "missing": "Stablecoin rules, AI oversight, and cross-border wallet interoperability remain evolving, and PYUSD-on-Stellar was explicitly pending NYDFS approval when announced.",
+      "metrics": [
+        {
+          "code": "regulatory_or_standards_fit",
+          "label": "Regulatory and standards fit",
+          "value": 0.62,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary_and_academic",
+          "verified": true,
+          "evidence_ids": ["ev_009", "ev_010", "ev_018", "ev_021"],
+          "normalization": {
+            "raw_inputs": {
+              "regulated_issuer": 1,
+              "nydfs_pending_caveat": 1,
+              "ai_regulation_caveat": 1
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "regulated_but_evolving": 0.62
+            },
+            "rationale": "Strong compliance scaffolding exists, but approvals and AI/stablecoin rules remain moving targets.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "policy_or_supply_chain_support",
+          "label": "Policy and ecosystem support",
+          "value": 0.65,
+          "weight": 0.25,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary_and_academic",
+          "verified": true,
+          "evidence_ids": ["ev_009", "ev_018", "ev_020"],
+          "normalization": {
+            "raw_inputs": {
+              "ecosystem_partners": 3,
+              "policy_risk_categories": 4
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "supportive_but_constrained": 0.65
+            },
+            "rationale": "Partner ecosystem is forming, but stablecoin and AI policy risks constrain the score.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "economic_readiness",
+          "label": "Economic readiness",
+          "value": 0.75,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "primary_and_academic",
+          "verified": true,
+          "evidence_ids": ["ev_001", "ev_002", "ev_020", "ev_023"],
+          "normalization": {
+            "raw_inputs": {
+              "tpv_2025_usd_trillions": 1.79,
+              "transaction_loss_rate_2025_percent": 0.07,
+              "fraud_incident_caveat": 1
+            },
+            "method": "documented_judgment_scale",
+            "parameters": {
+              "platform_economics_strength": 0.82,
+              "risk_penalty": 0.07
+            },
+            "rationale": "PayPal has proven economics and scale, offset by fraud, regulatory, and stablecoin infrastructure risks.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "caps": []
+    }
+  ],
+  "dashboard_content": {
+    "hero": {
+      "headline": "PayPal Innovation Readiness",
+      "subheadline": "A scaled payments operator with strong commercialization evidence, meaningful AI and checkout productization, and less proof of frontier science leadership.",
+      "verdict_label": "Strong innovator with translational momentum",
+      "evidence_ids": ["ev_001", "ev_002", "ev_005", "ev_011", "ev_014"],
+      "source_ids": ["src_001", "src_005", "src_006", "src_012", "src_014"]
+    },
+    "thesis": {
+      "title": "Thesis",
+      "summary": "PayPal is better understood as a commercialization and platform-scale innovator than as a science-led breakthrough company.",
+      "bullets": [
+        {
+          "text": "The strongest evidence is adoption: FY2025 TPV reached $1.79 trillion and Q1 2026 TPV grew 11%.",
+          "claim_ids": ["claim_001"],
+          "evidence_ids": ["ev_001", "ev_002"],
+          "source_ids": ["src_001", "src_005"]
+        },
+        {
+          "text": "Fastlane, PayPal Open, PYUSD, Venmo commerce, and agentic commerce show repeated translation of payments technology into market-facing products.",
+          "claim_ids": ["claim_002"],
+          "evidence_ids": ["ev_005", "ev_006", "ev_007", "ev_008", "ev_009"],
+          "source_ids": ["src_006", "src_007", "src_008", "src_009", "src_010"]
+        },
+        {
+          "text": "The science signal is field-level: relevant domains are growing, but company-attributable publications are not visible.",
+          "claim_ids": ["claim_003"],
+          "evidence_ids": ["ev_011", "ev_012", "ev_019"],
+          "source_ids": ["src_012", "src_013", "src_020"]
+        },
+        {
+          "text": "The patent estate is credible but not clearly accelerating in the open issued-patent proxy.",
+          "claim_ids": ["claim_004"],
+          "evidence_ids": ["ev_013", "ev_014", "ev_015", "ev_016", "ev_017"],
+          "source_ids": ["src_014", "src_015", "src_016", "src_017", "src_018"]
+        }
+      ]
+    },
+    "technology_map": {
+      "title": "Technology Map",
+      "summary": "Three domains matter most: AI/risk systems, checkout and wallet orchestration, and regulated stablecoin payment rails.",
+      "items": [
+        {
+          "name": "AI and machine-learning risk systems",
+          "description": "Used in fraud prevention, risk management, customer service, product optimization, and agentic shopping workflows.",
+          "maturity": "commercial",
+          "evidence_ids": ["ev_008", "ev_021"],
+          "source_ids": ["src_001", "src_010"]
+        },
+        {
+          "name": "Fastlane and PayPal Open",
+          "description": "Checkout and merchant-platform capabilities that reduce friction and distribute PayPal services through merchant and processor ecosystems.",
+          "maturity": "scaling",
+          "evidence_ids": ["ev_005", "ev_006", "ev_007"],
+          "source_ids": ["src_006", "src_007", "src_008"]
+        },
+        {
+          "name": "PYUSD and tokenized payments",
+          "description": "A regulated stablecoin payment rail with PayPal distribution, Paxos issuance, and expansion plans across blockchain networks.",
+          "maturity": "scaling",
+          "evidence_ids": ["ev_009", "ev_010", "ev_017"],
+          "source_ids": ["src_009", "src_011", "src_018"]
+        }
+      ]
+    },
+    "quantitative_signals": {
+      "title": "Quantitative Signals",
+      "summary": "Operating scale is large and still growing in TPV, while transaction counts dipped in 2025 and the patent proxy declined from 2021 to 2025.",
+      "charts": [
+        {
+          "chart_id": "chart_001",
+          "title": "Platform scale",
+          "description": "PayPal TPV rose from $1.25 trillion in 2021 to $1.79 trillion in 2025.",
+          "series": [
+            {
+              "label": "TPV",
+              "unit": "USD trillions",
+              "points": [
+                {"period": "2021", "value": 1.25},
+                {"period": "2022", "value": 1.36},
+                {"period": "2023", "value": 1.53},
+                {"period": "2024", "value": 1.68},
+                {"period": "2025", "value": 1.79}
+              ]
+            },
+            {
+              "label": "Payment transactions",
+              "unit": "billions",
+              "points": [
+                {"period": "2021", "value": 19.3},
+                {"period": "2022", "value": 22.3},
+                {"period": "2023", "value": 25.0},
+                {"period": "2024", "value": 26.3},
+                {"period": "2025", "value": 25.4}
+              ]
+            }
+          ],
+          "evidence_ids": ["ev_001", "ev_003", "ev_004"],
+          "source_ids": ["src_001", "src_002", "src_003", "src_004"]
+        },
+        {
+          "chart_id": "chart_002",
+          "title": "Publication proxies",
+          "description": "Relevant field publications expanded sharply, especially payment-fraud ML.",
+          "series": [
+            {
+              "label": "Payment fraud ML",
+              "unit": "OpenAlex works",
+              "points": [
+                {"period": "2021", "value": 1211},
+                {"period": "2022", "value": 1735},
+                {"period": "2023", "value": 2986},
+                {"period": "2024", "value": 4160},
+                {"period": "2025", "value": 6228}
+              ]
+            },
+            {
+              "label": "Stablecoin payments",
+              "unit": "OpenAlex works",
+              "points": [
+                {"period": "2021", "value": 295},
+                {"period": "2022", "value": 447},
+                {"period": "2023", "value": 842},
+                {"period": "2024", "value": 801},
+                {"period": "2025", "value": 1143}
+              ]
+            }
+          ],
+          "evidence_ids": ["ev_011", "ev_012"],
+          "source_ids": ["src_012", "src_013"]
+        },
+        {
+          "chart_id": "chart_003",
+          "title": "Patent proxy",
+          "description": "Open issued-patent proxy shows active but lower PayPal patenting in 2025 than 2021.",
+          "series": [
+            {
+              "label": "PayPal issued-patent proxy",
+              "unit": "patents",
+              "points": [
+                {"period": "2021", "value": 328},
+                {"period": "2025", "value": 154}
+              ]
+            }
+          ],
+          "evidence_ids": ["ev_013", "ev_014"],
+          "source_ids": ["src_014", "src_015"]
+        }
+      ]
+    },
+    "commercialization_evidence": {
+      "title": "Commercialization Evidence",
+      "summary": "Productization is the core positive signal.",
+      "items": [
+        {
+          "label": "Fastlane",
+          "text": "PayPal reported pilot evidence of faster guest checkout and later expanded distribution through major payment partners, including J.P. Morgan Payments.",
+          "evidence_ids": ["ev_005", "ev_006"],
+          "source_ids": ["src_006", "src_007"]
+        },
+        {
+          "label": "PayPal Open",
+          "text": "The merchant platform bundles PayPal's services for businesses and ties them to PayPal and Venmo network reach.",
+          "evidence_ids": ["ev_007"],
+          "source_ids": ["src_008"]
+        },
+        {
+          "label": "Agentic commerce",
+          "text": "PayPal has moved into AI-surface shopping with commerce-platform partners, but adoption metrics are still early.",
+          "evidence_ids": ["ev_008"],
+          "source_ids": ["src_010"]
+        },
+        {
+          "label": "PYUSD",
+          "text": "PYUSD has regulated-reserve infrastructure and expansion plans, but network expansion remains exposed to approval, custody, and stablecoin-infrastructure risks.",
+          "evidence_ids": ["ev_009", "ev_010", "ev_020"],
+          "source_ids": ["src_009", "src_011", "src_021"]
+        }
+      ]
+    },
+    "breakthrough_gate": {
+      "title": "Breakthrough Gate",
+      "summary": "The gate is a partial pass: Industrialization and Adoption clear 3.0, but the breakthrough label is restrained by indirect science evidence and mixed IP acceleration.",
+      "conditions_met": [
+        {
+          "condition": "Industrialization score is above 3.0 with adequate confidence.",
+          "evidence_ids": ["ev_001", "ev_005", "ev_022"],
+          "source_ids": ["src_001", "src_006"]
+        },
+        {
+          "condition": "Adoption score is above 3.0 with adequate confidence.",
+          "evidence_ids": ["ev_001", "ev_002", "ev_006", "ev_007"],
+          "source_ids": ["src_001", "src_005", "src_007", "src_008"]
+        }
+      ],
+      "conditions_not_met": [
+        {
+          "condition": "Company-attributable scientific output is not visible enough to support a frontier-science breakthrough claim.",
+          "evidence_ids": ["ev_011", "ev_012", "ev_019"],
+          "source_ids": ["src_012", "src_013", "src_020"]
+        },
+        {
+          "condition": "Open patent proxy declines from 2021 to 2025 and does not show accelerating patent-family momentum.",
+          "evidence_ids": ["ev_013", "ev_014"],
+          "source_ids": ["src_014", "src_015"]
+        }
+      ],
+      "result": "Partial pass: commercially strong, not a near-term frontier-science breakthrough candidate."
+    },
+    "university_research_signals": {
+      "title": "University Research",
+      "summary": "University signals support the fields PayPal uses, but they are field proxies rather than PayPal-authored research.",
+      "institutions": [
+        {
+          "name": "MIT",
+          "signal": "Machine-learning fraud-detection work and Digital Currency Initiative stablecoin infrastructure analysis support the relevance and risks of PayPal's domains.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": ["ev_019", "ev_020"],
+          "source_ids": ["src_020", "src_021"]
+        },
+        {
+          "name": "Harvard Law School",
+          "signal": "Stablecoin policy research frames prudential standards, illicit-finance prevention, and regulatory allocation as central to scaling stablecoin payments.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": ["ev_018"],
+          "source_ids": ["src_019"]
+        },
+        {
+          "name": "Stanford University",
+          "signal": "Stablecoin cross-border payment research provides a field signal for digital-dollar wallet performance and payment use cases.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": ["ev_012"],
+          "source_ids": ["src_022"]
+        }
+      ]
+    },
+    "patent_signals": {
+      "title": "Patents",
+      "summary": "PayPal patents are technically relevant, but the open patent trend proxy is not rising.",
+      "families": [
+        {
+          "title": "Detecting fraud using machine-learning",
+          "publication_or_family_id": "US11308497B2",
+          "jurisdictions": ["US"],
+          "priority_date": "2019-04-30",
+          "interpretation": "Directly relevant to risk and fraud-model operations on a payments network.",
+          "evidence_ids": ["ev_015"],
+          "source_ids": ["src_016"]
+        },
+        {
+          "title": "Selection of electronic transaction processing channel and multi-factor user authentication",
+          "publication_or_family_id": "US12373833B2",
+          "jurisdictions": ["US"],
+          "priority_date": "2022-09-28",
+          "interpretation": "Supports authentication and routing specificity in transaction processing.",
+          "evidence_ids": ["ev_016"],
+          "source_ids": ["src_017"]
+        },
+        {
+          "title": "Multi-token application functionality for wider availability of digital token processing",
+          "publication_or_family_id": "WO2025071896A1",
+          "jurisdictions": ["WO"],
+          "priority_date": "2023-09-27",
+          "interpretation": "Relevant to multi-token and digital-payment rail functionality.",
+          "evidence_ids": ["ev_017"],
+          "source_ids": ["src_018"]
+        }
+      ],
+      "interpretation": "The portfolio supports engineering specificity in PayPal's key domains, but patent acceleration is not visible from the open proxy."
+    },
+    "red_flags": [
+      {
+        "red_flag_id": "rf_001",
+        "title": "Science is mostly external",
+        "text": "Publication growth is real in the relevant fields, but it is not PayPal-attributable in the evidence set.",
+        "severity": "medium",
+        "layer": "Science",
+        "evidence_ids": ["ev_011", "ev_012"],
+        "source_ids": ["src_012", "src_013"],
+        "claim_ids": ["claim_003"]
+      },
+      {
+        "red_flag_id": "rf_002",
+        "title": "Patent momentum is mixed",
+        "text": "The open issued-patent proxy declined from 328 in 2021 to 154 in 2025, so IP momentum should not be overstated.",
+        "severity": "medium",
+        "layer": "IP",
+        "evidence_ids": ["ev_013", "ev_014"],
+        "source_ids": ["src_014", "src_015"],
+        "claim_ids": ["claim_004"]
+      },
+      {
+        "red_flag_id": "rf_003",
+        "title": "Product-specific metrics are sparse",
+        "text": "PayPal discloses strong platform-scale metrics, but less product-level revenue, merchant count, or retention data for newer innovation programs.",
+        "severity": "medium",
+        "layer": "Adoption",
+        "evidence_ids": ["ev_001", "ev_002", "ev_005"],
+        "source_ids": ["src_001", "src_005", "src_006"],
+        "claim_ids": ["claim_005"]
+      },
+      {
+        "red_flag_id": "rf_004",
+        "title": "Regulatory exposure remains high",
+        "text": "Stablecoin, AI, cybersecurity, payments, and consumer-protection rules can raise costs or restrict deployment.",
+        "severity": "high",
+        "layer": "Policy & Economics",
+        "evidence_ids": ["ev_009", "ev_018", "ev_020", "ev_021"],
+        "source_ids": ["src_001", "src_009", "src_019", "src_021"],
+        "claim_ids": ["claim_006"]
+      },
+      {
+        "red_flag_id": "rf_005",
+        "title": "Fraud risk is not solved",
+        "text": "Transaction loss rate stayed low, but PayPal still disclosed 2025 transaction-loss pressure from fraud incidents affecting PayPal products.",
+        "severity": "medium",
+        "layer": "Policy & Economics",
+        "evidence_ids": ["ev_023"],
+        "source_ids": ["src_001"],
+        "claim_ids": ["claim_007"]
+      }
+    ],
+    "watchlist": {
+      "title": "What Would Change The View",
+      "upgrade_signals": [
+        {
+          "text": "Disclosed product-level revenue, active merchant count, or retention for Fastlane, PayPal Open, PYUSD, and agentic commerce.",
+          "monitoring_source": "Quarterly earnings releases, 10-Q filings, investor presentations, and product announcements."
+        },
+        {
+          "text": "A rising PayPal patent-family trend in AI risk, authentication, checkout orchestration, and tokenized payments.",
+          "monitoring_source": "Google Patents, USPTO, WIPO, EPO, and paid family-level databases if available."
+        },
+        {
+          "text": "Independent evidence that PYUSD is used for real merchant, remittance, or B2B payments rather than mainly crypto-market flows.",
+          "monitoring_source": "Paxos reports, blockchain analytics, PayPal disclosures, and partner case studies."
+        }
+      ],
+      "downgrade_signals": [
+        {
+          "text": "Rising transaction or credit losses linked to fraud, account takeover, or AI-enabled attacks.",
+          "monitoring_source": "10-Q and 10-K risk and operating expense disclosures."
+        },
+        {
+          "text": "Regulatory restrictions on AI scoring, stablecoin issuance, customer-data use, or cross-border wallet interoperability.",
+          "monitoring_source": "SEC filings, NYDFS, EU AI Act implementation, CFPB, state money-transmitter regulators, and international payments regulators."
+        },
+        {
+          "text": "Failure to convert Fastlane and agentic commerce partnerships into disclosed merchant adoption or revenue uplift.",
+          "monitoring_source": "Earnings calls, merchant partner announcements, and payment processor case studies."
+        }
+      ],
+      "cadence": [
+        {
+          "frequency": "quarterly",
+          "task": "Refresh filings, operating metrics, product announcements, and adoption evidence."
+        },
+        {
+          "frequency": "semiannual",
+          "task": "Rebuild publication and patent proxies and compare against payment-technology peers."
+        }
+      ]
+    },
+    "operational_snapshot": {
+      "title": "Operational Snapshot",
+      "metrics": [
+        {
+          "label": "FY2025 TPV",
+          "value": "$1.79T",
+          "period": "2025",
+          "evidence_ids": ["ev_001"],
+          "source_ids": ["src_001"]
+        },
+        {
+          "label": "FY2025 active accounts",
+          "value": "439M",
+          "period": "2025",
+          "evidence_ids": ["ev_001"],
+          "source_ids": ["src_001"]
+        },
+        {
+          "label": "FY2025 payment transactions",
+          "value": "25.4B",
+          "period": "2025",
+          "evidence_ids": ["ev_001"],
+          "source_ids": ["src_001"]
+        },
+        {
+          "label": "FY2025 technology and development",
+          "value": "$3.103B",
+          "period": "2025",
+          "evidence_ids": ["ev_001", "ev_022"],
+          "source_ids": ["src_001"]
+        },
+        {
+          "label": "FY2025 R&D expense",
+          "value": "$1.5B",
+          "period": "2025",
+          "evidence_ids": ["ev_001"],
+          "source_ids": ["src_001"]
+        },
+        {
+          "label": "Q1 2026 TPV",
+          "value": "$464.0B",
+          "period": "2026-Q1",
+          "evidence_ids": ["ev_002"],
+          "source_ids": ["src_005"]
+        }
+      ]
+    },
+    "method_notes": {
+      "title": "Method Notes",
+      "notes": [
+        "This is an absolute readiness score, not a peer ranking.",
+        "Science metrics use field-level proxies because PayPal does not disclose a public scientific publication corpus.",
+        "Patent trend uses a secondary issued-patent proxy; it should be refreshed with a family-level patent database before peer benchmarking.",
+        "The breakthrough gate requires Industrialization and Adoption scores above 3.0 with adequate confidence; PayPal passes those commercial gates but remains constrained by science and IP evidence."
+      ]
+    },
+    "bottom_line": {
+      "title": "Bottom Line",
+      "text": "PayPal looks like a strong translational innovator: its advantage is turning payments, risk, checkout, wallet, and tokenized-payment capabilities into operating products at very large scale. It is not, on this evidence, an exceptional science-led breakthrough candidate.",
+      "claim_ids": ["claim_008"],
+      "evidence_ids": ["ev_001", "ev_002", "ev_005", "ev_006", "ev_011", "ev_014"],
+      "source_ids": ["src_001", "src_005", "src_006", "src_007", "src_012", "src_014"]
+    }
+  },
+  "claims": [
+    {
+      "claim_id": "claim_001",
+      "section": "thesis",
+      "text": "PayPal's strongest innovation signal is adoption at payments scale.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": ["ev_001", "ev_002", "ev_003", "ev_004"],
+      "source_ids": ["src_001", "src_002", "src_003", "src_005"]
+    },
+    {
+      "claim_id": "claim_002",
+      "section": "thesis",
+      "text": "PayPal is translating checkout, wallet, stablecoin, and AI-commerce capabilities into market-facing products.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": ["ev_005", "ev_006", "ev_007", "ev_008", "ev_009"],
+      "source_ids": ["src_006", "src_007", "src_008", "src_009", "src_010"]
+    },
+    {
+      "claim_id": "claim_003",
+      "section": "science",
+      "text": "The science signal is mostly field-level rather than PayPal-attributable.",
+      "claim_type": "limitation",
+      "confidence": "High",
+      "evidence_ids": ["ev_011", "ev_012", "ev_019"],
+      "source_ids": ["src_012", "src_013", "src_020"]
+    },
+    {
+      "claim_id": "claim_004",
+      "section": "ip",
+      "text": "PayPal has relevant software patents, but open patent proxy momentum is mixed.",
+      "claim_type": "inference",
+      "confidence": "Medium",
+      "evidence_ids": ["ev_013", "ev_014", "ev_015", "ev_016", "ev_017"],
+      "source_ids": ["src_014", "src_015", "src_016", "src_017", "src_018"]
+    },
+    {
+      "claim_id": "claim_005",
+      "section": "commercialization",
+      "text": "Product-specific adoption metrics are thinner than platform-level metrics.",
+      "claim_type": "limitation",
+      "confidence": "High",
+      "evidence_ids": ["ev_001", "ev_002", "ev_005", "ev_008"],
+      "source_ids": ["src_001", "src_005", "src_006", "src_010"]
+    },
+    {
+      "claim_id": "claim_006",
+      "section": "policy",
+      "text": "Stablecoin, AI, cybersecurity, payments, and consumer-protection rules are material constraints on deployment.",
+      "claim_type": "sourced_fact",
+      "confidence": "High",
+      "evidence_ids": ["ev_009", "ev_018", "ev_020", "ev_021"],
+      "source_ids": ["src_001", "src_009", "src_019", "src_021"]
+    },
+    {
+      "claim_id": "claim_007",
+      "section": "red_flags",
+      "text": "Fraud and transaction-loss risk remains an active operating issue.",
+      "claim_type": "sourced_fact",
+      "confidence": "High",
+      "evidence_ids": ["ev_023"],
+      "source_ids": ["src_001"]
+    },
+    {
+      "claim_id": "claim_008",
+      "section": "bottom_line",
+      "text": "PayPal is a strong translational innovator rather than an exceptional science-led breakthrough candidate.",
+      "claim_type": "inference",
+      "confidence": "Medium",
+      "evidence_ids": ["ev_001", "ev_002", "ev_005", "ev_006", "ev_011", "ev_014"],
+      "source_ids": ["src_001", "src_005", "src_006", "src_007", "src_012", "src_014"]
+    }
+  ],
+  "normalization_notes": [
+    {
+      "metric_code": "publication_growth",
+      "rule": "normalize_growth(start_value, end_value, years, floor=0.0, cap=0.35)",
+      "reason": "Five-year annualized field growth better captures scientific momentum than one-year count."
+    },
+    {
+      "metric_code": "patent_family_growth",
+      "rule": "declining issued-patent proxy receives low nonzero activity score of 0.25",
+      "reason": "PayPal remains patent-active, but the open proxy does not show growth."
+    },
+    {
+      "metric_code": "operational_scale_signal",
+      "rule": "documented judgment scale anchored by TPV, transactions, active accounts, and technology-development expense",
+      "reason": "Payments platform scale is directly relevant to industrialization but not equivalent to frontier invention."
+    }
+  ],
+  "storage_metadata": {
+    "intended_store": "sqlite",
+    "recommended_primary_keys": {
+      "sources": "source_id",
+      "evidence_items": "evidence_id",
+      "metrics": "company + research_date + layer + metric_code"
+    },
+    "content_hash_fields": [
+      "sources",
+      "evidence_items",
+      "layers",
+      "dashboard_content",
+      "claims",
+      "normalization_notes"
+    ]
+  }
+}

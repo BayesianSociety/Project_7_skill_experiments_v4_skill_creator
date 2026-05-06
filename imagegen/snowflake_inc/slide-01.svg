@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff9f5"/>
+      <stop offset="0.58" stop-color="#f4e3dc"/>
+      <stop offset="1" stop-color="#e8d5c4"/>
+    </linearGradient>
+    <pattern id="grid" width="72" height="72" patternUnits="userSpaceOnUse">
+      <path d="M72 0 H0 V72" fill="none" stroke="#5d2e46" stroke-width="1" stroke-opacity="0.055"/>
+    </pattern>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect width="1080" height="1080" fill="url(#grid)"/>
+  <circle cx="920" cy="130" r="210" fill="#d4a5a5" fill-opacity="0.24"/>
+  <circle cx="130" cy="930" r="260" fill="#b87d6d" fill-opacity="0.13"/>
+  
+      <g opacity="0.94">
+        <path d="M160 765 C230 590 370 555 540 520" fill="none" stroke="#2f7a69" stroke-width="10" stroke-linecap="round" stroke-opacity="0.82"/><path d="M310 765 C320 590 432 555 540 520" fill="none" stroke="#d4a5a5" stroke-width="8" stroke-linecap="round" stroke-opacity="0.74"/><path d="M460 765 C410 590 494 555 540 520" fill="none" stroke="#2f7a69" stroke-width="10" stroke-linecap="round" stroke-opacity="0.82"/><path d="M610 765 C500 590 556 555 540 520" fill="none" stroke="#d4a5a5" stroke-width="8" stroke-linecap="round" stroke-opacity="0.74"/><path d="M760 765 C590 590 618 555 540 520" fill="none" stroke="#2f7a69" stroke-width="10" stroke-linecap="round" stroke-opacity="0.82"/>
+        <circle cx="540" cy="520" r="118" fill="#fff9f5" stroke="#5d2e46" stroke-width="8"/>
+        <circle cx="540" cy="520" r="56" fill="#b87d6d" fill-opacity="0.88"/>
+        <path d="M500 520 H580 M540 480 V560" stroke="#fff9f5" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="250" cy="745" r="24" fill="#fff9f5" stroke="#5d2e46" stroke-width="5"/><circle cx="390" cy="645" r="24" fill="#fff9f5" stroke="#5d2e46" stroke-width="5"/><circle cx="690" cy="650" r="24" fill="#fff9f5" stroke="#5d2e46" stroke-width="5"/><circle cx="835" cy="765" r="24" fill="#fff9f5" stroke="#5d2e46" stroke-width="5"/>
+      </g>
+  <g transform="translate(145 140)">
+    <text x="0" y="0" font-family="FreeSans, Arial" font-size="28" font-weight="700" letter-spacing="4" fill="#6f5d61">SNOWFLAKE INNOVATION</text>
+    <text x="0" y="84" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Snowflake As AI</text><text x="0" y="162" font-family="FreeSans, Arial" font-size="72" font-weight="700" fill="#5d2e46">Control Plane</text>
+    <g transform="translate(0 264)">
+      <rect x="0" y="-34" width="650" height="138" rx="8" fill="#fff9f5" fill-opacity="0.9"/>
+      <text x="28" y="22" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">The moat is governed enterprise</text><text x="28" y="60" font-family="FreeSans, Arial" font-size="31" font-weight="700" fill="#241b20">data, not just warehouse speed.</text>
+    </g>
+  </g>
+  <g transform="translate(145 950)">
+    <rect x="0" y="0" width="160" height="8" rx="4" fill="#b87d6d"/>
+    <text x="186" y="12" font-family="FreeSans, Arial" font-size="26" font-weight="700" fill="#5d2e46">Slide 1 / 7</text>
+  </g>
+</svg>

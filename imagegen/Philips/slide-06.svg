@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <rect width="1080" height="1080" fill="#faf9f6"/>
+  <rect x="44" y="44" width="992" height="992" rx="40" fill="#eef0e6"/>
+  <rect x="118" y="238" width="410" height="250" rx="30" fill="#2d4a2b"/>
+  <path d="M156 376 C208 326 252 426 308 376 C344 344 370 354 406 380 C452 414 482 358 490 340" fill="none" stroke="#faf9f6" stroke-width="8"/>
+  <path d="M524 364 C616 332 706 322 814 350 C876 366 916 408 948 464" fill="none" stroke="#7d8471" stroke-width="12"/>
+  <path d="M530 410 C648 432 750 466 824 560 C864 610 896 678 930 760" fill="none" stroke="#a4ac86" stroke-width="10"/>
+  <g font-family="FreeSans, Arial, sans-serif">
+    <text x="112" y="166" font-size="26" fill="#5d6755" letter-spacing="5">CONNECTED CARE + CLOUD</text>
+    <text x="112" y="640" font-size="76" font-weight="700" fill="#2d4a2b">MONITORING</text>
+    <text x="112" y="724" font-size="76" font-weight="700" fill="#2d4a2b">BECAME A</text>
+    <text x="112" y="808" font-size="76" font-weight="700" fill="#2d4a2b">PLATFORM</text>
+    <text x="112" y="900" font-size="34" fill="#5d6755">49 hospitals in the Bon Secours Mercy Health partnership.</text>
+  </g>
+</svg>

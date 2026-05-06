@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <defs>
+    <linearGradient id="bg5" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff6eb"/>
+      <stop offset="100%" stop-color="#ebd6b8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg5)"/>
+  <g opacity="0.3" stroke="#c1666b" stroke-width="4" fill="none">
+    <path d="M140 730 C280 640 410 680 560 590 S850 470 950 360"/>
+    <path d="M140 790 C280 700 430 740 570 660 S850 600 940 500"/>
+  </g>
+  <g opacity="0.82">
+    <path d="M150 680 C290 640 430 600 560 520 S820 390 930 278" stroke="#f4a900" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <path d="M150 742 C298 712 442 702 580 650 S820 582 930 528" stroke="#4a403a" stroke-width="8" fill="none" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(148 156)">
+    <text x="0" y="0" font-family="FreeSans, Arial, sans-serif" font-size="30" letter-spacing="6" fill="#6a5d53">SCIENCE SIGNAL</text>
+    <text x="0" y="146" font-family="FreeSans, Arial, sans-serif" font-size="108" font-weight="700" fill="#4a403a">Science is</text>
+    <text x="0" y="262" font-family="FreeSans, Arial, sans-serif" font-size="108" font-weight="700" fill="#4a403a">broad</text>
+    <text x="0" y="356" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">Research is growing fast.</text>
+    <text x="0" y="406" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">DHL is not spending like a</text>
+    <text x="0" y="456" font-family="FreeSans, Arial, sans-serif" font-size="40" fill="#4a403a">frontier-science company.</text>
+  </g>
+</svg>

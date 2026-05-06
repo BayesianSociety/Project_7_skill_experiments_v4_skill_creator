@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Slide 5 - Not Every Bet Wins Equally</title>
+  <desc id="desc">Instagram slide showing uneven portfolio momentum.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18333f"/>
+      <stop offset="55%" stop-color="#c46758"/>
+      <stop offset="100%" stop-color="#efc46f"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1080" fill="url(#bg)"/>
+  <rect x="140" y="150" width="800" height="780" rx="48" fill="#fff8f1" fill-opacity="0.92"/>
+  <rect x="662" y="178" width="204" height="704" rx="34" fill="#264653" fill-opacity="0.12"/>
+  <rect x="662" y="336" width="204" height="546" rx="34" fill="#264653" fill-opacity="0.32"/>
+  <rect x="214" y="244" width="204" height="638" rx="34" fill="#e76f51" fill-opacity="0.66"/>
+  <rect x="438" y="294" width="172" height="588" rx="34" fill="#f4a261" fill-opacity="0.7"/>
+  <text x="220" y="300" fill="#264653" font-family="DejaVu Serif" font-size="78" font-weight="700">
+    <tspan x="220" dy="0">Not Every Bet</tspan>
+    <tspan x="220" dy="88">Wins Equally</tspan>
+  </text>
+  <rect x="220" y="442" width="356" height="172" rx="28" fill="#fff4e2"/>
+  <text x="250" y="504" fill="#355563" font-family="DejaVu Sans" font-size="34">
+    <tspan x="250" dy="0">Cell therapy sales</tspan>
+    <tspan x="250" dy="48">fell 7% in 2025</tspan>
+    <tspan x="250" dy="48">despite deep capability.</tspan>
+  </text>
+  <circle cx="846" cy="838" r="46" fill="#e76f51"/>
+  <text x="846" y="852" text-anchor="middle" fill="#fff8f1" font-family="DejaVu Serif" font-size="38" font-weight="700">05</text>
+</svg>
