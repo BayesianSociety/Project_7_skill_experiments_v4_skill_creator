@@ -1,0 +1,35 @@
+{
+  "name": "storage-system-js",
+  "version": "1.0.0",
+  "description": "JavaScript SQLite storage system for company-analysis artifacts, ready for frontend integration.",
+  "type": "module",
+  "private": true,
+  "main": "src/cli.js",
+  "scripts": {
+    "dev": "next dev --webpack",
+    "web": "next dev --webpack",
+    "web:dev": "next dev --webpack -H 127.0.0.1",
+    "build": "next build",
+    "web:start": "next start",
+    "init": "node src/cli.js init",
+    "ingest": "node src/cli.js ingest --source-dir ../public/runs",
+    "start": "node src/cli.js start",
+    "start:ingest": "node src/cli.js start --ingest --source-dir ../public/runs",
+    "end": "node src/cli.js end",
+    "status": "node src/cli.js status",
+    "runs": "node src/cli.js runs",
+    "api": "node src/server.js",
+    "test:smoke": "node src/cli.js status && node src/cli.js runs"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.4.6",
+    "express": "^5.1.0",
+    "lucide-react": "^1.14.0",
+    "next": "^16.2.4",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

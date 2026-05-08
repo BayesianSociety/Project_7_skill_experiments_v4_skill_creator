@@ -1,0 +1,57 @@
+{
+  "subject": "Block, Inc. innovation assessment",
+  "created_at": "2026-05-06",
+  "visual_direction": "Tech Innovation palette, dark graphite backgrounds, electric-blue and neon-cyan data light, no logos or readable in-image text.",
+  "concept": "A seven-slide Instagram carousel that reframes Block as an applied fintech industrializer with real adoption and material policy risk.",
+  "slides": [
+    {
+      "slide": 1,
+      "headline": "Block Is Not Just Payments",
+      "supporting_text": "Its innovation story now spans AI, credit scoring, bitcoin custody and mining hardware.",
+      "visual_suggestion": "An integrated fintech system with a terminal, phone wallet and bitcoin hardware device.",
+      "asset": "slide-01.png"
+    },
+    {
+      "slide": 2,
+      "headline": "The Science Is Applied",
+      "supporting_text": "Block commercializes active fintech research rather than leading with published science.",
+      "visual_suggestion": "A smartphone surrounded by payment-flow and credit-risk signal layers.",
+      "asset": "slide-02.png"
+    },
+    {
+      "slide": 3,
+      "headline": "AI Moves Into Finance",
+      "supporting_text": "Moneybot and Square AI show the shift toward intelligent financial interfaces.",
+      "visual_suggestion": "A luminous AI assistant emerging from a phone and guiding financial paths.",
+      "asset": "slide-03.png"
+    },
+    {
+      "slide": 4,
+      "headline": "Adoption Is The Edge",
+      "supporting_text": "Cash App, Square, GPV and lending growth give Block live distribution.",
+      "visual_suggestion": "A merchant payment terminal sending transaction pulses into a broader network.",
+      "asset": "slide-04.png"
+    },
+    {
+      "slide": 5,
+      "headline": "Bitcoin Becomes Hardware",
+      "supporting_text": "Proto and Bitkey move Block beyond apps into self-custody and mining infrastructure.",
+      "visual_suggestion": "A modular mining rig in a disciplined industrial datacenter.",
+      "asset": "slide-05.png"
+    },
+    {
+      "slide": 6,
+      "headline": "Risk Still Matters",
+      "supporting_text": "Regulatory actions and credit losses keep the innovation score below exceptional.",
+      "visual_suggestion": "A payment network constrained by precise compliance and risk-control rails.",
+      "asset": "slide-06.png"
+    },
+    {
+      "slide": 7,
+      "headline": "Verdict: Translational Momentum",
+      "supporting_text": "Block scores 16.3 out of 25: strong, commercial, but not yet exceptional.",
+      "visual_suggestion": "A score ring and five abstract progress bars with one amber risk segment.",
+      "asset": "slide-07.png"
+    }
+  ]
+}

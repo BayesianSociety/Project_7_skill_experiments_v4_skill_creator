@@ -1,9 +1,0 @@
-{
-  "/_global-error/page": "/_global-error",
-  "/_not-found/page": "/_not-found",
-  "/api/runs/[runUid]/route": "/api/runs/[runUid]",
-  "/api/runs/route": "/api/runs",
-  "/api/schema-observations/route": "/api/schema-observations",
-  "/api/status/route": "/api/status",
-  "/page": "/"
-}

@@ -1,0 +1,49 @@
+{
+  "subject": "Visa Inc",
+  "theme": "Tech Innovation",
+  "ai_generated_cover": "ai-generated-cover.png",
+  "slides": [
+    {
+      "file": "slide-01.png",
+      "svg": "slide-01.svg",
+      "headline": "Visa Is Not Standing Still",
+      "prompt": "Square 1:1 Instagram editorial image, high contrast Tech Innovation palette, dark graphite background with electric blue and neon cyan transaction lines, central safe area text: 'Visa Is Not Standing Still', abstract but concrete payment network map, no logos, no cards, crisp modern typography, generous margins."
+    },
+    {
+      "file": "slide-02.png",
+      "svg": "slide-02.svg",
+      "headline": "The Scale Is Enormous",
+      "prompt": "Square 1:1 Instagram image, dark high-tech payment pulses converging into a clean central typographic number '257.5B', small subline 'FY2025 processed transactions', electric blue on dark gray, mobile-safe margins, no brand logo, premium data editorial style."
+    },
+    {
+      "file": "slide-03.png",
+      "svg": "slide-03.svg",
+      "headline": "Tokens Are The Core",
+      "prompt": "Square 1:1 Instagram image, stylized secure token nodes, cryptographic rings, central text '16B+ Tokens', dark graphite, electric blue and neon cyan, sharp contrast, no real card numbers, no logos, central safe area."
+    },
+    {
+      "file": "slide-04.png",
+      "svg": "slide-04.svg",
+      "headline": "Fraud Defense Is AI-Led",
+      "prompt": "Square 1:1 Instagram image, AI fraud detection scene with luminous signals sorted through a secure network gate, central text 'AI Fraud Defense', bold accessible typography, dark tech background, blue/cyan accents, no scary imagery, no logos."
+    },
+    {
+      "file": "slide-05.png",
+      "svg": "slide-05.svg",
+      "headline": "Stablecoins Enter The Stack",
+      "prompt": "Square 1:1 Instagram image, two payment rails merging, one traditional banking line and one blockchain line, central text '$7B Run Rate', subline 'stablecoin settlement', high contrast dark gray, electric blue, neon cyan, polished financial technology editorial."
+    },
+    {
+      "file": "slide-06.png",
+      "svg": "slide-06.svg",
+      "headline": "Agentic Commerce Is Next",
+      "prompt": "Square 1:1 Instagram image, abstract AI shopping agent with verified payment token, central text 'Agentic Commerce', secure checkout atmosphere, no humanoid robot cliché, no logos, high-contrast tech palette, safe margins."
+    },
+    {
+      "file": "slide-07.png",
+      "svg": "slide-07.svg",
+      "headline": "The Verdict",
+      "prompt": "Square 1:1 Instagram image, five horizontal score layers, central text '18.9 / 25', subline 'Commercial-scale innovator', dark graphite background, electric blue/cyan bars, crisp accessible typography, no dashboard screenshot, no logos."
+    }
+  ]
+}

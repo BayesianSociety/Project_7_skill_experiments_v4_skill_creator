@@ -185,10 +185,12 @@ Do not place a technology on the highest-priority list unless it scores at least
 
 Use a deterministic scoring pass after the research and extraction pass. The model is responsible for gathering and structuring evidence. The scorer is responsible for converting structured evidence into reproducible scores.
 
-When only a single company is available, compute an absolute score only. Do not invent peer percentiles or pseudo-benchmarks from memory. In single-company mode:
+When only a single company is available, compute an absolute readiness score only. Do not invent peer percentiles or pseudo-benchmarks from memory. In single-company mode:
 
-- compute `absolute_score` from the five layers,
-- leave `peer_score` unset,
+- compute the absolute readiness score using the deterministic scorer,
+- do not create an `absolute_score` object in `scored.json`,
+- use the canonical top-level scored fields: `total_score`, `display_total_score`, `gate_pass`, `verdict`, and `layers`,
+- leave `peer_score` unset unless a real peer benchmark exists,
 - describe the result as a readiness score, not a relative ranking,
 - keep the output benchmark-ready so peers can be added later without changing the schema.
 
@@ -196,7 +198,13 @@ When only a single company is available, compute an absolute score only. Do not 
 
 Before scoring, extract the research into a structured JSON payload that can later be inserted into SQLite or another deterministic store. The payload is the canonical record of what was found, what was unavailable, which judgments were made, and how raw observations became normalized metrics.
 
-Save the payload as `public/data/{company_slug}_payload.json` when writing a dashboard or any scored artifact. Save the scorer output as `public/data/{company_slug}_scored.json`. Use stable key names, stable ordering where practical, ISO dates, and ASCII-safe JSON so content hashes remain meaningful across runs.
+Save each research run as a separate artifact set so later runs for the same company do not overwrite earlier runs. Use this run-scoped folder:
+
+- `public/runs/{company_slug}/{research_date}/{run_id}/payload.json`
+- `public/runs/{company_slug}/{research_date}/{run_id}/scored.json`
+- `public/runs/{company_slug}/{research_date}/{run_id}/dashboard.html`
+
+Use ISO dates for `research_date` (`YYYY-MM-DD`) and a filesystem-safe `run_id` that can distinguish multiple runs on the same day. Use stable key names, stable ordering where practical, ISO dates, and ASCII-safe JSON so content hashes remain meaningful across runs.
 
 Use this broad shape:
 
@@ -538,7 +546,7 @@ Use this broad shape:
     "recommended_primary_keys": {
       "sources": "source_id",
       "evidence_items": "evidence_id",
-      "metrics": "company + research_date + layer + metric_code"
+      "metrics": "company + research_date + run_id + layer + metric_code"
     },
     "content_hash_fields": [
       "sources",
@@ -647,7 +655,35 @@ Use the deterministic total to map to the overall verdict:
 
 ### Implementation requirement
 
-Use the deterministic scorer at `technology-innovation-analysis/score_innovation_benchmark.py` whenever the dashboard includes a numeric score. Do not hard-code `score_total`, per-layer `score`, verdict totals, or substantive company-specific dashboard prose directly into dashboard generators if the data can be routed through the scorer.
+Use the deterministic scorer at `technology-innovation-analysis/score_innovation_benchmark.py` whenever the dashboard includes a numeric score. Do not hard-code `score_total`, `total_score`, `absolute_score`, per-layer `score`, verdict totals, gate results, or substantive company-specific dashboard prose directly into dashboard generators if the data can be routed through the scorer.
+
+`scored.json` is a generated artifact owned by `score_innovation_benchmark.py`.
+
+Do not write, construct, patch, or manually synthesize `scored.json` in dashboard scripts. Dashboard scripts may write `payload.json` and `dashboard.html`, but they must read score, verdict, layers, claims, and dashboard content from scorer-produced `scored.json`.
+
+The only approved command shape for producing scored output is:
+
+```bash
+python3 .codex/skills/technology-innovation-analysis/score_innovation_benchmark.py public/runs/{company_slug}/{research_date}/{run_id}/payload.json -o public/runs/{company_slug}/{research_date}/{run_id}/scored.json
+```
+
+If the deterministic scorer fails validation, stop and fix `payload.json`. Do not work around the failure by manually creating a simplified score object.
+
+Common validation failures must be fixed in the payload:
+
+- missing `claims[]`,
+- missing required `dashboard_content` sections,
+- metric names that do not match `metric_rules.py`,
+- missing `evidence_ids`,
+- weights that do not sum to `1.0`,
+- normalized metric values outside `0..1`.
+
+Before finalizing a run, verify:
+
+1. `score_innovation_benchmark.py payload.json -o scored.json` exits successfully.
+2. `scored.json` contains top-level `total_score`, `display_total_score`, `gate_pass`, `verdict`, `layers`, and `scorer_metadata`.
+3. `scored.json` does not use a nested score object such as `absolute_score.total`.
+4. `dashboard.html` renders company-specific score and prose from `scored.json`, not from duplicated hard-coded constants.
 
 When generating HTML, use this rule of thumb:
 
@@ -788,5 +824,8 @@ Provide a clean list of cited sources with links when available.
 
 # Final artefact
 
-Save the final artefact in the current repo in a folder called public.
-Use company name and a word _dashboard.html to create the final artefact.
+Save the final artefact in the current repo under the run-scoped folder:
+
+`public/runs/{company_slug}/{research_date}/{run_id}/dashboard.html`
+
+Use the same `company_slug`, `research_date`, and `run_id` as the payload and scored JSON for that research run.

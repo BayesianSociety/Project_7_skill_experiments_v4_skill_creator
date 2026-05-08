@@ -1,0 +1,1977 @@
+{
+  "schema_version": "2.1",
+  "company": "Visa Inc",
+  "ticker": "NYSE: V",
+  "mode": "absolute",
+  "benchmark_ready": true,
+  "skill_metadata": {
+    "skill_name": "technology-innovation-analysis",
+    "skill_version": "1.2.0",
+    "skill_path": ".codex/skills/technology-innovation-analysis/SKILL.md",
+    "scorer_name": "score_innovation_benchmark.py",
+    "scorer_version": "1.2.0",
+    "metric_rules_version": "1.2.0"
+  },
+  "research_run": {
+    "research_date": "2026-05-06",
+    "analyst": "codex",
+    "run_id": "v-innovation-20260506",
+    "user_request": "Research Visa Inc, NYSE: V using technology-innovation-analysis, build a Tech Innovation dashboard, and create separate Instagram carousel assets.",
+    "time_horizon": "Five-year operating, publication and patent window where reproducible: 2021-2025, with latest Q2 FY2026 and April 2026 product updates.",
+    "research_mode": "web_research_with_deterministic_scoring"
+  },
+  "research_context": {
+    "focus_technologies": [
+      "AI fraud, risk, cybersecurity and authorization scoring",
+      "Tokenization, passkeys, identity-bound checkout and Visa Token Service",
+      "Stablecoin settlement, Visa Direct and agentic commerce payment protocols"
+    ],
+    "company_identifiers": {
+      "legal_name": "Visa Inc",
+      "ticker": "NYSE: V",
+      "cik": "0001403161",
+      "fiscal_year_end": "09-30"
+    },
+    "source_availability": [
+      {
+        "domain": "company_filings",
+        "status": "available",
+        "note": "FY2025 10-K and Q2 FY2026 earnings release provide strong operating and adoption data."
+      },
+      {
+        "domain": "patents",
+        "status": "partial",
+        "note": "Representative Visa patent records are available; exact global family counts by year were not reproducible from open sources."
+      },
+      {
+        "domain": "science",
+        "status": "field_proxy",
+        "note": "Publication counts are OpenAlex field proxies, not Visa-authored publication counts."
+      }
+    ],
+    "search_log": [
+      {
+        "query": "Visa FY2025 Form 10-K SEC tokenization stablecoin AI",
+        "source": "SEC EDGAR",
+        "date": "2026-05-06",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Primary latest full-year filing."
+      },
+      {
+        "query": "Visa Q2 2026 earnings release SEC",
+        "source": "SEC EDGAR",
+        "date": "2026-05-06",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Latest quarterly update before research date."
+      },
+      {
+        "query": "Visa patents tokenization machine learning Justia Google Patents",
+        "source": "patent databases",
+        "date": "2026-05-06",
+        "result_quality": "medium",
+        "selected": true,
+        "selection_reason": "Representative patent evidence."
+      },
+      {
+        "query": "payment fraud detection machine learning OpenAlex 2021 2025 stablecoin payments",
+        "source": "OpenAlex",
+        "date": "2026-05-06",
+        "result_quality": "medium",
+        "selected": true,
+        "selection_reason": "Field-level publication trend proxy."
+      }
+    ],
+    "exclusions": [
+      {
+        "candidate_source_or_metric": "Peer percentile ranking",
+        "reason": "Single-company mode requires absolute scoring only."
+      },
+      {
+        "candidate_source_or_metric": "News-only disruption narratives",
+        "reason": "Primary company, policy, patent and academic sources were preferred."
+      }
+    ],
+    "judgment_calls": [
+      {
+        "topic": "Science attribution",
+        "decision": "Used field-level publication proxies.",
+        "rationale": "Visa does not disclose a robust publication corpus.",
+        "impact": "Science confidence and score were capped."
+      },
+      {
+        "topic": "Patent-family trend",
+        "decision": "Used representative open records and explicitly marked exact counts unavailable.",
+        "rationale": "Open assignee pages did not yield reproducible five-year family counts.",
+        "impact": "IP score and confidence were capped."
+      },
+      {
+        "topic": "Innovation thesis",
+        "decision": "Classified Visa as a commercial-scale innovator rather than a science-led breakthrough candidate.",
+        "rationale": "Adoption and industrialization evidence is much stronger than public science/IP evidence.",
+        "impact": "Dashboard emphasizes deployment and commercial gates."
+      }
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_001",
+      "title": "Visa Inc FY2025 Form 10-K",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000089/v-20250930.htm",
+      "publisher": "SEC EDGAR",
+      "document_date": "2025-11-06",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Latest full-year filing for scale, tokens, stablecoins, value-added services, operating data, regulation, and risk."
+    },
+    {
+      "source_id": "src_002",
+      "title": "Visa Fiscal Second Quarter 2026 Earnings Release",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000077/q22026earningsrelease.htm",
+      "publisher": "SEC EDGAR",
+      "document_date": "2026-04-28",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Latest quarterly operating update available on the research date."
+    },
+    {
+      "source_id": "src_003",
+      "title": "Visa Provisioning Intelligence Launches to Combat Token Fraud",
+      "url": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.20251.html",
+      "publisher": "Visa",
+      "document_date": "2023-12-13",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "AI token-fraud product launch and token-provisioning fraud estimate."
+    },
+    {
+      "source_id": "src_004",
+      "title": "Visa Unveils its Scam Disruption Practice",
+      "url": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.21286.html",
+      "publisher": "Visa",
+      "document_date": "2025-03-11",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Fraud prevention, technology investment, and human-plus-AI operating evidence."
+    },
+    {
+      "source_id": "src_005",
+      "title": "Visa Payment Passkey",
+      "url": "https://www.visa.com/en-us/products/visa-payment-passkey",
+      "publisher": "Visa",
+      "document_date": "2026-04-22",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "FIDO-based passkey authentication product evidence and adoption prerequisites."
+    },
+    {
+      "source_id": "src_006",
+      "title": "Tokenization offers more seamless and secure payments",
+      "url": "https://corporate.visa.com/en/solutions/tokenization.html",
+      "publisher": "Visa",
+      "document_date": "2026-04-29",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Current Visa tokenization product evidence and public metrics."
+    },
+    {
+      "source_id": "src_007",
+      "title": "Find and Buy with AI: Visa Unveils New Era of Commerce",
+      "url": "https://usa.visa.com/about-visa/newsroom/press-releases.release.21361.html",
+      "publisher": "Visa",
+      "document_date": "2025-04-30",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Visa Intelligent Commerce and agentic commerce partner ecosystem."
+    },
+    {
+      "source_id": "src_008",
+      "title": "Visa Introduces Trusted Agent Protocol",
+      "url": "https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.21716.html",
+      "publisher": "Visa",
+      "document_date": "2025-10-14",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Agentic-commerce protocol, Cloudflare collaboration, and developer release."
+    },
+    {
+      "source_id": "src_009",
+      "title": "Visa Accelerates Stablecoin Momentum",
+      "url": "https://investor.visa.com/news/news-details/2026/Visa-Accelerates-Stablecoin-Momentum-Adding-Five-Blockchains-for-Settlement/default.aspx",
+      "publisher": "Visa Investor Relations",
+      "document_date": "2026-04-29",
+      "accessed_at": "2026-05-06",
+      "source_type": "primary",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Latest stablecoin settlement run-rate and blockchain support."
+    },
+    {
+      "source_id": "src_010",
+      "title": "Patents Assigned to Visa International Service Association",
+      "url": "https://patents.justia.com/assignee/visa-international-service-association",
+      "publisher": "Justia Patents",
+      "document_date": "2026-05-06",
+      "accessed_at": "2026-05-06",
+      "source_type": "patent",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative assigned patent and application listings."
+    },
+    {
+      "source_id": "src_011",
+      "title": "US11676138B2 - Multi-network tokenization processing",
+      "url": "https://patents.google.com/patent/US11676138B2/en",
+      "publisher": "Google Patents",
+      "document_date": "2023-06-13",
+      "accessed_at": "2026-05-06",
+      "source_type": "patent",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative tokenization patent."
+    },
+    {
+      "source_id": "src_012",
+      "title": "US12008088B2 - Recurring token transactions",
+      "url": "https://patents.google.com/patent/US12008088B2",
+      "publisher": "Google Patents",
+      "document_date": "2024-06-11",
+      "accessed_at": "2026-05-06",
+      "source_type": "patent",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative token transaction patent."
+    },
+    {
+      "source_id": "src_013",
+      "title": "US12293286B2 - Generating input data for a machine learning model",
+      "url": "https://pubchem.ncbi.nlm.nih.gov/patent/US-12293286-B2",
+      "publisher": "PubChem / USPTO patent metadata",
+      "document_date": "2025-05-06",
+      "accessed_at": "2026-05-06",
+      "source_type": "patent",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative Visa machine-learning patent metadata."
+    },
+    {
+      "source_id": "src_014",
+      "title": "OpenAlex Quickstart",
+      "url": "https://developers.openalex.org/quickstart",
+      "publisher": "OpenAlex",
+      "document_date": "2026-05-06",
+      "accessed_at": "2026-05-06",
+      "source_type": "secondary_dataset",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Documents group-by-year method for publication proxies."
+    },
+    {
+      "source_id": "src_015",
+      "title": "OpenAlex counts_by_year caveat",
+      "url": "https://help.openalex.org/hc/en-us/articles/27250895840791-Why-are-the-counts-by-year-numbers-different-than-the-count-of-works-in-a-year",
+      "publisher": "OpenAlex",
+      "document_date": "2026-05-06",
+      "accessed_at": "2026-05-06",
+      "source_type": "secondary_dataset",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Caveat that publication year counts can drift as metadata updates."
+    },
+    {
+      "source_id": "src_016",
+      "title": "Stanford Future of Digital Currency Initiative Research",
+      "url": "https://fdc.stanford.edu/research",
+      "publisher": "Stanford University",
+      "document_date": "2026-05-06",
+      "accessed_at": "2026-05-06",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Stablecoin cross-border payments research signal."
+    },
+    {
+      "source_id": "src_017",
+      "title": "Stable Foundations",
+      "url": "https://hls.harvard.edu/bibliography/stable-foundations-towards-a-robust-and-bipartisan-approach-to-stablecoin-legislation/",
+      "publisher": "Harvard Law School",
+      "document_date": "2025",
+      "accessed_at": "2026-05-06",
+      "source_type": "academic",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Stablecoin policy framework analysis."
+    },
+    {
+      "source_id": "src_018",
+      "title": "Fact Sheet: President Signs GENIUS Act into Law",
+      "url": "https://www.whitehouse.gov/fact-sheets/2025/07/fact-sheet-president-donald-j-trump-signs-genius-act-into-law/",
+      "publisher": "The White House",
+      "document_date": "2025-07-18",
+      "accessed_at": "2026-05-06",
+      "source_type": "government",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "U.S. stablecoin regulatory framework evidence."
+    },
+    {
+      "source_id": "src_019",
+      "title": "General-purpose AI obligations under the AI Act",
+      "url": "https://digital-strategy.ec.europa.eu/en/factpages/general-purpose-ai-obligations-under-ai-act",
+      "publisher": "European Commission",
+      "document_date": "2025-08-02",
+      "accessed_at": "2026-05-06",
+      "source_type": "government",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "EU AI policy constraints for general-purpose AI models."
+    },
+    {
+      "source_id": "src_020",
+      "title": "Passkeys for Payments",
+      "url": "https://fidoalliance.org/passkey-use-case/payments/",
+      "publisher": "FIDO Alliance",
+      "document_date": "2026-05-06",
+      "accessed_at": "2026-05-06",
+      "source_type": "standards",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Payment authentication standards and passkey fit."
+    }
+  ],
+  "evidence_items": [
+    {
+      "evidence_id": "ev_001",
+      "source_id": "src_001",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "operational_scale"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa reported FY2025 total payments and cash volume of $17 trillion, nearly 5 billion payment credentials and acceptance at more than 175 million merchant locations.",
+      "raw_value": 17,
+      "raw_unit": "USD trillions",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_002",
+      "source_id": "src_001",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "processed_transactions"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa processed 257.545 billion transactions in FY2025, up 10% from 233.758 billion in FY2024.",
+      "raw_value": 257.545,
+      "raw_unit": "billion transactions",
+      "period_start": "2023",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_003",
+      "source_id": "src_001",
+      "layer": "Adoption",
+      "metric_codes": [
+        "token_scale"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa had provisioned more than 16 billion tokens as of September 30, 2025.",
+      "raw_value": 16,
+      "raw_unit": "billion tokens",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_004",
+      "source_id": "src_001",
+      "layer": "Adoption",
+      "metric_codes": [
+        "visa_direct"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa Direct processed more than 12.5 billion transactions for more than 650 partners in FY2025.",
+      "raw_value": 12.5,
+      "raw_unit": "billion transactions",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_005",
+      "source_id": "src_001",
+      "layer": "Adoption",
+      "metric_codes": [
+        "stablecoin_scale"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Stablecoin settlement volume surpassed a $2.5 billion annualized run rate as of September 30, 2025.",
+      "raw_value": 2.5,
+      "raw_unit": "USD billions annualized",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_006",
+      "source_id": "src_009",
+      "layer": "Adoption",
+      "metric_codes": [
+        "stablecoin_growth"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa announced stablecoin settlement support across nine blockchains and a $7 billion annualized stablecoin settlement run rate on April 29, 2026.",
+      "raw_value": 7,
+      "raw_unit": "USD billions annualized",
+      "period_start": "2025",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_007",
+      "source_id": "src_002",
+      "layer": "Adoption",
+      "metric_codes": [
+        "q2_2026_growth"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Fiscal Q2 2026 net revenue was $11.2 billion, up 17%; processed transactions were 66.1 billion, up 9%.",
+      "raw_value": 66.1,
+      "raw_unit": "billion transactions",
+      "period_start": "2026-Q2",
+      "period_end": "2026-Q2",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_008",
+      "source_id": "src_001",
+      "layer": "Adoption",
+      "metric_codes": [
+        "vas_revenue"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "FY2025 value-added services revenue was $10.9 billion, up 24% from $8.8 billion in FY2024.",
+      "raw_value": 10.9,
+      "raw_unit": "USD billions",
+      "period_start": "2023",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_009",
+      "source_id": "src_004",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "fraud_operations"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa said it invested more than $12 billion in technology over the prior five years and blocked $40 billion in attempted fraud on the Visa network in 2024.",
+      "raw_value": 40,
+      "raw_unit": "USD billions blocked",
+      "period_start": "2024",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_010",
+      "source_id": "src_003",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "ai_productization"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa Provisioning Intelligence uses machine learning to rate token provisioning fraud risk for financial institutions.",
+      "raw_value": null,
+      "raw_unit": "product launch",
+      "period_start": "2023",
+      "period_end": "2023",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_011",
+      "source_id": "src_007",
+      "layer": "Adoption",
+      "metric_codes": [
+        "agentic_partners"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa Intelligent Commerce named partners including Anthropic, IBM, Microsoft, Mistral AI, OpenAI, Perplexity, Samsung and Stripe.",
+      "raw_value": 8,
+      "raw_unit": "named partners",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_012",
+      "source_id": "src_008",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "agentic_protocol"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa released Trusted Agent Protocol in the Visa Developer Center and GitHub, developed with Cloudflare, to help merchants verify AI agents.",
+      "raw_value": null,
+      "raw_unit": "protocol release",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_013",
+      "source_id": "src_014",
+      "layer": "Science",
+      "metric_codes": [
+        "publication_growth"
+      ],
+      "fact_type": "field_proxy_or_context",
+      "fact": "OpenAlex field proxy for payment fraud detection machine learning showed works rising from 1,211 in 2021 to 6,228 in 2025; counts by year used: 2021 1,211, 2022 1,735, 2023 2,986, 2024 4,160, 2025 6,228.",
+      "raw_value": 6228,
+      "raw_unit": "works",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": "Field-level proxy, not Visa-authored science."
+    },
+    {
+      "evidence_id": "ev_014",
+      "source_id": "src_014",
+      "layer": "Science",
+      "metric_codes": [
+        "publication_growth"
+      ],
+      "fact_type": "field_proxy_or_context",
+      "fact": "OpenAlex field proxy for stablecoin payments showed works rising from 295 in 2021 to 1,143 in 2025; counts by year used: 2021 295, 2022 447, 2023 842, 2024 801, 2025 1,143.",
+      "raw_value": 1143,
+      "raw_unit": "works",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": "Field-level proxy, not Visa-authored science."
+    },
+    {
+      "evidence_id": "ev_015",
+      "source_id": "src_016",
+      "layer": "Science",
+      "metric_codes": [
+        "university_signal"
+      ],
+      "fact_type": "field_proxy_or_context",
+      "fact": "Stanford FDCI highlights stablecoin cross-border research using a five-year dataset of more than 41 million transactions and reports over 96% of transactions settling in under one hour.",
+      "raw_value": 41,
+      "raw_unit": "million transactions",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": "Field-level proxy, not Visa-authored science."
+    },
+    {
+      "evidence_id": "ev_016",
+      "source_id": "src_010",
+      "layer": "IP",
+      "metric_codes": [
+        "patent_activity"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Justia's current Visa assignee page lists recent 2026 grants and applications in machine learning, authentication, blockchain verification, device binding and token provisioning.",
+      "raw_value": null,
+      "raw_unit": "representative records",
+      "period_start": "2026",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_017",
+      "source_id": "src_011",
+      "layer": "IP",
+      "metric_codes": [
+        "patent_specificity"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Representative Visa patent US11676138B2 covers multi-network tokenization processing.",
+      "raw_value": null,
+      "raw_unit": "patent",
+      "period_start": "2023",
+      "period_end": "2023",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_018",
+      "source_id": "src_012",
+      "layer": "IP",
+      "metric_codes": [
+        "patent_specificity"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Representative Visa patent US12008088B2 covers recurring token transactions.",
+      "raw_value": null,
+      "raw_unit": "patent",
+      "period_start": "2024",
+      "period_end": "2024",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_019",
+      "source_id": "src_013",
+      "layer": "IP",
+      "metric_codes": [
+        "patent_specificity"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Representative Visa patent metadata for US12293286B2 covers generating input data for a machine learning model and lists Visa International Service Association as assignee.",
+      "raw_value": null,
+      "raw_unit": "patent",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_020",
+      "source_id": "src_018",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "stablecoin_policy"
+      ],
+      "fact_type": "field_proxy_or_context",
+      "fact": "The GENIUS Act created a federal regulatory system for stablecoins with reserve and disclosure requirements.",
+      "raw_value": null,
+      "raw_unit": "policy",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_021",
+      "source_id": "src_019",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "ai_policy"
+      ],
+      "fact_type": "field_proxy_or_context",
+      "fact": "EU AI Act general-purpose AI obligations began applying on August 2, 2025, including documentation, copyright policy, and systemic-risk controls for advanced models.",
+      "raw_value": null,
+      "raw_unit": "policy",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_022",
+      "source_id": "src_020",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "standards_fit"
+      ],
+      "fact_type": "field_proxy_or_context",
+      "fact": "FIDO payment passkeys support phishing-resistant transaction authorization, checkout authentication, and compliance-oriented payment flows.",
+      "raw_value": null,
+      "raw_unit": "standard",
+      "period_start": "2026",
+      "period_end": "2026",
+      "company_attributable": false,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    },
+    {
+      "evidence_id": "ev_023",
+      "source_id": "src_001",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "competition_risk"
+      ],
+      "fact_type": "sourced_fact",
+      "fact": "Visa identifies RTP networks, digital wallets, stablecoins, value-added service providers, AI-enabled competition, data, AI, privacy and cybersecurity regulation as material issues.",
+      "raw_value": null,
+      "raw_unit": "risk disclosure",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "See source notes and linked filing/page.",
+      "verified": true,
+      "limitations": ""
+    }
+  ],
+  "layers": [
+    {
+      "label": "Science",
+      "score": 3.4,
+      "display_score": "3.4",
+      "raw_score": 3.73,
+      "normalized_score": 0.746,
+      "coverage_ratio": 0.76,
+      "confidence_penalty": 0.912,
+      "confidence": "Medium",
+      "summary": "The underlying research fields are growing quickly, especially payment-fraud machine learning and stablecoin cross-border payments. The limitation is attribution: Visa looks more like a fast industrializer of applied science than a public science producer.",
+      "strong": "OpenAlex field proxies show strong publication growth; Stanford and Harvard signals indicate serious academic attention to stablecoin payment economics and regulation.",
+      "missing": "No robust public Visa-authored publication corpus or citation-impact series was identified.",
+      "metrics": [
+        {
+          "code": "publication_growth",
+          "label": "Publication growth",
+          "value": 1,
+          "weight": 0.38,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_013",
+            "ev_014"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Field proxy grew sharply from 2021 to 2025.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "citation_quality",
+          "label": "Institution quality",
+          "value": 0.66,
+          "weight": 0.27,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_015"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Stanford/Harvard/NBER-level policy and payments research exists, but it is not company-attributable.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "science_to_application",
+          "label": "Science to application linkage",
+          "value": 0.68,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_010",
+            "ev_011",
+            "ev_012",
+            "ev_015"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Visa applies AI, tokenization and stablecoin research themes directly in products.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "IP",
+      "score": 3,
+      "display_score": "3.0",
+      "raw_score": 3.32,
+      "normalized_score": 0.664,
+      "coverage_ratio": 0.68,
+      "confidence_penalty": 0.904,
+      "confidence": "Medium",
+      "summary": "Visa has technically specific patents and applications around tokenization, transaction processing, authentication, blockchain interaction and machine learning. The public record is active, but an exhaustive five-year patent-family time series was not reproducible without paid patent data.",
+      "strong": "Representative records map to real platform primitives: token provisioning, recurring-token transactions, blockchain verification and ML model inputs.",
+      "missing": "Clean global patent-family counts by priority year and family continuation maps.",
+      "metrics": [
+        {
+          "code": "patent_family_growth",
+          "label": "Patent-family growth proxy",
+          "value": 0.48,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_016"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Representative records are rising in visibility in 2025-2026, but exact annual family counts are unavailable.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "technical_specificity",
+          "label": "Technical specificity",
+          "value": 0.82,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_017",
+            "ev_018",
+            "ev_019"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Patents are specific to payments infrastructure, tokenization and model inputs.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "assignee_quality",
+          "label": "Assignee quality and standards linkage",
+          "value": 0.72,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_003",
+            "ev_020",
+            "ev_022"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Visa is a high-quality assignee operating in standards-heavy payment infrastructure.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": [
+        "IP confidence is capped by missing exhaustive patent-family counts."
+      ]
+    },
+    {
+      "label": "Industrialization",
+      "score": 4.4,
+      "display_score": "4.4",
+      "raw_score": 4.58,
+      "normalized_score": 0.916,
+      "coverage_ratio": 0.94,
+      "confidence_penalty": 0.96,
+      "confidence": "High",
+      "summary": "Visa's strongest evidence is industrialization: global processing infrastructure, token service scale, fraud operations, AI risk tooling, Visa Direct, and stablecoin settlement are operating systems rather than lab demonstrations.",
+      "strong": "FY2025 processed transactions reached 257.545 billion; token provisioning exceeded 16 billion; stablecoin settlement moved from a $2.5 billion run rate in FY2025 to $7 billion by April 2026.",
+      "missing": "Granular latency, uptime, model quality, false-positive and program-level margin data are not disclosed.",
+      "metrics": [
+        {
+          "code": "deployment_evidence",
+          "label": "Deployment evidence",
+          "value": 0.94,
+          "weight": 0.42,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_001",
+            "ev_002",
+            "ev_003",
+            "ev_006"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Multiple platforms are live at global scale.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "process_learning",
+          "label": "Process learning and tech investment",
+          "value": 0.84,
+          "weight": 0.28,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_009",
+            "ev_010",
+            "ev_012"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Fraud, cyber and developer-platform capabilities show repeated productization.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "operational_scale",
+          "label": "Operational scale",
+          "value": 0.95,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_001",
+            "ev_002",
+            "ev_007"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Transaction volume and Q2 2026 growth show production maturity.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Adoption",
+      "score": 4.5,
+      "display_score": "4.5",
+      "raw_score": 4.7,
+      "normalized_score": 0.94,
+      "coverage_ratio": 0.95,
+      "confidence_penalty": 0.96,
+      "confidence": "High",
+      "summary": "Adoption is exceptional. Visa has network-scale credentials and merchants, double-digit VAS growth, Visa Direct partner reach, agentic commerce partners and accelerating stablecoin settlement activity.",
+      "strong": "FY2025 VAS revenue grew 24%; Visa Direct processed more than 12.5 billion transactions; stablecoin settlement reached a $7 billion annualized run rate in April 2026.",
+      "missing": "Some emerging programs lack disclosed product-specific revenue, retention, issuer count and transaction-margin metrics.",
+      "metrics": [
+        {
+          "code": "volume_or_revenue",
+          "label": "Volume and revenue evidence",
+          "value": 0.95,
+          "weight": 0.38,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_001",
+            "ev_007",
+            "ev_008"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Scale and revenue growth are strong.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "partner_breadth",
+          "label": "Partner breadth",
+          "value": 0.88,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_004",
+            "ev_011",
+            "ev_012"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Visa has partner distribution across banks, sellers, AI firms and developers.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "repeatability",
+          "label": "Repeatability and deployment scale",
+          "value": 0.95,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_002",
+            "ev_003",
+            "ev_006"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "High-frequency payment rails and tokenization create repeatable adoption.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Policy & Economics",
+      "score": 3.6,
+      "display_score": "3.6",
+      "raw_score": 3.86,
+      "normalized_score": 0.772,
+      "coverage_ratio": 0.84,
+      "confidence_penalty": 0.932,
+      "confidence": "Medium",
+      "summary": "Policy is mixed but investable: stablecoin regulation is clearer after the GENIUS Act and passkeys fit FIDO standards, while AI, data localization, network routing, interchange, stablecoin and cybersecurity rules remain material constraints.",
+      "strong": "U.S. stablecoin rules and FIDO payment authentication standards support parts of Visa's roadmap.",
+      "missing": "Implementation details for stablecoin rules, AI obligations and market-by-market payment regulation remain evolving.",
+      "metrics": [
+        {
+          "code": "regulatory_fit",
+          "label": "Regulatory and standards fit",
+          "value": 0.73,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_020",
+            "ev_022"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Stablecoin and passkey standards support product direction.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "economic_readiness",
+          "label": "Economic readiness",
+          "value": 0.82,
+          "weight": 0.34,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_001",
+            "ev_008",
+            "ev_009"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "Core economics and operating scale are strong.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "policy_friction",
+          "label": "Policy friction",
+          "value": 0.58,
+          "weight": 0.26,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_021",
+            "ev_023"
+          ],
+          "normalization": {
+            "raw_inputs": {},
+            "method": "documented_judgment_scale",
+            "parameters": {},
+            "rationale": "AI/data/payment regulation and competition cap the score.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    }
+  ],
+  "dashboard_content": {
+    "hero": {
+      "headline": "Visa Inc Innovation Readiness",
+      "subheadline": "NYSE: V | Commercialization-heavy payment infrastructure analysis, updated May 6, 2026.",
+      "verdict_label": "Commercial-scale innovator with strong translational momentum",
+      "evidence_ids": [
+        "ev_001",
+        "ev_002",
+        "ev_003",
+        "ev_006",
+        "ev_008"
+      ],
+      "source_ids": [
+        "src_001",
+        "src_002",
+        "src_009"
+      ]
+    },
+    "thesis": {
+      "title": "Thesis",
+      "summary": "Visa is not a science-led breakthrough story. It is a scaled industrializer of applied payment technologies: tokenization, AI risk scoring, authentication, agentic commerce rails, Visa Direct and stablecoin settlement.",
+      "bullets": [
+        {
+          "text": "The moat is operating scale: 257.5B FY2025 processed transactions and nearly 5B payment credentials.",
+          "evidence_ids": [
+            "ev_001",
+            "ev_002"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "text": "Tokenization is deeply commercialized: more than 16B tokens provisioned, plus passkeys, Click to Pay and token fraud controls.",
+          "evidence_ids": [
+            "ev_003",
+            "ev_010",
+            "ev_022"
+          ],
+          "source_ids": [
+            "src_001",
+            "src_003",
+            "src_005"
+          ]
+        },
+        {
+          "text": "Stablecoin settlement moved from experiment toward infrastructure: $2.5B FY2025 annualized run rate to $7B by April 2026.",
+          "evidence_ids": [
+            "ev_005",
+            "ev_006"
+          ],
+          "source_ids": [
+            "src_001",
+            "src_009"
+          ]
+        }
+      ]
+    },
+    "technology_map": {
+      "title": "Technology Map",
+      "summary": "The analysis focuses on the technologies most material to Visa's future payment stack.",
+      "items": [
+        {
+          "name": "AI risk, cyber and fraud scoring",
+          "description": "Real-time risk scoring across authorization, token provisioning, scams and ecosystem security.",
+          "maturity": "commercial",
+          "evidence_ids": [
+            "ev_009",
+            "ev_010"
+          ],
+          "source_ids": [
+            "src_003",
+            "src_004"
+          ]
+        },
+        {
+          "name": "Tokenization, passkeys and identity-bound checkout",
+          "description": "Visa Token Service, Cloud Token Framework, Payment Passkey and Click to Pay increase security while reducing checkout friction.",
+          "maturity": "commercial",
+          "evidence_ids": [
+            "ev_003",
+            "ev_017",
+            "ev_022"
+          ],
+          "source_ids": [
+            "src_001",
+            "src_005",
+            "src_011"
+          ]
+        },
+        {
+          "name": "Stablecoin settlement and agentic commerce",
+          "description": "Emerging rails for always-on settlement and AI-initiated commerce, with live pilots and partner programs.",
+          "maturity": "scaling",
+          "evidence_ids": [
+            "ev_006",
+            "ev_011",
+            "ev_012"
+          ],
+          "source_ids": [
+            "src_007",
+            "src_008",
+            "src_009"
+          ]
+        }
+      ]
+    },
+    "quantitative_signals": {
+      "title": "Quantitative Signals",
+      "summary": "Publication data are field-level proxies; patent data are representative public records because clean family counts were unavailable.",
+      "charts": [
+        {
+          "chart_id": "chart_pub_fraud",
+          "title": "Payment fraud ML publications",
+          "description": "OpenAlex field proxy, works by publication year.",
+          "series": [
+            {
+              "label": "Works",
+              "unit": "works",
+              "points": [
+                {
+                  "period": "2021",
+                  "value": 1211
+                },
+                {
+                  "period": "2022",
+                  "value": 1735
+                },
+                {
+                  "period": "2023",
+                  "value": 2986
+                },
+                {
+                  "period": "2024",
+                  "value": 4160
+                },
+                {
+                  "period": "2025",
+                  "value": 6228
+                }
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "ev_013"
+          ],
+          "source_ids": [
+            "src_014",
+            "src_015"
+          ]
+        },
+        {
+          "chart_id": "chart_pub_stablecoin",
+          "title": "Stablecoin payments publications",
+          "description": "OpenAlex field proxy, works by publication year.",
+          "series": [
+            {
+              "label": "Works",
+              "unit": "works",
+              "points": [
+                {
+                  "period": "2021",
+                  "value": 295
+                },
+                {
+                  "period": "2022",
+                  "value": 447
+                },
+                {
+                  "period": "2023",
+                  "value": 842
+                },
+                {
+                  "period": "2024",
+                  "value": 801
+                },
+                {
+                  "period": "2025",
+                  "value": 1143
+                }
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "ev_014"
+          ],
+          "source_ids": [
+            "src_014",
+            "src_015"
+          ]
+        },
+        {
+          "chart_id": "chart_patent_proxy",
+          "title": "Visa patent proxy",
+          "description": "Representative open records; null means no reproducible public family count, not zero activity.",
+          "series": [
+            {
+              "label": "Representative records",
+              "unit": "records",
+              "points": [
+                {
+                  "period": "2021",
+                  "value": null,
+                  "note": "Open family count unavailable"
+                },
+                {
+                  "period": "2022",
+                  "value": null,
+                  "note": "Open family count unavailable"
+                },
+                {
+                  "period": "2023",
+                  "value": 1,
+                  "note": "Representative multi-network tokenization grant"
+                },
+                {
+                  "period": "2024",
+                  "value": 1,
+                  "note": "Representative recurring-token grant"
+                },
+                {
+                  "period": "2025",
+                  "value": 5,
+                  "note": "Representative public application/grant signals, not exhaustive"
+                }
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "ev_016",
+            "ev_017",
+            "ev_018",
+            "ev_019"
+          ],
+          "source_ids": [
+            "src_010",
+            "src_011",
+            "src_012",
+            "src_013"
+          ]
+        }
+      ]
+    },
+    "commercialization_evidence": {
+      "title": "Commercialization Evidence",
+      "summary": "Visa's emerging technologies are already connected to revenue, partners or operating workflows.",
+      "items": [
+        {
+          "label": "Visa Direct",
+          "text": "More than 12.5B FY2025 transactions and 650+ partners.",
+          "evidence_ids": [
+            "ev_004"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "Value-added services",
+          "text": "$10.9B FY2025 revenue, up 24% year over year.",
+          "evidence_ids": [
+            "ev_008"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "Stablecoin settlement",
+          "text": "$7B annualized run rate and support for nine blockchains as of April 29, 2026.",
+          "evidence_ids": [
+            "ev_006"
+          ],
+          "source_ids": [
+            "src_009"
+          ]
+        },
+        {
+          "label": "Agentic commerce",
+          "text": "Visa Intelligent Commerce and Trusted Agent Protocol provide rails for AI-agent checkout.",
+          "evidence_ids": [
+            "ev_011",
+            "ev_012"
+          ],
+          "source_ids": [
+            "src_007",
+            "src_008"
+          ]
+        }
+      ]
+    },
+    "breakthrough_gate": {
+      "title": "Breakthrough Gate",
+      "summary": "The gate is passed because Industrialization and Adoption both exceed 3.0; the thesis is commercial scale-up, not basic-science novelty.",
+      "conditions_met": [
+        {
+          "condition": "Industrialization score is at least 3.0.",
+          "evidence_ids": [
+            "ev_001",
+            "ev_002",
+            "ev_003"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "condition": "Adoption score is at least 3.0.",
+          "evidence_ids": [
+            "ev_004",
+            "ev_006",
+            "ev_008"
+          ],
+          "source_ids": [
+            "src_001",
+            "src_009"
+          ]
+        }
+      ],
+      "conditions_not_met": [
+        {
+          "condition": "Public company-authored science and exact patent-family time series are not strong enough to call this a science-led breakthrough profile.",
+          "evidence_ids": [
+            "ev_013",
+            "ev_016"
+          ],
+          "source_ids": [
+            "src_014",
+            "src_010"
+          ]
+        }
+      ],
+      "result": "Pass: plausible scale-up candidate, not frontier-science breakthrough."
+    },
+    "university_research_signals": {
+      "title": "University Research",
+      "summary": "Academic evidence supports the relevance of the fields, particularly stablecoin payments and fraud detection.",
+      "institutions": [
+        {
+          "name": "Stanford University",
+          "signal": "Stablecoin cross-border payment study with a five-year, 41M+ transaction dataset and settlement-speed evidence.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": [
+            "ev_015"
+          ],
+          "source_ids": [
+            "src_016"
+          ]
+        },
+        {
+          "name": "Harvard Law School",
+          "signal": "Stablecoin legislative framework analysis relevant to payment-stablecoin economics and risk.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": [
+            "ev_020"
+          ],
+          "source_ids": [
+            "src_017"
+          ]
+        },
+        {
+          "name": "OpenAlex-indexed field literature",
+          "signal": "Payment-fraud ML and stablecoin-payment publication proxies grew materially over 2021-2025.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": [
+            "ev_013",
+            "ev_014"
+          ],
+          "source_ids": [
+            "src_014",
+            "src_015"
+          ]
+        }
+      ]
+    },
+    "patent_signals": {
+      "title": "Patents",
+      "summary": "Visa's public patent signal is technically relevant but only partially countable from open sources.",
+      "families": [
+        {
+          "title": "Multi-network tokenization processing",
+          "publication_or_family_id": "US11676138B2",
+          "jurisdictions": [
+            "US"
+          ],
+          "priority_date": "2013-08-08",
+          "interpretation": "Token orchestration across networks is central to Visa's digital credential strategy.",
+          "evidence_ids": [
+            "ev_017"
+          ],
+          "source_ids": [
+            "src_011"
+          ]
+        },
+        {
+          "title": "Recurring token transactions",
+          "publication_or_family_id": "US12008088B2",
+          "jurisdictions": [
+            "US"
+          ],
+          "priority_date": "2018-06-18",
+          "interpretation": "Recurring commerce is a high-frequency tokenized-payment use case.",
+          "evidence_ids": [
+            "ev_018"
+          ],
+          "source_ids": [
+            "src_012"
+          ]
+        },
+        {
+          "title": "Generating input data for a machine learning model",
+          "publication_or_family_id": "US12293286B2",
+          "jurisdictions": [
+            "US"
+          ],
+          "priority_date": "2021-02-18",
+          "interpretation": "Machine-learning tooling appears in Visa's assigned patent record.",
+          "evidence_ids": [
+            "ev_019"
+          ],
+          "source_ids": [
+            "src_013"
+          ]
+        },
+        {
+          "title": "Machine learning, identity graph, blockchain verification and token provisioning applications",
+          "publication_or_family_id": "Representative Justia assignee records",
+          "jurisdictions": [
+            "US",
+            "WO"
+          ],
+          "priority_date": "2023-2025",
+          "interpretation": "Recent public filings point to ongoing engineering in core payment infrastructure.",
+          "evidence_ids": [
+            "ev_016"
+          ],
+          "source_ids": [
+            "src_010"
+          ]
+        }
+      ],
+      "interpretation": "The direction is strong; the time series is not. IP should be refreshed with Lens, Derwent, PatSnap, Google BigQuery Patents or another family-level database before peer benchmarking."
+    },
+    "red_flags": [
+      {
+        "red_flag_id": "rf_001",
+        "title": "Science attribution is weak",
+        "text": "Publication signals are field-level proxies rather than a Visa-authored science corpus.",
+        "severity": "medium",
+        "layer": "Science",
+        "evidence_ids": [
+          "ev_013",
+          "ev_014"
+        ],
+        "source_ids": [
+          "src_014",
+          "src_015"
+        ]
+      },
+      {
+        "red_flag_id": "rf_002",
+        "title": "Patent counts are incomplete",
+        "text": "Open sources show representative Visa patent activity but not a clean five-year global patent-family count.",
+        "severity": "medium",
+        "layer": "IP",
+        "evidence_ids": [
+          "ev_016"
+        ],
+        "source_ids": [
+          "src_010"
+        ]
+      },
+      {
+        "red_flag_id": "rf_003",
+        "title": "Policy exposure is structural",
+        "text": "Routing, interchange, AI, privacy, cybersecurity, data localization and stablecoin rules can alter economics or deployment options.",
+        "severity": "high",
+        "layer": "Policy & Economics",
+        "evidence_ids": [
+          "ev_021",
+          "ev_023"
+        ],
+        "source_ids": [
+          "src_001",
+          "src_019"
+        ]
+      },
+      {
+        "red_flag_id": "rf_004",
+        "title": "Emerging product metrics are thin",
+        "text": "Agentic commerce and stablecoin settlement are promising but still small relative to Visa's core network.",
+        "severity": "medium",
+        "layer": "Adoption",
+        "evidence_ids": [
+          "ev_006",
+          "ev_011",
+          "ev_012"
+        ],
+        "source_ids": [
+          "src_007",
+          "src_008",
+          "src_009"
+        ]
+      }
+    ],
+    "watchlist": {
+      "title": "What Would Change The View",
+      "upgrade_signals": [
+        {
+          "text": "Disclosed product-level revenue or margin contribution from AI risk tools, tokenization, agentic commerce or stablecoin settlement.",
+          "monitoring_source": "10-K, 10-Q, earnings calls and investor presentations."
+        },
+        {
+          "text": "Family-level patent growth in tokenization, AI risk, identity, blockchain settlement and agentic payment protocols.",
+          "monitoring_source": "USPTO, WIPO, EPO, Google Patents, Lens or paid patent databases."
+        },
+        {
+          "text": "Stablecoin settlement moving from billions to tens of billions annualized with named issuer/acquirer adoption.",
+          "monitoring_source": "Visa press releases, blockchain analytics and bank partner disclosures."
+        }
+      ],
+      "downgrade_signals": [
+        {
+          "text": "Regulatory action constraining routing, fees, tokenization, AI scoring or stablecoin settlement.",
+          "monitoring_source": "SEC filings, CFPB, Fed, EU, local payment regulators and court dockets."
+        },
+        {
+          "text": "Rising fraud, cyber incidents or false-decline costs that imply AI risk controls are losing effectiveness.",
+          "monitoring_source": "10-K risk factors, breach disclosures, fraud-loss commentary and client disclosures."
+        },
+        {
+          "text": "Agentic commerce partners bypassing card networks or using alternative settlement rails at scale.",
+          "monitoring_source": "Merchant, wallet, AI platform and processor announcements."
+        }
+      ],
+      "cadence": [
+        {
+          "frequency": "quarterly",
+          "task": "Refresh filings, operating metrics, product announcements and scorecard evidence."
+        },
+        {
+          "frequency": "semiannual",
+          "task": "Rebuild publication and patent proxies with a family-level patent database."
+        }
+      ]
+    },
+    "operational_snapshot": {
+      "title": "Operational Snapshot",
+      "metrics": [
+        {
+          "label": "FY2025 total payments + cash volume",
+          "value": "$17T",
+          "period": "2025",
+          "evidence_ids": [
+            "ev_001"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "FY2025 processed transactions",
+          "value": "257.5B",
+          "period": "2025",
+          "evidence_ids": [
+            "ev_002"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "Visa credentials",
+          "value": "Nearly 5B",
+          "period": "2025",
+          "evidence_ids": [
+            "ev_001"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "Merchant acceptance",
+          "value": "175M+",
+          "period": "2025",
+          "evidence_ids": [
+            "ev_001"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "Tokens provisioned",
+          "value": "16B+",
+          "period": "2025",
+          "evidence_ids": [
+            "ev_003"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "FY2025 VAS revenue",
+          "value": "$10.9B",
+          "period": "2025",
+          "evidence_ids": [
+            "ev_008"
+          ],
+          "source_ids": [
+            "src_001"
+          ]
+        },
+        {
+          "label": "Q2 2026 processed transactions",
+          "value": "66.1B",
+          "period": "2026-Q2",
+          "evidence_ids": [
+            "ev_007"
+          ],
+          "source_ids": [
+            "src_002"
+          ]
+        },
+        {
+          "label": "Stablecoin settlement run rate",
+          "value": "$7B",
+          "period": "2026-04-29",
+          "evidence_ids": [
+            "ev_006"
+          ],
+          "source_ids": [
+            "src_009"
+          ]
+        }
+      ]
+    },
+    "method_notes": {
+      "title": "Method Notes",
+      "notes": [
+        "This is an absolute readiness score, not a peer ranking.",
+        "Science metrics use field-level publication proxies because a Visa-authored publication corpus was not identified.",
+        "Patent trend uses representative open patent records; exact annual global family counts were unavailable from public sources in this environment.",
+        "The breakthrough gate requires Industrialization and Adoption scores above 3.0. Visa passes those gates."
+      ]
+    },
+    "bottom_line": {
+      "title": "Bottom Line",
+      "text": "Visa is a high-confidence commercial scale-up innovator. Its advantage is not publishing frontier science; it is converting AI risk scoring, tokenization, authentication, agentic commerce and stablecoin settlement into live infrastructure at global payments scale.",
+      "evidence_ids": [
+        "ev_001",
+        "ev_003",
+        "ev_006",
+        "ev_008",
+        "ev_009"
+      ],
+      "source_ids": [
+        "src_001",
+        "src_004",
+        "src_009"
+      ]
+    }
+  },
+  "storage_metadata": {
+    "intended_store": "sqlite",
+    "recommended_primary_keys": {
+      "sources": "source_id",
+      "evidence_items": "evidence_id",
+      "metrics": "company + research_date + layer + metric_code"
+    },
+    "content_hash_fields": [
+      "sources",
+      "evidence_items",
+      "layers",
+      "dashboard_content",
+      "claims"
+    ]
+  },
+  "total_score": 18.9,
+  "display_total_score": "18.9",
+  "gate_pass": true,
+  "verdict": "Commercial-scale innovator with strong translational momentum",
+  "scorer_metadata": {
+    "scorer_name": "score_innovation_benchmark.py",
+    "scorer_version": "1.2.0",
+    "metric_rules_version": "1.2.0",
+    "formula": "layer_score = 5 * confidence_penalty * sum(weight_i * metric_i_value)"
+  },
+  "claims": [
+    {
+      "claim_id": "claim_001",
+      "section": "thesis",
+      "text": "Visa's strongest innovation signal is commercial deployment at global payment-network scale.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_001",
+        "ev_002",
+        "ev_003"
+      ],
+      "source_ids": [
+        "src_001"
+      ]
+    },
+    {
+      "claim_id": "claim_002",
+      "section": "science",
+      "text": "Science evidence is mostly field-level rather than Visa-authored.",
+      "claim_type": "limitation",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_013",
+        "ev_014"
+      ],
+      "source_ids": [
+        "src_014",
+        "src_015"
+      ]
+    },
+    {
+      "claim_id": "claim_003",
+      "section": "ip",
+      "text": "Visa's IP is technically relevant, but the open annual patent-family trend is incomplete.",
+      "claim_type": "limitation",
+      "confidence": "Medium",
+      "evidence_ids": [
+        "ev_016",
+        "ev_017",
+        "ev_018",
+        "ev_019"
+      ],
+      "source_ids": [
+        "src_010",
+        "src_011",
+        "src_012",
+        "src_013"
+      ]
+    },
+    {
+      "claim_id": "claim_004",
+      "section": "bottom_line",
+      "text": "Visa is a high-confidence commercial scale-up innovator rather than a science-led breakthrough company.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_001",
+        "ev_006",
+        "ev_008",
+        "ev_009"
+      ],
+      "source_ids": [
+        "src_001",
+        "src_004",
+        "src_009"
+      ]
+    }
+  ]
+}

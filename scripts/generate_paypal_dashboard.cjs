@@ -2,8 +2,12 @@ const fs = require("fs");
 const path = require("path");
 
 const root = path.resolve(__dirname, "..");
-const dataPath = path.join(root, "public", "data", "paypal_holdings_inc_scored.json");
-const outPath = path.join(root, "public", "paypal_holdings_inc_dashboard.html");
+if (!process.argv[2]) {
+  throw new Error("Usage: node scripts/generate_paypal_dashboard.cjs public/runs/{company_slug}/{research_date}/{run_id}/scored.json [output.html]");
+}
+
+const dataPath = path.resolve(root, process.argv[2]);
+const outPath = process.argv[3] ? path.resolve(root, process.argv[3]) : path.join(path.dirname(dataPath), "dashboard.html");
 const data = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 
 const escapeHtml = (value) =>
@@ -302,5 +306,6 @@ const html = `<!doctype html>
 </html>
 `;
 
+fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, html, "utf8");
 console.log(outPath);

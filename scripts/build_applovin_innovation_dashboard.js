@@ -1,0 +1,1756 @@
+const fs = require("fs");
+const path = require("path");
+const { execFileSync } = require("child_process");
+
+const repoRoot = path.resolve(__dirname, "..");
+const runDir = path.join(
+  repoRoot,
+  "public",
+  "runs",
+  "applovin-corp",
+  "2026-05-06",
+  "run-20260506-app-innovation"
+);
+
+const payloadPath = path.join(runDir, "payload.json");
+const scoredPath = path.join(runDir, "scored.json");
+const dashboardPath = path.join(runDir, "dashboard.html");
+const scorerPath = path.join(
+  repoRoot,
+  ".codex",
+  "skills",
+  "technology-innovation-analysis",
+  "score_innovation_benchmark.py"
+);
+
+function metric(code, label, value, weight, evidenceIds, rawInputs, rationale) {
+  return {
+    code,
+    label,
+    value,
+    weight,
+    unit: "normalized_0_to_1",
+    source_type: "mixed",
+    verified: true,
+    evidence_ids: evidenceIds,
+    normalization: {
+      raw_inputs: rawInputs,
+      method: "analyst_normalized_absolute_scale",
+      parameters: { floor: 0, cap: 1 },
+      rationale,
+      judgment_level: "medium",
+    },
+  };
+}
+
+const payload = {
+  schema_version: "2.1",
+  company: "AppLovin Corp",
+  ticker: "NASDAQ: APP",
+  mode: "absolute",
+  benchmark_ready: true,
+  skill_metadata: {
+    skill_name: "technology-innovation-analysis",
+    skill_version: "1.2.0",
+    skill_path: ".codex/skills/technology-innovation-analysis/SKILL.md",
+    scorer_name: "score_innovation_benchmark.py",
+    scorer_version: "1.2.0",
+    metric_rules_version: "1.2.0",
+  },
+  research_run: {
+    research_date: "2026-05-06",
+    analyst: "codex",
+    run_id: "run-20260506-app-innovation",
+    user_request:
+      "Research AppLovin Corp, NASDAQ: APP using the innovation-analysis skill and present the results in a Desert Rose dashboard.",
+    time_horizon: "Five years where source data supports it; latest primary financial source is FY 2025 because Q1 2026 results were scheduled after the market close on 2026-05-06.",
+    research_mode: "web_research_with_deterministic_scoring",
+  },
+  research_context: {
+    focus_technologies: [
+      "Axon AI advertising recommendation engine",
+      "MAX real-time in-app bidding and monetization",
+      "Adjust measurement and attribution",
+      "Wurl connected-TV advertising and distribution",
+    ],
+    company_identifiers: {
+      legal_name: "AppLovin Corporation",
+      ticker: "NASDAQ: APP",
+      cik: "0001751008",
+      sic: "7370 Services-Computer Programming, Data Processing, Etc.",
+    },
+    source_availability: [
+      {
+        domain: "company_filings",
+        status: "available",
+        note: "SEC 2025 10-K and company FY 2025 earnings release were available and used as primary evidence.",
+      },
+      {
+        domain: "patents",
+        status: "partial",
+        note: "Open public searches surfaced representative AppLovin-related patents, but not a clean assignee-level family census for 2021-2025.",
+      },
+      {
+        domain: "scientometrics",
+        status: "partial",
+        note: "OpenAlex documentation and web-indexed academic papers were available; the OpenAlex API was not reachable from the local shell, so field growth is treated as a proxy with low census confidence.",
+      },
+    ],
+    search_log: [
+      {
+        query: "AppLovin 2025 10-K SEC Axon AI",
+        source: "web_search",
+        date: "2026-05-06",
+        result_quality: "high",
+        selected: true,
+        selection_reason: "Primary SEC filing with business, R&D, risk, and financial disclosure.",
+      },
+      {
+        query: "AppLovin patents assignee AppLovin Corporation",
+        source: "web_search",
+        date: "2026-05-06",
+        result_quality: "medium",
+        selected: true,
+        selection_reason: "Patent databases surfaced representative records but not a complete family trend.",
+      },
+      {
+        query: "real-time bidding online advertising machine learning research 2024 2025",
+        source: "web_search",
+        date: "2026-05-06",
+        result_quality: "medium",
+        selected: true,
+        selection_reason: "Used to identify field-level academic activity relevant to AppLovin's applied AI domain.",
+      },
+    ],
+    exclusions: [
+      {
+        candidate_source_or_metric: "Unsourced social-media commentary and stock message boards",
+        reason: "Not primary, not reproducible, and not useful for innovation scoring.",
+      },
+      {
+        candidate_source_or_metric: "Peer percentile score",
+        reason: "The requested run is single-company mode; peer benchmarks were not constructed.",
+      },
+    ],
+    judgment_calls: [
+      {
+        topic: "Science layer proxy",
+        decision: "Scored the science layer using field-level RTB, auction, causal-inference, and ML advertising research rather than company-authored papers.",
+        rationale: "AppLovin's disclosed innovation is mostly proprietary applied engineering, not open academic publication.",
+        impact: "Science confidence is medium-low and does not imply AppLovin directly produced the underlying science.",
+      },
+      {
+        topic: "Patent-family proxy",
+        decision: "Used representative public patent records and explicit patent-source limitations instead of an exhaustive family count.",
+        rationale: "Open sources did not provide a clean AppLovin-assignee patent-family time series.",
+        impact: "IP score and confidence are deliberately low.",
+      },
+      {
+        topic: "Q1 2026 timing",
+        decision: "Used FY 2025 as the latest financial evidence.",
+        rationale: "AppLovin announced Q1 2026 results would be reported after the U.S. market close on May 6, 2026; no Q1 result was found during this run.",
+        impact: "Operational snapshot uses FY 2025 and notes the pending Q1 2026 update.",
+      },
+    ],
+  },
+  sources: [
+    {
+      source_id: "src_001",
+      title: "AppLovin Corp 2025 Form 10-K",
+      url: "https://www.sec.gov/Archives/edgar/data/1751008/000175100826000010/app-20251231.htm",
+      publisher: "U.S. Securities and Exchange Commission",
+      document_date: "2026-02-19",
+      accessed_at: "2026-05-06",
+      source_type: "primary",
+      availability: "available",
+      reliability: "high",
+      notes: "Primary annual filing for FY 2025.",
+    },
+    {
+      source_id: "src_002",
+      title: "AppLovin Announces Fourth Quarter and Full Year 2025 Financial Results",
+      url: "https://investors.applovin.com/news/news-details/2026/AppLovin-Announces-Fourth-Quarter-and-Full-Year-2025-Financial-Results/default.aspx",
+      publisher: "AppLovin Investor Relations",
+      document_date: "2026-02-11",
+      accessed_at: "2026-05-06",
+      source_type: "primary",
+      availability: "available",
+      reliability: "high",
+      notes: "Company financial update and FY 2025 highlights.",
+    },
+    {
+      source_id: "src_003",
+      title: "About AppLovin's Axon AI",
+      url: "https://legal.applovin.com/about-applovins-axon-ai/",
+      publisher: "AppLovin Legal",
+      document_date: "2026",
+      accessed_at: "2026-05-06",
+      source_type: "primary",
+      availability: "available",
+      reliability: "medium",
+      notes: "Company explanation of Axon AI data and bidding behavior.",
+    },
+    {
+      source_id: "src_004",
+      title: "AppLovin Corp 2023 Form 10-K",
+      url: "https://www.sec.gov/Archives/edgar/data/1751008/000175100824000012/app-20231231.htm",
+      publisher: "U.S. Securities and Exchange Commission",
+      document_date: "2024-02-26",
+      accessed_at: "2026-05-06",
+      source_type: "primary",
+      availability: "available",
+      reliability: "high",
+      notes: "Historical R&D and software-platform revenue disclosure.",
+    },
+    {
+      source_id: "src_005",
+      title: "AppLovin to Announce First Quarter 2026 Results",
+      url: "https://investors.applovin.com/news/news-details/2026/AppLovin-to-Announce-First-Quarter-2026-Results/default.aspx",
+      publisher: "AppLovin Investor Relations",
+      document_date: "2026-04-01",
+      accessed_at: "2026-05-06",
+      source_type: "primary",
+      availability: "available",
+      reliability: "high",
+      notes: "Confirms Q1 2026 timing.",
+    },
+    {
+      source_id: "src_006",
+      title: "Patents Assigned to AppLovin Corporation",
+      url: "https://patents.justia.com/assignee/applovin-corporation",
+      publisher: "Justia Patents",
+      document_date: "undated",
+      accessed_at: "2026-05-06",
+      source_type: "patent_database",
+      availability: "available",
+      reliability: "medium",
+      notes: "Representative AppLovin-assignee patent listing.",
+    },
+    {
+      source_id: "src_007",
+      title: "AppLovin Corp: Patents",
+      url: "https://www.globaldata.com/company-profile/applovin-corporation/patents/",
+      publisher: "GlobalData",
+      document_date: "undated",
+      accessed_at: "2026-05-06",
+      source_type: "patent_database",
+      availability: "available",
+      reliability: "medium",
+      notes: "Patent trend table surfaced by web search.",
+    },
+    {
+      source_id: "src_008",
+      title: "OpenAlex API Overview",
+      url: "https://developers.openalex.org/api-reference/introduction",
+      publisher: "OpenAlex",
+      document_date: "2026",
+      accessed_at: "2026-05-06",
+      source_type: "scientometric_database",
+      availability: "partial",
+      reliability: "high",
+      notes: "Used to document intended scientometric method and data availability limits.",
+    },
+    {
+      source_id: "src_009",
+      title: "Optimizing Real-Time Bidding Strategies: An Experimental Analysis of Reinforcement Learning and Machine Learning Techniques",
+      url: "https://www.sciencedirect.com/science/article/pii/S1877050924008676",
+      publisher: "Procedia Computer Science",
+      document_date: "2024",
+      accessed_at: "2026-05-06",
+      source_type: "academic",
+      availability: "available",
+      reliability: "medium",
+      notes: "Recent field-level RTB optimization research.",
+    },
+    {
+      source_id: "src_010",
+      title: "Online Causal Inference for Advertising in Real-Time Bidding Auctions",
+      url: "https://www.kellogg.northwestern.edu/faculty/research/detail/2025/online-causal-inference-for-advertising-in-real-time-bidding/",
+      publisher: "Kellogg School of Management",
+      document_date: "2025",
+      accessed_at: "2026-05-06",
+      source_type: "academic",
+      availability: "available",
+      reliability: "high",
+      notes: "University-hosted summary of Marketing Science article.",
+    },
+    {
+      source_id: "src_011",
+      title: "AppLovin Data-Collecting Practices Target of SEC Probe, Sources Tell Bloomberg",
+      url: "https://www.marketscreener.com/news/applovin-data-collecting-practices-target-of-sec-probe-sources-tell-bloomberg-ce7d5bddd88afe22",
+      publisher: "MarketScreener / Dow Jones summary of Bloomberg reporting",
+      document_date: "2025-10-06",
+      accessed_at: "2026-05-06",
+      source_type: "reputable_secondary",
+      availability: "available",
+      reliability: "medium",
+      notes: "Regulatory-risk signal; no finding of wrongdoing implied.",
+    },
+    {
+      source_id: "src_012",
+      title: "AppLovin shares tumble as short sellers question its centerpiece AXON ad software",
+      url: "https://www.cnbc.com/2025/02/26/applovin-shares-tumble-as-short-sellers-target-axon-ad-software.html",
+      publisher: "CNBC",
+      document_date: "2025-02-26",
+      accessed_at: "2026-05-06",
+      source_type: "reputable_secondary",
+      availability: "available",
+      reliability: "medium",
+      notes: "Records short-seller allegations and market response; allegations are not treated as proven facts.",
+    },
+    {
+      source_id: "src_013",
+      title: "AXON AI Trademark Overview",
+      url: "https://furm.com/trademarks/axon-ai-98541932",
+      publisher: "Furm / USPTO trademark data mirror",
+      document_date: "2025",
+      accessed_at: "2026-05-06",
+      source_type: "trademark_database",
+      availability: "available",
+      reliability: "medium",
+      notes: "Trademark evidence for Axon AI product branding.",
+    },
+    {
+      source_id: "src_014",
+      title: "Online Causal Inference for Advertising in Real-Time Bidding Auctions",
+      url: "https://pubsonline.informs.org/doi/10.1287/mksc.2022.0406",
+      publisher: "Marketing Science / INFORMS",
+      document_date: "2024-08-14",
+      accessed_at: "2026-05-06",
+      source_type: "academic",
+      availability: "available",
+      reliability: "high",
+      notes: "Peer-reviewed RTB causality paper.",
+    },
+  ],
+  evidence_items: [
+    {
+      evidence_id: "ev_001",
+      source_id: "src_001",
+      layer: "Industrialization",
+      metric_codes: ["manufacturing_or_deployment_evidence", "operational_scale_signal"],
+      fact_type: "raw_observation",
+      fact: "AppLovin describes end-to-end AI-powered advertising solutions, with Axon Ads Manager powered by Axon AI, MAX real-time bidding, Adjust measurement, and Wurl CTV.",
+      raw_value: null,
+      raw_unit: "product_disclosure",
+      period_start: "2025",
+      period_end: "2025",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "Item 1 Business, lines around product descriptions",
+      verified: true,
+      limitations: "Company disclosure; no independent technical benchmark.",
+    },
+    {
+      evidence_id: "ev_002",
+      source_id: "src_001",
+      layer: "Adoption",
+      metric_codes: ["revenue_or_booking_evidence", "repeatability_or_deployment_scale"],
+      fact_type: "raw_observation",
+      fact: "FY 2025 revenue from continuing operations was $5.4807 billion, up from $3.2241 billion in 2024 and $1.8418 billion in 2023.",
+      raw_value: 5480.717,
+      raw_unit: "USD millions",
+      period_start: "2023",
+      period_end: "2025",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "Consolidated statements of operations",
+      verified: true,
+      limitations: "Revenue is not a direct technical-performance metric.",
+    },
+    {
+      evidence_id: "ev_003",
+      source_id: "src_003",
+      layer: "Industrialization",
+      metric_codes: ["process_learning_or_capex"],
+      fact_type: "raw_observation",
+      fact: "AppLovin says Axon AI evaluates potential ad impressions against advertiser return goals, bids based on predicted impression value, and improves through ongoing data ingestion, self-learning, and engineering oversight.",
+      raw_value: null,
+      raw_unit: "technical_disclosure",
+      period_start: "2026",
+      period_end: "2026",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "About AppLovin's Axon AI",
+      verified: true,
+      limitations: "Company explanation, not independently audited model performance.",
+    },
+    {
+      evidence_id: "ev_004",
+      source_id: "src_001",
+      layer: "Industrialization",
+      metric_codes: ["process_learning_or_capex"],
+      fact_type: "raw_observation",
+      fact: "R&D expense from continuing operations was $226.5 million in 2025, $374.7 million in 2024, and $333.8 million in 2023; the 2025 decrease was mainly lower personnel-related costs.",
+      raw_value: 226.51,
+      raw_unit: "USD millions",
+      period_start: "2023",
+      period_end: "2025",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "Research and development expense discussion",
+      verified: true,
+      limitations: "R&D expense does not isolate Axon AI spend.",
+    },
+    {
+      evidence_id: "ev_005",
+      source_id: "src_002",
+      layer: "Adoption",
+      metric_codes: ["revenue_or_booking_evidence", "economic_readiness"],
+      fact_type: "raw_observation",
+      fact: "FY 2025 adjusted EBITDA was $4.512 billion and free cash flow was $3.952 billion.",
+      raw_value: 3951.952,
+      raw_unit: "USD millions free cash flow",
+      period_start: "2025",
+      period_end: "2025",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "FY 2025 financial highlights",
+      verified: true,
+      limitations: "Profitability can reflect market structure as well as innovation.",
+    },
+    {
+      evidence_id: "ev_006",
+      source_id: "src_001",
+      layer: "Policy & Economics",
+      metric_codes: ["economic_readiness"],
+      fact_type: "raw_observation",
+      fact: "AppLovin completed the sale of its Apps business on June 30, 2025, leaving advertising solutions as the core continuing business.",
+      raw_value: null,
+      raw_unit: "transaction",
+      period_start: "2025-06-30",
+      period_end: "2025-06-30",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "Recent developments",
+      verified: true,
+      limitations: "Strategic focus improves interpretability but adds transition risk.",
+    },
+    {
+      evidence_id: "ev_007",
+      source_id: "src_007",
+      layer: "IP",
+      metric_codes: ["patent_family_growth", "technical_specificity", "science_to_patent_or_assignee_quality"],
+      fact_type: "raw_observation",
+      fact: "Open patent-source search surfaced AppLovin-related patent publications/grants including one in 2021 and three in 2022, with no clean public AppLovin-assignee family trend found for 2023-2025.",
+      raw_value: 4,
+      raw_unit: "observed_public_records_2021_2025",
+      period_start: "2021",
+      period_end: "2025",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "GlobalData patent trend search result",
+      verified: true,
+      limitations: "Representative patent database result, not exhaustive family census.",
+    },
+    {
+      evidence_id: "ev_008",
+      source_id: "src_006",
+      layer: "IP",
+      metric_codes: ["technical_specificity"],
+      fact_type: "raw_observation",
+      fact: "Justia lists an AppLovin patent application titled Advertisement Selection Based on Mobile Applications, filed in 2012 and published in 2013.",
+      raw_value: 1,
+      raw_unit: "patent_application",
+      period_start: "2012",
+      period_end: "2013",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "Justia AppLovin assignee page",
+      verified: true,
+      limitations: "Older record; not evidence of recent IP momentum.",
+    },
+    {
+      evidence_id: "ev_009",
+      source_id: "src_009",
+      layer: "Science",
+      metric_codes: ["publication_growth", "science_to_application_linkage"],
+      fact_type: "raw_observation",
+      fact: "A 2024 open-access RTB study evaluates reinforcement-learning and machine-learning methods on campaign simulations using CTR, conversion, ROI, win-rate, CPM, and effective CPC metrics.",
+      raw_value: 1,
+      raw_unit: "representative_recent_paper",
+      period_start: "2024",
+      period_end: "2024",
+      company_attributable: false,
+      field_proxy: true,
+      quote_or_excerpt: "",
+      location: "ScienceDirect article page",
+      verified: true,
+      limitations: "Field proxy; not AppLovin-authored research.",
+    },
+    {
+      evidence_id: "ev_010",
+      source_id: "src_010",
+      layer: "Science",
+      metric_codes: ["citation_velocity_or_quality", "science_to_application_linkage"],
+      fact_type: "raw_observation",
+      fact: "Northwestern Kellogg, Georgia Tech, and Google-affiliated researchers published Marketing Science work on causal inference in RTB auctions.",
+      raw_value: 1,
+      raw_unit: "peer_reviewed_research_signal",
+      period_start: "2024",
+      period_end: "2025",
+      company_attributable: false,
+      field_proxy: true,
+      quote_or_excerpt: "",
+      location: "Kellogg and Marketing Science pages",
+      verified: true,
+      limitations: "Field proxy; source confirms research quality but not AppLovin involvement.",
+    },
+    {
+      evidence_id: "ev_011",
+      source_id: "src_008",
+      layer: "Science",
+      metric_codes: ["publication_growth"],
+      fact_type: "limitation",
+      fact: "OpenAlex offers works search and grouping APIs, but the local shell could not resolve api.openalex.org during this run; a reproducible annual publication census was not produced.",
+      raw_value: null,
+      raw_unit: "source_availability",
+      period_start: "2021",
+      period_end: "2025",
+      company_attributable: false,
+      field_proxy: true,
+      quote_or_excerpt: "",
+      location: "OpenAlex API docs and local curl failure",
+      verified: true,
+      limitations: "This is a coverage limitation, not a negative scientific signal.",
+    },
+    {
+      evidence_id: "ev_012",
+      source_id: "src_011",
+      layer: "Policy & Economics",
+      metric_codes: ["regulatory_or_standards_fit"],
+      fact_type: "risk_signal",
+      fact: "Bloomberg-reported sources said the SEC examined AppLovin data-collection practices and alleged platform agreement violations; AppLovin did not confirm a probe and said material developments would be disclosed through appropriate channels.",
+      raw_value: null,
+      raw_unit: "regulatory_risk_signal",
+      period_start: "2025-10-06",
+      period_end: "2025-10-06",
+      company_attributable: false,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "MarketScreener / Dow Jones summary",
+      verified: true,
+      limitations: "No finding of wrongdoing is established by the report.",
+    },
+    {
+      evidence_id: "ev_013",
+      source_id: "src_012",
+      layer: "Policy & Economics",
+      metric_codes: ["regulatory_or_standards_fit"],
+      fact_type: "risk_signal",
+      fact: "Short sellers publicly questioned the integrity of AXON and alleged improper ad practices in February 2025; these are treated as unresolved allegations, not proven facts.",
+      raw_value: null,
+      raw_unit: "controversy",
+      period_start: "2025-02-26",
+      period_end: "2025-02-26",
+      company_attributable: false,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "CNBC report",
+      verified: true,
+      limitations: "Short-seller reports have incentive conflicts and require independent corroboration.",
+    },
+    {
+      evidence_id: "ev_014",
+      source_id: "src_005",
+      layer: "Adoption",
+      metric_codes: ["revenue_or_booking_evidence"],
+      fact_type: "raw_observation",
+      fact: "AppLovin said it would report Q1 2026 results after the U.S. market close on May 6, 2026.",
+      raw_value: null,
+      raw_unit: "event_timing",
+      period_start: "2026-05-06",
+      period_end: "2026-05-06",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "Q1 2026 results announcement",
+      verified: true,
+      limitations: "This run does not include Q1 2026 actual results.",
+    },
+    {
+      evidence_id: "ev_015",
+      source_id: "src_013",
+      layer: "IP",
+      metric_codes: ["science_to_patent_or_assignee_quality"],
+      fact_type: "raw_observation",
+      fact: "The AXON AI trademark application was filed in May 2024 and published for opposition in July 2025, indicating product-brand protection around the AI advertising engine.",
+      raw_value: 1,
+      raw_unit: "trademark_application",
+      period_start: "2024",
+      period_end: "2025",
+      company_attributable: true,
+      field_proxy: false,
+      quote_or_excerpt: "",
+      location: "Trademark overview",
+      verified: true,
+      limitations: "Trademark protection is not technical IP and should not substitute for patents.",
+    },
+  ],
+  layers: [
+    {
+      label: "Science",
+      coverage_ratio: 0.72,
+      summary:
+        "The underlying field is active and application-oriented, especially around RTB auctions, reinforcement learning, bid optimization, and causal measurement. The signal is field-level rather than AppLovin-authored.",
+      strong:
+        "Recent academic work uses practical campaign, auction, ROI, and causal-inference settings that map closely to AppLovin's disclosed Axon/MAX problem domain.",
+      missing:
+        "No meaningful AppLovin-authored publication stream or reproducible OpenAlex annual publication census was available in this run.",
+      metrics: [
+        metric(
+          "publication_growth",
+          "Publication Growth Proxy",
+          0.58,
+          0.34,
+          ["ev_009", "ev_011"],
+          { census_status: "partial", representative_recent_papers: 2 },
+          "Active recent RTB/ML papers support a moderate field-growth signal, but missing annual census limits confidence."
+        ),
+        metric(
+          "citation_velocity_or_quality",
+          "Research Quality",
+          0.6,
+          0.33,
+          ["ev_010"],
+          { peer_reviewed_or_university_hosted_signals: 1 },
+          "Marketing Science and university-affiliated work indicate credible research quality."
+        ),
+        metric(
+          "science_to_application_linkage",
+          "Application Linkage",
+          0.65,
+          0.33,
+          ["ev_009", "ev_010"],
+          { domain_match: "RTB auctions, bid optimization, causal measurement" },
+          "The science maps directly to ad auction, return optimization, and measurement problems."
+        ),
+      ],
+      caps: [],
+    },
+    {
+      label: "IP",
+      coverage_ratio: 0.55,
+      summary:
+        "AppLovin appears to rely more on proprietary data, models, systems, trade secrets, and product execution than on visible recent patent-family momentum.",
+      strong:
+        "Representative records show technical software patents and an older ad-selection patent application; Axon AI branding is being protected.",
+      missing:
+        "No clean rising 2021-2025 AppLovin-assignee patent-family series was found, and recent Axon-specific patent linkage is weak in open sources.",
+      metrics: [
+        metric(
+          "patent_family_growth",
+          "Patent Family Growth",
+          0.12,
+          0.35,
+          ["ev_007"],
+          { observed_public_records_by_year: { "2021": 1, "2022": 3, "2023": 0, "2024": 0, "2025": 0 } },
+          "Observed open records do not show recent rising AppLovin patent momentum."
+        ),
+        metric(
+          "technical_specificity",
+          "Technical Specificity",
+          0.45,
+          0.35,
+          ["ev_007", "ev_008"],
+          { representative_records: 5 },
+          "Available records are technically specific, but many are older or not clearly Axon-specific."
+        ),
+        metric(
+          "science_to_patent_or_assignee_quality",
+          "Assignee And Brand Signal",
+          0.42,
+          0.3,
+          ["ev_007", "ev_015"],
+          { patent_records: 4, trademark_records: 1 },
+          "AppLovin is a credible assignee and protects Axon branding, but trademark signal is not technical IP."
+        ),
+      ],
+      caps: [],
+    },
+    {
+      label: "Industrialization",
+      coverage_ratio: 0.88,
+      summary:
+        "The technology is industrialized as a live software platform: Axon Ads Manager, MAX, Adjust, and Wurl are disclosed operating products at very large ad-auction scale.",
+      strong:
+        "Management discloses microsecond-scale auctions, ongoing Axon AI deployment, datacenter costs, engineering investment, and rapid feature deployment.",
+      missing:
+        "AppLovin does not disclose model architecture, offline/online lift, yield, or third-party audited performance benchmarks.",
+      metrics: [
+        metric(
+          "manufacturing_or_deployment_evidence",
+          "Deployment Evidence",
+          0.93,
+          0.36,
+          ["ev_001", "ev_003"],
+          { products_deployed: 4, domain: "advertising software" },
+          "Multiple named products are live and central to revenue generation."
+        ),
+        metric(
+          "process_learning_or_capex",
+          "Process Learning",
+          0.82,
+          0.32,
+          ["ev_003", "ev_004"],
+          { rd_2025_usd_millions: 226.51, rd_2024_usd_millions: 374.71 },
+          "Continual model learning, engineering oversight, R&D, and datacenter costs indicate operational learning."
+        ),
+        metric(
+          "operational_scale_signal",
+          "Operational Scale",
+          0.95,
+          0.32,
+          ["ev_001", "ev_002"],
+          { revenue_2025_usd_millions: 5480.717 },
+          "Revenue scale and product disclosures imply large-scale live operation."
+        ),
+      ],
+      caps: [],
+    },
+    {
+      label: "Adoption",
+      coverage_ratio: 0.9,
+      summary:
+        "Adoption is the strongest layer: advertising revenue and cash flow scaled sharply after AppLovin focused the company around Axon-led advertising solutions.",
+      strong:
+        "FY 2025 continuing revenue grew to $5.48 billion and free cash flow approached $3.95 billion; management describes expansion beyond gaming into e-commerce and CTV.",
+      missing:
+        "Customer counts, cohort retention, independent ROAS lift, and concentration by advertiser/publisher are not fully disclosed.",
+      metrics: [
+        metric(
+          "revenue_or_booking_evidence",
+          "Revenue Evidence",
+          0.97,
+          0.4,
+          ["ev_002", "ev_005", "ev_014"],
+          { revenue_2023_usd_millions: 1841.762, revenue_2025_usd_millions: 5480.717 },
+          "Revenue and free-cash-flow scale are strong adoption evidence."
+        ),
+        metric(
+          "customer_or_partner_breadth",
+          "Market Breadth",
+          0.84,
+          0.3,
+          ["ev_001", "ev_006"],
+          { product_domains: ["mobile apps", "e-commerce", "CTV"] },
+          "AppLovin discloses multiple product domains and a shift to pure advertising solutions."
+        ),
+        metric(
+          "repeatability_or_deployment_scale",
+          "Repeatability",
+          0.92,
+          0.3,
+          ["ev_001", "ev_002", "ev_005"],
+          { continuing_revenue_growth_2023_to_2025: "about 198%" },
+          "Recurring auction-platform operation and multi-year revenue growth support repeatability."
+        ),
+      ],
+      caps: [],
+    },
+    {
+      label: "Policy & Economics",
+      coverage_ratio: 0.7,
+      summary:
+        "Unit economics look unusually strong, but privacy, platform-rule, child-safety, and AI-governance risks are material because Axon depends on data use and third-party mobile ecosystems.",
+      strong:
+        "The software model is capital-light, cash-generative, and focused after the Apps divestiture.",
+      missing:
+        "Regulatory outcomes, platform-policy stability, and independent verification of contested data-practice claims remain unresolved.",
+      metrics: [
+        metric(
+          "regulatory_or_standards_fit",
+          "Regulatory Fit",
+          0.43,
+          0.35,
+          ["ev_012", "ev_013"],
+          { unresolved_external_risk_signals: 2 },
+          "Reported regulatory attention and public allegations weigh on policy confidence."
+        ),
+        metric(
+          "policy_or_supply_chain_support",
+          "Platform Dependency",
+          0.54,
+          0.25,
+          ["ev_001", "ev_012"],
+          { depends_on_platform_rules: true },
+          "Mobile and ad-platform dependencies are not fatal but reduce control over the environment."
+        ),
+        metric(
+          "economic_readiness",
+          "Economic Readiness",
+          0.85,
+          0.4,
+          ["ev_005", "ev_006"],
+          { free_cash_flow_2025_usd_millions: 3951.952 },
+          "Profitability and cash generation are strong, while strategic focus improves economic clarity."
+        ),
+      ],
+      caps: [],
+    },
+  ],
+  dashboard_content: {
+    hero: {
+      headline: "AppLovin Innovation Readiness",
+      subheadline:
+        "A commercially scaled AI ad-platform with strong adoption, weak open patent momentum, and unresolved data-practice risk.",
+      verdict_label: "Strong innovator with translational momentum",
+      evidence_ids: ["ev_001", "ev_002", "ev_012"],
+      source_ids: ["src_001", "src_002", "src_011"],
+    },
+    thesis: {
+      title: "Thesis",
+      summary:
+        "AppLovin's innovation case is industrial and commercial rather than academic: Axon AI appears to be a high-scale proprietary optimization engine, but the public evidence base is thin on patents and independent technical validation.",
+      bullets: [
+        {
+          text: "The strongest evidence is revenue-scale deployment of Axon-led advertising products, not publications or patent filings.",
+          claim_ids: ["claim_001"],
+          evidence_ids: ["ev_001", "ev_002", "ev_005"],
+          source_ids: ["src_001", "src_002"],
+        },
+        {
+          text: "The weak point is IP transparency: open sources did not show a rising recent AppLovin-assignee patent-family series.",
+          claim_ids: ["claim_002"],
+          evidence_ids: ["ev_007", "ev_008"],
+          source_ids: ["src_006", "src_007"],
+        },
+        {
+          text: "Regulatory and platform-rule risk is central because the innovation depends on data, targeting, attribution, and third-party mobile ecosystems.",
+          claim_ids: ["claim_003"],
+          evidence_ids: ["ev_012", "ev_013"],
+          source_ids: ["src_011", "src_012"],
+        },
+      ],
+    },
+    technology_map: {
+      title: "Technology Map",
+      summary:
+        "The investable technology stack is Axon AI plus auction, measurement, monetization, and CTV extensions.",
+      items: [
+        {
+          name: "Axon AI and Axon Ads Manager",
+          description:
+            "Predictive engine and self-serve ad platform that evaluates impressions against advertiser return goals and bids based on estimated value.",
+          maturity: "commercial",
+          evidence_ids: ["ev_001", "ev_003"],
+          source_ids: ["src_001", "src_003"],
+        },
+        {
+          name: "MAX",
+          description:
+            "In-app bidding and monetization system running real-time competitive auctions for publisher inventory.",
+          maturity: "commercial",
+          evidence_ids: ["ev_001"],
+          source_ids: ["src_001"],
+        },
+        {
+          name: "Adjust and Wurl",
+          description:
+            "Measurement, attribution, and CTV distribution/ad products that broaden the platform beyond mobile-gaming user acquisition.",
+          maturity: "commercial",
+          evidence_ids: ["ev_001"],
+          source_ids: ["src_001"],
+        },
+      ],
+    },
+    quantitative_signals: {
+      title: "Quantitative Signals",
+      summary:
+        "The measurable signal is commercial scale. Publication and patent counts are partial proxies, not full censuses.",
+      charts: [
+        {
+          chart_id: "chart_revenue",
+          title: "Continuing Revenue",
+          description: "AppLovin continuing revenue grew sharply from 2023 to 2025 after the ad-platform focus.",
+          series: [
+            {
+              label: "Revenue",
+              unit: "USD millions",
+              points: [
+                { period: "2023", value: 1841.762 },
+                { period: "2024", value: 3224.058 },
+                { period: "2025", value: 5480.717 },
+              ],
+            },
+          ],
+          evidence_ids: ["ev_002"],
+          source_ids: ["src_001"],
+        },
+        {
+          chart_id: "chart_rd",
+          title: "R&D Expense",
+          description: "Continuing R&D expense fell in 2025, mainly from lower personnel-related costs.",
+          series: [
+            {
+              label: "R&D expense",
+              unit: "USD millions",
+              points: [
+                { period: "2023", value: 333.781 },
+                { period: "2024", value: 374.71 },
+                { period: "2025", value: 226.51 },
+              ],
+            },
+          ],
+          evidence_ids: ["ev_004"],
+          source_ids: ["src_001"],
+        },
+        {
+          chart_id: "chart_patents",
+          title: "Observed Patent Records",
+          description:
+            "Open-source observed records do not show a recent rising AppLovin patent trend; this is a partial database signal.",
+          series: [
+            {
+              label: "Observed records",
+              unit: "records",
+              points: [
+                { period: "2021", value: 1 },
+                { period: "2022", value: 3 },
+                { period: "2023", value: 0 },
+                { period: "2024", value: 0 },
+                { period: "2025", value: 0 },
+              ],
+            },
+          ],
+          evidence_ids: ["ev_007"],
+          source_ids: ["src_007"],
+        },
+      ],
+    },
+    commercialization_evidence: {
+      title: "Commercialization Evidence",
+      summary:
+        "The commercialization gate is passed: AppLovin's disclosed products are live, scaled, and core to revenue.",
+      items: [
+        {
+          label: "Revenue scale",
+          text: "FY 2025 continuing revenue was $5.48 billion, with $3.95 billion in free cash flow.",
+          evidence_ids: ["ev_002", "ev_005"],
+          source_ids: ["src_001", "src_002"],
+        },
+        {
+          label: "Platform focus",
+          text: "The Apps divestiture makes the continuing business easier to read as an advertising-technology platform.",
+          evidence_ids: ["ev_006"],
+          source_ids: ["src_001"],
+        },
+      ],
+    },
+    breakthrough_gate: {
+      title: "Breakthrough Gate",
+      summary:
+        "The near-term breakthrough gate is a partial pass: industrialization and adoption clear the threshold, while science, IP, and policy confidence limit the overall verdict.",
+      conditions_met: [
+        {
+          condition: "Industrialization score is at least 3.0 with adequate confidence.",
+          evidence_ids: ["ev_001", "ev_003", "ev_004"],
+          source_ids: ["src_001", "src_003"],
+        },
+        {
+          condition: "Adoption score is at least 3.0 with adequate confidence.",
+          evidence_ids: ["ev_002", "ev_005"],
+          source_ids: ["src_001", "src_002"],
+        },
+      ],
+      conditions_not_met: [
+        {
+          condition: "The public patent-family signal is weak and not visibly rising.",
+          evidence_ids: ["ev_007", "ev_008"],
+          source_ids: ["src_006", "src_007"],
+        },
+        {
+          condition: "Regulatory and platform-rule risks remain material and unresolved.",
+          evidence_ids: ["ev_012", "ev_013"],
+          source_ids: ["src_011", "src_012"],
+        },
+      ],
+      result: "Partial pass",
+    },
+    university_research_signals: {
+      title: "University Research",
+      summary:
+        "The university signal supports the field, not direct AppLovin inventorship.",
+      institutions: [
+        {
+          name: "Northwestern University Kellogg School of Management",
+          signal: "Published RTB causal-inference work with Marketing Science relevance to ad effectiveness measurement.",
+          company_attributable: false,
+          field_proxy: true,
+          evidence_ids: ["ev_010"],
+          source_ids: ["src_010", "src_014"],
+        },
+        {
+          name: "Georgia Institute of Technology",
+          signal: "Coauthor institution on peer-reviewed RTB causal-inference research.",
+          company_attributable: false,
+          field_proxy: true,
+          evidence_ids: ["ev_010"],
+          source_ids: ["src_010", "src_014"],
+        },
+        {
+          name: "Birla Institute of Technology and Science, Pilani",
+          signal: "Recent open-access research compared RL and ML methods for RTB optimization using campaign metrics.",
+          company_attributable: false,
+          field_proxy: true,
+          evidence_ids: ["ev_009"],
+          source_ids: ["src_009"],
+        },
+      ],
+    },
+    patent_signals: {
+      title: "Patents",
+      summary:
+        "Open patent evidence is not strong enough to call AppLovin a patent-led innovator.",
+      families: [
+        {
+          title: "Advertisement Selection Based on Mobile Applications",
+          publication_or_family_id: "US20130159103A1",
+          jurisdictions: ["US"],
+          priority_date: "2012-12-14",
+          interpretation:
+            "Relevant to mobile ad selection, but too old to support recent Axon AI momentum.",
+          evidence_ids: ["ev_008"],
+          source_ids: ["src_006"],
+        },
+        {
+          title: "Reinforcement learning based recommendation system and method for application clients",
+          publication_or_family_id: "WO2020247065A1",
+          jurisdictions: ["WO"],
+          priority_date: "2020",
+          interpretation:
+            "Technically relevant to recommendation and advertising, but the open-source assignee mapping and family continuity were not fully verified.",
+          evidence_ids: ["ev_007"],
+          source_ids: ["src_007"],
+        },
+        {
+          title: "Observed AppLovin-related granted software patents",
+          publication_or_family_id: "US11058946B2; US11301423B2; US11360875B2; US11403073B2",
+          jurisdictions: ["US"],
+          priority_date: "various",
+          interpretation:
+            "Shows software-patent presence, but the 2021-2025 observed series is not rising.",
+          evidence_ids: ["ev_007"],
+          source_ids: ["src_007"],
+        },
+      ],
+      interpretation:
+        "The IP layer is intentionally scored low because proprietary model/data advantages are not the same as visible patent-family momentum.",
+    },
+    red_flags: [
+      {
+        red_flag_id: "rf_001",
+        title: "Thin Open Patent Momentum",
+        text: "Open sources did not reveal a rising 2021-2025 AppLovin patent-family series tied directly to Axon.",
+        severity: "medium",
+        layer: "IP",
+        evidence_ids: ["ev_007", "ev_008"],
+        source_ids: ["src_006", "src_007"],
+        claim_ids: ["claim_002"],
+      },
+      {
+        red_flag_id: "rf_002",
+        title: "Data-Practice Scrutiny",
+        text: "Reported regulatory attention and short-seller allegations create policy risk, even though no wrongdoing is established by those reports.",
+        severity: "high",
+        layer: "Policy & Economics",
+        evidence_ids: ["ev_012", "ev_013"],
+        source_ids: ["src_011", "src_012"],
+        claim_ids: ["claim_003"],
+      },
+      {
+        red_flag_id: "rf_003",
+        title: "Limited Independent Model Evidence",
+        text: "Public filings do not provide independent Axon model benchmarks, architecture detail, or third-party audited lift.",
+        severity: "medium",
+        layer: "Science",
+        evidence_ids: ["ev_001", "ev_003"],
+        source_ids: ["src_001", "src_003"],
+        claim_ids: ["claim_004"],
+      },
+    ],
+    watchlist: {
+      title: "What Would Change The View",
+      upgrade_signals: [
+        {
+          text: "Independent or customer-verified Axon ROAS lift, retention, or conversion-quality data.",
+          monitoring_source: "Earnings call, customer disclosures, platform case studies, audited benchmark.",
+        },
+        {
+          text: "A visible wave of Axon-specific patent applications or technical publications.",
+          monitoring_source: "USPTO, WIPO, Google Patents, OpenAlex, Semantic Scholar.",
+        },
+        {
+          text: "Sustained non-gaming adoption in e-commerce and CTV after Q1 2026 and later filings.",
+          monitoring_source: "10-Q filings, investor letters, segment commentary.",
+        },
+      ],
+      downgrade_signals: [
+        {
+          text: "Confirmed enforcement action, platform restriction, or material customer churn tied to data practices.",
+          monitoring_source: "SEC filings, regulator releases, Apple/Google/Meta policy actions.",
+        },
+        {
+          text: "Revenue growth slows without evidence that Axon performance is still improving.",
+          monitoring_source: "Quarterly financial results, customer commentary, ad-spend disclosures.",
+        },
+      ],
+      cadence: [
+        {
+          frequency: "quarterly",
+          task: "Refresh filings, earnings call, R&D, regulatory language, and adoption metrics.",
+        },
+        {
+          frequency: "semiannual",
+          task: "Refresh patents and field-level academic trends with a reproducible API pipeline.",
+        },
+      ],
+    },
+    operational_snapshot: {
+      title: "Operational Snapshot",
+      metrics: [
+        {
+          label: "FY 2025 revenue",
+          value: "$5.48B",
+          period: "2025",
+          evidence_ids: ["ev_002"],
+          source_ids: ["src_001"],
+        },
+        {
+          label: "FY 2025 free cash flow",
+          value: "$3.95B",
+          period: "2025",
+          evidence_ids: ["ev_005"],
+          source_ids: ["src_002"],
+        },
+        {
+          label: "FY 2025 R&D expense",
+          value: "$226.5M",
+          period: "2025",
+          evidence_ids: ["ev_004"],
+          source_ids: ["src_001"],
+        },
+        {
+          label: "Q1 2026 results timing",
+          value: "Scheduled after close on 2026-05-06",
+          period: "2026",
+          evidence_ids: ["ev_014"],
+          source_ids: ["src_005"],
+        },
+      ],
+    },
+    method_notes: {
+      title: "Method Notes",
+      notes: [
+        "This is an absolute readiness score, not a peer percentile.",
+        "Science uses field-level proxies because AppLovin's innovation is mostly proprietary applied engineering.",
+        "Patent counts are observed public records from open search, not a complete patent-family census.",
+        "Reported allegations and probes are treated as risk signals, not findings of fact.",
+      ],
+    },
+    bottom_line: {
+      title: "Bottom Line",
+      text: "AppLovin is a strong commercial AI-platform innovator, but not a clean breakthrough-science or patent-led story. The right stance is high respect for adoption and industrialization, paired with discipline around IP opacity and data-practice risk.",
+      claim_ids: ["claim_001", "claim_002", "claim_003", "claim_004"],
+      evidence_ids: ["ev_002", "ev_005", "ev_007", "ev_012"],
+      source_ids: ["src_001", "src_002", "src_007", "src_011"],
+    },
+  },
+  claims: [
+    {
+      claim_id: "claim_001",
+      section: "thesis",
+      text: "AppLovin's strongest innovation evidence is revenue-scale deployment of Axon-led advertising products.",
+      claim_type: "inference",
+      confidence: "High",
+      evidence_ids: ["ev_001", "ev_002", "ev_005"],
+      source_ids: ["src_001", "src_002"],
+    },
+    {
+      claim_id: "claim_002",
+      section: "ip",
+      text: "Open patent evidence is too thin to call AppLovin patent-led.",
+      claim_type: "inference",
+      confidence: "Medium",
+      evidence_ids: ["ev_007", "ev_008", "ev_015"],
+      source_ids: ["src_006", "src_007", "src_013"],
+    },
+    {
+      claim_id: "claim_003",
+      section: "risk",
+      text: "Data-practice and platform-rule scrutiny materially reduce policy confidence.",
+      claim_type: "inference",
+      confidence: "Medium",
+      evidence_ids: ["ev_012", "ev_013"],
+      source_ids: ["src_011", "src_012"],
+    },
+    {
+      claim_id: "claim_004",
+      section: "science",
+      text: "The public technical record does not independently validate Axon model performance.",
+      claim_type: "limitation",
+      confidence: "High",
+      evidence_ids: ["ev_001", "ev_003", "ev_011"],
+      source_ids: ["src_001", "src_003", "src_008"],
+    },
+    {
+      claim_id: "claim_005",
+      section: "watchlist",
+      text: "Independent model-performance evidence would upgrade the innovation assessment.",
+      claim_type: "monitoring_trigger",
+      confidence: "High",
+      evidence_ids: ["ev_001", "ev_003"],
+      source_ids: ["src_001", "src_003"],
+    },
+  ],
+  normalization_notes: [
+    {
+      metric_code: "publication_growth",
+      rule: "Analyst absolute scale with coverage penalty because reproducible annual field census was unavailable.",
+      reason: "Avoids inventing precise OpenAlex counts while still reflecting field-level activity.",
+    },
+    {
+      metric_code: "patent_family_growth",
+      rule: "Observed public-record count by publication year, treated as a partial proxy.",
+      reason: "Open sources did not provide a complete patent-family database export.",
+    },
+    {
+      metric_code: "revenue_or_booking_evidence",
+      rule: "High score for large, growing continuing revenue and free cash flow.",
+      reason: "Commercial adoption is the clearest quantitative signal for this software platform.",
+    },
+  ],
+  storage_metadata: {
+    intended_store: "sqlite",
+    recommended_primary_keys: {
+      sources: "source_id",
+      evidence_items: "evidence_id",
+      metrics: "company + research_date + run_id + layer + metric_code",
+    },
+    content_hash_fields: [
+      "sources",
+      "evidence_items",
+      "layers",
+      "dashboard_content",
+      "claims",
+      "normalization_notes",
+    ],
+  },
+};
+
+const dashboardHtml = String.raw`<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Innovation Dashboard</title>
+  <style>
+    :root {
+      --rose: #d4a5a5;
+      --clay: #b87d6d;
+      --sand: #e8d5c4;
+      --burgundy: #5d2e46;
+      --ink: #2d2430;
+      --muted: #77646b;
+      --paper: #fbf7f2;
+      --line: rgba(93, 46, 70, 0.18);
+      --wash: rgba(212, 165, 165, 0.20);
+      --green: #627b66;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: FreeSans, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(93,46,70,.05) 1px, transparent 1px) 0 0 / 36px 36px,
+        linear-gradient(0deg, rgba(93,46,70,.04) 1px, transparent 1px) 0 0 / 36px 36px,
+        var(--paper);
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 24px;
+      background: var(--burgundy);
+      color: #fff8f3;
+      overflow: auto;
+    }
+
+    main {
+      padding: 30px clamp(18px, 4vw, 54px) 56px;
+    }
+
+    h1, h2, h3 {
+      font-family: FreeSans, Arial, sans-serif;
+      letter-spacing: 0;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 64px);
+      line-height: 0.94;
+      max-width: 760px;
+    }
+
+    h2 {
+      font-size: 18px;
+      line-height: 1.2;
+      color: var(--burgundy);
+    }
+
+    h3 {
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    p {
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    a { color: inherit; }
+
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--clay);
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+      gap: 28px;
+      align-items: end;
+      min-height: 300px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .subhead {
+      max-width: 680px;
+      color: var(--muted);
+      font-size: 17px;
+      margin-top: 18px;
+    }
+
+    .scoreplate {
+      border-left: 4px solid var(--clay);
+      padding: 18px 0 18px 22px;
+    }
+
+    .score {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      color: var(--burgundy);
+      margin: 8px 0;
+    }
+
+    .score strong { font-size: 58px; line-height: 1; }
+    .score span { color: var(--muted); font-size: 18px; }
+    .verdict { font-weight: 700; color: var(--ink); }
+
+    .nav-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--rose);
+      margin-bottom: 20px;
+    }
+
+    .side-score {
+      font-size: 48px;
+      line-height: 1;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .side-meta {
+      color: rgba(255, 248, 243, .72);
+      font-size: 13px;
+      line-height: 1.45;
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(255, 255, 255, .15);
+      margin-bottom: 20px;
+    }
+
+    .layer-mini {
+      display: grid;
+      gap: 6px;
+      margin: 14px 0;
+    }
+
+    .mini-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .mini-track,
+    .track {
+      background: rgba(93, 46, 70, .12);
+      border-radius: 999px;
+      overflow: hidden;
+      height: 8px;
+    }
+
+    aside .mini-track { background: rgba(255,255,255,.16); }
+
+    .mini-fill,
+    .fill {
+      height: 100%;
+      width: var(--w);
+      background: linear-gradient(90deg, var(--rose), var(--clay));
+      border-radius: 999px;
+      box-shadow: 0 0 12px rgba(212, 165, 165, .35);
+    }
+
+    section {
+      padding: 30px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .grid.two {
+      grid-template-columns: minmax(0, 1fr) minmax(300px, .55fr);
+    }
+
+    .panel {
+      background: rgba(255,255,255,.54);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      backdrop-filter: blur(8px);
+    }
+
+    .layer {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr) 76px;
+      gap: 18px;
+      align-items: start;
+      padding: 18px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .layer:first-child { border-top: 0; }
+
+    .layer-copy {
+      display: grid;
+      gap: 9px;
+    }
+
+    .label-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .confidence {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    .score-badge {
+      text-align: right;
+      font-weight: 700;
+      color: var(--burgundy);
+      font-size: 22px;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li { margin: 8px 0; line-height: 1.45; }
+
+    .tech-list,
+    .evidence-list,
+    .source-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      padding-top: 13px;
+      border-top: 1px solid var(--line);
+    }
+
+    .item:first-child { border-top: 0; padding-top: 0; }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .chart {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr) 92px;
+      gap: 12px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .bar {
+      height: 16px;
+      background: rgba(93,46,70,.09);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: var(--w);
+      background: linear-gradient(90deg, var(--clay), var(--burgundy));
+    }
+
+    .redflag {
+      border-left: 3px solid var(--clay);
+      padding-left: 13px;
+    }
+
+    .source-list a {
+      color: var(--burgundy);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(184,125,109,.35);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: rise .5s ease forwards;
+    }
+
+    @keyframes rise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 920px) {
+      .shell { grid-template-columns: 1fr; }
+      aside {
+        position: relative;
+        height: auto;
+      }
+      .hero,
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+      .layer {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .score-badge { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="nav-title">Innovation Score</div>
+      <div class="side-score" id="sideScore"></div>
+      <div class="side-meta" id="sideMeta"></div>
+      <div class="layer-mini" id="miniLayers"></div>
+    </aside>
+    <main>
+      <div id="app" class="fade-in"></div>
+    </main>
+  </div>
+
+  <script>window.__SCORED_DATA__ = __SCORED_JSON__;</script>
+  <script>
+    const fmt = new Intl.NumberFormat("en-US", { maximumFractionDigits: 1 });
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (ch) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[ch]);
+    }
+
+    function sourceLinks(data, ids) {
+      const byId = Object.fromEntries(data.sources.map((source) => [source.source_id, source]));
+      return (ids || []).map((id) => byId[id]).filter(Boolean).map((source) =>
+        '<a href="' + esc(source.url) + '" target="_blank" rel="noreferrer">' + esc(source.title) + '</a>'
+      ).join(" | ");
+    }
+
+    function renderProgress(label, score, confidence) {
+      const pct = Math.max(0, Math.min(100, (Number(score) / 5) * 100));
+      return '<div><div class="label-line"><span>' + esc(label) + '</span><span>' +
+        esc(score) + ' / 5</span></div><div class="track"><div class="fill" style="--w:' +
+        pct + '%"></div></div><div class="confidence">Confidence: ' + esc(confidence) + '</div></div>';
+    }
+
+    function renderLayers(data) {
+      return '<section><div class="grid"><h2>Five-Layer Dashboard</h2><div class="panel">' +
+        data.layers.map((layer) => '<div class="layer"><div><h3>' + esc(layer.label) +
+        '</h3><div class="confidence">Coverage ' + Math.round(layer.coverage_ratio * 100) + '%</div></div>' +
+        '<div class="layer-copy">' + renderProgress(layer.label, layer.display_score, layer.confidence) +
+        '<p>' + esc(layer.summary) + '</p><p><strong>Strong:</strong> ' + esc(layer.strong) +
+        '</p><p><strong>Missing:</strong> ' + esc(layer.missing) + '</p></div>' +
+        '<div class="score-badge">' + esc(layer.display_score) + '</div></div>').join("") +
+        '</div></div></section>';
+    }
+
+    function renderChart(chart) {
+      const max = Math.max(...chart.series.flatMap((s) => s.points.map((p) => p.value)), 1);
+      const rows = chart.series[0].points.map((point) => {
+        const pct = Math.max(1, (point.value / max) * 100);
+        return '<div class="bar-row"><span>' + esc(point.period) + '</span><div class="bar"><div class="bar-fill" style="--w:' +
+          pct + '%"></div></div><span>' + esc(fmt.format(point.value)) + ' ' + esc(chart.series[0].unit) + '</span></div>';
+      }).join("");
+      return '<div class="panel"><h3>' + esc(chart.title) + '</h3><p class="meta">' + esc(chart.description) +
+        '</p><div class="chart">' + rows + '</div></div>';
+    }
+
+    function renderSection(title, summary, body) {
+      return '<section><div class="grid"><div><h2>' + esc(title) + '</h2>' +
+        (summary ? '<p class="meta">' + esc(summary) + '</p>' : '') + '</div>' + body + '</div></section>';
+    }
+
+    function render(data) {
+      const dc = data.dashboard_content;
+      document.title = data.company + " Innovation Dashboard";
+      document.getElementById("sideScore").textContent = data.display_total_score + " / 25";
+      document.getElementById("sideMeta").textContent = data.verdict + " | " + data.research_run.research_date;
+      document.getElementById("miniLayers").innerHTML = data.layers.map((layer) => {
+        const pct = Math.max(0, Math.min(100, (layer.score / 5) * 100));
+        return '<div class="mini-row"><span>' + esc(layer.label) + '</span><strong>' + esc(layer.display_score) +
+          '</strong></div><div class="mini-track"><div class="mini-fill" style="--w:' + pct + '%"></div></div>';
+      }).join("");
+
+      const thesis = '<div class="grid two"><div class="panel"><p>' + esc(dc.thesis.summary) +
+        '</p><ul>' + dc.thesis.bullets.map((b) => '<li>' + esc(b.text) + '</li>').join("") +
+        '</ul></div><div class="panel"><h3>Breakthrough Gate</h3><p>' + esc(dc.breakthrough_gate.summary) +
+        '</p><p class="verdict">' + esc(dc.breakthrough_gate.result) + '</p></div></div>';
+
+      const tech = '<div class="tech-list">' + dc.technology_map.items.map((item) =>
+        '<div class="item"><h3>' + esc(item.name) + '</h3><p>' + esc(item.description) +
+        '</p><p class="meta">Maturity: ' + esc(item.maturity) + '</p></div>').join("") + '</div>';
+
+      const quant = '<div class="grid two">' + dc.quantitative_signals.charts.map(renderChart).join("") + '</div>';
+
+      const commercial = '<div class="evidence-list">' + dc.commercialization_evidence.items.map((item) =>
+        '<div class="item"><h3>' + esc(item.label) + '</h3><p>' + esc(item.text) + '</p></div>').join("") + '</div>';
+
+      const research = '<div class="grid two"><div class="panel"><h3>University Signals</h3><div class="evidence-list">' +
+        dc.university_research_signals.institutions.map((inst) =>
+        '<div class="item"><h3>' + esc(inst.name) + '</h3><p>' + esc(inst.signal) + '</p><p class="meta">Field proxy: ' +
+        esc(inst.field_proxy) + '</p></div>').join("") + '</div></div><div class="panel"><h3>Patent Signals</h3><p>' +
+        esc(dc.patent_signals.interpretation) + '</p><div class="evidence-list">' +
+        dc.patent_signals.families.map((fam) => '<div class="item"><h3>' + esc(fam.title) +
+        '</h3><p class="meta">' + esc(fam.publication_or_family_id) + ' | ' + esc(fam.jurisdictions.join(", ")) +
+        '</p><p>' + esc(fam.interpretation) + '</p></div>').join("") + '</div></div></div>';
+
+      const redflags = '<div class="grid two">' + dc.red_flags.map((flag) =>
+        '<div class="panel redflag"><h3>' + esc(flag.title) + '</h3><p>' + esc(flag.text) +
+        '</p><p class="meta">Severity: ' + esc(flag.severity) + ' | Layer: ' + esc(flag.layer) + '</p></div>').join("") +
+        '</div>';
+
+      const watch = '<div class="grid two"><div class="panel"><h3>Upgrade Signals</h3><ul>' +
+        dc.watchlist.upgrade_signals.map((item) => '<li>' + esc(item.text) + '<br><span class="meta">' +
+        esc(item.monitoring_source) + '</span></li>').join("") + '</ul></div><div class="panel"><h3>Downgrade Signals</h3><ul>' +
+        dc.watchlist.downgrade_signals.map((item) => '<li>' + esc(item.text) + '<br><span class="meta">' +
+        esc(item.monitoring_source) + '</span></li>').join("") + '</ul></div></div>';
+
+      const ops = '<div class="grid two">' + dc.operational_snapshot.metrics.map((m) =>
+        '<div class="panel"><h3>' + esc(m.label) + '</h3><div class="score"><strong>' + esc(m.value) +
+        '</strong></div><p class="meta">' + esc(m.period) + '</p></div>').join("") + '</div>';
+
+      const sources = '<div class="source-list">' + data.sources.map((source) =>
+        '<div class="item"><a href="' + esc(source.url) + '" target="_blank" rel="noreferrer">' +
+        esc(source.title) + '</a><p class="meta">' + esc(source.publisher) + ' | ' +
+        esc(source.document_date) + ' | ' + esc(source.source_type) + '</p></div>').join("") + '</div>';
+
+      document.getElementById("app").innerHTML =
+        '<header class="hero"><div><div class="eyebrow">' + esc(data.ticker) + '</div><h1>' +
+        esc(dc.hero.headline) + '</h1><p class="subhead">' + esc(dc.hero.subheadline) +
+        '</p></div><div class="scoreplate"><div class="eyebrow">Readiness</div><div class="score"><strong>' +
+        esc(data.display_total_score) + '</strong><span>/ 25</span></div><p class="verdict">' +
+        esc(data.verdict) + '</p></div></header>' +
+        renderSection(dc.thesis.title, "", thesis) +
+        renderLayers(data) +
+        renderSection(dc.technology_map.title, dc.technology_map.summary, tech) +
+        renderSection(dc.quantitative_signals.title, dc.quantitative_signals.summary, quant) +
+        renderSection(dc.commercialization_evidence.title, dc.commercialization_evidence.summary, commercial) +
+        renderSection("Research And IP", dc.university_research_signals.summary, research) +
+        renderSection("Red Flags", "", redflags) +
+        renderSection(dc.watchlist.title, "", watch) +
+        renderSection(dc.operational_snapshot.title, "", ops) +
+        renderSection(dc.method_notes.title, "", '<div class="panel"><ul>' + dc.method_notes.notes.map((n) => '<li>' + esc(n) + '</li>').join("") + '</ul></div>') +
+        renderSection(dc.bottom_line.title, "", '<div class="panel"><p>' + esc(dc.bottom_line.text) + '</p></div>') +
+        renderSection("Sources", "", sources);
+    }
+
+    const embeddedData = window.__SCORED_DATA__;
+
+    fetch("scored.json")
+      .then((response) => {
+        if (!response.ok) throw new Error("Unable to load scored.json");
+        return response.json();
+      })
+      .then(render)
+      .catch((error) => {
+        if (embeddedData) {
+          render(embeddedData);
+          return;
+        }
+        document.getElementById("app").innerHTML = '<section><h1>Dashboard data unavailable</h1><p>' + esc(error.message) + '</p></section>';
+      });
+  </script>
+</body>
+</html>
+`;
+
+fs.mkdirSync(runDir, { recursive: true });
+fs.writeFileSync(payloadPath, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+execFileSync("python3", [scorerPath, payloadPath, "-o", scoredPath], {
+  cwd: path.dirname(scorerPath),
+  stdio: "inherit",
+});
+const scoredData = JSON.parse(fs.readFileSync(scoredPath, "utf8"));
+const embeddedJson = JSON.stringify(scoredData).replace(/</g, "\\u003c");
+fs.writeFileSync(
+  dashboardPath,
+  dashboardHtml.replace("__SCORED_JSON__", embeddedJson),
+  "utf8"
+);
+
+console.log(`Wrote ${path.relative(repoRoot, payloadPath)}`);
+console.log(`Wrote ${path.relative(repoRoot, scoredPath)}`);
+console.log(`Wrote ${path.relative(repoRoot, dashboardPath)}`);

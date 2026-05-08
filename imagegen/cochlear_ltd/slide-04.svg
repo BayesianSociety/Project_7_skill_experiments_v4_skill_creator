@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <rect width="1080" height="1080" fill="#1e1e1e"/>
+  <rect x="54" y="54" width="972" height="972" fill="#17191d" stroke="rgba(255,255,255,.2)" stroke-width="2"/>
+  <g opacity=".95"><path d="M90 140 C 250 120, 420 122, 600 148 S 840 168, 990 136" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 208 C 250 232, 420 190, 600 216 S 840 236, 990 204" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 276 C 250 256, 420 258, 600 284 S 840 304, 990 272" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 344 C 250 368, 420 326, 600 352 S 840 372, 990 340" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 412 C 250 392, 420 394, 600 420 S 840 440, 990 408" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 480 C 250 504, 420 462, 600 488 S 840 508, 990 476" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 548 C 250 528, 420 530, 600 556 S 840 576, 990 544" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 616 C 250 640, 420 598, 600 624 S 840 644, 990 612" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 684 C 250 664, 420 666, 600 692 S 840 712, 990 680" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 752 C 250 776, 420 734, 600 760 S 840 780, 990 748" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 820 C 250 800, 420 802, 600 828 S 840 848, 990 816" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 888 C 250 912, 420 870, 600 896 S 840 916, 990 884" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/><circle cx="302" cy="454" r="2" fill="#00ffff" opacity="0.35"/>
+<circle cx="369" cy="567" r="3" fill="#0066ff" opacity="0.47"/>
+<circle cx="436" cy="680" r="4" fill="#0066ff" opacity="0.59"/>
+<circle cx="503" cy="173" r="5" fill="#00ffff" opacity="0.71"/>
+<circle cx="570" cy="286" r="2" fill="#0066ff" opacity="0.35"/>
+<circle cx="637" cy="399" r="3" fill="#0066ff" opacity="0.47"/>
+<circle cx="704" cy="512" r="4" fill="#00ffff" opacity="0.59"/>
+<circle cx="771" cy="625" r="5" fill="#0066ff" opacity="0.71"/>
+<circle cx="838" cy="738" r="2" fill="#0066ff" opacity="0.35"/>
+<circle cx="905" cy="231" r="3" fill="#00ffff" opacity="0.47"/>
+<circle cx="152" cy="344" r="4" fill="#0066ff" opacity="0.59"/>
+<circle cx="219" cy="457" r="5" fill="#0066ff" opacity="0.71"/>
+<circle cx="286" cy="570" r="2" fill="#00ffff" opacity="0.35"/>
+<circle cx="353" cy="683" r="3" fill="#0066ff" opacity="0.47"/></g>
+  <path d="M740 170c130 18 230 124 238 260 10 168-120 314-288 324-84 5-164-25-222-80" fill="none" stroke="#0066ff" stroke-width="2" opacity=".28"/>
+  <path d="M705 212c96 30 165 119 169 224 5 118-76 220-185 246" fill="none" stroke="#00ffff" stroke-width="2" opacity=".32"/>
+  <g><path d="M690 480c80-160 235-160 300 0-80 160-235 160-300 0z" fill="none" stroke="#00ffff" stroke-width="13"/><circle cx="840" cy="480" r="58" fill="none" stroke="#fff" stroke-width="10"/><path d="M840 420v-88M840 628v-88M900 480h88M692 480h88" stroke="#0066ff" stroke-width="10"/></g>
+  <text x="120" y="128" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" letter-spacing="2" fill="#00ffff">COCHLEAR LTD / SIGNAL 04</text>
+  <text x="120" y="392" font-family="DejaVu Sans, Arial, sans-serif" font-size="78" font-weight="800" fill="#ffffff"><tspan x="120" dy="0">ADOPTION IS THE</tspan><tspan x="120" dy="88">GATE</tspan></text>
+  <text x="120" y="680" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" fill="#dbe7f6"><tspan x="120" dy="0">HY26 units rose 6%, but the April</tspan><tspan x="120" dy="38">guidance reset changed the risk</tspan><tspan x="120" dy="38">profile.</tspan></text>
+  <rect x="120" y="854" width="270" height="8" fill="#00ffff"/>
+  <text x="120" y="916" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" fill="#aeb9c8">Tech Innovation theme. Separate social asset.</text>
+</svg>

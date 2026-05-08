@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <rect width="1080" height="1080" fill="#1e1e1e"/>
+  <rect x="54" y="54" width="972" height="972" fill="#17191d" stroke="rgba(255,255,255,.2)" stroke-width="2"/>
+  <g opacity=".95"><path d="M90 140 C 250 120, 420 122, 600 148 S 840 168, 990 136" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 208 C 250 232, 420 190, 600 216 S 840 236, 990 204" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 276 C 250 256, 420 258, 600 284 S 840 304, 990 272" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 344 C 250 368, 420 326, 600 352 S 840 372, 990 340" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 412 C 250 392, 420 394, 600 420 S 840 440, 990 408" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 480 C 250 504, 420 462, 600 488 S 840 508, 990 476" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 548 C 250 528, 420 530, 600 556 S 840 576, 990 544" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 616 C 250 640, 420 598, 600 624 S 840 644, 990 612" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 684 C 250 664, 420 666, 600 692 S 840 712, 990 680" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 752 C 250 776, 420 734, 600 760 S 840 780, 990 748" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 820 C 250 800, 420 802, 600 828 S 840 848, 990 816" stroke="#00ffff" stroke-width="1.4" opacity=".18" fill="none"/>
+<path d="M90 888 C 250 912, 420 870, 600 896 S 840 916, 990 884" stroke="#0066ff" stroke-width="1.4" opacity=".18" fill="none"/><circle cx="173" cy="241" r="3" fill="#00ffff" opacity="0.35"/>
+<circle cx="240" cy="354" r="4" fill="#0066ff" opacity="0.47"/>
+<circle cx="307" cy="467" r="5" fill="#0066ff" opacity="0.59"/>
+<circle cx="374" cy="580" r="2" fill="#00ffff" opacity="0.71"/>
+<circle cx="441" cy="693" r="3" fill="#0066ff" opacity="0.35"/>
+<circle cx="508" cy="186" r="4" fill="#0066ff" opacity="0.47"/>
+<circle cx="575" cy="299" r="5" fill="#00ffff" opacity="0.59"/>
+<circle cx="642" cy="412" r="2" fill="#0066ff" opacity="0.71"/>
+<circle cx="709" cy="525" r="3" fill="#0066ff" opacity="0.35"/>
+<circle cx="776" cy="638" r="4" fill="#00ffff" opacity="0.47"/>
+<circle cx="843" cy="751" r="5" fill="#0066ff" opacity="0.59"/>
+<circle cx="910" cy="244" r="2" fill="#0066ff" opacity="0.71"/>
+<circle cx="157" cy="357" r="3" fill="#00ffff" opacity="0.35"/>
+<circle cx="224" cy="470" r="4" fill="#0066ff" opacity="0.47"/></g>
+  <path d="M740 170c130 18 230 124 238 260 10 168-120 314-288 324-84 5-164-25-222-80" fill="none" stroke="#0066ff" stroke-width="2" opacity=".28"/>
+  <path d="M705 212c96 30 165 119 169 224 5 118-76 220-185 246" fill="none" stroke="#00ffff" stroke-width="2" opacity=".32"/>
+  <g><path d="M760 330c-45 4-78 38-78 82 0 52 43 84 90 84h58c52 0 94-42 94-94 0-50-39-91-88-94-15-39-52-66-95-66-56 0-102 45-102 101 0 15 3 29 9 42" fill="none" stroke="#00ffff" stroke-width="15" opacity=".88"/><rect x="772" y="370" width="116" height="82" rx="12" fill="none" stroke="#fff" stroke-width="10" opacity=".92"/></g>
+  <text x="120" y="128" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" letter-spacing="2" fill="#00ffff">COCHLEAR LTD / SIGNAL 01</text>
+  <text x="120" y="392" font-family="DejaVu Sans, Arial, sans-serif" font-size="78" font-weight="800" fill="#ffffff"><tspan x="120" dy="0">THE SMART</tspan><tspan x="120" dy="88">IMPLANT TEST</tspan></text>
+  <text x="120" y="680" font-family="DejaVu Sans, Arial, sans-serif" font-size="30" fill="#dbe7f6"><tspan x="120" dy="0">Cochlear's Nexa puts firmware</tspan><tspan x="120" dy="38">inside the implant, not just the</tspan><tspan x="120" dy="38">processor.</tspan></text>
+  <rect x="120" y="854" width="270" height="8" fill="#00ffff"/>
+  <text x="120" y="916" font-family="DejaVu Sans, Arial, sans-serif" font-size="24" fill="#aeb9c8">Tech Innovation theme. Separate social asset.</text>
+</svg>
