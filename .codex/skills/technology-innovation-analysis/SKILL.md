@@ -521,6 +521,49 @@ Use this broad shape:
       "claim_ids": ["claim_001"],
       "evidence_ids": ["ev_001"],
       "source_ids": ["src_001"]
+    },
+    "story": {
+      "original": {
+        "label": "Original",
+        "title": "Original story title shown near the end of the dashboard.",
+        "body_markdown": "One-page story generated from the base dashboard.html using Story_prompt.txt.",
+        "paragraphs": [
+          "Original paragraphs rendered in the final dashboard."
+        ]
+      },
+      "variants": {
+        "basic": {
+          "label": "Basic",
+          "title": "Beginner-level story title.",
+          "body_markdown": "Story regenerated for a reader who needs simple, almost basic explanation.",
+          "paragraphs": [
+            "Basic-level paragraphs rendered when the Basic button is selected."
+          ]
+        },
+        "informed": {
+          "label": "Informed",
+          "title": "Informed-reader story title.",
+          "body_markdown": "Story regenerated for a reader who already knows something about the technology.",
+          "paragraphs": [
+            "Informed-level paragraphs rendered when the Informed button is selected."
+          ]
+        },
+        "expert": {
+          "label": "Expert",
+          "title": "Expert-level story title.",
+          "body_markdown": "Story regenerated for a reader who is already expert in the technology.",
+          "paragraphs": [
+            "Expert-level paragraphs rendered when the Expert button is selected."
+          ]
+        }
+      },
+      "default_variant": "original",
+      "source_dashboard_file": "dashboard.html",
+      "source_dashboard_hash": "sha256 of the base dashboard used to generate the story",
+      "prompt_file": "Story_prompt.txt",
+      "prompt_hash": "sha256 of Story_prompt.txt",
+      "generated_at": "YYYY-MM-DDTHH:MM:SSZ",
+      "external_sources_used": []
     }
   },
   "claims": [
@@ -586,6 +629,10 @@ Rules for dashboard-visible content:
 - Every displayed representative patent or family should appear in `dashboard_content.patent_signals.families[]`, with jurisdictions and source links where available.
 - Commercialization or operational evidence displayed outside the layer cards should appear in `dashboard_content.commercialization_evidence` or `dashboard_content.operational_snapshot`, not only as prose embedded in the HTML.
 - Section text may summarize multiple evidence records, but it should still link to supporting `evidence_ids`, `source_ids`, or `claim_ids`. If the support is indirect or incomplete, state that in the item text or in `method_notes`.
+- If the repo contains `Story_prompt.txt`, create the final dashboard story as a post-processing step. First render a base `dashboard.html` from scorer-produced `scored.json` without a story section. Then apply the unchanged `Story_prompt.txt` to that base `dashboard.html` and write the original story to `story.md` in the same run-scoped folder. Also generate three audience-level story variants from the same base dashboard content: `basic` for a reader who needs simple, almost basic explanation; `informed` for a reader who already knows something about the technology; and `expert` for a reader who is already expert in the technology.
+- Insert the original story and the three generated variants into `payload.json` under `dashboard_content.story`, using `original`, `variants.basic`, `variants.informed`, `variants.expert`, and `default_variant`. Preserve the original story; do not overwrite it when creating variants. Rerun the deterministic scorer so `scored.json.dashboard_content.story` is preserved, and rerender the final `dashboard.html` with the original story shown near the end of the dashboard by default.
+- Store the story only through the existing payload/scored JSON path. Do not add Storage System tables or importer logic for this workflow. The JavaScript storage system will ingest the story through `analysis_runs.raw_payload_json` and `analysis_runs.raw_scored_json`.
+- Render the story section from `data.dashboard_content.story`, not from hard-coded prose in the HTML template. Add three buttons directly above the story text: Basic, Informed, and Expert. These buttons must not call an LLM or any external API from the browser; they only switch the displayed embedded story variant. Prefer `paragraphs[]` for escaped HTML rendering and keep `body_markdown` as the exact markdown content for each variant.
 
 ### Deterministic layer formula
 
@@ -829,3 +876,7 @@ Save the final artefact in the current repo under the run-scoped folder:
 `public/runs/{company_slug}/{research_date}/{run_id}/dashboard.html`
 
 Use the same `company_slug`, `research_date`, and `run_id` as the payload and scored JSON for that research run.
+
+The dashboard.html must be self-contained. Embed the full scorer-produced scored.json in a
+<script id="scored-data" type="application/json">...</script> block and render from that embedded JSON.
+Do not use fetch("scored.json"), XMLHttpRequest, or any runtime load of local JSON files.

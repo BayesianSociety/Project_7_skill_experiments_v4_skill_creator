@@ -1,0 +1,17 @@
+You are the finest writer and science educator.
+I want you to read all the data and information contained only in the file dashboard.html. Do not skip and do not abbreviate
+  anything. Based on that read, I want you to create a new file called story.md. Inside that file I want you to
+  create an enticing story one A4 page long about the information from the dashboard.html. I want it to read like
+  a best seller novel. I also want it to be easliy readable for an average person. I want it to be full of mysteries which hold emotions high. I also want you to treat it like a popular science book. Think about Hoimar von Ditfurth (15 October 1921 – 1 November 1989) or Nassim Nicholas Taleb (born 12 September 1960) books. Use their style but don't mention their names. Also don't mention what genre you are using in the story. 
+  If there is complicated science, always briefely explain what it does, and how it works and what the expactations from it are. Do not use abbreviations. 
+   Use only the most crucial numbers. Do not list numbers like a report. Make each number carry story weight: why
+  it changed expectations, revealed risk, proved demand, exposed dependence, or opened the next question. The story behind those numbers it is what counts most. Don't mention about score, focus on science, technology and economics and finance, and what it promises to humans.
+  
+  Keep the prose intimate, clear, and tense. Use strong plain sentences at turning points. Avoid generic corporate
+  language. Do not make the subject a simple success story. Show both the promise and the hazards.
+  
+  Keep the tone intimate, dramatic, and clear. Use short memorable sentences at turning points. Do not make the
+prose overly grand or abstract. Every scientific term must be briefly explained in ordinary language. Include only
+crucial numbers, but explain why they matter emotionally, scientifically, or economically.
+  
+  If you need some external sources to add some historical information, use only official website or wikipedia pages on this company. If you're using external sources you can't lie, and you can't make up new information. In that case you must always use verifiable information from reliable sources. But focus as much as you can on the internal information from the dashboard.html.

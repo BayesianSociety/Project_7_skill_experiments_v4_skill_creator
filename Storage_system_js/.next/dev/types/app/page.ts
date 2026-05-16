@@ -1,4 +1,4 @@
-// File: /home/postnl/multi-agent-producer_V0/Project_7_skill_experiments_v4_skill_creator/Storage_system_js/app/page.js
+// File: /home/postnl/build_technology_awareness/Storage_system_js/app/page.js
 import * as entry from '../../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

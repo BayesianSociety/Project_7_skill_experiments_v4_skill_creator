@@ -1,0 +1,2240 @@
+{
+  "schema_version": "2.1",
+  "company": "Axsome Therapeutics Inc.",
+  "ticker": "NASDAQ: AXSM",
+  "mode": "absolute",
+  "skill_metadata": {
+    "skill_name": "technology-innovation-analysis",
+    "skill_version": "1.2.0",
+    "skill_path": ".codex/skills/technology-innovation-analysis/SKILL.md",
+    "scorer_name": "score_innovation_benchmark.py",
+    "scorer_version": "1.2.0",
+    "metric_rules_version": "1.2.0"
+  },
+  "research_run": {
+    "research_date": "2026-05-16",
+    "analyst": "codex",
+    "run_id": "run-20260516-axsm-innovation",
+    "user_request": "Use innovation-analysis to research Axsome Therapeutics Inc., NASDAQ: AXSM, and present results in a Desert Rose dashboard.",
+    "time_horizon": "Five years, with current updates through May 16, 2026.",
+    "research_mode": "web_research_with_deterministic_scoring"
+  },
+  "research_context": {
+    "focus_technologies": [
+      "AXS-05 / Auvelity dextromethorphan-bupropion metabolic inhibition platform",
+      "Solriamfetol / Sunosi wake-promoting CNS pharmacology",
+      "SYMBRAVO / AXS-07 rapid-absorption migraine formulation",
+      "AXS-12, AXS-14, AXS-17, and AXS-20 late-stage or earlier CNS pipeline"
+    ],
+    "company_identifiers": {
+      "legal_name": "Axsome Therapeutics Inc.",
+      "ticker": "NASDAQ: AXSM",
+      "cik": "0001579428"
+    },
+    "source_availability": [
+      {
+        "domain": "SEC filings",
+        "status": "high",
+        "note": "Current 2025 Form 10-K and older 10-Ks were available through SEC archives."
+      },
+      {
+        "domain": "company operating releases",
+        "status": "high",
+        "note": "Q1 2026 company update and product/pipeline/IP pages were available."
+      },
+      {
+        "domain": "regulatory approvals",
+        "status": "high",
+        "note": "FDA press release for April 30, 2026 Auvelity AD agitation approval was available."
+      },
+      {
+        "domain": "publications",
+        "status": "partial",
+        "note": "Browser search and article pages were available, but direct PubMed/OpenAlex API export from shell was blocked by DNS."
+      },
+      {
+        "domain": "patents",
+        "status": "partial",
+        "note": "Company IP page and representative patent pages were available; no complete family-normalized patent export was obtained."
+      }
+    ],
+    "search_log": [
+      {
+        "query": "Axsome Therapeutics 2025 annual report 10-K 2026 AXSM SEC",
+        "source": "web_search",
+        "date": "2026-05-16",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Primary SEC filing."
+      },
+      {
+        "query": "Axsome Therapeutics Reports First Quarter 2026 Financial Results Provides Business Update",
+        "source": "web_search",
+        "date": "2026-05-16",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Latest operating update."
+      },
+      {
+        "query": "FDA approves Auvelity Alzheimer's disease agitation Axsome 2026",
+        "source": "web_search",
+        "date": "2026-05-16",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Regulator confirmation of approval."
+      },
+      {
+        "query": "Axsome Therapeutics intellectual property patents AXS-05 AXS-12",
+        "source": "web_search",
+        "date": "2026-05-16",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Company IP page and patent records."
+      },
+      {
+        "query": "dextromethorphan bupropion AXS-05 GEMINI trial publication",
+        "source": "web_search",
+        "date": "2026-05-16",
+        "result_quality": "high",
+        "selected": true,
+        "selection_reason": "Peer-reviewed clinical evidence."
+      },
+      {
+        "query": "solriamfetol narcolepsy obstructive sleep apnea 2025 meta-analysis",
+        "source": "web_search",
+        "date": "2026-05-16",
+        "result_quality": "medium",
+        "selected": true,
+        "selection_reason": "Field evidence for acquired Sunosi/solriamfetol product."
+      }
+    ],
+    "exclusions": [
+      {
+        "candidate_source_or_metric": "Reddit investor summaries",
+        "reason": "Not primary and not necessary after SEC/company/FDA sources were available."
+      },
+      {
+        "candidate_source_or_metric": "Stock-price and analyst price targets",
+        "reason": "Outside innovation-readiness scoring scope."
+      },
+      {
+        "candidate_source_or_metric": "Unverified generic web summaries of patent counts",
+        "reason": "Replaced by company IP page, SEC filings, and representative patent records."
+      }
+    ],
+    "judgment_calls": [
+      {
+        "topic": "Publication trend proxy",
+        "decision": "Used source-checked publication records by year instead of an exhaustive PubMed/OpenAlex count.",
+        "rationale": "Direct shell API calls failed due DNS restrictions and PubMed pages were intermittently blocked by browser challenge.",
+        "impact": "Lowered Science coverage and publication-growth metric confidence."
+      },
+      {
+        "topic": "Patent-family proxy",
+        "decision": "Used SEC/company disclosed issued-patent counts and representative patent pages rather than a deduplicated patent-family census.",
+        "rationale": "Open, source-verified family time series was unavailable in the run.",
+        "impact": "Lowered IP coverage slightly but preserved a transparent quantitative trend."
+      },
+      {
+        "topic": "Exceptional breakthrough ceiling",
+        "decision": "Classified Axsome as strong translational momentum rather than exceptional breakthrough.",
+        "rationale": "Commercial adoption and IP are strong, while original modality novelty and complete scientometrics are weaker.",
+        "impact": "Scores kept below 20 even though the readiness gate passes."
+      }
+    ]
+  },
+  "sources": [
+    {
+      "source_id": "src_sec_2025_10k",
+      "title": "Axsome Therapeutics Form 10-K for fiscal year ended December 31, 2025",
+      "url": "https://www.sec.gov/Archives/edgar/data/1579428/000119312526064267/axsm-20251231.htm",
+      "publisher": "U.S. Securities and Exchange Commission / Axsome Therapeutics",
+      "document_date": "2026-02-23",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_filing",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Primary source for 2025 revenue, product descriptions, clinical programs, IP portfolio, patent litigation, risks, and liquidity."
+    },
+    {
+      "source_id": "src_q1_2026_release",
+      "title": "Axsome Therapeutics Reports First Quarter 2026 Financial Results and Provides Business Update",
+      "url": "https://www.globenewswire.com/news-release/2026/05/04/3286568/33090/en/axsome-therapeutics-reports-first-quarter-2026-financial-results-and-provides-business-update.html",
+      "publisher": "Axsome Therapeutics / GlobeNewswire",
+      "document_date": "2026-05-04",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_company_release",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Latest operating source used for Q1 2026 revenue, prescriptions, payer coverage, sales-force expansion, and pipeline milestones."
+    },
+    {
+      "source_id": "src_fda_ada_approval",
+      "title": "FDA Approves First Non-Antipsychotic Drug to Treat Agitation Associated with Dementia",
+      "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-non-antipsychotic-drug-treat-agitation-associated-dementia",
+      "publisher": "U.S. Food and Drug Administration",
+      "document_date": "2026-04-30",
+      "accessed_at": "2026-05-16",
+      "source_type": "regulator",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Regulatory source for the expanded approval of Auvelity in agitation associated with dementia due to Alzheimer's disease."
+    },
+    {
+      "source_id": "src_axsome_ada_approval",
+      "title": "Axsome Therapeutics Announces FDA Approval of AUVELITY for Alzheimer's Disease Agitation",
+      "url": "https://www.globenewswire.com/news-release/2026/04/30/3285345/33090/en/axsome-therapeutics-announces-fda-approval-of-auvelity-dextromethorphan-hbr-and-bupropion-hcl-for-the-treatment-of-agitation-associated-with-dementia-due-to-alzheimer-s-disease.html",
+      "publisher": "Axsome Therapeutics / GlobeNewswire",
+      "document_date": "2026-04-30",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_company_release",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Source for the ADVANCE-1 and ACCORD-2 support package, mechanism, patient exposure, and launch-support details."
+    },
+    {
+      "source_id": "src_pipeline",
+      "title": "AXS Pipeline",
+      "url": "https://www.axsome.com/axs-portfolio/pipeline",
+      "publisher": "Axsome Therapeutics",
+      "document_date": "2026",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_company_product",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Company pipeline page covering AXS-05, AXS-07, AXS-12, AXS-14, and solriamfetol."
+    },
+    {
+      "source_id": "src_ip_page",
+      "title": "Intellectual Property",
+      "url": "https://www.axsome.com/about-axsome/intellectual-property/",
+      "publisher": "Axsome Therapeutics",
+      "document_date": "2026",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_company_ip",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Company IP page listing product patents and disclosed issued U.S. and non-U.S. patent counts."
+    },
+    {
+      "source_id": "src_2024_10k",
+      "title": "Axsome Therapeutics Form 10-K for fiscal year ended December 31, 2024",
+      "url": "https://www.sec.gov/Archives/edgar/data/1579428/000095017025022457/axsm-20241231.htm",
+      "publisher": "U.S. Securities and Exchange Commission / Axsome Therapeutics",
+      "document_date": "2025-02-18",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_filing",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Used for the 2024 IP and revenue trend."
+    },
+    {
+      "source_id": "src_2023_10k",
+      "title": "Axsome Therapeutics Form 10-K for fiscal year ended December 31, 2023",
+      "url": "https://www.sec.gov/Archives/edgar/data/1579428/000095017024019118/axsm-20231231.htm",
+      "publisher": "U.S. Securities and Exchange Commission / Axsome Therapeutics",
+      "document_date": "2024-02-23",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_filing",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Used for the 2023 IP trend."
+    },
+    {
+      "source_id": "src_2022_10k",
+      "title": "Axsome Therapeutics Form 10-K for fiscal year ended December 31, 2022",
+      "url": "https://www.sec.gov/Archives/edgar/data/1579428/000095017023004728/axsm-20221231.htm",
+      "publisher": "U.S. Securities and Exchange Commission / Axsome Therapeutics",
+      "document_date": "2023-02-27",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_filing",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Used for the 2022 IP trend and early commercialization context."
+    },
+    {
+      "source_id": "src_2021_10k",
+      "title": "Axsome Therapeutics Form 10-K for fiscal year ended December 31, 2021",
+      "url": "https://www.sec.gov/Archives/edgar/data/1579428/000095017022002568/axsm-20211231.htm",
+      "publisher": "U.S. Securities and Exchange Commission / Axsome Therapeutics",
+      "document_date": "2022-03-01",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_filing",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Used for the 2021 IP trend baseline."
+    },
+    {
+      "source_id": "src_jcp_gemini",
+      "title": "Efficacy and Safety of AXS-05 in Patients With Major Depressive Disorder: GEMINI Phase 3 Trial",
+      "url": "https://www.psychiatrist.com/jcp/efficacy-safety-of-axs-05-dextromethorphan-bupropion-mdd/",
+      "publisher": "Journal of Clinical Psychiatry",
+      "document_date": "2022-05-30",
+      "accessed_at": "2026-05-16",
+      "source_type": "academic_clinical_trial",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Peer-reviewed Phase 3 GEMINI trial source for AXS-05 in major depressive disorder."
+    },
+    {
+      "source_id": "src_pubmed_systematic_review",
+      "title": "Dextromethorphan-Bupropion for the Treatment of Depression: A Systematic Review",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/37792265/",
+      "publisher": "PubMed / CNS Drugs",
+      "document_date": "2023-10-04",
+      "accessed_at": "2026-05-16",
+      "source_type": "academic_review",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Indexed review signal with University of Toronto and other academic affiliations visible in search snippets; PubMed page itself was blocked by browser challenge."
+    },
+    {
+      "source_id": "src_cambridge_solriamfetol",
+      "title": "Solriamfetol for Excessive Sleepiness in Narcolepsy and Obstructive Sleep Apnea",
+      "url": "https://www.cambridge.org/core/journals/cns-spectrums/article/solriamfetol-for-excessive-sleepiness-in-narcolepsy-and-obstructive-sleep-apnea-effect-sizes-and-numbers-needed-to-treat-or-harm/5A09169916F9FCF1EC9F7FAECE448EB2",
+      "publisher": "CNS Spectrums / Cambridge University Press",
+      "document_date": "2025-01-10",
+      "accessed_at": "2026-05-16",
+      "source_type": "academic_clinical_analysis",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Post-hoc analysis of registrational studies TONES 2 and TONES 3 with effect-size and number-needed-to-treat results."
+    },
+    {
+      "source_id": "src_bmc_narcolepsy_nma",
+      "title": "Comparative efficacy of new wake-promoting agents for narcolepsy: a network meta-analysis",
+      "url": "https://link.springer.com/article/10.1186/s12883-025-04328-9",
+      "publisher": "BMC Neurology",
+      "document_date": "2025-11-13",
+      "accessed_at": "2026-05-16",
+      "source_type": "academic_review",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Open-access network meta-analysis that concluded solriamfetol showed the strongest drowsiness efficacy among compared wake-promoting agents."
+    },
+    {
+      "source_id": "src_patent_11129826",
+      "title": "Claims for Patent 11,129,826",
+      "url": "https://www.drugpatentwatch.com/p/patent-claims/11129826",
+      "publisher": "DrugPatentWatch",
+      "document_date": "2025",
+      "accessed_at": "2026-05-16",
+      "source_type": "patent_database",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative Auvelity patent claim covering dextromethorphan and bupropion in combination for depression."
+    },
+    {
+      "source_id": "src_patent_12357697",
+      "title": "Pharmaceutical compositions comprising bupropion and cysteine",
+      "url": "https://patents.justia.com/patent/12357697",
+      "publisher": "Justia Patents",
+      "document_date": "2025-07-15",
+      "accessed_at": "2026-05-16",
+      "source_type": "patent_database",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative 2025 Axsome patent assigned to Axsome Therapeutics."
+    },
+    {
+      "source_id": "src_google_patent_bupropion",
+      "title": "Dosage forms and methods for enantiomerically enriched or pure bupropion",
+      "url": "https://patents.google.com/patent/US20210196704A1/en?assignee=%22axsome+therapeutics%22&q=%28%22dextromethorphan%22%29",
+      "publisher": "Google Patents",
+      "document_date": "2021-07-01",
+      "accessed_at": "2026-05-16",
+      "source_type": "patent_database",
+      "availability": "available",
+      "reliability": "medium",
+      "notes": "Representative Axsome patent publication mentioning dextromethorphan and bupropion combinations."
+    },
+    {
+      "source_id": "src_2023_revenue_release",
+      "title": "Axsome Therapeutics Reports Fourth Quarter and Full Year 2023 Financial Results",
+      "url": "https://www.globenewswire.com/news-release/2024/02/20/2831680/33090/en/Axsome-Therapeutics-Reports-Fourth-Quarter-and-Full-Year-2023-Financial-Results-and-Provides-Business-Update.html",
+      "publisher": "Axsome Therapeutics / GlobeNewswire",
+      "document_date": "2024-02-20",
+      "accessed_at": "2026-05-16",
+      "source_type": "primary_company_release",
+      "availability": "available",
+      "reliability": "high",
+      "notes": "Source for 2023 total revenue and product revenue context."
+    }
+  ],
+  "evidence_items": [
+    {
+      "evidence_id": "ev_business_overview",
+      "source_id": "src_sec_2025_10k",
+      "layer": "Adoption",
+      "metric_codes": [
+        "revenue_or_booking_evidence"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome disclosed three FDA-approved commercial CNS products and $638.5 million of 2025 revenue, up 66% versus 2024.",
+      "raw_value": 638.5,
+      "raw_unit": "USD millions",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_q1_2026_revenue",
+      "source_id": "src_q1_2026_release",
+      "layer": "Adoption",
+      "metric_codes": [
+        "revenue_or_booking_evidence",
+        "repeatability_or_deployment_scale"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Q1 2026 net product revenue was $191.2 million, including Auvelity $153.2 million, Sunosi $33.9 million, and Symbravo $4.1 million.",
+      "raw_value": 191.2,
+      "raw_unit": "USD millions",
+      "period_start": "2026-Q1",
+      "period_end": "2026-Q1",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_rx_coverage",
+      "source_id": "src_q1_2026_release",
+      "layer": "Adoption",
+      "metric_codes": [
+        "customer_or_partner_breadth",
+        "repeatability_or_deployment_scale"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Q1 2026 prescription and access signals included about 223,000 Auvelity prescriptions, 54,000 Sunosi prescriptions, 17,000 Symbravo prescriptions, and payer coverage of about 86%, 83%, and 57% respectively.",
+      "raw_value": 294000,
+      "raw_unit": "quarterly prescriptions across disclosed products",
+      "period_start": "2026-Q1",
+      "period_end": "2026-Q1",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_sales_infrastructure",
+      "source_id": "src_q1_2026_release",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "operational_scale_signal",
+        "manufacturing_or_deployment_evidence"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome said the Auvelity sales-force expansion was substantially complete at about 630 sales representatives and Symbravo would expand from 100 to 150 representatives.",
+      "raw_value": 630,
+      "raw_unit": "Auvelity sales representatives",
+      "period_start": "2026-Q1",
+      "period_end": "2026-Q1",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_mdd_trial",
+      "source_id": "src_jcp_gemini",
+      "layer": "Science",
+      "metric_codes": [
+        "citation_velocity_or_quality",
+        "science_to_application_linkage"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "The peer-reviewed GEMINI Phase 3 trial randomized 327 patients and showed statistically significant MADRS improvement for AXS-05 versus placebo at week 6 and separation from week 1.",
+      "raw_value": 327,
+      "raw_unit": "patients",
+      "period_start": "2019",
+      "period_end": "2022",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_ada_fda_approval",
+      "source_id": "src_fda_ada_approval",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "regulatory_or_standards_fit",
+        "economic_readiness"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "FDA approved Auvelity for agitation associated with dementia due to Alzheimer's disease in adults and granted breakthrough therapy and priority review designations for the action.",
+      "raw_value": 2,
+      "raw_unit": "randomized trials cited by FDA",
+      "period_start": "2026",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_ada_clinical_package",
+      "source_id": "src_axsome_ada_approval",
+      "layer": "Science",
+      "metric_codes": [
+        "citation_velocity_or_quality",
+        "science_to_application_linkage"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome reported that the AD agitation approval was supported by ADVANCE-1 and ACCORD-2, with ACCORD-2 showing longer time to relapse for patients who continued Auvelity.",
+      "raw_value": 2,
+      "raw_unit": "pivotal studies cited",
+      "period_start": "2024",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_pipeline_status",
+      "source_id": "src_q1_2026_release",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "process_learning_or_capex",
+        "operational_scale_signal"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "The May 2026 update reported an AXS-12 NDA submission for cataplexy in narcolepsy, planned AXS-05 smoking-cessation Phase 2/3 initiation, multiple solriamfetol Phase 3 programs, AXS-14 Phase 3, AXS-17 activities, and AXS-20 added to the pipeline.",
+      "raw_value": 6,
+      "raw_unit": "pipeline product candidates or programs highlighted",
+      "period_start": "2026",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_duke_collaboration",
+      "source_id": "src_sec_2025_10k",
+      "layer": "Science",
+      "metric_codes": [
+        "science_to_application_linkage"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome disclosed positive investigator-sponsored Phase 2 smoking-cessation results for AXS-05 under a research collaboration agreement with Duke University.",
+      "raw_value": 1,
+      "raw_unit": "academic collaboration",
+      "period_start": "2025",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_solriamfetol_literature",
+      "source_id": "src_cambridge_solriamfetol",
+      "layer": "Science",
+      "metric_codes": [
+        "citation_velocity_or_quality",
+        "science_to_application_linkage"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "A 2025 analysis of TONES 2 and TONES 3 characterized solriamfetol effect sizes, number needed to treat, and number needed to harm in narcolepsy and obstructive sleep apnea.",
+      "raw_value": 2,
+      "raw_unit": "registrational studies analyzed",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "Solriamfetol was acquired by Axsome; the evidence supports field/product validity more than original Axsome invention."
+    },
+    {
+      "evidence_id": "ev_narcolepsy_nma",
+      "source_id": "src_bmc_narcolepsy_nma",
+      "layer": "Science",
+      "metric_codes": [
+        "citation_velocity_or_quality"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "A 2025 network meta-analysis of wake-promoting agents concluded that solriamfetol showed the strongest efficacy in drowsiness among the compared drugs.",
+      "raw_value": 1,
+      "raw_unit": "network meta-analysis",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "Field-level comparative evidence; not company-authored."
+    },
+    {
+      "evidence_id": "ev_publication_proxy",
+      "source_id": "src_jcp_gemini",
+      "layer": "Science",
+      "metric_codes": [
+        "publication_growth"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Source-checked publication proxy for AXS-05 and solriamfetol technologies increased from 1 visible record in 2021 to 8 records in 2025 in this run's browser-accessible evidence set.",
+      "raw_value": 8,
+      "raw_unit": "source-checked records in 2025",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": false,
+      "field_proxy": true,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "Not an exhaustive OpenAlex or PubMed export; local shell DNS blocked direct API collection."
+    },
+    {
+      "evidence_id": "ev_ip_portfolio_2026",
+      "source_id": "src_sec_2025_10k",
+      "layer": "IP",
+      "metric_codes": [
+        "patent_family_growth",
+        "technical_specificity",
+        "science_to_patent_or_assignee_quality"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "As of February 16, 2026, Axsome disclosed more than 600 issued patents and more than 450 pending applications worldwide; AXS-05 alone had more than 150 issued U.S. patents and more than 130 issued foreign patents.",
+      "raw_value": 600,
+      "raw_unit": "issued patents, lower-bound disclosure",
+      "period_start": "2026",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_ip_trend",
+      "source_id": "src_2021_10k",
+      "layer": "IP",
+      "metric_codes": [
+        "patent_family_growth"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Annual filing disclosures show the issued-patent portfolio rising from 192 in fiscal 2021 to 300 in fiscal 2022 and more than 600 from fiscal 2023 onward.",
+      "raw_value": 600,
+      "raw_unit": "issued patents, lower-bound disclosure",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "Disclosed issued-patent portfolio is a proxy, not a deduplicated patent-family census."
+    },
+    {
+      "evidence_id": "ev_ip_page_product_counts",
+      "source_id": "src_ip_page",
+      "layer": "IP",
+      "metric_codes": [
+        "technical_specificity"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome's IP page lists AXS-05 at more than 140 issued U.S. patents and more than 92 issued non-U.S. patents, AXS-12 at 8 issued U.S. patents and more than 2 non-U.S. patents, and multiple pending AXS-14 applications.",
+      "raw_value": 140,
+      "raw_unit": "AXS-05 issued U.S. patents, lower-bound company page",
+      "period_start": "2026",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_representative_patents",
+      "source_id": "src_patent_11129826",
+      "layer": "IP",
+      "metric_codes": [
+        "technical_specificity",
+        "science_to_patent_or_assignee_quality"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Representative public patent records cover specific dextromethorphan-bupropion dosing, formulations, bupropion/cysteine compositions, and enantiomerically enriched bupropion dosage forms.",
+      "raw_value": 3,
+      "raw_unit": "representative patent records",
+      "period_start": "2021",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_patent_litigation",
+      "source_id": "src_sec_2025_10k",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "economic_readiness",
+        "regulatory_or_standards_fit"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome settled Auvelity patent litigation with Teva, granting a generic license beginning September 30, 2038 without pediatric exclusivity or March 31, 2039 with pediatric exclusivity, subject to customary conditions.",
+      "raw_value": 2038,
+      "raw_unit": "earliest disclosed Teva generic license year",
+      "period_start": "2025",
+      "period_end": "2039",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_2025_financials",
+      "source_id": "src_sec_2025_10k",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "economic_readiness"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome had a 2025 net loss of $183.2 million, accumulated deficit of $1.306 billion at year-end, and said it may continue to incur substantial operating losses even as revenue grows.",
+      "raw_value": -183.2,
+      "raw_unit": "USD millions net loss",
+      "period_start": "2025",
+      "period_end": "2025",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_cash_and_guidance",
+      "source_id": "src_q1_2026_release",
+      "layer": "Industrialization",
+      "metric_codes": [
+        "process_learning_or_capex",
+        "operational_scale_signal"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Cash and cash equivalents totaled $305.1 million at March 31, 2026, and management said current cash was sufficient to fund anticipated operations into cash-flow positivity under the current plan.",
+      "raw_value": 305.1,
+      "raw_unit": "USD millions cash",
+      "period_start": "2026-Q1",
+      "period_end": "2026-Q1",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    },
+    {
+      "evidence_id": "ev_505b2_regulatory_risk",
+      "source_id": "src_sec_2025_10k",
+      "layer": "Policy & Economics",
+      "metric_codes": [
+        "regulatory_or_standards_fit"
+      ],
+      "fact_type": "raw_observation",
+      "fact": "Axsome disclosed reliance on the 505(b)(2) pathway for some product candidates, including additional indications for AXS-05, and warned that FDA may not permit reliance on reference-drug or literature evidence.",
+      "raw_value": 1,
+      "raw_unit": "regulatory pathway risk disclosure",
+      "period_start": "2025",
+      "period_end": "2026",
+      "company_attributable": true,
+      "field_proxy": false,
+      "quote_or_excerpt": "",
+      "location": "Public filing, regulator release, company release, patent page, or indexed article page.",
+      "verified": true,
+      "limitations": "None."
+    }
+  ],
+  "normalization_notes": [
+    {
+      "metric_code": "publication_growth",
+      "rule": "Directional proxy mapped to 0..1 using visible source-checked records, not database-complete works.",
+      "reason": "Direct API access was unavailable in the local shell."
+    },
+    {
+      "metric_code": "patent_family_growth",
+      "rule": "Company-disclosed issued-patent counts used as lower-bound patent portfolio proxy.",
+      "reason": "Deduplicated family time series was not reproducible from available public pages in this run."
+    },
+    {
+      "metric_code": "revenue_or_booking_evidence",
+      "rule": "Commercial-stage revenue growth and absolute quarterly scale mapped to readiness.",
+      "reason": "Revenue is a direct adoption signal for marketed therapeutics."
+    }
+  ],
+  "dashboard_content": {
+    "hero": {
+      "headline": "Axsome Therapeutics CNS Innovation Dashboard",
+      "subheadline": "Readiness assessment as of May 16, 2026, focused on AXS-05/Auvelity, solriamfetol/Sunosi, Symbravo, and late-stage CNS pipeline assets.",
+      "verdict_label": "Strong translational CNS innovator with commercial momentum",
+      "evidence_ids": [
+        "ev_business_overview",
+        "ev_q1_2026_revenue",
+        "ev_ada_fda_approval",
+        "ev_ip_portfolio_2026"
+      ],
+      "source_ids": [
+        "src_sec_2025_10k",
+        "src_q1_2026_release",
+        "src_fda_ada_approval"
+      ]
+    },
+    "thesis": {
+      "title": "Thesis",
+      "summary": "Axsome looks most innovative where it converts known pharmacology into protected, trial-backed, reimbursed CNS products. The evidence supports strong translational momentum, not a clean exceptional-breakthrough label.",
+      "bullets": [
+        {
+          "text": "AXS-05/Auvelity is the center of gravity: a dextromethorphan-bupropion product with MDD approval, AD agitation approval, and smoking-cessation optionality.",
+          "claim_ids": [
+            "claim_axs05_core"
+          ],
+          "evidence_ids": [
+            "ev_mdd_trial",
+            "ev_ada_fda_approval",
+            "ev_duke_collaboration"
+          ],
+          "source_ids": [
+            "src_jcp_gemini",
+            "src_fda_ada_approval",
+            "src_sec_2025_10k"
+          ]
+        },
+        {
+          "text": "Commercial proof is no longer hypothetical: 2025 revenue reached $638.5 million and Q1 2026 revenue reached $191.2 million.",
+          "claim_ids": [
+            "claim_commercial_scale"
+          ],
+          "evidence_ids": [
+            "ev_business_overview",
+            "ev_q1_2026_revenue"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k",
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "text": "The IP position is unusually broad for reformulated or repurposed CNS assets, but the run uses issued-patent disclosures as a proxy rather than a full patent-family census.",
+          "claim_ids": [
+            "claim_ip_strength"
+          ],
+          "evidence_ids": [
+            "ev_ip_portfolio_2026",
+            "ev_ip_trend",
+            "ev_representative_patents"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k",
+            "src_ip_page",
+            "src_patent_11129826"
+          ]
+        },
+        {
+          "text": "The main caution is economic: Axsome still reports losses, relies on market access and IP defense, and much of the technology is translational formulation and clinical execution rather than new biology.",
+          "claim_ids": [
+            "claim_economic_caution"
+          ],
+          "evidence_ids": [
+            "ev_2025_financials",
+            "ev_505b2_regulatory_risk",
+            "ev_patent_litigation"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k"
+          ]
+        }
+      ]
+    },
+    "technology_map": {
+      "title": "Technology Map",
+      "summary": "The portfolio is a CNS translation engine: metabolic inhibition, multimodal neurotransmitter pharmacology, rapid-absorption formulation, and norepinephrine/dopamine modulation.",
+      "items": [
+        {
+          "name": "AXS-05 / Auvelity",
+          "description": "Dextromethorphan plus bupropion uses CYP2D6 inhibition to raise dextromethorphan exposure and targets NMDA and sigma-1 pathways; approved for MDD and AD agitation, with smoking cessation in development.",
+          "maturity": "commercial",
+          "evidence_ids": [
+            "ev_mdd_trial",
+            "ev_ada_fda_approval",
+            "ev_duke_collaboration"
+          ],
+          "source_ids": [
+            "src_jcp_gemini",
+            "src_fda_ada_approval",
+            "src_sec_2025_10k"
+          ]
+        },
+        {
+          "name": "Solriamfetol / Sunosi",
+          "description": "Dopamine and norepinephrine reuptake inhibition, TAAR1 agonism, and 5-HT1A agonism support wakefulness in EDS and underpin Phase 3 expansion into ADHD, MDD with EDS symptoms, binge eating disorder, and shift work disorder.",
+          "maturity": "commercial",
+          "evidence_ids": [
+            "ev_solriamfetol_literature",
+            "ev_narcolepsy_nma",
+            "ev_pipeline_status"
+          ],
+          "source_ids": [
+            "src_cambridge_solriamfetol",
+            "src_bmc_narcolepsy_nma",
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "name": "SYMBRAVO / AXS-07",
+          "description": "MoSEIC meloxicam-rizatriptan combines rapid absorption with COX-2 preferential inhibition and 5-HT1B/1D agonism for acute migraine treatment.",
+          "maturity": "commercial",
+          "evidence_ids": [
+            "ev_q1_2026_revenue",
+            "ev_rx_coverage",
+            "ev_sales_infrastructure"
+          ],
+          "source_ids": [
+            "src_q1_2026_release",
+            "src_sec_2025_10k"
+          ]
+        },
+        {
+          "name": "AXS-12, AXS-14, AXS-17, AXS-20",
+          "description": "Late-stage and earlier CNS assets extend the platform into narcolepsy cataplexy, fibromyalgia, epilepsy, schizophrenia, and Tourette syndrome.",
+          "maturity": "pilot",
+          "evidence_ids": [
+            "ev_pipeline_status"
+          ],
+          "source_ids": [
+            "src_q1_2026_release",
+            "src_pipeline"
+          ]
+        }
+      ]
+    },
+    "quantitative_signals": {
+      "title": "Quantitative Signals",
+      "summary": "Revenue, prescriptions, and patent disclosures are strong. Publication and patent-family trends are proxy-grade where public APIs or complete family exports were not available.",
+      "charts": [
+        {
+          "chart_id": "chart_revenue",
+          "title": "Revenue Trend",
+          "description": "Total revenue moved from first commercial sales in 2022 to $638.5 million in 2025; Q1 2026 added $191.2 million.",
+          "series": [
+            {
+              "label": "Total revenue",
+              "unit": "USD millions",
+              "points": [
+                {
+                  "period": "2022",
+                  "value": 50.0
+                },
+                {
+                  "period": "2023",
+                  "value": 270.6
+                },
+                {
+                  "period": "2024",
+                  "value": 385.7
+                },
+                {
+                  "period": "2025",
+                  "value": 638.5
+                },
+                {
+                  "period": "Q1 2026",
+                  "value": 191.2
+                }
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "ev_business_overview",
+            "ev_q1_2026_revenue"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k",
+            "src_q1_2026_release",
+            "src_2023_revenue_release"
+          ]
+        },
+        {
+          "chart_id": "chart_patents",
+          "title": "Issued Patent Portfolio Proxy",
+          "description": "Company filing disclosures show a large step-up by fiscal 2023 and sustained expansion in AXS-05, AXS-07, and AXS-12 coverage.",
+          "series": [
+            {
+              "label": "Issued patents worldwide",
+              "unit": "patents, lower-bound disclosed",
+              "points": [
+                {
+                  "period": "FY2021",
+                  "value": 192
+                },
+                {
+                  "period": "FY2022",
+                  "value": 300
+                },
+                {
+                  "period": "FY2023",
+                  "value": 600
+                },
+                {
+                  "period": "FY2024",
+                  "value": 600
+                },
+                {
+                  "period": "FY2025",
+                  "value": 600
+                }
+              ]
+            },
+            {
+              "label": "AXS-05 issued U.S. patents",
+              "unit": "patents, lower-bound disclosed",
+              "points": [
+                {
+                  "period": "FY2021",
+                  "value": 50
+                },
+                {
+                  "period": "FY2022",
+                  "value": 114
+                },
+                {
+                  "period": "FY2023",
+                  "value": 127
+                },
+                {
+                  "period": "FY2024",
+                  "value": 140
+                },
+                {
+                  "period": "FY2025",
+                  "value": 150
+                }
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "ev_ip_trend",
+            "ev_ip_portfolio_2026",
+            "ev_ip_page_product_counts"
+          ],
+          "source_ids": [
+            "src_2021_10k",
+            "src_2022_10k",
+            "src_2023_10k",
+            "src_2024_10k",
+            "src_sec_2025_10k",
+            "src_ip_page"
+          ]
+        },
+        {
+          "chart_id": "chart_publications",
+          "title": "Publication Proxy",
+          "description": "The run found a rising source-checked clinical literature trail for AXS-05 and solriamfetol, but this is not an exhaustive bibliometric export.",
+          "series": [
+            {
+              "label": "Source-checked records",
+              "unit": "records",
+              "points": [
+                {
+                  "period": "2021",
+                  "value": 1
+                },
+                {
+                  "period": "2022",
+                  "value": 3
+                },
+                {
+                  "period": "2023",
+                  "value": 4
+                },
+                {
+                  "period": "2024",
+                  "value": 5
+                },
+                {
+                  "period": "2025",
+                  "value": 8
+                }
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "ev_publication_proxy",
+            "ev_mdd_trial",
+            "ev_solriamfetol_literature",
+            "ev_narcolepsy_nma"
+          ],
+          "source_ids": [
+            "src_jcp_gemini",
+            "src_pubmed_systematic_review",
+            "src_cambridge_solriamfetol",
+            "src_bmc_narcolepsy_nma"
+          ]
+        },
+        {
+          "chart_id": "chart_q1_adoption",
+          "title": "Q1 2026 Product Adoption",
+          "description": "Prescription counts and payer coverage show real deployment, with Auvelity materially ahead of the rest of the portfolio.",
+          "series": [
+            {
+              "label": "Prescriptions",
+              "unit": "prescriptions",
+              "points": [
+                {
+                  "period": "Auvelity",
+                  "value": 223000
+                },
+                {
+                  "period": "Sunosi",
+                  "value": 54000
+                },
+                {
+                  "period": "Symbravo",
+                  "value": 17000
+                }
+              ]
+            },
+            {
+              "label": "Payer coverage",
+              "unit": "percent of lives",
+              "points": [
+                {
+                  "period": "Auvelity",
+                  "value": 86
+                },
+                {
+                  "period": "Sunosi",
+                  "value": 83
+                },
+                {
+                  "period": "Symbravo",
+                  "value": 57
+                }
+              ]
+            }
+          ],
+          "evidence_ids": [
+            "ev_rx_coverage"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        }
+      ]
+    },
+    "commercialization_evidence": {
+      "title": "Commercialization Evidence",
+      "summary": "Axsome is a commercial-stage CNS company with active launch infrastructure, not a purely clinical-stage optionality story.",
+      "items": [
+        {
+          "label": "Auvelity scale",
+          "text": "Q1 2026 Auvelity revenue was $153.2 million and about 223,000 prescriptions were written before the planned June 2026 full launch in AD agitation.",
+          "evidence_ids": [
+            "ev_q1_2026_revenue",
+            "ev_rx_coverage"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "label": "Portfolio revenue",
+          "text": "Sunosi contributed $33.9 million in Q1 2026 and Symbravo contributed $4.1 million while coverage and sales-force expansion were still building.",
+          "evidence_ids": [
+            "ev_q1_2026_revenue",
+            "ev_rx_coverage",
+            "ev_sales_infrastructure"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "label": "Pipeline conversion",
+          "text": "AXS-12 has reached NDA submission for cataplexy in narcolepsy, while solriamfetol, AXS-05, AXS-14, AXS-17, and AXS-20 create multiple follow-on milestones.",
+          "evidence_ids": [
+            "ev_pipeline_status"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        }
+      ]
+    },
+    "breakthrough_gate": {
+      "title": "Breakthrough Gate",
+      "summary": "Axsome passes the readiness gate because both industrialization and adoption clear 3.0 with adequate confidence. The pass is based on translational execution, not on discovery-platform novelty.",
+      "conditions_met": [
+        {
+          "condition": "Industrialization is above 3.0 because Axsome has three marketed products, active launch infrastructure, a 630-representative Auvelity field force, and late-stage pipeline activity.",
+          "evidence_ids": [
+            "ev_business_overview",
+            "ev_sales_infrastructure",
+            "ev_pipeline_status"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k",
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "condition": "Adoption is above 3.0 because revenue, prescriptions, and payer coverage show real use across Auvelity, Sunosi, and Symbravo.",
+          "evidence_ids": [
+            "ev_q1_2026_revenue",
+            "ev_rx_coverage"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        }
+      ],
+      "conditions_not_met": [
+        {
+          "condition": "The field-level publication map and patent-family counts are not complete enough to call this an exceptional science-to-IP platform.",
+          "evidence_ids": [
+            "ev_publication_proxy",
+            "ev_ip_trend"
+          ],
+          "source_ids": [
+            "src_jcp_gemini",
+            "src_2021_10k"
+          ]
+        },
+        {
+          "condition": "Economic readiness is not fully mature because Axsome remains loss-making and launch success in AD agitation is still forward-looking.",
+          "evidence_ids": [
+            "ev_2025_financials",
+            "ev_q1_2026_revenue"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k",
+            "src_q1_2026_release"
+          ]
+        }
+      ],
+      "result": "Pass, with an evidence-based ceiling below exceptional."
+    },
+    "university_research_signals": {
+      "title": "University Research",
+      "summary": "Academic linkage is visible in clinical collaborators and field literature, but Axsome's moat is more formulation, IP, and clinical-regulatory execution than a university-originated discovery platform.",
+      "institutions": [
+        {
+          "name": "Nathan Kline Institute and New York University School of Medicine",
+          "signal": "Academic affiliation for the GEMINI Phase 3 publication supporting AXS-05 in MDD.",
+          "company_attributable": false,
+          "field_proxy": false,
+          "evidence_ids": [
+            "ev_mdd_trial"
+          ],
+          "source_ids": [
+            "src_jcp_gemini"
+          ]
+        },
+        {
+          "name": "Massachusetts General Hospital and Harvard Medical School",
+          "signal": "Academic clinical-trials and psychiatry affiliation in the GEMINI publication.",
+          "company_attributable": false,
+          "field_proxy": false,
+          "evidence_ids": [
+            "ev_mdd_trial"
+          ],
+          "source_ids": [
+            "src_jcp_gemini"
+          ]
+        },
+        {
+          "name": "Duke University",
+          "signal": "Investigator-sponsored AXS-05 smoking-cessation Phase 2 collaboration disclosed by Axsome.",
+          "company_attributable": true,
+          "field_proxy": false,
+          "evidence_ids": [
+            "ev_duke_collaboration"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k"
+          ]
+        },
+        {
+          "name": "SUNY Upstate Medical University and Atrium Health",
+          "signal": "Listed affiliations for the 2025 solriamfetol analysis in CNS Spectrums.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": [
+            "ev_solriamfetol_literature"
+          ],
+          "source_ids": [
+            "src_cambridge_solriamfetol"
+          ]
+        },
+        {
+          "name": "Shandong First Medical University",
+          "signal": "Affiliation for the 2025 BMC Neurology narcolepsy network meta-analysis comparing wake-promoting agents including solriamfetol.",
+          "company_attributable": false,
+          "field_proxy": true,
+          "evidence_ids": [
+            "ev_narcolepsy_nma"
+          ],
+          "source_ids": [
+            "src_bmc_narcolepsy_nma"
+          ]
+        }
+      ]
+    },
+    "patent_signals": {
+      "title": "Patents",
+      "summary": "The patent signal is large and specific, but it should be read as an issued-patent and representative-family proxy rather than a complete deduplicated family map.",
+      "families": [
+        {
+          "title": "Dextromethorphan and bupropion in combination to treat major depressive disorder",
+          "publication_or_family_id": "US11129826",
+          "jurisdictions": [
+            "US"
+          ],
+          "priority_date": "2020-10-14",
+          "interpretation": "Representative method-of-treatment claim tied directly to Auvelity's commercial core.",
+          "evidence_ids": [
+            "ev_representative_patents"
+          ],
+          "source_ids": [
+            "src_patent_11129826"
+          ]
+        },
+        {
+          "title": "Pharmaceutical compositions comprising bupropion and cysteine",
+          "publication_or_family_id": "US12357697B2",
+          "jurisdictions": [
+            "US"
+          ],
+          "priority_date": "2024-10-21",
+          "interpretation": "Recent assigned patent showing continuing composition-level work around the bupropion/dextromethorphan area.",
+          "evidence_ids": [
+            "ev_representative_patents"
+          ],
+          "source_ids": [
+            "src_patent_12357697"
+          ]
+        },
+        {
+          "title": "Dosage forms and methods for enantiomerically enriched or pure bupropion",
+          "publication_or_family_id": "US20210196704A1",
+          "jurisdictions": [
+            "US"
+          ],
+          "priority_date": "2013-11-05",
+          "interpretation": "Representative publication linking bupropion pharmacokinetics and dextromethorphan combination concepts.",
+          "evidence_ids": [
+            "ev_representative_patents"
+          ],
+          "source_ids": [
+            "src_google_patent_bupropion"
+          ]
+        }
+      ],
+      "interpretation": "The IP estate supports an economic moat around CNS combinations and formulations, while generic settlements show that patent defense remains part of the business model."
+    },
+    "red_flags": [
+      {
+        "red_flag_id": "rf_profitability",
+        "title": "Still loss-making",
+        "text": "Axsome reported a $183.2 million net loss in 2025 and a $1.306 billion accumulated deficit, so revenue scale has not yet translated into durable profitability.",
+        "severity": "high",
+        "layer": "Policy & Economics",
+        "evidence_ids": [
+          "ev_2025_financials"
+        ],
+        "source_ids": [
+          "src_sec_2025_10k"
+        ],
+        "claim_ids": [
+          "claim_economic_caution"
+        ]
+      },
+      {
+        "red_flag_id": "rf_translation_not_discovery",
+        "title": "Translational, not pure discovery",
+        "text": "The strongest assets rely on known molecules, combinations, dosing, and regulatory execution. That is commercially valuable but caps the science score.",
+        "severity": "medium",
+        "layer": "Science",
+        "evidence_ids": [
+          "ev_mdd_trial",
+          "ev_representative_patents",
+          "ev_505b2_regulatory_risk"
+        ],
+        "source_ids": [
+          "src_jcp_gemini",
+          "src_patent_11129826",
+          "src_sec_2025_10k"
+        ],
+        "claim_ids": [
+          "claim_translation_ceiling"
+        ]
+      },
+      {
+        "red_flag_id": "rf_generic_and_ip",
+        "title": "Generic challenges are active economics",
+        "text": "The Teva settlement preserved a late-2030s Auvelity generic entry path, but the need to settle generic litigation confirms that IP durability is a live risk.",
+        "severity": "medium",
+        "layer": "IP",
+        "evidence_ids": [
+          "ev_patent_litigation"
+        ],
+        "source_ids": [
+          "src_sec_2025_10k"
+        ],
+        "claim_ids": [
+          "claim_ip_strength"
+        ]
+      },
+      {
+        "red_flag_id": "rf_proxy_counts",
+        "title": "Incomplete publication and patent-family exports",
+        "text": "Shell network access was blocked by DNS, so publication and patent-family series are transparent proxies rather than database-complete exports.",
+        "severity": "medium",
+        "layer": "Science",
+        "evidence_ids": [
+          "ev_publication_proxy",
+          "ev_ip_trend"
+        ],
+        "source_ids": [
+          "src_jcp_gemini",
+          "src_2021_10k"
+        ],
+        "claim_ids": [
+          "claim_proxy_limits"
+        ]
+      }
+    ],
+    "watchlist": {
+      "title": "What Would Change The View",
+      "upgrade_signals": [
+        {
+          "text": "The June 2026 Auvelity AD agitation launch shows fast uptake without payer resistance or safety surprises.",
+          "monitoring_source": "Quarterly earnings, prescription data, payer coverage updates, and FDA safety communications."
+        },
+        {
+          "text": "AXS-12 receives FDA filing acceptance and approval for cataplexy in narcolepsy, showing repeatable late-stage execution.",
+          "monitoring_source": "FDA filing updates, company releases, and SEC filings."
+        },
+        {
+          "text": "Solriamfetol Phase 3 programs in ADHD, MDD with EDS symptoms, binge eating disorder, or shift work disorder produce positive readouts.",
+          "monitoring_source": "ClinicalTrials.gov, company releases, conference presentations, and peer-reviewed publications."
+        }
+      ],
+      "downgrade_signals": [
+        {
+          "text": "Auvelity prescription growth stalls or AD agitation uptake disappoints after launch.",
+          "monitoring_source": "IQVIA-like prescription trackers, company revenue disclosures, and payer updates."
+        },
+        {
+          "text": "Gross-to-net, reimbursement, or formulary pressure materially weakens revenue conversion.",
+          "monitoring_source": "10-Q filings, earnings-call management commentary, and payer policy changes."
+        },
+        {
+          "text": "Pipeline programs require unexpected new safety or efficacy studies under the 505(b)(2) pathway.",
+          "monitoring_source": "FDA correspondence disclosed in SEC filings, complete response letters, and company regulatory updates."
+        }
+      ],
+      "cadence": [
+        {
+          "frequency": "quarterly",
+          "task": "Refresh revenue, prescriptions, payer coverage, clinical milestones, litigation, and cash runway."
+        },
+        {
+          "frequency": "every 6 months",
+          "task": "Rebuild publication and patent-family maps using PubMed, OpenAlex, Google Patents, USPTO, and EPO exports if network access is available."
+        }
+      ]
+    },
+    "operational_snapshot": {
+      "title": "Operational Snapshot",
+      "metrics": [
+        {
+          "label": "2025 total revenue",
+          "value": "$638.5M",
+          "period": "FY2025",
+          "evidence_ids": [
+            "ev_business_overview"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k"
+          ]
+        },
+        {
+          "label": "Q1 2026 revenue",
+          "value": "$191.2M",
+          "period": "2026-Q1",
+          "evidence_ids": [
+            "ev_q1_2026_revenue"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "label": "Auvelity Q1 revenue",
+          "value": "$153.2M",
+          "period": "2026-Q1",
+          "evidence_ids": [
+            "ev_q1_2026_revenue"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "label": "Auvelity Q1 prescriptions",
+          "value": "~223K",
+          "period": "2026-Q1",
+          "evidence_ids": [
+            "ev_rx_coverage"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        },
+        {
+          "label": "Issued patents",
+          "value": ">600",
+          "period": "As of Feb. 16, 2026",
+          "evidence_ids": [
+            "ev_ip_portfolio_2026"
+          ],
+          "source_ids": [
+            "src_sec_2025_10k"
+          ]
+        },
+        {
+          "label": "Cash",
+          "value": "$305.1M",
+          "period": "Mar. 31, 2026",
+          "evidence_ids": [
+            "ev_cash_and_guidance"
+          ],
+          "source_ids": [
+            "src_q1_2026_release"
+          ]
+        }
+      ]
+    },
+    "method_notes": {
+      "title": "Method Notes",
+      "notes": [
+        "This is a single-company absolute readiness score, not a peer percentile.",
+        "The deterministic scorer computes all displayed numeric scores from normalized metrics in payload.json.",
+        "The patent trend uses company-disclosed issued-patent counts as a lower-bound proxy, not a deduplicated patent-family census.",
+        "The publication trend uses source-checked records identified in this run because direct OpenAlex, PubMed, USPTO, and SEC API/web calls from the shell failed due DNS restrictions.",
+        "Current-date context is May 16, 2026. Q1 2026 and the April 30, 2026 FDA approval are included."
+      ]
+    },
+    "bottom_line": {
+      "title": "Bottom Line",
+      "text": "Axsome is a strong translational CNS innovator: it has converted known molecules and formulation logic into protected products, FDA approvals, commercial revenue, and late-stage pipeline optionality. The evidence does not justify an exceptional breakthrough label because the science is not deeply novel, API-backed bibliometric and patent-family exports were unavailable, and profitability remains unproven.",
+      "claim_ids": [
+        "claim_bottom_line"
+      ],
+      "evidence_ids": [
+        "ev_business_overview",
+        "ev_q1_2026_revenue",
+        "ev_mdd_trial",
+        "ev_ip_portfolio_2026",
+        "ev_2025_financials"
+      ],
+      "source_ids": [
+        "src_sec_2025_10k",
+        "src_q1_2026_release",
+        "src_jcp_gemini"
+      ]
+    }
+  },
+  "claims": [
+    {
+      "claim_id": "claim_axs05_core",
+      "section": "thesis",
+      "text": "AXS-05/Auvelity is Axsome's core innovation asset because it links trial evidence, two FDA-approved indications, IP breadth, and follow-on indication optionality.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_mdd_trial",
+        "ev_ada_fda_approval",
+        "ev_ip_portfolio_2026",
+        "ev_duke_collaboration"
+      ],
+      "source_ids": [
+        "src_jcp_gemini",
+        "src_fda_ada_approval",
+        "src_sec_2025_10k"
+      ]
+    },
+    {
+      "claim_id": "claim_commercial_scale",
+      "section": "adoption",
+      "text": "Axsome has crossed from clinical-stage optionality to commercial execution, with 2025 revenue of $638.5 million and Q1 2026 revenue of $191.2 million.",
+      "claim_type": "sourced_fact",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_business_overview",
+        "ev_q1_2026_revenue"
+      ],
+      "source_ids": [
+        "src_sec_2025_10k",
+        "src_q1_2026_release"
+      ]
+    },
+    {
+      "claim_id": "claim_ip_strength",
+      "section": "ip",
+      "text": "Axsome's patent estate is broad and specific enough to support a real product moat, while generic litigation shows that IP defense remains economically important.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_ip_portfolio_2026",
+        "ev_ip_trend",
+        "ev_patent_litigation",
+        "ev_representative_patents"
+      ],
+      "source_ids": [
+        "src_sec_2025_10k",
+        "src_ip_page",
+        "src_patent_11129826"
+      ]
+    },
+    {
+      "claim_id": "claim_economic_caution",
+      "section": "red_flags",
+      "text": "Commercial momentum is strong but not yet economically complete because Axsome remains loss-making and must continue converting access, prescriptions, and launches into durable profit.",
+      "claim_type": "limitation",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_2025_financials",
+        "ev_q1_2026_revenue",
+        "ev_cash_and_guidance"
+      ],
+      "source_ids": [
+        "src_sec_2025_10k",
+        "src_q1_2026_release"
+      ]
+    },
+    {
+      "claim_id": "claim_translation_ceiling",
+      "section": "science",
+      "text": "The innovation score is capped by the fact that Axsome's strongest evidence is translational formulation, combination pharmacology, and clinical execution rather than discovery of a wholly new modality.",
+      "claim_type": "inference",
+      "confidence": "Medium",
+      "evidence_ids": [
+        "ev_mdd_trial",
+        "ev_representative_patents",
+        "ev_505b2_regulatory_risk"
+      ],
+      "source_ids": [
+        "src_jcp_gemini",
+        "src_patent_11129826",
+        "src_sec_2025_10k"
+      ]
+    },
+    {
+      "claim_id": "claim_proxy_limits",
+      "section": "method_notes",
+      "text": "Publication and patent-family trend metrics are directional proxies because the run could not obtain complete API-backed exports from the shell environment.",
+      "claim_type": "limitation",
+      "confidence": "Medium",
+      "evidence_ids": [
+        "ev_publication_proxy",
+        "ev_ip_trend"
+      ],
+      "source_ids": [
+        "src_jcp_gemini",
+        "src_2021_10k",
+        "src_sec_2025_10k"
+      ]
+    },
+    {
+      "claim_id": "claim_gate_result",
+      "section": "breakthrough_gate",
+      "text": "Axsome passes the company-level readiness gate through industrialization and adoption, but it remains a strong translational candidate rather than an exceptional breakthrough candidate.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_sales_infrastructure",
+        "ev_rx_coverage",
+        "ev_q1_2026_revenue"
+      ],
+      "source_ids": [
+        "src_q1_2026_release"
+      ]
+    },
+    {
+      "claim_id": "claim_bottom_line",
+      "section": "bottom_line",
+      "text": "Axsome is a strong translational CNS innovator with commercial momentum, broad IP, and meaningful regulatory execution, but profitability and original-science depth are still gating factors.",
+      "claim_type": "inference",
+      "confidence": "High",
+      "evidence_ids": [
+        "ev_business_overview",
+        "ev_q1_2026_revenue",
+        "ev_ip_portfolio_2026",
+        "ev_2025_financials"
+      ],
+      "source_ids": [
+        "src_sec_2025_10k",
+        "src_q1_2026_release"
+      ]
+    }
+  ],
+  "layers": [
+    {
+      "label": "Science",
+      "score": 3.5,
+      "display_score": "3.5",
+      "raw_score": 3.861,
+      "normalized_score": 0.7722,
+      "coverage_ratio": 0.78,
+      "confidence_penalty": 0.912,
+      "confidence": "Medium",
+      "summary": "Clinical evidence is strongest for AXS-05 and solriamfetol. The science is translational rather than frontier biology: Axsome combines known active ingredients, mechanism hypotheses, and trial execution into differentiated CNS indications.",
+      "strong": "Phase 3 MDD data, FDA-supported AD agitation trials, Duke collaboration, and external solriamfetol literature create a credible application-facing evidence base.",
+      "missing": "No exhaustive OpenAlex/PubMed export; much of the novelty is formulation, dose, metabolic inhibition, indication selection, and clinical translation rather than discovery of a new molecular class.",
+      "metrics": [
+        {
+          "code": "publication_growth",
+          "label": "Publication growth",
+          "value": 0.66,
+          "weight": 0.34,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_publication_proxy"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "start_value": 1,
+              "end_value": 8,
+              "years": 4,
+              "proxy_type": "source_checked_records"
+            },
+            "method": "normalize_growth_proxy",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "A rising source-checked article trail is positive, but confidence is discounted because API collection was unavailable.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "citation_velocity_or_quality",
+          "label": "Citation velocity or quality",
+          "value": 0.78,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_mdd_trial",
+            "ev_ada_clinical_package",
+            "ev_solriamfetol_literature",
+            "ev_narcolepsy_nma"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "phase3_trial_patients": 327,
+              "fda_cited_randomized_trials": 2,
+              "registrational_solriamfetol_studies_analyzed": 2
+            },
+            "method": "qualitative_clinical_quality_to_0_1",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Peer-reviewed and regulator-cited evidence is strong, though publication density is not exhaustively measured.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "science_to_application_linkage",
+          "label": "Science-to-application linkage",
+          "value": 0.88,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_mdd_trial",
+            "ev_ada_fda_approval",
+            "ev_duke_collaboration",
+            "ev_pipeline_status"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "approved_auvelity_indications": 2,
+              "academic_collaborations_identified": 1,
+              "late_stage_programs_identified": 4
+            },
+            "method": "application_linkage_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Science has been converted into approvals, pivotal trials, and pipeline extensions.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "IP",
+      "score": 4.2,
+      "display_score": "4.2",
+      "raw_score": 4.41,
+      "normalized_score": 0.882,
+      "coverage_ratio": 0.86,
+      "confidence_penalty": 0.944,
+      "confidence": "High",
+      "summary": "IP is a major Axsome strength. The portfolio is broad, current filings show more than 600 issued patents and more than 450 pending applications, and product-level patents are specific to treatment, dosing, composition, pharmacokinetics, and delivery.",
+      "strong": "AXS-05 patent coverage expanded from more than 50 issued U.S. patents in FY2021 to more than 150 in FY2025; representative records show specific formulation and method claims.",
+      "missing": "The run did not produce a complete patent-family-normalized export across USPTO, EPO, WIPO, and Google Patents.",
+      "metrics": [
+        {
+          "code": "patent_family_growth",
+          "label": "Patent portfolio growth",
+          "value": 0.88,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_ip_trend",
+            "ev_ip_portfolio_2026"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "issued_patents_fy2021": 192,
+              "issued_patents_fy2025_lower_bound": 600,
+              "axs05_us_fy2021": 50,
+              "axs05_us_fy2025": 150
+            },
+            "method": "normalize_growth_proxy",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Company-disclosed issued-patent counts grew sharply and product-level AXS-05 coverage continued to rise.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "technical_specificity",
+          "label": "Technical specificity",
+          "value": 0.92,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_ip_page_product_counts",
+            "ev_representative_patents"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "representative_patent_records": 3,
+              "claim_domains": [
+                "method of treatment",
+                "composition",
+                "pharmacokinetics",
+                "drug delivery"
+              ]
+            },
+            "method": "specificity_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Claims are specific to formulations, dosing, methods of treatment, pharmacokinetics, and delivery rather than broad aspirational IP.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "science_to_patent_or_assignee_quality",
+          "label": "Science-to-patent and assignee quality",
+          "value": 0.84,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_ip_portfolio_2026",
+            "ev_representative_patents",
+            "ev_patent_litigation"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "issued_worldwide_lower_bound": 600,
+              "pending_worldwide_lower_bound": 450,
+              "generic_license_earliest_year": 2038
+            },
+            "method": "assignee_quality_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Patent estate is held by the operating company and has already been defended or settled in generic-litigation contexts.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Industrialization",
+      "score": 3.8,
+      "display_score": "3.8",
+      "raw_score": 3.963,
+      "normalized_score": 0.7927,
+      "coverage_ratio": 0.88,
+      "confidence_penalty": 0.952,
+      "confidence": "High",
+      "summary": "Axsome has moved beyond research-stage biotech. It operates three marketed products, is expanding sales infrastructure, and has several late-stage regulatory or Phase 3 programs.",
+      "strong": "Revenue scale, sales-force expansion, ongoing launches, and cash guidance into cash-flow positivity show a commercial operating system rather than only clinical optionality.",
+      "missing": "The company uses pharmaceutical outsourcing and commercialization infrastructure more than disclosed internal manufacturing process leadership; detailed yield, batch, and supply-chain metrics are limited.",
+      "metrics": [
+        {
+          "code": "manufacturing_or_deployment_evidence",
+          "label": "Commercial deployment evidence",
+          "value": 0.76,
+          "weight": 0.33,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_business_overview",
+            "ev_q1_2026_revenue",
+            "ev_sales_infrastructure"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "commercial_products": 3,
+              "approved_indications_after_ada": 4
+            },
+            "method": "deployment_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Three marketed products and four approved indications show deployment, though manufacturing depth is not heavily disclosed.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "process_learning_or_capex",
+          "label": "Process learning or capex",
+          "value": 0.72,
+          "weight": 0.32,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_pipeline_status",
+            "ev_cash_and_guidance",
+            "ev_505b2_regulatory_risk"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "cash_q1_2026_usd_m": 305.1,
+              "pipeline_programs_highlighted": 6,
+              "q1_2026_rd_usd_m": 52.7
+            },
+            "method": "operating_learning_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Pipeline execution and R&D spend show process learning, but capex and manufacturing metrics are not central disclosures.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "operational_scale_signal",
+          "label": "Operational scale signal",
+          "value": 0.89,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_sales_infrastructure",
+            "ev_rx_coverage",
+            "ev_q1_2026_revenue"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "auvelity_sales_reps": 630,
+              "symbravo_sales_reps_planned": 150,
+              "q1_2026_revenue_usd_m": 191.2
+            },
+            "method": "scale_signal",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Commercial headcount, payer access, prescriptions, and revenue indicate repeatable operational scale.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Adoption",
+      "score": 4.2,
+      "display_score": "4.2",
+      "raw_score": 4.35,
+      "normalized_score": 0.87,
+      "coverage_ratio": 0.92,
+      "confidence_penalty": 0.968,
+      "confidence": "High",
+      "summary": "Adoption is the clearest positive signal. Auvelity has become a meaningful commercial product, Sunosi continues to grow, and Symbravo has early launch prescriptions and expanding coverage.",
+      "strong": "2025 revenue rose 66% to $638.5 million, Q1 2026 revenue rose 57% year over year, and Auvelity had approximately 223,000 Q1 prescriptions before its June 2026 AD agitation launch.",
+      "missing": "Symbravo remains early, AD agitation launch execution is still ahead, and Axsome remains dependent on a concentrated product base.",
+      "metrics": [
+        {
+          "code": "revenue_or_booking_evidence",
+          "label": "Revenue evidence",
+          "value": 0.93,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_business_overview",
+            "ev_q1_2026_revenue"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "revenue_2025_usd_m": 638.5,
+              "q1_2026_revenue_usd_m": 191.2,
+              "q1_2026_growth_percent": 57
+            },
+            "method": "revenue_scale_growth",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Revenue has moved from launch-stage to commercial scale and continues to grow.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "customer_or_partner_breadth",
+          "label": "Customer and payer breadth",
+          "value": 0.82,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_rx_coverage"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "auvelity_coverage_percent": 86,
+              "sunosi_coverage_percent": 83,
+              "symbravo_coverage_percent": 57
+            },
+            "method": "coverage_and_access_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Prescription and payer coverage data show broad access, with Symbravo still building.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "repeatability_or_deployment_scale",
+          "label": "Deployment repeatability",
+          "value": 0.84,
+          "weight": 0.3,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_rx_coverage",
+            "ev_pipeline_status",
+            "ev_sales_infrastructure"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "q1_2026_disclosed_prescriptions": 294000,
+              "marketed_products": 3,
+              "pipeline_programs_highlighted": 6
+            },
+            "method": "repeatability_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Multiple products, product-line extensions, and sales-force scaling support repeatability.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    },
+    {
+      "label": "Policy & Economics",
+      "score": 3.7,
+      "display_score": "3.7",
+      "raw_score": 3.955,
+      "normalized_score": 0.791,
+      "coverage_ratio": 0.84,
+      "confidence_penalty": 0.936,
+      "confidence": "Medium",
+      "summary": "The U.S. regulatory environment has been supportive for Axsome's differentiated CNS indications, but economics remain bounded by reimbursement, generic challenges, continued losses, and concentrated product dependence.",
+      "strong": "FDA breakthrough therapy and priority review for Auvelity's AD agitation action, an approved second indication, orphan designation for AXS-12, and settled IP litigation all support economic runway.",
+      "missing": "The company is still loss-making; 505(b)(2) reliance and payer access create continuing execution risk, and the AD agitation launch is not yet reflected in revenue.",
+      "metrics": [
+        {
+          "code": "regulatory_or_standards_fit",
+          "label": "Regulatory fit",
+          "value": 0.88,
+          "weight": 0.4,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_ada_fda_approval",
+            "ev_pipeline_status",
+            "ev_505b2_regulatory_risk"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "breakthrough_or_priority_action": 1,
+              "approved_auvelity_indications": 2,
+              "axs12_nda_submitted": 1
+            },
+            "method": "regulatory_readiness_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Recent FDA approval and ongoing NDA activity are strong, but 505(b)(2) reliance keeps the score below perfect.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "policy_or_supply_chain_support",
+          "label": "Policy and access support",
+          "value": 0.72,
+          "weight": 0.25,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_rx_coverage",
+            "ev_patent_litigation"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "payer_coverage_auvelity": 86,
+              "generic_license_earliest_year": 2038
+            },
+            "method": "access_and_exclusivity_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Coverage and exclusivity are supportive, while generic and reimbursement scrutiny remain real.",
+            "judgment_level": "medium"
+          }
+        },
+        {
+          "code": "economic_readiness",
+          "label": "Economic readiness",
+          "value": 0.74,
+          "weight": 0.35,
+          "unit": "normalized_0_to_1",
+          "source_type": "mixed",
+          "verified": true,
+          "evidence_ids": [
+            "ev_q1_2026_revenue",
+            "ev_2025_financials",
+            "ev_cash_and_guidance"
+          ],
+          "normalization": {
+            "raw_inputs": {
+              "q1_2026_revenue_usd_m": 191.2,
+              "fy2025_net_loss_usd_m": -183.2,
+              "q1_cash_usd_m": 305.1
+            },
+            "method": "economic_readiness_scale",
+            "parameters": {
+              "floor": 0.0,
+              "cap": 1.0
+            },
+            "rationale": "Revenue scale and cash guidance are positive, but losses and accumulated deficit temper the score.",
+            "judgment_level": "medium"
+          }
+        }
+      ],
+      "cap_reasons": []
+    }
+  ],
+  "total_score": 19.4,
+  "display_total_score": "19.4",
+  "gate_pass": true,
+  "verdict": "Strong innovator with translational momentum",
+  "benchmark_ready": true,
+  "storage_metadata": {
+    "intended_store": "sqlite",
+    "recommended_primary_keys": {
+      "sources": "source_id",
+      "evidence_items": "evidence_id",
+      "metrics": "company + research_date + run_id + layer + metric_code"
+    },
+    "content_hash_fields": [
+      "sources",
+      "evidence_items",
+      "layers",
+      "dashboard_content",
+      "claims",
+      "normalization_notes"
+    ]
+  },
+  "scorer_metadata": {
+    "scorer_name": "score_innovation_benchmark.py",
+    "scorer_version": "1.2.0",
+    "metric_rules_version": "1.2.0",
+    "formula": "layer_score = 5 * confidence_penalty * sum(weight_i * metric_i_value)"
+  }
+}

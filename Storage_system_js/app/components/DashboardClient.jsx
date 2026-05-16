@@ -274,27 +274,517 @@ function titleFromKey(key) {
     .replace(/\b\w/gu, (letter) => letter.toUpperCase());
 }
 
-function NarrativeRefs({ item }) {
+const referenceKeys = new Set(["evidence_ids", "source_ids", "claim_ids"]);
+
+function compactText(value, limit = 180) {
+  const text = String(value || "").replace(/\s+/gu, " ").trim();
+  if (!text) return "";
+  if (text.length <= limit) return text;
+  return `${text.slice(0, limit - 3).trimEnd()}...`;
+}
+
+function joinMeta(parts) {
+  return parts.filter(Boolean).join(" · ");
+}
+
+function asArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function storyParagraphs(story = {}) {
+  if (asArray(story.paragraphs).length) return asArray(story.paragraphs);
+  return String(story.body_markdown || "")
+    .split(/\n{2,}/u)
+    .map((paragraph) => paragraph.replace(/^#+\s*/u, "").trim())
+    .filter(Boolean);
+}
+
+function itemHeading(item) {
+  return item?.title || item?.name || item?.label || item?.condition || item?.frequency || item?.period || "";
+}
+
+function itemBody(item) {
+  return item?.text || item?.summary || item?.description || item?.signal || item?.interpretation || item?.monitoring_source || item?.task || "";
+}
+
+function itemMeta(item) {
+  return joinMeta([
+    item?.maturity,
+    item?.severity,
+    item?.layer,
+    item?.period,
+    item?.value,
+    item?.claim_type,
+    item?.confidence,
+    item?.company_attributable === false ? "Field proxy" : null
+  ]);
+}
+
+function resolveReference(type, id, referenceIndex = {}) {
+  const key = String(id);
+
+  if (type === "claim") {
+    const claim = referenceIndex.claimsById?.[key];
+    return {
+      text: compactText(claim?.text) || "Claim not found in this run.",
+      meta: joinMeta([claim?.section, claim?.claim_type, claim?.confidence]),
+      missing: !claim
+    };
+  }
+
+  if (type === "evidence") {
+    const evidence = referenceIndex.evidenceById?.[key];
+    return {
+      text: compactText(evidence?.fact) || "Evidence not found in this run.",
+      meta: joinMeta([evidence?.layer_label, evidence?.publisher]),
+      missing: !evidence
+    };
+  }
+
+  const source = referenceIndex.sourcesById?.[key];
+  return {
+    text: compactText(source?.title) || "Source not found in this run.",
+    meta: joinMeta([source?.publisher, source?.document_date, source?.source_type]),
+    href: source?.canonical_url || null,
+    missing: !source
+  };
+}
+
+function ReferenceLine({ id, resolved }) {
+  return (
+    <li className={`narrativeRefItem ${resolved.missing ? "missing" : ""}`}>
+      <code className="refCode">{id}</code>
+      <span className="refSummary">
+        {resolved.href ? (
+          <a href={resolved.href} target="_blank" rel="noreferrer">
+            {resolved.text}
+          </a>
+        ) : (
+          resolved.text
+        )}
+        {resolved.meta && <small>{resolved.meta}</small>}
+      </span>
+    </li>
+  );
+}
+
+function ViewSwitcher({ viewMode, onChange }) {
+  const options = [
+    { value: "storage", label: "Storage audit", icon: Database },
+    { value: "dashboard", label: "Dashboard", icon: LineChart }
+  ];
+
+  return (
+    <div className="viewSwitch" role="tablist" aria-label="View mode">
+      {options.map((option) => {
+        const Icon = option.icon;
+        return (
+          <button
+            aria-selected={viewMode === option.value}
+            className={viewMode === option.value ? "active" : ""}
+            key={option.value}
+            onClick={() => onChange(option.value)}
+            role="tab"
+            type="button"
+          >
+            <Icon size={15} />
+            {option.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function NarrativeRefs({ item, referenceIndex }) {
   const refs = [
-    ["Claims", item.claim_ids],
-    ["Evidence", item.evidence_ids],
-    ["Sources", item.source_ids]
-  ].filter(([, values]) => Array.isArray(values) && values.length);
+    { label: "Claims", type: "claim", values: item.claim_ids },
+    { label: "Evidence", type: "evidence", values: item.evidence_ids },
+    { label: "Sources", type: "source", values: item.source_ids }
+  ].filter(({ values }) => Array.isArray(values) && values.length);
 
   if (!refs.length) return null;
 
   return (
-    <div className="narrativeRefs">
-      {refs.map(([label, values]) => (
-        <span key={label}>
-          <b>{label}</b> {values.join(", ")}
-        </span>
+    <div className="narrativeRefs" aria-label="Resolved references">
+      {refs.map(({ label, type, values }) => (
+        <div className="narrativeRefGroup" key={label}>
+          <b>{label}</b>
+          <ul className="narrativeRefList">
+            {values.map((id, index) => (
+              <ReferenceLine
+                id={String(id)}
+                key={`${label}-${id}-${index}`}
+                resolved={resolveReference(type, id, referenceIndex)}
+              />
+            ))}
+          </ul>
+        </div>
       ))}
     </div>
   );
 }
 
-function NarrativeTextBlock({ item }) {
+function DashboardProgress({ label, score, confidence }) {
+  const numeric = Number(score || 0);
+  return (
+    <div className="dashboardProgress">
+      <div>
+        <span>{label}</span>
+        <strong>{numeric ? numeric.toFixed(1) : "0.0"} / 5</strong>
+      </div>
+      <div className="dashboardTrack">
+        <span style={{ width: `${Math.min(Math.max(numeric / 5, 0), 1) * 100}%` }} />
+      </div>
+      {confidence && <small>Confidence: {confidence}</small>}
+    </div>
+  );
+}
+
+function DashboardItem({ item, referenceIndex, tone = "" }) {
+  const heading = itemHeading(item);
+  const body = itemBody(item);
+  const meta = itemMeta(item);
+
+  return (
+    <article className={`dashboardItem ${tone}`}>
+      {heading && <h4>{heading}</h4>}
+      {body && <p>{body}</p>}
+      {meta && <small>{meta}</small>}
+      <NarrativeRefs item={item} referenceIndex={referenceIndex} />
+    </article>
+  );
+}
+
+function DashboardSection({ eyebrow, title, summary, children }) {
+  if (!children) return null;
+
+  return (
+    <section className="companyDashSection">
+      <div className="companyDashSectionHead">
+        {eyebrow && <p className="eyebrow">{eyebrow}</p>}
+        <h3>{title}</h3>
+        {summary && <p>{summary}</p>}
+      </div>
+      <div className="companyDashSectionBody">{children}</div>
+    </section>
+  );
+}
+
+function DashboardChart({ chart, referenceIndex }) {
+  const series = asArray(chart?.series);
+  const values = series.flatMap((serie) => asArray(serie.points).map((point) => Number(point.value || 0)));
+  const max = Math.max(...values, 1);
+
+  return (
+    <article className="dashboardItem chartDashboardItem">
+      <h4>{chart?.title || chart?.chart_id || "Chart"}</h4>
+      {chart?.description && <p>{chart.description}</p>}
+      <div className="dashboardChart">
+        {series.map((serie) => (
+          <div className="dashboardChartSeries" key={serie.label || serie.unit}>
+            <div className="dashboardChartSeriesHead">
+              <strong>{serie.label || "Series"}</strong>
+              {serie.unit && <small>{serie.unit}</small>}
+            </div>
+            {asArray(serie.points).map((point) => {
+              const value = Number(point.value || 0);
+              return (
+                <div className="dashboardBarRow" key={`${serie.label}-${point.period}`}>
+                  <span>{point.period}</span>
+                  <div className="dashboardMiniTrack">
+                    <b style={{ width: `${Math.max(2, (value / max) * 100)}%` }} />
+                  </div>
+                  <strong>{formatNumber(value)}</strong>
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      <NarrativeRefs item={chart} referenceIndex={referenceIndex} />
+    </article>
+  );
+}
+
+function CompanyDashboard({ selectedRun, selectedSummary }) {
+  const [storyVariant, setStoryVariant] = useState("original");
+  const dashboardContent = selectedRun?.narrative?.dashboard_content || {};
+  const referenceIndex = selectedRun?.referenceIndex || {};
+  const layers = selectedRun?.layers || [];
+  const sources = selectedRun?.sources || [];
+  const claims = selectedRun?.narrative?.claims || [];
+  const thesis = dashboardContent.thesis || {};
+  const breakthrough = dashboardContent.breakthrough_gate || {};
+  const technologyMap = dashboardContent.technology_map || {};
+  const quantitative = dashboardContent.quantitative_signals || {};
+  const commercial = dashboardContent.commercialization_evidence || {};
+  const university = dashboardContent.university_research_signals || {};
+  const patent = dashboardContent.patent_signals || {};
+  const redFlags = asArray(dashboardContent.red_flags);
+  const watchlist = dashboardContent.watchlist || {};
+  const operational = dashboardContent.operational_snapshot || {};
+  const methodNotes = dashboardContent.method_notes || {};
+  const bottomLine = dashboardContent.bottom_line || {};
+  const story = dashboardContent.story || {};
+  const originalStory = story.original || (story.paragraphs || story.body_markdown
+    ? { label: "Original", title: story.title, paragraphs: story.paragraphs, body_markdown: story.body_markdown }
+    : null);
+  const storyChoices = {
+    original: originalStory,
+    basic: story.variants?.basic,
+    informed: story.variants?.informed,
+    expert: story.variants?.expert
+  };
+  const activeStory = storyChoices[storyVariant] || originalStory || story.variants?.basic || story.variants?.informed || story.variants?.expert || {};
+  const activeStoryParagraphs = storyParagraphs(activeStory);
+  const storyButtons = [
+    ["basic", "Basic"],
+    ["informed", "Informed"],
+    ["expert", "Expert"]
+  ].filter(([key]) => storyChoices[key]);
+  const hero = dashboardContent.hero || {};
+
+  if (!selectedRun) return null;
+
+  return (
+    <section className="companyDashboard" aria-labelledby="dashboard-heading">
+      <header className="companyDashHero">
+        <div>
+          <p className="eyebrow">{selectedSummary.ticker || selectedSummary.research_date || "Selected run"}</p>
+          <h2 id="dashboard-heading">{hero.headline || selectedSummary.company}</h2>
+          <p>{hero.subheadline || selectedSummary.verdict}</p>
+          <div className="companyDashMeta">
+            <Pill tone={selectedSummary.gate_pass ? "green" : "amber"}>{selectedSummary.gate_pass ? "Gate pass" : "Watch"}</Pill>
+            <Pill>{selectedSummary.research_date || "No date"}</Pill>
+            <Pill>{layers.length} layers</Pill>
+          </div>
+        </div>
+        <div className="companyDashScore">
+          <span>Readiness</span>
+          <strong>{selectedSummary.display_total_score || "n/a"}</strong>
+          <small>/ 25</small>
+        </div>
+      </header>
+
+      <DashboardSection eyebrow="Thesis" title={thesis.title || "Investment Thesis"} summary={thesis.summary}>
+        <div className="companyDashGrid two">
+          <div className="dashboardItem">
+            {asArray(thesis.bullets).length ? (
+              <div className="dashboardBulletList">
+                {asArray(thesis.bullets).map((item, index) => (
+                  <DashboardItem item={item} key={item.label || item.text || index} referenceIndex={referenceIndex} />
+                ))}
+              </div>
+            ) : (
+              <p>{thesis.text || selectedSummary.verdict}</p>
+            )}
+          </div>
+          <div className="dashboardItem">
+            <h4>{breakthrough.title || "Breakthrough Gate"}</h4>
+            {breakthrough.summary && <p>{breakthrough.summary}</p>}
+            {breakthrough.result && <strong className="dashboardVerdict">{breakthrough.result}</strong>}
+            <div className="dashboardMiniList">
+              {asArray(breakthrough.conditions_met).slice(0, 2).map((item, index) => (
+                <DashboardItem item={item} key={`met-${index}`} referenceIndex={referenceIndex} tone="positive" />
+              ))}
+              {asArray(breakthrough.conditions_not_met).slice(0, 2).map((item, index) => (
+                <DashboardItem item={item} key={`not-met-${index}`} referenceIndex={referenceIndex} tone="watch" />
+              ))}
+            </div>
+          </div>
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Scores" title="Five-Layer Dashboard">
+        <div className="layerDashboardList">
+          {layers.map((layer) => (
+            <article className="layerDashboardRow" key={layer.layer_code || layer.label}>
+              <div>
+                <h4>{layer.label}</h4>
+                {layer.coverage_ratio !== null && layer.coverage_ratio !== undefined && (
+                  <small>Coverage {Math.round(Number(layer.coverage_ratio || 0) * 100)}%</small>
+                )}
+              </div>
+              <DashboardProgress label={layer.label} score={layer.score} confidence={layer.confidence} />
+              <div>
+                {layer.summary && <p>{layer.summary}</p>}
+                {layer.strong && <small><b>Strong:</b> {layer.strong}</small>}
+                {layer.missing && <small><b>Missing:</b> {layer.missing}</small>}
+              </div>
+            </article>
+          ))}
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Technology" title={technologyMap.title || "Technology Map"} summary={technologyMap.summary}>
+        <div className="companyDashGrid">
+          {asArray(technologyMap.items).map((item, index) => (
+            <DashboardItem item={item} key={item.name || item.title || index} referenceIndex={referenceIndex} />
+          ))}
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Quantitative" title={quantitative.title || "Quantitative Signals"} summary={quantitative.summary}>
+        <div className="companyDashGrid two">
+          {asArray(quantitative.charts).map((chart, index) => (
+            <DashboardChart chart={chart} key={chart.chart_id || chart.title || index} referenceIndex={referenceIndex} />
+          ))}
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Commercial" title={commercial.title || "Commercialization Evidence"} summary={commercial.summary}>
+        <div className="companyDashGrid">
+          {asArray(commercial.items).map((item, index) => (
+            <DashboardItem item={item} key={item.label || item.title || index} referenceIndex={referenceIndex} />
+          ))}
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Research" title="Research And IP" summary={university.summary || patent.summary}>
+        <div className="companyDashGrid two">
+          <div className="dashboardItem">
+            <h4>{university.title || "University Research"}</h4>
+            <div className="dashboardMiniList">
+              {asArray(university.institutions).map((item, index) => (
+                <DashboardItem item={item} key={item.name || index} referenceIndex={referenceIndex} />
+              ))}
+            </div>
+          </div>
+          <div className="dashboardItem">
+            <h4>{patent.title || "Patents"}</h4>
+            {patent.interpretation && <p>{patent.interpretation}</p>}
+            <div className="dashboardMiniList">
+              {asArray(patent.families).map((item, index) => (
+                <DashboardItem item={item} key={item.publication_or_family_id || item.title || index} referenceIndex={referenceIndex} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Risk" title="Red Flags">
+        <div className="companyDashGrid">
+          {redFlags.map((flag, index) => (
+            <DashboardItem item={flag} key={flag.red_flag_id || flag.title || index} referenceIndex={referenceIndex} tone="risk" />
+          ))}
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Monitoring" title={watchlist.title || "What Would Change The View"}>
+        <div className="companyDashGrid three">
+          <div className="dashboardItem">
+            <h4>Upgrade Signals</h4>
+            <div className="dashboardMiniList">
+              {asArray(watchlist.upgrade_signals).map((item, index) => (
+                <DashboardItem item={item} key={`upgrade-${index}`} referenceIndex={referenceIndex} tone="positive" />
+              ))}
+            </div>
+          </div>
+          <div className="dashboardItem">
+            <h4>Downgrade Signals</h4>
+            <div className="dashboardMiniList">
+              {asArray(watchlist.downgrade_signals).map((item, index) => (
+                <DashboardItem item={item} key={`downgrade-${index}`} referenceIndex={referenceIndex} tone="risk" />
+              ))}
+            </div>
+          </div>
+          <div className="dashboardItem">
+            <h4>Cadence</h4>
+            <div className="dashboardMiniList">
+              {asArray(watchlist.cadence).map((item, index) => (
+                <DashboardItem item={item} key={`cadence-${index}`} referenceIndex={referenceIndex} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Operations" title={operational.title || "Operational Snapshot"}>
+        <div className="companyDashGrid">
+          {asArray(operational.metrics).map((metric, index) => (
+            <article className="dashboardMetric" key={metric.label || index}>
+              <span>{metric.label}</span>
+              <strong>{metric.value}</strong>
+              <small>{metric.period}</small>
+              <NarrativeRefs item={metric} referenceIndex={referenceIndex} />
+            </article>
+          ))}
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Conclusion" title={bottomLine.title || "Bottom Line"}>
+        <div className="companyDashGrid two">
+          <div className="dashboardItem conclusionItem">
+            <p>{bottomLine.text || selectedSummary.verdict}</p>
+            <NarrativeRefs item={bottomLine} referenceIndex={referenceIndex} />
+          </div>
+          <div className="dashboardItem">
+            <h4>{methodNotes.title || "Method Notes"}</h4>
+            <ul className="methodList">
+              {asArray(methodNotes.notes).map((note, index) => (
+                <li key={`${note}-${index}`}>{note}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Story" title={activeStory.title || story.title || "Story"}>
+        {activeStoryParagraphs.length ? (
+          <div className="dashboardItem conclusionItem">
+            {storyButtons.length > 0 && (
+              <div className="viewSwitch" role="group" aria-label="Story level">
+                {storyButtons.map(([key, label]) => (
+                  <button
+                    className={storyVariant === key ? "active" : ""}
+                    key={key}
+                    onClick={() => setStoryVariant(storyVariant === key ? "original" : key)}
+                    type="button"
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+            {activeStoryParagraphs.map((paragraph, index) => (
+              <p key={`${paragraph.slice(0, 32)}-${index}`}>{paragraph}</p>
+            ))}
+          </div>
+        ) : null}
+      </DashboardSection>
+
+      <DashboardSection eyebrow="Audit" title="Claims And Sources">
+        <div className="companyDashGrid two">
+          <div className="dashboardItem">
+            <h4>Claims Register</h4>
+            <div className="dashboardMiniList">
+              {claims.map((claim) => (
+                <DashboardItem item={{ ...claim, title: claim.claim_id }} key={claim.claim_id} referenceIndex={referenceIndex} />
+              ))}
+            </div>
+          </div>
+          <div className="dashboardItem">
+            <h4>Sources</h4>
+            <div className="sourceRegister">
+              {sources.map((source) => (
+                <a href={source.canonical_url} key={source.local_source_id} rel="noreferrer" target="_blank">
+                  <code>{source.local_source_id}</code>
+                  <span>
+                    <strong>{source.title}</strong>
+                    <small>{joinMeta([source.publisher, source.document_date, source.source_type])}</small>
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </DashboardSection>
+    </section>
+  );
+}
+
+function NarrativeTextBlock({ item, referenceIndex }) {
   const heading = item.title || item.name || item.label || item.condition || item.frequency || item.period;
   const body = item.text || item.summary || item.description || item.signal || item.interpretation || item.monitoring_source;
   const meta = [item.maturity, item.severity, item.layer, item.claim_type, item.confidence, item.value].filter(Boolean).join(" · ");
@@ -304,12 +794,12 @@ function NarrativeTextBlock({ item }) {
       {heading && <h4>{heading}</h4>}
       {body && <p>{body}</p>}
       {meta && <small>{meta}</small>}
-      <NarrativeRefs item={item} />
+      <NarrativeRefs item={item} referenceIndex={referenceIndex} />
     </div>
   );
 }
 
-function NarrativeChart({ chart }) {
+function NarrativeChart({ chart, referenceIndex }) {
   const series = Array.isArray(chart.series) ? chart.series : [];
   return (
     <div className="narrativeItem chartItem">
@@ -330,11 +820,12 @@ function NarrativeChart({ chart }) {
           </div>
         ))}
       </div>
+      <NarrativeRefs item={chart} referenceIndex={referenceIndex} />
     </div>
   );
 }
 
-function NarrativeCollection({ label, items }) {
+function NarrativeCollection({ label, items, referenceIndex }) {
   if (!Array.isArray(items) || !items.length) return null;
 
   return (
@@ -346,16 +837,16 @@ function NarrativeCollection({ label, items }) {
             return <div className="narrativeItem" key={`${label}-${index}`}><p>{item}</p></div>;
           }
           if (item?.series) {
-            return <NarrativeChart chart={item} key={item.chart_id || item.title || `${label}-${index}`} />;
+            return <NarrativeChart chart={item} key={item.chart_id || item.title || `${label}-${index}`} referenceIndex={referenceIndex} />;
           }
-          return <NarrativeTextBlock item={item} key={item.red_flag_id || item.claim_id || item.name || item.title || item.label || `${label}-${index}`} />;
+          return <NarrativeTextBlock item={item} key={item.red_flag_id || item.claim_id || item.name || item.title || item.label || `${label}-${index}`} referenceIndex={referenceIndex} />;
         })}
       </div>
     </div>
   );
 }
 
-function NarrativeSection({ sectionKey, section }) {
+function NarrativeSection({ sectionKey, section, referenceIndex }) {
   if (!section) return null;
 
   if (Array.isArray(section)) {
@@ -365,13 +856,13 @@ function NarrativeSection({ sectionKey, section }) {
           <p className="eyebrow">{titleFromKey(sectionKey)}</p>
           <h2>{titleFromKey(sectionKey)}</h2>
         </div>
-        <NarrativeCollection label={sectionKey} items={section} />
+        <NarrativeCollection label={sectionKey} items={section} referenceIndex={referenceIndex} />
       </section>
     );
   }
 
-  const reserved = new Set(["title", "headline", "summary", "subheadline", "text", "verdict_label", "evidence_ids", "source_ids", "claim_ids"]);
-  const collections = Object.entries(section).filter(([, value]) => Array.isArray(value));
+  const reserved = new Set(["title", "headline", "summary", "subheadline", "text", "verdict_label", ...referenceKeys]);
+  const collections = Object.entries(section).filter(([key, value]) => Array.isArray(value) && !reserved.has(key));
   const scalarRows = Object.entries(section).filter(([key, value]) => !reserved.has(key) && value && typeof value !== "object");
 
   return (
@@ -383,7 +874,7 @@ function NarrativeSection({ sectionKey, section }) {
           <p>{section.summary || section.subheadline || section.text}</p>
         )}
         {section.verdict_label && <Pill tone="green">{section.verdict_label}</Pill>}
-        <NarrativeRefs item={section} />
+        <NarrativeRefs item={section} referenceIndex={referenceIndex} />
       </div>
 
       {scalarRows.length > 0 && (
@@ -398,7 +889,7 @@ function NarrativeSection({ sectionKey, section }) {
       )}
 
       {collections.map(([key, items]) => (
-        <NarrativeCollection items={items} key={key} label={key} />
+        <NarrativeCollection items={items} key={key} label={key} referenceIndex={referenceIndex} />
       ))}
     </section>
   );
@@ -407,6 +898,7 @@ function NarrativeSection({ sectionKey, section }) {
 function NarrativeView({ selectedRun, selectedSummary }) {
   const dashboardContent = selectedRun?.narrative?.dashboard_content;
   const claims = selectedRun?.narrative?.claims || [];
+  const referenceIndex = selectedRun?.referenceIndex || {};
   const sectionEntries = dashboardContent ? Object.entries(dashboardContent) : [];
 
   return (
@@ -427,7 +919,7 @@ function NarrativeView({ selectedRun, selectedSummary }) {
       {sectionEntries.length ? (
         <div className="narrativeStack">
           {sectionEntries.map(([key, section]) => (
-            <NarrativeSection key={key} section={section} sectionKey={key} />
+            <NarrativeSection key={key} section={section} sectionKey={key} referenceIndex={referenceIndex} />
           ))}
 
           <section className="narrativeBlock claimsBlock">
@@ -444,7 +936,7 @@ function NarrativeView({ selectedRun, selectedSummary }) {
                     <small>{claim.section} · {claim.claim_type} · {claim.confidence}</small>
                   </span>
                   <p>{claim.text}</p>
-                  <NarrativeRefs item={claim} />
+                  <NarrativeRefs item={claim} referenceIndex={referenceIndex} />
                 </div>
               ))}
             </div>
@@ -462,6 +954,7 @@ function NarrativeView({ selectedRun, selectedSummary }) {
 
 export default function DashboardClient({ data }) {
   const [selectedRunUid, setSelectedRunUid] = useState(data.runs[0]?.run_uid);
+  const [viewMode, setViewMode] = useState("storage");
   const selectedRun = data.runDetails[selectedRunUid];
   const selectedSummary = selectedRun?.summary || data.runs[0];
   const lastUpdated = new Intl.DateTimeFormat("en-US", {
@@ -477,11 +970,12 @@ export default function DashboardClient({ data }) {
           <span>Storage Console</span>
         </div>
         <nav aria-label="Workspace">
-          <a href="#runs-heading"><LineChart size={17} /> Runs</a>
-          <a href="#selected-heading"><Activity size={17} /> Analysis</a>
-          <a href="#evidence-heading"><Library size={17} /> Evidence</a>
-          <a href="#schema-heading"><ShieldCheck size={17} /> Schema</a>
-          <a href="#narrative-heading"><BookOpenText size={17} /> Narrative</a>
+          <a href="#runs-heading" onClick={() => setViewMode("storage")}><LineChart size={17} /> Runs</a>
+          <a href="#selected-heading" onClick={() => setViewMode("storage")}><Activity size={17} /> Analysis</a>
+          <a href="#evidence-heading" onClick={() => setViewMode("storage")}><Library size={17} /> Evidence</a>
+          <a href="#schema-heading" onClick={() => setViewMode("storage")}><ShieldCheck size={17} /> Schema</a>
+          <a href="#narrative-heading" onClick={() => setViewMode("storage")}><BookOpenText size={17} /> Narrative</a>
+          <a href="#dashboard-heading" onClick={() => setViewMode("dashboard")}><Gauge size={17} /> Dashboard</a>
         </nav>
         <div className="railFooter">
           <span>Last sync</span>
@@ -495,35 +989,47 @@ export default function DashboardClient({ data }) {
             <p className="eyebrow">SQLite · Next.js</p>
             <h1>Company analysis storage</h1>
           </div>
-          <a className="apiLink" href="/api/runs" title="Open Next.js API route">
-            API route
-            <ArrowUpRight size={16} />
-          </a>
+          <div className="topActions">
+            <ViewSwitcher viewMode={viewMode} onChange={setViewMode} />
+            <a className="apiLink" href="/api/runs" title="Open Next.js API route">
+              API route
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
         </header>
 
-        <section className="overviewBand" aria-label="Storage overview">
-          <div className="overviewText">
-            <p className="eyebrow">Operational view</p>
-            <h2>Runs, evidence, and schema drift in one workspace.</h2>
-            <p>Data is read directly from storage_js.db; raw JSON remains preserved for audit and future schema migration.</p>
+        {viewMode === "storage" ? (
+          <>
+            <section className="overviewBand" aria-label="Storage overview">
+              <div className="overviewText">
+                <p className="eyebrow">Operational view</p>
+                <h2>Runs, evidence, and schema drift in one workspace.</h2>
+                <p>Data is read directly from storage_js.db; raw JSON remains preserved for audit and future schema migration.</p>
+              </div>
+              <SystemMap status={data.status} />
+            </section>
+
+            <section className="statusStrip" aria-label="Database status">
+              <StatLine icon={BadgeCheck} label="Companies" value={data.status.companies} />
+              <StatLine icon={Layers3} label="Metrics" value={data.status.analysis_metrics} />
+              <StatLine icon={Library} label="Evidence" value={data.status.evidence_items} />
+              <StatLine icon={ShieldCheck} label="Schema events" value={data.status.json_ingestion_events} />
+            </section>
+
+            <div className="workspaceGrid">
+              <RunList runs={data.runs} selectedRunUid={selectedRunUid} onSelect={setSelectedRunUid} />
+              {selectedRun && <SelectedRun selectedRun={selectedRun} selectedSummary={selectedSummary} />}
+              {selectedRun && <EvidenceInspector evidence={selectedRun.evidence} metricEvidence={selectedRun.metricEvidence} />}
+              <SchemaHealth observations={data.schemaObservations} />
+            </div>
+            {selectedRun && <NarrativeView selectedRun={selectedRun} selectedSummary={selectedSummary} />}
+          </>
+        ) : (
+          <div className="dashboardWorkspace">
+            <RunList runs={data.runs} selectedRunUid={selectedRunUid} onSelect={setSelectedRunUid} />
+            {selectedRun && <CompanyDashboard selectedRun={selectedRun} selectedSummary={selectedSummary} />}
           </div>
-          <SystemMap status={data.status} />
-        </section>
-
-        <section className="statusStrip" aria-label="Database status">
-          <StatLine icon={BadgeCheck} label="Companies" value={data.status.companies} />
-          <StatLine icon={Layers3} label="Metrics" value={data.status.analysis_metrics} />
-          <StatLine icon={Library} label="Evidence" value={data.status.evidence_items} />
-          <StatLine icon={ShieldCheck} label="Schema events" value={data.status.json_ingestion_events} />
-        </section>
-
-        <div className="workspaceGrid">
-          <RunList runs={data.runs} selectedRunUid={selectedRunUid} onSelect={setSelectedRunUid} />
-          {selectedRun && <SelectedRun selectedRun={selectedRun} selectedSummary={selectedSummary} />}
-          {selectedRun && <EvidenceInspector evidence={selectedRun.evidence} metricEvidence={selectedRun.metricEvidence} />}
-          <SchemaHealth observations={data.schemaObservations} />
-        </div>
-        {selectedRun && <NarrativeView selectedRun={selectedRun} selectedSummary={selectedSummary} />}
+        )}
       </div>
     </main>
   );

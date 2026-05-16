@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Innovation Readiness Dashboard</title>
+  <style>
+    :root {
+      --dusty-rose: #d4a5a5;
+      --clay: #b87d6d;
+      --sand: #e8d5c4;
+      --burgundy: #5d2e46;
+      --paper: #fff8f3;
+      --ink: #251922;
+      --muted: #7b6267;
+      --line: rgba(93, 46, 70, 0.18);
+      --green: #65765c;
+      --amber: #a8663f;
+      --shadow: 0 18px 70px rgba(93, 46, 70, 0.13);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% -10%, rgba(255, 248, 243, 0.9), transparent 38%),
+        linear-gradient(180deg, #f6ebe2 0%, var(--sand) 48%, #f3e4dc 100%);
+      font-family: FreeSans, Arial, Helvetica, sans-serif;
+      line-height: 1.45;
+    }
+    a { color: var(--burgundy); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .shell { width: min(1180px, calc(100vw - 36px)); margin: 0 auto; }
+    header {
+      padding: 30px 0 22px;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      color: var(--clay);
+      font-size: 12px;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    h1, h2, h3 {
+      font-family: FreeSans, Arial, Helvetica, sans-serif;
+      letter-spacing: 0;
+      margin: 0;
+      color: var(--burgundy);
+    }
+    h1 {
+      font-size: clamp(38px, 6vw, 82px);
+      line-height: 0.95;
+      max-width: 920px;
+      margin-top: 14px;
+    }
+    h2 { font-size: clamp(25px, 3vw, 42px); line-height: 1.08; }
+    h3 { font-size: 17px; line-height: 1.2; }
+    p { margin: 0; color: var(--muted); }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 42px;
+      align-items: end;
+      padding: 54px 0 48px;
+    }
+    .subhead {
+      margin-top: 20px;
+      max-width: 690px;
+      font-size: 18px;
+    }
+    .score-block {
+      background: rgba(255, 248, 243, 0.7);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .score-number {
+      color: var(--burgundy);
+      font-size: 74px;
+      line-height: 0.9;
+      font-weight: 800;
+    }
+    .score-number small { font-size: 20px; color: var(--muted); font-weight: 600; }
+    .verdict { margin-top: 14px; color: var(--ink); font-weight: 700; }
+    .gate {
+      margin-top: 18px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      background: rgba(212, 165, 165, 0.18);
+      color: var(--burgundy);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    main { padding: 8px 0 74px; }
+    section {
+      padding: 42px 0;
+      border-top: 1px solid var(--line);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 34px;
+      margin-bottom: 26px;
+    }
+    .section-head p { max-width: 790px; }
+    .layers {
+      display: grid;
+      gap: 14px;
+    }
+    .layer-row {
+      background: rgba(255, 248, 243, 0.66);
+      border: 1px solid var(--line);
+      padding: 18px;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+    .layer-row:hover {
+      transform: translateY(-2px);
+      border-color: rgba(184, 125, 109, 0.55);
+      background: rgba(255, 248, 243, 0.86);
+    }
+    .layer-top {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr) 70px;
+      gap: 16px;
+      align-items: center;
+    }
+    .bar-track {
+      height: 8px;
+      background: rgba(93, 46, 70, 0.14);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--clay), var(--dusty-rose));
+      box-shadow: 0 0 18px rgba(184, 125, 109, 0.28);
+      transition: width 900ms cubic-bezier(.2, .8, .2, 1);
+    }
+    .score-label {
+      color: var(--burgundy);
+      font-weight: 800;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .layer-copy {
+      display: grid;
+      grid-template-columns: 1fr 1fr 0.7fr;
+      gap: 18px;
+      padding-top: 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .mini-label {
+      color: var(--clay);
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px 28px;
+    }
+    .grid-three {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .panel {
+      background: rgba(255, 248, 243, 0.62);
+      border: 1px solid var(--line);
+      padding: 20px;
+      min-height: 100%;
+    }
+    .panel p, li { font-size: 14px; }
+    ul.clean { list-style: none; padding: 0; margin: 0; display: grid; gap: 14px; }
+    .item-title { color: var(--burgundy); font-weight: 800; margin-bottom: 5px; }
+    .tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border: 1px solid var(--line);
+      color: var(--burgundy);
+      background: rgba(212, 165, 165, 0.18);
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+    .chart {
+      display: grid;
+      gap: 10px;
+    }
+    .bars {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .bar-line {
+      display: grid;
+      grid-template-columns: 62px minmax(0, 1fr) 72px;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .thin-track {
+      height: 7px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(93, 46, 70, 0.12);
+    }
+    .thin-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: var(--green);
+      transition: width 900ms cubic-bezier(.2, .8, .2, 1);
+    }
+    .snapshot {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+    .snapshot div {
+      padding: 16px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 248, 243, 0.52);
+    }
+    .snapshot strong {
+      display: block;
+      color: var(--burgundy);
+      font-size: 22px;
+      margin: 4px 0;
+    }
+    .severity-high { color: #7d2c24; }
+    .severity-medium { color: var(--amber); }
+    .sources {
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .source-row {
+      display: grid;
+      grid-template-columns: 110px minmax(0, 1fr) 132px;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .source-row strong { color: var(--burgundy); }
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 600ms ease, transform 600ms ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    footer {
+      padding: 28px 0 42px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    @media (max-width: 900px) {
+      .hero-grid, .section-head, .grid-two, .grid-three, .layer-copy {
+        grid-template-columns: 1fr;
+      }
+      .layer-top {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+      .score-label { text-align: left; }
+      .snapshot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .source-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .shell { width: min(100vw - 24px, 1180px); }
+      header { padding-top: 22px; }
+      .hero-grid { padding: 34px 0; }
+      .score-number { font-size: 58px; }
+      .snapshot { grid-template-columns: 1fr; }
+      section { padding: 34px 0; }
+    }
+  </style>
+</head>
+<body>
+  <script id="scored-data" type="application/json">{"schema_version": "2.1", "company": "BioMarin Pharmaceutical Inc.", "ticker": "NASDAQ: BMRN", "mode": "absolute", "skill_metadata": {"skill_name": "technology-innovation-analysis", "skill_version": "1.2.0", "skill_path": ".codex/skills/technology-innovation-analysis/SKILL.md", "scorer_name": "score_innovation_benchmark.py", "scorer_version": "1.2.0", "metric_rules_version": "1.2.0"}, "research_run": {"research_date": "2026-05-12", "analyst": "codex", "run_id": "run-company-analysis-20260512-02", "user_request": "Research BioMarin Pharmaceutical Inc., NASDAQ: BMRN, using the technology innovation analysis skill and present a Desert Rose themed frontend dashboard.", "time_horizon": "Five years, primarily 2021-2025, with latest 2026 operating evidence through 2026-05-12.", "research_mode": "web_research_with_deterministic_scoring"}, "research_context": {"focus_technologies": ["CNP/FGFR3 skeletal dysplasia platform including VOXZOGO, BMN 333, and CANOPY", "Rare-disease enzymes, biologics, and lysosomal disease manufacturing know-how", "Genetic medicines including ROCTAVIAN AAV hemophilia A and BMN 351 DMD"], "company_identifiers": {"legal_name": "BioMarin Pharmaceutical Inc.", "ticker": "NASDAQ: BMRN", "cik": "0001048477", "isin": "US09061G1013"}, "source_availability": [{"domain": "company_filings", "status": "available", "note": "2025 10-K and current 2026 operating releases were available from SEC and BioMarin."}, {"domain": "company_materials", "status": "available", "note": "Pipeline, product, manufacturing, acquisition, ROCTAVIAN withdrawal, and earnings materials were available."}, {"domain": "patents", "status": "partial", "note": "Representative patent records were available; a family-normalized five-year assignee export was not available in the run."}, {"domain": "publications", "status": "partial", "note": "Regulatory and clinical source trails were available; local DNS blocked PubMed/OpenAlex API count export, so article counts are conservative proxy counts."}, {"domain": "policy", "status": "available", "note": "FDA sources for VOXZOGO and ROCTAVIAN were available."}], "search_log": [{"query": "BioMarin 2025 10-K SEC BMRN annual report R&D VOXZOGO ROCTAVIAN", "source": "web_search", "date": "2026-05-12", "result_quality": "high", "selected": true, "selection_reason": "Primary annual filing."}, {"query": "BioMarin Q1 2026 results VOXZOGO ROCTAVIAN withdrawal BMN 351", "source": "web_search", "date": "2026-05-12", "result_quality": "high", "selected": true, "selection_reason": "Latest operating evidence before research date."}, {"query": "BioMarin pipeline BMN 333 BMN 351 CANOPY 2026", "source": "web_search", "date": "2026-05-12", "result_quality": "high", "selected": true, "selection_reason": "Primary pipeline source."}, {"query": "FDA VOXZOGO approval 2021 achondroplasia BioMarin", "source": "web_search", "date": "2026-05-12", "result_quality": "high", "selected": true, "selection_reason": "Regulatory and policy evidence."}, {"query": "BioMarin voluntary withdrawal ROCTAVIAN all markets 2026", "source": "web_search", "date": "2026-05-12", "result_quality": "high", "selected": true, "selection_reason": "Material red flag and adoption evidence."}, {"query": "Patents assigned to BioMarin Pharmaceutical Inc Justia 2025 CNP AAV sulfatase", "source": "web_search", "date": "2026-05-12", "result_quality": "medium", "selected": true, "selection_reason": "Representative public patent records and trend proxy."}], "exclusions": [{"candidate_source_or_metric": "Peer percentile or relative ranking", "reason": "Single-company mode; no real peer benchmark was requested."}, {"candidate_source_or_metric": "Unverified investor blog commentary", "reason": "Not primary and not needed for innovation scoring."}, {"candidate_source_or_metric": "Full patent-family analytics export", "reason": "Not openly available through the run's accessible sources."}, {"candidate_source_or_metric": "API-derived PubMed/OpenAlex year counts", "reason": "Local DNS blocked API calls; proxy counts are recorded with limitations."}], "judgment_calls": [{"topic": "Technology scope", "decision": "Focused on CNP/FGFR3 skeletal dysplasia, rare-disease enzymes/biologics, and genetic medicines.", "rationale": "These are the domains most material to BioMarin's innovation thesis and future value creation.", "impact": "Mature products are included only where they inform manufacturing, adoption, and economics."}, {"topic": "ROCTAVIAN treatment", "decision": "Counted ROCTAVIAN approval as science/policy evidence and withdrawal as a high-severity adoption red flag.", "rationale": "Both facts are true and together distinguish regulatory success from market adoption.", "impact": "Adoption and overall verdict are capped below exceptional."}, {"topic": "Patent trend proxy", "decision": "Used public patent-record counts and representative families rather than a paid family-normalized export.", "rationale": "Open sources gave enough specificity but not a reproducible family census.", "impact": "IP coverage is discounted to medium confidence."}, {"topic": "Publication trend proxy", "decision": "Used conservative representative article counts and explicit limitations.", "rationale": "The local environment blocked direct PubMed/OpenAlex export attempts.", "impact": "Science coverage is discounted and publication growth is not treated as a precise field census."}]}, "sources": [{"source_id": "src_sec_2025_10k", "title": "BioMarin Pharmaceutical Inc. Form 10-K for fiscal year ended December 31, 2025", "url": "https://www.sec.gov/Archives/edgar/data/1048477/000104847726000004/bmrn-20251231.htm", "publisher": "U.S. Securities and Exchange Commission / BioMarin Pharmaceutical Inc.", "document_date": "2026-02-20", "accessed_at": "2026-05-12", "source_type": "primary_filing", "availability": "available", "reliability": "high", "notes": "Primary annual filing for revenue, R&D, pipeline, facilities, impairments, and risk factors."}, {"source_id": "src_fy2025_results", "title": "BioMarin Reports Fourth Quarter and Full-Year 2025 Financial Results", "url": "https://investors.biomarin.com/2026-02-19-BioMarin-Reports-Fourth-Quarter-and-Full-Year-2025-Financial-Results", "publisher": "BioMarin Investor Relations", "document_date": "2026-02-19", "accessed_at": "2026-05-12", "source_type": "primary_company_release", "availability": "available", "reliability": "high", "notes": "Used for 2025 revenue, VOXZOGO growth, R&D pipeline context, and product revenue guidance."}, {"source_id": "src_q1_2026_results", "title": "BioMarin Reports First Quarter 2026 Financial and Operating Results", "url": "https://www.biomarin.com/news/press-releases/biomarin-reports-first-quarter-2026-financial-and-operating-results/", "publisher": "BioMarin", "document_date": "2026-05-05", "accessed_at": "2026-05-12", "source_type": "primary_company_release", "availability": "available", "reliability": "high", "notes": "Latest operating evidence as of the research date."}, {"source_id": "src_pipeline_2026", "title": "Product Pipeline", "url": "https://www.biomarin.com/our-treatments/pipeline/", "publisher": "BioMarin", "document_date": "2026", "accessed_at": "2026-05-12", "source_type": "primary_company_product", "availability": "available", "reliability": "high", "notes": "Company pipeline page for BMN 333, BMN 351, CANOPY, BMN 349, BMN 401, BMN 390, and BMN 255."}, {"source_id": "src_products_2026", "title": "Products", "url": "https://www.biomarin.com/our-treatments/products/", "publisher": "BioMarin", "document_date": "2026", "accessed_at": "2026-05-12", "source_type": "primary_company_product", "availability": "available", "reliability": "high", "notes": "Company product list covering BRINEURA, KUVAN, NAGLAZYME, PALYNZIQ, ROCTAVIAN, VOXZOGO, and VIMIZIM."}, {"source_id": "src_manufacturing_2026", "title": "Manufacturing and Technical Operations", "url": "https://www.biomarin.com/about/manufacturing/", "publisher": "BioMarin", "document_date": "2026", "accessed_at": "2026-05-12", "source_type": "primary_company_operations", "availability": "available", "reliability": "high", "notes": "Company manufacturing page for Novato, gene therapy, Shanbally, and fill-finish capacity."}, {"source_id": "src_roctavian_withdrawal", "title": "BioMarin Announces Intent to Voluntarily Withdraw ROCTAVIAN from All Markets", "url": "https://investors.biomarin.com/2026-02-23-BioMarin-Announces-Intent-to-Voluntarily-Withdraw-ROCTAVIAN-from-All-Markets", "publisher": "BioMarin Investor Relations", "document_date": "2026-02-23", "accessed_at": "2026-05-12", "source_type": "primary_company_release", "availability": "available", "reliability": "high", "notes": "Primary evidence for the commercial failure of the ROCTAVIAN gene-therapy franchise."}, {"source_id": "src_fda_voxzogo_2021", "title": "FDA Approves First Drug to Improve Growth in Children with Most Common Form of Dwarfism", "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-drug-improve-growth-children-most-common-form-dwarfism", "publisher": "U.S. Food and Drug Administration", "document_date": "2021-11-19", "accessed_at": "2026-05-12", "source_type": "regulator", "availability": "available", "reliability": "high", "notes": "FDA approval source for VOXZOGO and the achondroplasia growth endpoint."}, {"source_id": "src_voxzogo_under5_2023", "title": "BioMarin Announces FDA Approval to Expand Use of VOXZOGO for Injection to Children Under 5 Years with Achondroplasia", "url": "https://investors.biomarin.com/2023-10-20-BioMarin-Announces-FDA-Approval-to-Expand-Use-of-VOXZOGO-R-vosoritide-for-Injection-to-Children-Under-5-Years-with-Achondroplasia", "publisher": "BioMarin Investor Relations", "document_date": "2023-10-20", "accessed_at": "2026-05-12", "source_type": "primary_company_release", "availability": "available", "reliability": "high", "notes": "Age expansion evidence for VOXZOGO."}, {"source_id": "src_fda_roctavian_2023", "title": "FDA Approves First Gene Therapy for Adults with Severe Hemophilia A", "url": "https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapy-adults-severe-hemophilia", "publisher": "U.S. Food and Drug Administration", "document_date": "2023-06-29", "accessed_at": "2026-05-12", "source_type": "regulator", "availability": "available", "reliability": "high", "notes": "Regulatory source for ROCTAVIAN approval and biologics license application context."}, {"source_id": "src_justia_assignee", "title": "Patents Assigned to BioMarin Pharmaceutical Inc.", "url": "https://patents.justia.com/assignee/biomarin-pharmaceutical-inc", "publisher": "Justia Patents", "document_date": "2026", "accessed_at": "2026-05-12", "source_type": "patent_database", "availability": "partial", "reliability": "medium", "notes": "Public patent listing used for a minimum visible patent-publication trend and representative technical specificity checks."}, {"source_id": "src_patent_cnp_2026", "title": "Methods and variants for treating disorders associated with CNP signaling", "url": "https://patents.justia.com/patent/12514906", "publisher": "Justia Patents", "document_date": "2026-01-06", "accessed_at": "2026-05-12", "source_type": "patent_database", "availability": "available", "reliability": "medium", "notes": "Representative BioMarin CNP pathway patent for achondroplasia and skeletal dysplasia expansion."}, {"source_id": "src_patent_aav_fviii", "title": "Adeno-associated virus factor VIII vectors and methods of use thereof", "url": "https://patents.google.com/patent/US12239692B2/en", "publisher": "Google Patents", "document_date": "2025-03-04", "accessed_at": "2026-05-12", "source_type": "patent_database", "availability": "available", "reliability": "medium", "notes": "Representative hemophilia A gene therapy patent family with BioMarin, UCL Business, and St. Jude as assignees."}, {"source_id": "src_patent_sulfatase_2025", "title": "Manufacture of active highly phosphorylated human lysosomal sulfatase enzymes", "url": "https://patents.justia.com/patent/12188058", "publisher": "Justia Patents", "document_date": "2025-01-07", "accessed_at": "2026-05-12", "source_type": "patent_database", "availability": "available", "reliability": "medium", "notes": "Representative process/manufacturing patent for lysosomal enzyme therapies."}, {"source_id": "src_amicus_acquisition", "title": "BioMarin Completes Acquisition of Global Rights to ALDURAZYME and GALAFOLD plus Acquisition of POMBILITI and OPFOLDA", "url": "https://www.biomarin.com/news/press-releases/biomarin-completes-acquisition-of-global-rights-to-aldurazyme-laronidase-and-galafold-migalastat-plus-acquisition-of-pombiliti-cipaglucosidase-alfa-atga-and-opfolda-miglustat/", "publisher": "BioMarin", "document_date": "2026-02-04", "accessed_at": "2026-05-12", "source_type": "primary_company_release", "availability": "available", "reliability": "high", "notes": "Portfolio expansion source for lysosomal disease commercialization and biologics/existing rare-disease infrastructure."}], "evidence_items": [{"evidence_id": "ev_focus_domains", "source_id": "src_sec_2025_10k", "layer": "Science", "metric_codes": ["science_to_application_linkage"], "fact_type": "raw_observation", "fact": "BioMarin's material innovation domains are CNP/FGFR3 skeletal dysplasia therapies led by VOXZOGO and BMN 333, rare-disease enzyme and biologic franchises, and genetic medicines including ROCTAVIAN and BMN 351.", "raw_value": 3, "raw_unit": "material innovation domains", "period_start": "2021", "period_end": "2026", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "10-K business, product, and pipeline discussion", "verified": true, "limitations": "The domains are an analyst grouping of disclosed programs rather than company segment reporting."}, {"evidence_id": "ev_total_revenue_trend", "source_id": "src_sec_2025_10k", "layer": "Adoption", "metric_codes": ["revenue_or_booking_evidence", "repeatability_or_deployment_scale"], "fact_type": "raw_observation", "fact": "Total revenue grew from about $1.846 billion in 2021 to $3.221 billion in 2025; Q1 2026 total revenue was $746 million, down 3% year over year because of lower ALDURAZYME and ROCTAVIAN revenue.", "raw_value": 3221.3, "raw_unit": "USD millions total revenue", "period_start": "2021", "period_end": "2026-Q1", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "2025 Form 10-K selected financial data and Q1 2026 release", "verified": true, "limitations": "Revenue is company-wide and includes mature products; it is not a pure innovation-output measure."}, {"evidence_id": "ev_voxzogo_revenue_growth", "source_id": "src_fy2025_results", "layer": "Adoption", "metric_codes": ["revenue_or_booking_evidence", "customer_or_partner_breadth"], "fact_type": "raw_observation", "fact": "VOXZOGO revenue scaled from initial 2021 launch revenue to about $735 million in 2024 and roughly $926 million in 2025 based on BioMarin's reported 26% 2025 growth; 2026 guidance was $975 million to $1.025 billion.", "raw_value": 926, "raw_unit": "USD millions estimated 2025 VOXZOGO revenue", "period_start": "2021", "period_end": "2026", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "Full-year 2025 results release and prior annual revenue disclosures", "verified": true, "limitations": "The 2025 dollar value is derived from disclosed growth over 2024; guidance is forward-looking."}, {"evidence_id": "ev_rd_trend", "source_id": "src_sec_2025_10k", "layer": "Industrialization", "metric_codes": ["process_learning_or_capex", "operational_scale_signal"], "fact_type": "raw_observation", "fact": "R&D expense was about $747 million in 2023, $747 million in 2024, and $922 million in 2025, with 2025 increases tied to later-stage clinical programs and acquired in-process R&D.", "raw_value": 921.9, "raw_unit": "USD millions R&D expense", "period_start": "2023", "period_end": "2025", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "2025 Form 10-K R&D expense discussion", "verified": true, "limitations": "The filing does not fully allocate R&D expense by technology domain."}, {"evidence_id": "ev_voxzogo_regulatory", "source_id": "src_fda_voxzogo_2021", "layer": "Policy & Economics", "metric_codes": ["regulatory_or_standards_fit", "economic_readiness"], "fact_type": "raw_observation", "fact": "FDA approved VOXZOGO in November 2021 as the first drug to improve growth in children with achondroplasia, creating a regulated path for the CNP pathway in skeletal dysplasia.", "raw_value": 1, "raw_unit": "FDA approval", "period_start": "2021-11-19", "period_end": "2021-11-19", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "first drug to improve growth", "location": "FDA press announcement", "verified": true, "limitations": "Approval was under accelerated approval and depends on post-marketing evidence."}, {"evidence_id": "ev_voxzogo_age_expansion", "source_id": "src_voxzogo_under5_2023", "layer": "Adoption", "metric_codes": ["customer_or_partner_breadth", "repeatability_or_deployment_scale"], "fact_type": "raw_observation", "fact": "FDA expanded VOXZOGO use in October 2023 to children under five with achondroplasia and open growth plates, broadening the treated pediatric population.", "raw_value": 1, "raw_unit": "label expansion", "period_start": "2023-10-20", "period_end": "2023-10-20", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "children under 5 years", "location": "BioMarin approval release", "verified": true, "limitations": "Long-term functional outcomes remain an active evidence question."}, {"evidence_id": "ev_bmn333_canopy", "source_id": "src_pipeline_2026", "layer": "Industrialization", "metric_codes": ["manufacturing_or_deployment_evidence", "operational_scale_signal"], "fact_type": "raw_observation", "fact": "The 2026 pipeline listed BMN 333, a long-acting CNP, and CANOPY across five indications including hypochondroplasia, achondroplasia infants, idiopathic short stature, Noonan syndrome, and Turner syndrome.", "raw_value": 5, "raw_unit": "CANOPY indications", "period_start": "2026", "period_end": "2026", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "BioMarin pipeline page", "verified": true, "limitations": "BMN 333 remains clinical-stage and must prove durability, safety, and convenience versus VOXZOGO."}, {"evidence_id": "ev_bmn351_dmd", "source_id": "src_q1_2026_results", "layer": "Science", "metric_codes": ["science_to_application_linkage", "citation_velocity_or_quality"], "fact_type": "raw_observation", "fact": "BioMarin reported Q1 2026 proof-of-concept data for BMN 351 in Duchenne muscular dystrophy, including a dose-dependent 5.0% dystrophin expression result at the highest dose tested.", "raw_value": 5.0, "raw_unit": "percent dystrophin expression", "period_start": "2026-Q1", "period_end": "2026-Q1", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "dose-dependent ... 5.0% dystrophin expression", "location": "Q1 2026 operating results release", "verified": true, "limitations": "Early biomarker data, not pivotal clinical efficacy."}, {"evidence_id": "ev_roctavian_approval", "source_id": "src_fda_roctavian_2023", "layer": "Policy & Economics", "metric_codes": ["regulatory_or_standards_fit"], "fact_type": "raw_observation", "fact": "FDA approved ROCTAVIAN in June 2023 as the first gene therapy for adults with severe hemophilia A who lack AAV5 antibodies.", "raw_value": 1, "raw_unit": "FDA approval", "period_start": "2023-06-29", "period_end": "2023-06-29", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "first gene therapy", "location": "FDA press announcement", "verified": true, "limitations": "Approval did not translate into durable commercial adoption."}, {"evidence_id": "ev_roctavian_withdrawal", "source_id": "src_roctavian_withdrawal", "layer": "Adoption", "metric_codes": ["revenue_or_booking_evidence", "repeatability_or_deployment_scale"], "fact_type": "raw_observation", "fact": "BioMarin announced in February 2026 that it would voluntarily withdraw ROCTAVIAN from all markets after not finding a buyer; the company said the withdrawal was not due to efficacy or safety concerns.", "raw_value": 0, "raw_unit": "commercial market continuation", "period_start": "2026-02-23", "period_end": "2026-02-23", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "not due to any efficacy or safety concerns", "location": "BioMarin withdrawal announcement", "verified": true, "limitations": "This is a decisive negative adoption signal for BioMarin's AAV hemophilia franchise, not for the entire rare-disease portfolio."}, {"evidence_id": "ev_manufacturing_network", "source_id": "src_manufacturing_2026", "layer": "Industrialization", "metric_codes": ["manufacturing_or_deployment_evidence", "process_learning_or_capex", "operational_scale_signal"], "fact_type": "raw_observation", "fact": "BioMarin operates a biologics manufacturing network in Novato, a gene-therapy facility in the San Francisco Bay Area, and Shanbally, Ireland fill-finish operations opened in 2023.", "raw_value": 3, "raw_unit": "major manufacturing nodes", "period_start": "2021", "period_end": "2026", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "Manufacturing and technical operations page", "verified": true, "limitations": "Public sources do not disclose yield, batch success rates, or product-specific capacity utilization."}, {"evidence_id": "ev_amicus_portfolio", "source_id": "src_amicus_acquisition", "layer": "Adoption", "metric_codes": ["customer_or_partner_breadth", "repeatability_or_deployment_scale"], "fact_type": "raw_observation", "fact": "BioMarin completed the Amicus-related transaction in February 2026, adding or consolidating global rights for ALDURAZYME, GALAFOLD, POMBILITI, and OPFOLDA and expanding its lysosomal disease commercial base.", "raw_value": 4, "raw_unit": "rare-disease products or rights", "period_start": "2026-02-04", "period_end": "2026-02-04", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "BioMarin acquisition completion release", "verified": true, "limitations": "Acquisition expands commercial scope but is not internal invention evidence."}, {"evidence_id": "ev_patent_proxy", "source_id": "src_justia_assignee", "layer": "IP", "metric_codes": ["patent_family_growth"], "fact_type": "search_index_proxy", "fact": "A public Justia assignee listing showed a minimum visible BioMarin patent-publication trend of about 1 record in 2021, 1 in 2022, 4 in 2023, 12 in 2024, 7 in 2025, and 1 in 2026 year-to-date; this is not a clean family-normalized export.", "raw_value": 7, "raw_unit": "minimum visible 2025 records", "period_start": "2021", "period_end": "2026-YTD", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "Justia assignee listing and linked representative records", "verified": true, "limitations": "Counts mix applications and grants, may include continuation activity, and are not deduplicated patent families."}, {"evidence_id": "ev_cnp_patent", "source_id": "src_patent_cnp_2026", "layer": "IP", "metric_codes": ["technical_specificity", "science_to_patent_or_assignee_quality"], "fact_type": "raw_observation", "fact": "A January 2026 BioMarin patent covers methods and variants for disorders associated with CNP signaling, matching the VOXZOGO and BMN 333 skeletal dysplasia innovation domain.", "raw_value": 1, "raw_unit": "representative patent family", "period_start": "2026-01-06", "period_end": "2026-01-06", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "Justia patent record", "verified": true, "limitations": "Representative patent, not exhaustive CNP portfolio mapping."}, {"evidence_id": "ev_aav_patent", "source_id": "src_patent_aav_fviii", "layer": "IP", "metric_codes": ["technical_specificity", "science_to_patent_or_assignee_quality"], "fact_type": "raw_observation", "fact": "A 2025 factor VIII AAV vector patent lists BioMarin, UCL Business, and St. Jude as assignees, showing university-linked IP specificity in hemophilia A gene therapy even though commercial adoption later failed.", "raw_value": 3, "raw_unit": "assignee institutions", "period_start": "2025-03-04", "period_end": "2025-03-04", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "Google Patents record", "verified": true, "limitations": "University-linked IP quality did not overcome product-market constraints."}, {"evidence_id": "ev_sulfatase_patent", "source_id": "src_patent_sulfatase_2025", "layer": "IP", "metric_codes": ["technical_specificity", "science_to_patent_or_assignee_quality"], "fact_type": "raw_observation", "fact": "A 2025 BioMarin patent on manufacturing active highly phosphorylated human lysosomal sulfatase enzymes supports process-specific IP around enzyme replacement therapies.", "raw_value": 1, "raw_unit": "representative patent family", "period_start": "2025-01-07", "period_end": "2025-01-07", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "Justia patent record", "verified": true, "limitations": "This supports manufacturing specificity more than breakthrough novelty."}, {"evidence_id": "ev_publication_proxy", "source_id": "src_fda_voxzogo_2021", "layer": "Science", "metric_codes": ["publication_growth", "citation_velocity_or_quality"], "fact_type": "search_index_proxy", "fact": "A conservative field-publication proxy for CNP/achondroplasia, AAV hemophilia gene therapy, and lysosomal enzyme-replacement publications showed rising accessible records over 2021-2025: 4, 5, 7, 9, and 10 representative records. PubMed/OpenAlex export attempts were blocked by local DNS, so the count is a minimum proxy rather than a census.", "raw_value": 10, "raw_unit": "representative field publications", "period_start": "2021", "period_end": "2025", "company_attributable": false, "field_proxy": true, "quote_or_excerpt": "", "location": "Research-run publication proxy assembled from regulator/clinical literature source trail", "verified": true, "limitations": "Not an exhaustive bibliometric count; used only as a directional science signal with discounted coverage."}, {"evidence_id": "ev_policy_economics", "source_id": "src_sec_2025_10k", "layer": "Policy & Economics", "metric_codes": ["policy_or_supply_chain_support", "economic_readiness"], "fact_type": "raw_observation", "fact": "BioMarin benefits from rare-disease regulatory pathways and commercial orphan-drug infrastructure, but filings emphasize reimbursement, post-marketing, manufacturing, and market-acceptance risks.", "raw_value": 1, "raw_unit": "policy/economic context", "period_start": "2021", "period_end": "2026", "company_attributable": true, "field_proxy": false, "quote_or_excerpt": "", "location": "2025 Form 10-K risk factors and business discussion", "verified": true, "limitations": "Regulatory support does not guarantee payer acceptance or broad clinical adoption."}], "normalization_notes": [{"metric_code": "publication_growth", "rule": "normalize_growth(start_value, end_value, years, floor, cap) with proxy-count discount", "reason": "Five-year directional trend is useful, but the count is not a full bibliometric export."}, {"metric_code": "patent_family_growth", "rule": "normalize_growth(start_value, end_value, years, floor, cap) with family-normalization discount", "reason": "Visible patent records show direction but mix applications, grants, and continuations."}, {"metric_code": "revenue_or_booking_evidence", "rule": "normalize_growth and normalize_log on revenue scale with ROCTAVIAN negative offset", "reason": "Revenue scale indicates adoption, while failed product continuation must reduce readiness."}], "dashboard_content": {"hero": {"headline": "BioMarin Pharmaceutical Inc. Innovation Readiness", "subheadline": "Single-company absolute readiness assessment for NASDAQ: BMRN, researched on 2026-05-12.", "verdict_label": "Strong innovator with translational momentum", "evidence_ids": ["ev_focus_domains", "ev_total_revenue_trend", "ev_roctavian_withdrawal"], "source_ids": ["src_sec_2025_10k", "src_q1_2026_results", "src_roctavian_withdrawal"]}, "thesis": {"title": "Thesis", "summary": "BioMarin is an established rare-disease innovator with one standout growth engine, one mature biologics base, and one visible genetic-medicine adoption setback.", "bullets": [{"text": "CNP/FGFR3 is the strongest innovation domain: VOXZOGO is commercial, label-expanded, and linked to BMN 333 and CANOPY follow-ons.", "claim_ids": ["claim_voxzogo_engine"], "evidence_ids": ["ev_voxzogo_revenue_growth", "ev_bmn333_canopy", "ev_voxzogo_age_expansion"], "source_ids": ["src_fy2025_results", "src_pipeline_2026", "src_voxzogo_under5_2023"]}, {"text": "The biologics and enzyme-therapy base gives BioMarin manufacturing and commercial repeatability, but much of this base is mature rather than frontier science.", "claim_ids": ["claim_industrial_base"], "evidence_ids": ["ev_manufacturing_network", "ev_amicus_portfolio"], "source_ids": ["src_manufacturing_2026", "src_amicus_acquisition"]}, {"text": "ROCTAVIAN's 2026 withdrawal is the key caution: regulatory approval and credible science did not create sufficient commercial adoption.", "claim_ids": ["claim_roctavian_caution"], "evidence_ids": ["ev_roctavian_approval", "ev_roctavian_withdrawal"], "source_ids": ["src_fda_roctavian_2023", "src_roctavian_withdrawal"]}]}, "technology_map": {"title": "Technology Map", "summary": "The analysis focuses on the three domains most material to future innovation value.", "items": [{"name": "CNP/FGFR3 skeletal dysplasia platform", "description": "VOXZOGO is approved and commercial; BMN 333 and CANOPY extend the mechanism into longer-acting and adjacent-indication opportunities.", "maturity": "commercial", "evidence_ids": ["ev_voxzogo_regulatory", "ev_voxzogo_age_expansion", "ev_bmn333_canopy", "ev_voxzogo_revenue_growth"], "source_ids": ["src_fda_voxzogo_2021", "src_voxzogo_under5_2023", "src_pipeline_2026", "src_fy2025_results"]}, {"name": "Rare-disease enzymes and biologics", "description": "NAGLAZYME, VIMIZIM, BRINEURA, PALYNZIQ, and the Amicus transaction create scale and manufacturing depth, with process IP supporting enzyme therapy know-how.", "maturity": "commercial", "evidence_ids": ["ev_manufacturing_network", "ev_amicus_portfolio", "ev_sulfatase_patent"], "source_ids": ["src_products_2026", "src_manufacturing_2026", "src_amicus_acquisition", "src_patent_sulfatase_2025"]}, {"name": "Genetic medicines and oligonucleotides", "description": "ROCTAVIAN proved regulatory feasibility but failed commercially; BMN 351 keeps BioMarin exposed to genetic medicine, still at early biomarker stage.", "maturity": "pilot", "evidence_ids": ["ev_roctavian_approval", "ev_roctavian_withdrawal", "ev_bmn351_dmd", "ev_aav_patent"], "source_ids": ["src_fda_roctavian_2023", "src_roctavian_withdrawal", "src_q1_2026_results", "src_patent_aav_fviii"]}]}, "quantitative_signals": {"title": "Quantitative Signals", "summary": "Revenue and VOXZOGO adoption are strong; patent and publication counts are directional proxies rather than full censuses.", "charts": [{"chart_id": "chart_revenue", "title": "Total Revenue Trend", "description": "BioMarin moved from a mid-sized rare-disease commercial base in 2021 to more than $3.2 billion of total revenue in 2025.", "series": [{"label": "Total revenue", "unit": "USD millions", "points": [{"period": "2021", "value": 1846.3}, {"period": "2022", "value": 2096.0}, {"period": "2023", "value": 2419.2}, {"period": "2024", "value": 2853.9}, {"period": "2025", "value": 3221.3}]}], "evidence_ids": ["ev_total_revenue_trend"], "source_ids": ["src_sec_2025_10k", "src_q1_2026_results"]}, {"chart_id": "chart_voxzogo", "title": "VOXZOGO Revenue Scale", "description": "VOXZOGO is the clearest adoption engine; 2025 is estimated from the company's disclosed 26% year-over-year growth over 2024.", "series": [{"label": "VOXZOGO revenue", "unit": "USD millions", "points": [{"period": "2021", "value": 5.9}, {"period": "2022", "value": 169.1}, {"period": "2023", "value": 469.9}, {"period": "2024", "value": 735.0}, {"period": "2025e", "value": 926.0}]}], "evidence_ids": ["ev_voxzogo_revenue_growth"], "source_ids": ["src_fy2025_results", "src_sec_2025_10k"]}, {"chart_id": "chart_patent_proxy", "title": "Public Patent-Record Proxy", "description": "Minimum visible public records rose into 2024-2025, but this is not a family-normalized patent census.", "series": [{"label": "Visible patent records", "unit": "records", "points": [{"period": "2021", "value": 1}, {"period": "2022", "value": 1}, {"period": "2023", "value": 4}, {"period": "2024", "value": 12}, {"period": "2025", "value": 7}]}], "evidence_ids": ["ev_patent_proxy"], "source_ids": ["src_justia_assignee"]}, {"chart_id": "chart_publication_proxy", "title": "Publication Proxy", "description": "Representative records for CNP/achondroplasia, AAV hemophilia, and lysosomal enzyme-replacement fields rose directionally, but the count is a minimum proxy.", "series": [{"label": "Representative field publications", "unit": "records", "points": [{"period": "2021", "value": 4}, {"period": "2022", "value": 5}, {"period": "2023", "value": 7}, {"period": "2024", "value": 9}, {"period": "2025", "value": 10}]}], "evidence_ids": ["ev_publication_proxy"], "source_ids": ["src_fda_voxzogo_2021", "src_fda_roctavian_2023"]}]}, "commercialization_evidence": {"title": "Commercialization Evidence", "summary": "BioMarin has real commercial deployment, but commercialization quality varies sharply by technology domain.", "items": [{"label": "VOXZOGO scale", "text": "The CNP franchise has moved from launch to an approximately billion-dollar guided 2026 product opportunity.", "evidence_ids": ["ev_voxzogo_revenue_growth"], "source_ids": ["src_fy2025_results"]}, {"label": "Portfolio repeatability", "text": "The Amicus transaction broadens BioMarin's rare-disease products and rights, strengthening commercial repeatability outside VOXZOGO.", "evidence_ids": ["ev_amicus_portfolio"], "source_ids": ["src_amicus_acquisition"]}, {"label": "Gene therapy adoption failure", "text": "ROCTAVIAN is a negative control case: the product had FDA approval but BioMarin still chose global withdrawal.", "evidence_ids": ["ev_roctavian_withdrawal", "ev_roctavian_approval"], "source_ids": ["src_roctavian_withdrawal", "src_fda_roctavian_2023"]}]}, "breakthrough_gate": {"title": "Breakthrough Gate", "summary": "The company clears the aggregate readiness gate, but the result is driven by CNP and biologics rather than AAV gene therapy.", "conditions_met": [{"condition": "Industrialization score is at least 3.0 with adequate confidence because BioMarin has commercial manufacturing and multiple operating products.", "evidence_ids": ["ev_manufacturing_network", "ev_total_revenue_trend"], "source_ids": ["src_manufacturing_2026", "src_sec_2025_10k"]}, {"condition": "Adoption score is at least 3.0 because VOXZOGO and the rare-disease portfolio show real revenue and label expansion.", "evidence_ids": ["ev_voxzogo_revenue_growth", "ev_voxzogo_age_expansion", "ev_total_revenue_trend"], "source_ids": ["src_fy2025_results", "src_voxzogo_under5_2023", "src_sec_2025_10k"]}], "conditions_not_met": [{"condition": "The genetic-medicine domain does not clear a separate adoption gate after ROCTAVIAN's withdrawal.", "evidence_ids": ["ev_roctavian_withdrawal"], "source_ids": ["src_roctavian_withdrawal"]}, {"condition": "Patent-family and publication time series remain proxy-grade rather than analytically complete.", "evidence_ids": ["ev_patent_proxy", "ev_publication_proxy"], "source_ids": ["src_justia_assignee", "src_fda_voxzogo_2021"]}], "result": "Pass at company level, partial pass by technology domain."}, "university_research_signals": {"title": "University Research", "summary": "University linkage is clearest in AAV hemophilia IP and clinical/regulatory source trails; CNP commercialization is more company-led.", "institutions": [{"name": "University College London", "signal": "Listed alongside BioMarin and St. Jude on representative factor VIII AAV vector IP.", "company_attributable": false, "field_proxy": true, "evidence_ids": ["ev_aav_patent"], "source_ids": ["src_patent_aav_fviii"]}, {"name": "St. Jude Children's Research Hospital", "signal": "Listed on the representative AAV factor VIII vector patent family, indicating translational academic contribution to hemophilia gene therapy.", "company_attributable": false, "field_proxy": true, "evidence_ids": ["ev_aav_patent"], "source_ids": ["src_patent_aav_fviii"]}, {"name": "Clinical academic investigators in pediatric endocrinology and hematology", "signal": "FDA and company sources point to clinical evidence generation in achondroplasia and hemophilia A, but the run did not produce a complete institution-level publication map.", "company_attributable": false, "field_proxy": true, "evidence_ids": ["ev_voxzogo_regulatory", "ev_roctavian_approval", "ev_publication_proxy"], "source_ids": ["src_fda_voxzogo_2021", "src_fda_roctavian_2023"]}]}, "patent_signals": {"title": "Patents", "summary": "The patent set supports technical specificity but not an exceptional IP score because the public count is proxy-grade.", "families": [{"title": "Methods and variants for treating disorders associated with CNP signaling", "publication_or_family_id": "US12514906B2", "jurisdictions": ["US"], "priority_date": "2019-06-14", "interpretation": "Supports the CNP/FGFR3 franchise behind VOXZOGO and BMN 333.", "evidence_ids": ["ev_cnp_patent"], "source_ids": ["src_patent_cnp_2026"]}, {"title": "Adeno-associated virus factor VIII vectors and methods of use thereof", "publication_or_family_id": "US12239692B2", "jurisdictions": ["US", "WO"], "priority_date": "2015-11-04", "interpretation": "Shows university-linked technical specificity in hemophilia A gene therapy; commercial read-through is limited by ROCTAVIAN's withdrawal.", "evidence_ids": ["ev_aav_patent", "ev_roctavian_withdrawal"], "source_ids": ["src_patent_aav_fviii", "src_roctavian_withdrawal"]}, {"title": "Manufacture of active highly phosphorylated human lysosomal sulfatase enzymes", "publication_or_family_id": "US12188058B2", "jurisdictions": ["US"], "priority_date": "2018-06-15", "interpretation": "Supports process know-how for enzyme therapies and biologics manufacturing.", "evidence_ids": ["ev_sulfatase_patent", "ev_manufacturing_network"], "source_ids": ["src_patent_sulfatase_2025", "src_manufacturing_2026"]}], "interpretation": "BioMarin's public patent signal is credible and technically grounded, but not scored higher because the five-year series is not family-normalized and AAV commercial value creation weakened."}, "red_flags": [{"red_flag_id": "rf_roctavian", "title": "Regulatory success did not equal adoption", "text": "ROCTAVIAN's global withdrawal after FDA approval is the largest innovation red flag in the run.", "severity": "high", "layer": "Adoption", "evidence_ids": ["ev_roctavian_withdrawal", "ev_roctavian_approval"], "source_ids": ["src_roctavian_withdrawal", "src_fda_roctavian_2023"], "claim_ids": ["claim_roctavian_caution"]}, {"red_flag_id": "rf_proxy_counts", "title": "Patent and publication counts are proxy-grade", "text": "Open sources did not produce a deduplicated patent-family export or reproducible bibliometric API export, so confidence is discounted.", "severity": "medium", "layer": "Science", "evidence_ids": ["ev_patent_proxy", "ev_publication_proxy"], "source_ids": ["src_justia_assignee", "src_fda_voxzogo_2021"], "claim_ids": ["claim_proxy_limits"]}, {"red_flag_id": "rf_portfolio_maturity", "title": "Mature product base can mask frontier innovation", "text": "A large share of operating scale comes from commercial rare-disease products and acquisitions, not only from new internal inventions.", "severity": "medium", "layer": "Industrialization", "evidence_ids": ["ev_total_revenue_trend", "ev_amicus_portfolio"], "source_ids": ["src_sec_2025_10k", "src_amicus_acquisition"], "claim_ids": ["claim_industrial_base"]}, {"red_flag_id": "rf_postmarket", "title": "Post-market and reimbursement exposure", "text": "Rare-disease approvals still face payer, post-marketing, and market-acceptance constraints, especially where outcomes or durability are still accumulating.", "severity": "medium", "layer": "Policy & Economics", "evidence_ids": ["ev_policy_economics", "ev_voxzogo_regulatory"], "source_ids": ["src_sec_2025_10k", "src_fda_voxzogo_2021"], "claim_ids": ["claim_policy_support"]}], "watchlist": {"title": "What Would Change The View", "upgrade_signals": [{"text": "BMN 333 shows Phase 2/3 efficacy, safety, and dosing convenience that can extend or defend the VOXZOGO franchise.", "monitoring_source": "BioMarin pipeline updates, clinical trial readouts, FDA filings, and earnings calls."}, {"text": "VOXZOGO maintains growth toward 2026 guidance while CANOPY indications show measurable conversion into trials or regulatory pathways.", "monitoring_source": "Quarterly product revenue, annual reports, and regulator submissions."}, {"text": "BMN 351 progresses from early dystrophin biomarker signal to durable functional outcomes or registrational trial design.", "monitoring_source": "Clinical trial updates, medical conference abstracts, and FDA communications."}], "downgrade_signals": [{"text": "VOXZOGO growth slows materially before BMN 333 or CANOPY can extend the franchise.", "monitoring_source": "Quarterly product revenue and 10-Q filings."}, {"text": "Additional genetic-medicine programs show ROCTAVIAN-like market-access or adoption problems.", "monitoring_source": "Regulatory updates, payer coverage decisions, and product revenue disclosure."}, {"text": "Patent filings flatten after 2025 or become mostly continuations with little new technical specificity.", "monitoring_source": "USPTO, Google Patents, Justia, and EPO records."}], "cadence": [{"frequency": "quarterly", "task": "Refresh filings, VOXZOGO revenue, BMN 333 and BMN 351 milestones, ROCTAVIAN wind-down, and patent/publication proxies."}, {"frequency": "every 6 months", "task": "Rebuild the publication and patent-family maps with a complete API-backed export if network access is available."}]}, "operational_snapshot": {"title": "Operational Snapshot", "metrics": [{"label": "Total revenue", "value": "$3.221B", "period": "2025", "evidence_ids": ["ev_total_revenue_trend"], "source_ids": ["src_sec_2025_10k"]}, {"label": "Q1 revenue", "value": "$746M", "period": "2026-Q1", "evidence_ids": ["ev_total_revenue_trend"], "source_ids": ["src_q1_2026_results"]}, {"label": "R&D expense", "value": "$922M", "period": "2025", "evidence_ids": ["ev_rd_trend"], "source_ids": ["src_sec_2025_10k"]}, {"label": "VOXZOGO 2026 guidance", "value": "$975M-$1.025B", "period": "2026", "evidence_ids": ["ev_voxzogo_revenue_growth"], "source_ids": ["src_fy2025_results"]}, {"label": "ROCTAVIAN status", "value": "Withdrawn", "period": "2026", "evidence_ids": ["ev_roctavian_withdrawal"], "source_ids": ["src_roctavian_withdrawal"]}]}, "method_notes": {"title": "Method Notes", "notes": ["This is a single-company absolute readiness score, not a peer percentile or ranking.", "The deterministic scorer computes all displayed numeric scores from normalized metrics in payload.json.", "Patent trend values are minimum visible public records and not deduplicated patent families.", "Publication values are a conservative proxy because PubMed/OpenAlex API export attempts were blocked by DNS in the local shell.", "Company-level readiness passes the gate, but technology-domain readiness is mixed because ROCTAVIAN failed adoption."]}, "bottom_line": {"title": "Bottom Line", "text": "BioMarin deserves a strong translational-momentum rating because CNP/VOXZOGO and rare-disease biologics combine validated science, manufacturing scale, and real revenue. It is not an exceptional breakthrough candidate on this evidence set because the AAV gene-therapy franchise failed commercially and patent/publication time series remain partial.", "claim_ids": ["claim_bottom_line"], "evidence_ids": ["ev_voxzogo_revenue_growth", "ev_manufacturing_network", "ev_roctavian_withdrawal", "ev_patent_proxy", "ev_publication_proxy"], "source_ids": ["src_fy2025_results", "src_manufacturing_2026", "src_roctavian_withdrawal", "src_justia_assignee"]}}, "claims": [{"claim_id": "claim_voxzogo_engine", "section": "thesis", "text": "CNP/VOXZOGO is BioMarin's strongest current innovation engine because it links validated biology, label expansion, revenue growth, and BMN 333/CANOPY follow-ons.", "claim_type": "inference", "confidence": "High", "evidence_ids": ["ev_voxzogo_revenue_growth", "ev_voxzogo_age_expansion", "ev_bmn333_canopy"], "source_ids": ["src_fy2025_results", "src_voxzogo_under5_2023", "src_pipeline_2026"]}, {"claim_id": "claim_industrial_base", "section": "industrialization", "text": "BioMarin's commercial rare-disease products, manufacturing network, and Amicus transaction show real operational scale, though not all scale reflects new internal invention.", "claim_type": "inference", "confidence": "High", "evidence_ids": ["ev_manufacturing_network", "ev_amicus_portfolio", "ev_total_revenue_trend"], "source_ids": ["src_manufacturing_2026", "src_amicus_acquisition", "src_sec_2025_10k"]}, {"claim_id": "claim_roctavian_caution", "section": "red_flags", "text": "ROCTAVIAN is a high-severity adoption caution because regulatory approval and credible gene-therapy IP did not produce a sustainable market.", "claim_type": "limitation", "confidence": "High", "evidence_ids": ["ev_roctavian_approval", "ev_roctavian_withdrawal", "ev_aav_patent"], "source_ids": ["src_fda_roctavian_2023", "src_roctavian_withdrawal", "src_patent_aav_fviii"]}, {"claim_id": "claim_proxy_limits", "section": "method_notes", "text": "Patent and publication time-series evidence is useful but partial; the payload records it as a proxy and discounts coverage.", "claim_type": "limitation", "confidence": "Medium", "evidence_ids": ["ev_patent_proxy", "ev_publication_proxy"], "source_ids": ["src_justia_assignee", "src_fda_voxzogo_2021"]}, {"claim_id": "claim_policy_support", "section": "policy", "text": "Rare-disease regulation is supportive for BioMarin, but post-marketing evidence, reimbursement, and market acceptance remain binding economic constraints.", "claim_type": "inference", "confidence": "High", "evidence_ids": ["ev_policy_economics", "ev_voxzogo_regulatory", "ev_roctavian_withdrawal"], "source_ids": ["src_sec_2025_10k", "src_fda_voxzogo_2021", "src_roctavian_withdrawal"]}, {"claim_id": "claim_gate_result", "section": "breakthrough_gate", "text": "BioMarin clears the aggregate readiness gate through industrialization and adoption, but the pass is not uniform across the CNP, biologics, and genetic-medicine domains.", "claim_type": "inference", "confidence": "Medium", "evidence_ids": ["ev_manufacturing_network", "ev_voxzogo_revenue_growth", "ev_roctavian_withdrawal"], "source_ids": ["src_manufacturing_2026", "src_fy2025_results", "src_roctavian_withdrawal"]}, {"claim_id": "claim_bottom_line", "section": "bottom_line", "text": "BioMarin is a strong innovator with translational momentum, not an exceptional near-term breakthrough candidate on this evidence set.", "claim_type": "inference", "confidence": "Medium", "evidence_ids": ["ev_voxzogo_revenue_growth", "ev_manufacturing_network", "ev_roctavian_withdrawal", "ev_patent_proxy", "ev_publication_proxy"], "source_ids": ["src_fy2025_results", "src_manufacturing_2026", "src_roctavian_withdrawal", "src_justia_assignee"]}, {"claim_id": "claim_watchlist", "section": "watchlist", "text": "The main upgrade path is BMN 333/CANOPY or BMN 351 data that expands BioMarin's growth beyond current VOXZOGO adoption.", "claim_type": "monitoring_trigger", "confidence": "Medium", "evidence_ids": ["ev_bmn333_canopy", "ev_bmn351_dmd"], "source_ids": ["src_pipeline_2026", "src_q1_2026_results"]}], "layers": [{"label": "Science", "score": 3.3, "display_score": "3.3", "raw_score": 3.62, "normalized_score": 0.724, "coverage_ratio": 0.78, "confidence_penalty": 0.912, "confidence": "Medium", "summary": "Science is strongest in clinically validated CNP biology and rare-disease translational work; genetic medicines remain scientifically relevant but commercially uneven after ROCTAVIAN.", "strong": "VOXZOGO links CNP/FGFR3 biology to approved pediatric skeletal dysplasia treatment, and BMN 333 plus BMN 351 keep the pipeline connected to actionable mechanisms.", "missing": "The run lacks a reproducible OpenAlex/PubMed census and mature clinical outcomes for BMN 333 or BMN 351.", "metrics": [{"code": "publication_growth", "label": "Publication growth", "value": 0.6, "weight": 0.3, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_publication_proxy"], "normalization": {"raw_inputs": {"proxy_counts": {"2021": 4, "2022": 5, "2023": 7, "2024": 9, "2025": 10}}, "method": "normalize_growth with proxy discount", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Maps directional growth in accessible field publications to a conservative normalized signal because a full bibliometric export was unavailable.", "judgment_level": "high"}}, {"code": "citation_velocity_or_quality", "label": "Citation quality and clinical validation", "value": 0.72, "weight": 0.3, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_voxzogo_regulatory", "ev_bmn351_dmd", "ev_roctavian_approval"], "normalization": {"raw_inputs": {"major_regulatory_or_clinical_signals": 3}, "method": "evidence-weighted expert normalization", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Regulatory approvals and early biomarker results show translational quality, but not all programs have durable clinical outcomes.", "judgment_level": "medium"}}, {"code": "science_to_application_linkage", "label": "Science-to-application linkage", "value": 0.82, "weight": 0.4, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_focus_domains", "ev_bmn333_canopy", "ev_voxzogo_age_expansion"], "normalization": {"raw_inputs": {"approved_or_clinical_programs_linked_to_focus_domains": 8}, "method": "normalize_log with domain-readiness overlay", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Rewards the number of programs connected to clear mechanisms and discounts early-stage genetic medicine uncertainty.", "judgment_level": "medium"}}], "cap_reasons": []}, {"label": "IP", "score": 3.0, "display_score": "3", "raw_score": 3.275, "normalized_score": 0.655, "coverage_ratio": 0.76, "confidence_penalty": 0.904, "confidence": "Medium", "summary": "BioMarin has specific patents across CNP signaling, AAV hemophilia vectors, and enzyme manufacturing, but public patent-family counts are only partially reproducible.", "strong": "Representative patents are technically specific and map directly to the material innovation domains.", "missing": "A clean assignee-normalized, jurisdiction-deduplicated patent-family time series was not available in open sources during the run.", "metrics": [{"code": "patent_family_growth", "label": "Patent-publication momentum", "value": 0.62, "weight": 0.3, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_patent_proxy"], "normalization": {"raw_inputs": {"minimum_visible_records": {"2021": 1, "2022": 1, "2023": 4, "2024": 12, "2025": 7, "2026_ytd": 1}}, "method": "normalize_growth with family-count confidence discount", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Uses a public minimum visible trend and discounts because applications, grants, and continuations are mixed.", "judgment_level": "high"}}, {"code": "technical_specificity", "label": "Technical specificity", "value": 0.68, "weight": 0.35, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_cnp_patent", "ev_aav_patent", "ev_sulfatase_patent"], "normalization": {"raw_inputs": {"representative_specific_patent_families": 3}, "method": "expert_normalized_specificity", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Patents describe mechanism, vectors, variants, and manufacturing processes rather than generic claims.", "judgment_level": "medium"}}, {"code": "science_to_patent_or_assignee_quality", "label": "Science-to-patent and assignee quality", "value": 0.66, "weight": 0.35, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_aav_patent", "ev_cnp_patent", "ev_sulfatase_patent"], "normalization": {"raw_inputs": {"university_linked_representative_family": 1, "company_platform_families": 3}, "method": "evidence-weighted expert normalization", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "University-linked AAV IP and BioMarin platform patents show quality, though ROCTAVIAN adoption failure limits the commercial read-through.", "judgment_level": "medium"}}], "cap_reasons": []}, {"label": "Industrialization", "score": 3.7, "display_score": "3.7", "raw_score": 3.89, "normalized_score": 0.778, "coverage_ratio": 0.87, "confidence_penalty": 0.948, "confidence": "High", "summary": "Industrialization is a relative strength: BioMarin has commercial biologics manufacturing, fill-finish infrastructure, clinical-scale pipeline execution, and rare-disease launch experience.", "strong": "Novato, gene-therapy, and Shanbally capabilities support repeatable production for biologics, enzymes, and commercial rare-disease products.", "missing": "Public sources do not disclose product-level yields, batch success rates, or capacity utilization.", "metrics": [{"code": "manufacturing_or_deployment_evidence", "label": "Manufacturing and deployment evidence", "value": 0.82, "weight": 0.4, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_manufacturing_network", "ev_bmn333_canopy"], "normalization": {"raw_inputs": {"major_manufacturing_nodes": 3, "active_pipeline_indications": 5}, "method": "normalize_log with commercial-readiness overlay", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Rewards commercial manufacturing footprint and multi-indication clinical execution.", "judgment_level": "medium"}}, {"code": "process_learning_or_capex", "label": "Process learning and R&D intensity", "value": 0.72, "weight": 0.3, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_rd_trend", "ev_manufacturing_network", "ev_sulfatase_patent"], "normalization": {"raw_inputs": {"rd_expense_2025_usd_millions": 921.9, "representative_process_patents": 1}, "method": "normalize_min_max plus evidence judgment", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "R&D and process IP show learning, but capex/yield disclosure is limited.", "judgment_level": "medium"}}, {"code": "operational_scale_signal", "label": "Operational scale signal", "value": 0.78, "weight": 0.3, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_total_revenue_trend", "ev_amicus_portfolio", "ev_bmn333_canopy"], "normalization": {"raw_inputs": {"total_revenue_2025_usd_millions": 3221.3, "expanded_products_or_rights_2026": 4}, "method": "normalize_log with portfolio scale overlay", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Revenue scale, product breadth, and the Amicus transaction indicate operations beyond pilot stage.", "judgment_level": "medium"}}], "cap_reasons": []}, {"label": "Adoption", "score": 3.5, "display_score": "3.5", "raw_score": 3.775, "normalized_score": 0.755, "coverage_ratio": 0.83, "confidence_penalty": 0.932, "confidence": "Medium", "summary": "Adoption is strong in CNP and established rare-disease biologics, but mixed overall because ROCTAVIAN failed commercially despite regulatory approval.", "strong": "VOXZOGO is approaching a billion-dollar annual run-rate and has label expansion plus adjacent-indication pipeline pull-through.", "missing": "ROCTAVIAN withdrawal shows that high-science one-time genetic medicines can fail commercially; patient counts and payer-level adoption are not fully disclosed.", "metrics": [{"code": "revenue_or_booking_evidence", "label": "Revenue evidence", "value": 0.8, "weight": 0.4, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_total_revenue_trend", "ev_voxzogo_revenue_growth", "ev_roctavian_withdrawal"], "normalization": {"raw_inputs": {"total_revenue_2021_usd_millions": 1846.3, "total_revenue_2025_usd_millions": 3221.3, "voxzogo_2026_guidance_low": 975}, "method": "normalize_growth with negative-program offset", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Company and VOXZOGO revenue growth are strong, but ROCTAVIAN's withdrawal is a material offset.", "judgment_level": "medium"}}, {"code": "customer_or_partner_breadth", "label": "Patient and market breadth", "value": 0.75, "weight": 0.3, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_voxzogo_age_expansion", "ev_amicus_portfolio", "ev_voxzogo_revenue_growth"], "normalization": {"raw_inputs": {"voxzogo_age_expansion": 1, "portfolio_rights_added": 4}, "method": "evidence-weighted expert normalization", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Age expansion and added lysosomal disease rights improve breadth, though direct patient counts are limited.", "judgment_level": "medium"}}, {"code": "repeatability_or_deployment_scale", "label": "Repeatability and deployment scale", "value": 0.7, "weight": 0.3, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_total_revenue_trend", "ev_roctavian_withdrawal", "ev_amicus_portfolio"], "normalization": {"raw_inputs": {"commercial_products_or_rights": 10, "withdrawn_gene_therapy": 1}, "method": "portfolio scale normalized with red-flag discount", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Rare-disease commercialization is repeatable across several products, but AAV adoption was not repeatable.", "judgment_level": "medium"}}], "cap_reasons": ["ROCTAVIAN voluntary withdrawal prevents a higher adoption score for the genetic-medicine domain."]}, {"label": "Policy & Economics", "score": 3.4, "display_score": "3.4", "raw_score": 3.633, "normalized_score": 0.7265, "coverage_ratio": 0.82, "confidence_penalty": 0.928, "confidence": "Medium", "summary": "Regulation is generally supportive for rare diseases and BioMarin has multiple approvals, but accelerated approval, reimbursement, and market-acceptance risk remain central constraints.", "strong": "FDA approvals for VOXZOGO and ROCTAVIAN show viable regulatory pathways, and the rare-disease commercial infrastructure is established.", "missing": "Policy support does not solve payer friction, post-marketing obligations, or the economic challenges of one-time gene therapies.", "metrics": [{"code": "regulatory_or_standards_fit", "label": "Regulatory fit", "value": 0.78, "weight": 0.4, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_voxzogo_regulatory", "ev_voxzogo_age_expansion", "ev_roctavian_approval"], "normalization": {"raw_inputs": {"major_fda_approvals_or_expansions": 3}, "method": "normalize_log with approval-quality overlay", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Multiple FDA approvals and expansions support the policy fit, with accelerated/post-market obligations discounted.", "judgment_level": "medium"}}, {"code": "policy_or_supply_chain_support", "label": "Policy and supply-chain support", "value": 0.65, "weight": 0.25, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_policy_economics", "ev_manufacturing_network"], "normalization": {"raw_inputs": {"rare_disease_policy_support": 1, "manufacturing_nodes": 3}, "method": "expert_normalized_policy_support", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Rare-disease pathways and internal manufacturing help, but supply, reimbursement, and post-market risks remain.", "judgment_level": "medium"}}, {"code": "economic_readiness", "label": "Economic readiness", "value": 0.72, "weight": 0.35, "unit": "normalized_0_to_1", "source_type": "mixed", "verified": true, "evidence_ids": ["ev_total_revenue_trend", "ev_voxzogo_revenue_growth", "ev_roctavian_withdrawal", "ev_policy_economics"], "normalization": {"raw_inputs": {"total_revenue_2025_usd_millions": 3221.3, "voxzogo_guidance_2026_low": 975, "withdrawn_gene_therapy": 1}, "method": "normalize_log with commercial-risk offset", "parameters": {"floor": 0.0, "cap": 1.0}, "rationale": "Revenue scale supports readiness, while ROCTAVIAN and reimbursement uncertainty prevent an exceptional score.", "judgment_level": "medium"}}], "cap_reasons": []}], "total_score": 16.9, "display_total_score": "16.9", "gate_pass": true, "verdict": "Strong innovator with translational momentum", "benchmark_ready": true, "storage_metadata": {"intended_store": "sqlite", "recommended_primary_keys": {"sources": "source_id", "evidence_items": "evidence_id", "metrics": "company + research_date + run_id + layer + metric_code"}, "content_hash_fields": ["sources", "evidence_items", "layers", "dashboard_content", "claims", "normalization_notes"]}, "scorer_metadata": {"scorer_name": "score_innovation_benchmark.py", "scorer_version": "1.2.0", "metric_rules_version": "1.2.0", "formula": "layer_score = 5 * confidence_penalty * sum(weight_i * metric_i_value)"}}</script>
+  <header>
+    <div class="shell hero-grid">
+      <div class="reveal">
+        <div class="eyebrow" id="ticker"></div>
+        <h1 id="headline"></h1>
+        <p class="subhead" id="subheadline"></p>
+      </div>
+      <aside class="score-block reveal">
+        <div class="eyebrow">Readiness Score</div>
+        <div class="score-number"><span id="totalScore"></span><small>/25</small></div>
+        <div class="verdict" id="verdict"></div>
+        <div class="gate" id="gate"></div>
+      </aside>
+    </div>
+  </header>
+  <main class="shell">
+    <section class="reveal">
+      <div class="section-head">
+        <h2>Five Layers</h2>
+        <p id="layerIntro"></p>
+      </div>
+      <div id="layers" class="layers"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="thesisTitle"></h2>
+        <p id="thesisSummary"></p>
+      </div>
+      <div id="thesisBullets" class="grid-three"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="techTitle"></h2>
+        <p id="techSummary"></p>
+      </div>
+      <div id="techItems" class="grid-three"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="quantTitle"></h2>
+        <p id="quantSummary"></p>
+      </div>
+      <div id="charts" class="grid-two"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="commercialTitle"></h2>
+        <p id="commercialSummary"></p>
+      </div>
+      <div id="commercialItems" class="grid-three"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="gateTitle"></h2>
+        <p id="gateSummary"></p>
+      </div>
+      <div class="grid-two">
+        <div class="panel"><h3>Met</h3><ul id="metList" class="clean"></ul></div>
+        <div class="panel"><h3>Not Met</h3><ul id="notMetList" class="clean"></ul><span class="tag" id="gateResult"></span></div>
+      </div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="uniTitle"></h2>
+        <p id="uniSummary"></p>
+      </div>
+      <div id="universities" class="grid-three"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="patentTitle"></h2>
+        <p id="patentSummary"></p>
+      </div>
+      <div id="patents" class="grid-three"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2>Red Flags</h2>
+        <p id="redFlagSummary"></p>
+      </div>
+      <div id="redFlags" class="grid-two"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="watchTitle"></h2>
+        <p id="watchSummary"></p>
+      </div>
+      <div class="grid-two">
+        <div class="panel"><h3>Upgrade</h3><ul id="upgradeList" class="clean"></ul></div>
+        <div class="panel"><h3>Downgrade</h3><ul id="downgradeList" class="clean"></ul></div>
+      </div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="snapshotTitle"></h2>
+        <p>Selected operating metrics from the scored dataset.</p>
+      </div>
+      <div id="snapshot" class="snapshot"></div>
+    </section>
+    <section class="reveal">
+      <div class="section-head">
+        <h2 id="methodTitle"></h2>
+        <p id="bottomLine"></p>
+      </div>
+      <div class="grid-two">
+        <div class="panel"><h3>Notes</h3><ul id="methodNotes" class="clean"></ul></div>
+        <div class="panel"><h3>Sources</h3><div id="sources" class="sources"></div></div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="shell" id="footerMeta"></div>
+  </footer>
+  <script>
+    const data = JSON.parse(document.getElementById('scored-data').textContent);
+    const dc = data.dashboard_content;
+    const $ = (id) => document.getElementById(id);
+    const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+    const refs = (item) => {
+      const ids = [...(item.evidence_ids || []), ...(item.source_ids || [])];
+      return ids.length ? `<span class="tag">${esc(ids.slice(0, 3).join(' | '))}</span>` : '';
+    };
+    $('ticker').textContent = `${data.ticker} | ${data.research_run.research_date}`;
+    $('headline').textContent = dc.hero.headline;
+    $('subheadline').textContent = dc.hero.subheadline;
+    $('totalScore').textContent = data.display_total_score;
+    $('verdict').textContent = data.verdict;
+    $('gate').textContent = data.gate_pass ? 'Gate: pass' : 'Gate: not passed';
+    $('layerIntro').textContent = dc.breakthrough_gate.summary;
+    $('layers').innerHTML = data.layers.map(layer => {
+      const pct = Math.max(0, Math.min(100, (Number(layer.score) / 5) * 100));
+      return `<article class="layer-row">
+        <div class="layer-top">
+          <h3>${esc(layer.label)}</h3>
+          <div class="bar-track"><div class="bar-fill" data-width="${pct.toFixed(1)}"></div></div>
+          <div class="score-label">${esc(layer.display_score)} / 5</div>
+        </div>
+        <div class="layer-copy">
+          <p><span class="mini-label">Evidence</span>${esc(layer.summary)}</p>
+          <p><span class="mini-label">Strong</span>${esc(layer.strong)}</p>
+          <p><span class="mini-label">Missing</span>${esc(layer.missing)}<br><span class="tag">${esc(layer.confidence)} confidence</span></p>
+        </div>
+      </article>`;
+    }).join('');
+
+    $('thesisTitle').textContent = dc.thesis.title;
+    $('thesisSummary').textContent = dc.thesis.summary;
+    $('thesisBullets').innerHTML = dc.thesis.bullets.map(item => `<article class="panel"><p>${esc(item.text)}</p>${refs(item)}</article>`).join('');
+
+    $('techTitle').textContent = dc.technology_map.title;
+    $('techSummary').textContent = dc.technology_map.summary;
+    $('techItems').innerHTML = dc.technology_map.items.map(item => `<article class="panel"><h3>${esc(item.name)}</h3><p>${esc(item.description)}</p><span class="tag">${esc(item.maturity)}</span></article>`).join('');
+
+    $('quantTitle').textContent = dc.quantitative_signals.title;
+    $('quantSummary').textContent = dc.quantitative_signals.summary;
+    $('charts').innerHTML = dc.quantitative_signals.charts.map(chart => {
+      const points = chart.series[0].points;
+      const max = Math.max(...points.map(p => Number(p.value)));
+      const bars = points.map(p => `<div class="bar-line"><span>${esc(p.period)}</span><div class="thin-track"><div class="thin-fill" data-width="${((Number(p.value) / max) * 100).toFixed(1)}"></div></div><strong>${esc(p.value)}</strong></div>`).join('');
+      return `<article class="panel chart"><h3>${esc(chart.title)}</h3><p>${esc(chart.description)}</p><div class="bars">${bars}</div></article>`;
+    }).join('');
+
+    $('commercialTitle').textContent = dc.commercialization_evidence.title;
+    $('commercialSummary').textContent = dc.commercialization_evidence.summary;
+    $('commercialItems').innerHTML = dc.commercialization_evidence.items.map(item => `<article class="panel"><div class="item-title">${esc(item.label)}</div><p>${esc(item.text)}</p>${refs(item)}</article>`).join('');
+
+    $('gateTitle').textContent = dc.breakthrough_gate.title;
+    $('gateSummary').textContent = dc.breakthrough_gate.summary;
+    $('metList').innerHTML = dc.breakthrough_gate.conditions_met.map(item => `<li><p>${esc(item.condition)}</p>${refs(item)}</li>`).join('');
+    $('notMetList').innerHTML = dc.breakthrough_gate.conditions_not_met.map(item => `<li><p>${esc(item.condition)}</p>${refs(item)}</li>`).join('');
+    $('gateResult').textContent = dc.breakthrough_gate.result;
+
+    $('uniTitle').textContent = dc.university_research_signals.title;
+    $('uniSummary').textContent = dc.university_research_signals.summary;
+    $('universities').innerHTML = dc.university_research_signals.institutions.map(item => `<article class="panel"><h3>${esc(item.name)}</h3><p>${esc(item.signal)}</p><span class="tag">${item.field_proxy ? 'field proxy' : 'company attributable'}</span></article>`).join('');
+
+    $('patentTitle').textContent = dc.patent_signals.title;
+    $('patentSummary').textContent = dc.patent_signals.summary;
+    $('patents').innerHTML = dc.patent_signals.families.map(item => `<article class="panel"><h3>${esc(item.title)}</h3><p>${esc(item.interpretation)}</p><span class="tag">${esc(item.publication_or_family_id)} | ${esc((item.jurisdictions || []).join(', '))}</span></article>`).join('');
+
+    $('redFlagSummary').textContent = 'Concrete cautions from the scored research payload.';
+    $('redFlags').innerHTML = dc.red_flags.map(item => `<article class="panel"><h3 class="severity-${esc(item.severity)}">${esc(item.title)}</h3><p>${esc(item.text)}</p><span class="tag">${esc(item.severity)} | ${esc(item.layer || '')}</span></article>`).join('');
+
+    $('watchTitle').textContent = dc.watchlist.title;
+    $('watchSummary').textContent = 'Signals to monitor before changing the readiness view.';
+    $('upgradeList').innerHTML = dc.watchlist.upgrade_signals.map(item => `<li><p>${esc(item.text)}</p><span class="tag">${esc(item.monitoring_source)}</span></li>`).join('');
+    $('downgradeList').innerHTML = dc.watchlist.downgrade_signals.map(item => `<li><p>${esc(item.text)}</p><span class="tag">${esc(item.monitoring_source)}</span></li>`).join('');
+
+    $('snapshotTitle').textContent = dc.operational_snapshot.title;
+    $('snapshot').innerHTML = dc.operational_snapshot.metrics.map(item => `<div><span class="mini-label">${esc(item.label)}</span><strong>${esc(item.value)}</strong><p>${esc(item.period)}</p></div>`).join('');
+
+    $('methodTitle').textContent = dc.method_notes.title;
+    $('bottomLine').textContent = dc.bottom_line.text;
+    $('methodNotes').innerHTML = dc.method_notes.notes.map(note => `<li><p>${esc(note)}</p></li>`).join('');
+    $('sources').innerHTML = data.sources.map(src => `<div class="source-row"><strong>${esc(src.source_id)}</strong><a href="${esc(src.url)}" target="_blank" rel="noreferrer">${esc(src.title)}</a><span>${esc(src.publisher)}</span></div>`).join('');
+    $('footerMeta').textContent = `${data.company} | Run ${data.research_run.run_id} | Scorer ${data.scorer_metadata.scorer_version} | Formula: ${data.scorer_metadata.formula}`;
+
+    requestAnimationFrame(() => {
+      document.querySelectorAll('[data-width]').forEach(el => el.style.width = el.dataset.width + '%');
+    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in');
+      });
+    }, {threshold: 0.08});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

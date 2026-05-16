@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-05-12T21:34:55+02:00",
+  "batch_id": "company-analysis-20260512",
+  "batch_name": "commerce-platform-innovation",
+  "research_date": "2026-05-12",
+  "theme": "Desert Rose",
+  "research_analysis_policy": "The deterministic loop only handles batch orchestration. Company research, evidence extraction, payload creation, and dashboard design remain the existing single-company analysis workflow.",
+  "companies": [
+    {
+      "sequence": 1,
+      "company": "Alnylam Pharmaceuticals",
+      "ticker": "NASDAQ: ALNY",
+      "slug": "alnylam-inc",
+      "cik": "",
+      "isin": "",
+      "research_date": "2026-05-12",
+      "run_id": "run-company-analysis-20260512-01",
+      "artifact_dir": "public/runs/alnylam-inc/2026-05-12/run-company-analysis-20260512-01",
+      "payload_path": "public/runs/alnylam-inc/2026-05-12/run-company-analysis-20260512-01/payload.json",
+      "scored_path": "public/runs/alnylam-inc/2026-05-12/run-company-analysis-20260512-01/scored.json",
+      "dashboard_path": "public/runs/alnylam-inc/2026-05-12/run-company-analysis-20260512-01/dashboard.html",
+      "scorer_command": "python3 .codex/skills/technology-innovation-analysis/score_innovation_benchmark.py public/runs/alnylam-inc/2026-05-12/run-company-analysis-20260512-01/payload.json -o public/runs/alnylam-inc/2026-05-12/run-company-analysis-20260512-01/scored.json"
+    },
+    {
+      "sequence": 2,
+      "company": "BioMarin Pharmaceutical Inc",
+      "ticker": "NASDAQ: BMRN",
+      "slug": "biomarin-inc",
+      "cik": "",
+      "isin": "",
+      "research_date": "2026-05-12",
+      "run_id": "run-company-analysis-20260512-02",
+      "artifact_dir": "public/runs/biomarin-inc/2026-05-12/run-company-analysis-20260512-02",
+      "payload_path": "public/runs/biomarin-inc/2026-05-12/run-company-analysis-20260512-02/payload.json",
+      "scored_path": "public/runs/biomarin-inc/2026-05-12/run-company-analysis-20260512-02/scored.json",
+      "dashboard_path": "public/runs/biomarin-inc/2026-05-12/run-company-analysis-20260512-02/dashboard.html",
+      "scorer_command": "python3 .codex/skills/technology-innovation-analysis/score_innovation_benchmark.py public/runs/biomarin-inc/2026-05-12/run-company-analysis-20260512-02/payload.json -o public/runs/biomarin-inc/2026-05-12/run-company-analysis-20260512-02/scored.json"
+    },
+    {
+      "sequence": 3,
+      "company": "Incyte Corporation",
+      "ticker": "NASDAQ: INCY",
+      "slug": "incyte-inc",
+      "cik": "",
+      "isin": "",
+      "research_date": "2026-05-12",
+      "run_id": "run-company-analysis-20260512-03",
+      "artifact_dir": "public/runs/incyte-inc/2026-05-12/run-company-analysis-20260512-03",
+      "payload_path": "public/runs/incyte-inc/2026-05-12/run-company-analysis-20260512-03/payload.json",
+      "scored_path": "public/runs/incyte-inc/2026-05-12/run-company-analysis-20260512-03/scored.json",
+      "dashboard_path": "public/runs/incyte-inc/2026-05-12/run-company-analysis-20260512-03/dashboard.html",
+      "scorer_command": "python3 .codex/skills/technology-innovation-analysis/score_innovation_benchmark.py public/runs/incyte-inc/2026-05-12/run-company-analysis-20260512-03/payload.json -o public/runs/incyte-inc/2026-05-12/run-company-analysis-20260512-03/scored.json"
+    },
+    {
+      "sequence": 4,
+      "company": "Ionis Pharmaceuticals, Inc",
+      "ticker": "NASDAQ: IONS",
+      "slug": "ionis-nv",
+      "cik": "",
+      "isin": "",
+      "research_date": "2026-05-12",
+      "run_id": "run-company-analysis-20260512-04",
+      "artifact_dir": "public/runs/ionis-nv/2026-05-12/run-company-analysis-20260512-04",
+      "payload_path": "public/runs/ionis-nv/2026-05-12/run-company-analysis-20260512-04/payload.json",
+      "scored_path": "public/runs/ionis-nv/2026-05-12/run-company-analysis-20260512-04/scored.json",
+      "dashboard_path": "public/runs/ionis-nv/2026-05-12/run-company-analysis-20260512-04/dashboard.html",
+      "scorer_command": "python3 .codex/skills/technology-innovation-analysis/score_innovation_benchmark.py public/runs/ionis-nv/2026-05-12/run-company-analysis-20260512-04/payload.json -o public/runs/ionis-nv/2026-05-12/run-company-analysis-20260512-04/scored.json"
+    }
+  ]
+}

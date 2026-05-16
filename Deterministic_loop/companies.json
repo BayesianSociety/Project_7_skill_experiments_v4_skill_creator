@@ -1,0 +1,26 @@
+{
+  "batch_name": "commerce-platform-innovation",
+  "theme": "Desert Rose",
+  "companies": [
+    {
+      "company": "Alnylam Pharmaceuticals",
+      "ticker": "NASDAQ: ALNY",
+      "slug": "alnylam-inc"
+    },
+    {
+      "company": "BioMarin Pharmaceutical Inc",
+      "ticker": "NASDAQ: BMRN",
+      "slug": "biomarin-inc"
+    },
+    {
+      "company": "Incyte Corporation",
+      "ticker": "NASDAQ: INCY",
+      "slug": "incyte-inc"
+    },
+    {
+      "company": "Ionis Pharmaceuticals, Inc",
+      "ticker": "NASDAQ: IONS",
+      "slug": "ionis-nv"
+    }
+  ]
+}

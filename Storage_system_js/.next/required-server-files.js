@@ -104,7 +104,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/postnl/multi-agent-producer_V0/Project_7_skill_experiments_v4_skill_creator/Storage_system_js",
+    "outputFileTracingRoot": "/home/postnl/build_technology_awareness/Storage_system_js",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -307,11 +307,11 @@ self.__SERVER_FILES_MANIFEST={
       "better-sqlite3"
     ],
     "turbopack": {
-      "root": "/home/postnl/multi-agent-producer_V0/Project_7_skill_experiments_v4_skill_creator/Storage_system_js"
+      "root": "/home/postnl/build_technology_awareness/Storage_system_js"
     },
     "distDirRoot": ".next"
   },
-  "appDir": "/home/postnl/multi-agent-producer_V0/Project_7_skill_experiments_v4_skill_creator/Storage_system_js",
+  "appDir": "/home/postnl/build_technology_awareness/Storage_system_js",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

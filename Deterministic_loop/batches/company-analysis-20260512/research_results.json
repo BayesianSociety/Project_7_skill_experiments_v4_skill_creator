@@ -1,0 +1,29 @@
+{
+  "written_at": "2026-05-12T22:32:39+02:00",
+  "results": [
+    {
+      "company": "Alnylam Pharmaceuticals",
+      "slug": "alnylam-inc",
+      "returncode": 0,
+      "log_path": "Deterministic_loop/batches/company-analysis-20260512/logs/01-alnylam-inc.log"
+    },
+    {
+      "company": "BioMarin Pharmaceutical Inc",
+      "slug": "biomarin-inc",
+      "returncode": 0,
+      "log_path": "Deterministic_loop/batches/company-analysis-20260512/logs/02-biomarin-inc.log"
+    },
+    {
+      "company": "Incyte Corporation",
+      "slug": "incyte-inc",
+      "returncode": 0,
+      "log_path": "Deterministic_loop/batches/company-analysis-20260512/logs/03-incyte-inc.log"
+    },
+    {
+      "company": "Ionis Pharmaceuticals, Inc",
+      "slug": "ionis-nv",
+      "returncode": 0,
+      "log_path": "Deterministic_loop/batches/company-analysis-20260512/logs/04-ionis-nv.log"
+    }
+  ]
+}

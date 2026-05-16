@@ -123,6 +123,25 @@ function getEvidenceForRun(db, runUid) {
   }));
 }
 
+function getSourcesForRun(db, runUid) {
+  const summary = db.prepare("SELECT analysis_run_id FROM v_run_summary WHERE run_uid = ?").get(runUid);
+  if (!summary) return [];
+
+  return db.prepare(`
+    SELECT
+      rsr.local_source_id,
+      s.title,
+      s.publisher,
+      s.canonical_url,
+      s.source_type,
+      s.document_date
+    FROM run_source_refs rsr
+    JOIN sources s ON s.id = rsr.source_id
+    WHERE rsr.analysis_run_id = ?
+    ORDER BY rsr.local_source_id
+  `).all(summary.analysis_run_id);
+}
+
 function getMetricEvidence(db, runUid) {
   return db.prepare(`
     SELECT *
@@ -144,6 +163,23 @@ function getSchemaObservations(db) {
   }));
 }
 
+function indexBy(rows, key) {
+  return Object.fromEntries(
+    rows
+      .filter((row) => row?.[key])
+      .map((row) => [String(row[key]), row])
+  );
+}
+
+function buildReferenceIndex(run, evidence, sources) {
+  const claims = run?.narrative?.claims || [];
+  return {
+    claimsById: indexBy(claims, "claim_id"),
+    evidenceById: indexBy(evidence, "local_evidence_id"),
+    sourcesById: indexBy(sources, "local_source_id")
+  };
+}
+
 export function getDashboardData() {
   const db = new Database(DB_PATH, { readonly: true, fileMustExist: true });
   try {
@@ -151,14 +187,21 @@ export function getDashboardData() {
     const runs = listRuns(db);
     const schemaObservations = getSchemaObservations(db);
     const runDetails = Object.fromEntries(
-      runs.map((run) => [
-        run.run_uid,
-        {
-          ...getRunByUid(db, run.run_uid),
-          evidence: getEvidenceForRun(db, run.run_uid),
-          metricEvidence: getMetricEvidence(db, run.run_uid)
-        }
-      ])
+      runs.map((run) => {
+        const detail = getRunByUid(db, run.run_uid);
+        const evidence = getEvidenceForRun(db, run.run_uid);
+        const sources = getSourcesForRun(db, run.run_uid);
+        return [
+          run.run_uid,
+          {
+            ...detail,
+            evidence,
+            sources,
+            metricEvidence: getMetricEvidence(db, run.run_uid),
+            referenceIndex: buildReferenceIndex(detail, evidence, sources)
+          }
+        ];
+      })
     );
 
     return {
